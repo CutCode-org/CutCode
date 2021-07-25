@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Fonts\Poppins-Regular.ttf" />
+    <None Remove="Resources\Fonts\Poppins-SemiBold.ttf" />
+    <None Remove="Resources\Fonts\Roboto-Bold.ttf" />
+    <None Remove="Resources\Fonts\Roboto-Light.ttf" />
+    <None Remove="Resources\Fonts\Roboto-Regular.ttf" />
+    <None Remove="Resources\Images\Icons\add_black.png" />
+    <None Remove="Resources\Images\Icons\add_white.png" />
+    <None Remove="Resources\Images\Icons\exit_black.png" />
+    <None Remove="Resources\Images\Icons\exit_white.png" />
+    <None Remove="Resources\Images\Icons\favourite_black.png" />
+    <None Remove="Resources\Images\Icons\favourite_white.png" />
+    <None Remove="Resources\Images\Icons\home_black.png" />
+    <None Remove="Resources\Images\Icons\home_white.png" />
+    <None Remove="Resources\Images\Icons\max_black.png" />
+    <None Remove="Resources\Images\Icons\max_white.png" />
+    <None Remove="Resources\Images\Icons\min_black.png" />
+    <None Remove="Resources\Images\Icons\min_white.png" />
+    <None Remove="Resources\Images\Icons\settings_black.png" />
+    <None Remove="Resources\Images\Icons\settings_white.png" />
+    <None Remove="Resources\Images\logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\Poppins-Regular.ttf" />
+    <Resource Include="Resources\Fonts\Poppins-SemiBold.ttf" />
+    <Resource Include="Resources\Fonts\Roboto-Bold.ttf" />
+    <Resource Include="Resources\Fonts\Roboto-Light.ttf" />
+    <Resource Include="Resources\Fonts\Roboto-Regular.ttf" />
+    <Resource Include="Resources\Images\Icons\add_black.png" />
+    <Resource Include="Resources\Images\Icons\add_white.png" />
+    <Resource Include="Resources\Images\Icons\exit_black.png" />
+    <Resource Include="Resources\Images\Icons\exit_white.png" />
+    <Resource Include="Resources\Images\Icons\favourite_black.png" />
+    <Resource Include="Resources\Images\Icons\favourite_white.png" />
+    <Resource Include="Resources\Images\Icons\home_black.png" />
+    <Resource Include="Resources\Images\Icons\home_white.png" />
+    <Resource Include="Resources\Images\Icons\max_black.png" />
+    <Resource Include="Resources\Images\Icons\max_white.png" />
+    <Resource Include="Resources\Images\Icons\min_black.png" />
+    <Resource Include="Resources\Images\Icons\min_white.png" />
+    <Resource Include="Resources\Images\Icons\settings_black.png" />
+    <Resource Include="Resources\Images\Icons\settings_white.png" />
+    <Resource Include="Resources\Images\logo.png" />
+  </ItemGroup>
+
+</Project>

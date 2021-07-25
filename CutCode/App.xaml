@@ -1,0 +1,13 @@
+﻿<Application x:Class="CutCode.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:CutCode"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <FontFamily x:Key="poppins_semibold">pack://CutCode:,,,Resources/Fonts/#Poppins SemiBold</FontFamily>
+        <FontFamily x:Key="poppins_regular">pack://CutCode:,,,Resources/Fonts/#Poppins Regular</FontFamily>
+        <FontFamily x:Key="roboto_light">pack://CutCode:,,,Resources/Fonts/#Roboto Light</FontFamily>
+        <FontFamily x:Key="roboto_regular">pack://CutCode:,,,Resources/Fonts/#Roboto Regular</FontFamily>
+        <FontFamily x:Key="roboto_bold">pack://CutCode:,,,Resources/Fonts/#Roboto Bold</FontFamily>
+    </Application.Resources>
+</Application>
