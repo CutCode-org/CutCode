@@ -12,53 +12,6 @@
         UseLayoutRounding="True"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResize">
-    <Window.Resources>
-        <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border>
-                            <Border.Style>
-                                <Style TargetType="{x:Type Border}">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#38393C"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
-                            <Grid Background="Transparent">
-                                <ContentPresenter></ContentPresenter>
-                            </Grid>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="ExitButtonStyle" TargetType="Button">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border>
-                            <Border.Style>
-                                <Style TargetType="{x:Type Border}">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#ed4245"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
-                            <Grid Background="Transparent">
-                                <ContentPresenter></ContentPresenter>
-                            </Grid>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
 
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="0" CornerRadius="20" CaptionHeight="0"/>
@@ -78,27 +31,41 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Image Grid.Row="0" Source="Resources/Images/logo.png" Width="30" Height="30"  Margin="5,8,5,15" VerticalAlignment="Bottom"
+            <Image Grid.Row="0" Source="Resources/Images/logo.png" Width="30" Height="30"  Margin="5,8,5,6" VerticalAlignment="Bottom"
                     RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
-
-            <Button Grid.Row="1" Background="Transparent" Style="{DynamicResource ButtonStyle}" BorderBrush="Transparent">
-                <Image Source="Resources/Images/Icons/home_white.png" Width="30" Height="30"  Margin="12,10,12,10" VerticalAlignment="Top"
+    
+            <!-- left bar buttons -->
+            <Button Name="homeBtn" Background="Transparent" Grid.Row="1" Style="{StaticResource ButtonStyle}" Click="LeftBarButtonsClicked">
+                <Image Source="Resources/Images/Icons/home_white.png" Width="30" Height="30"  Margin="10,10,12,10" VerticalAlignment="Top"
                         RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTip}">Home</ToolTip>
+                </Button.ToolTip>
             </Button>
 
-            <Button Grid.Row="2" Background="Transparent" Style="{DynamicResource ButtonStyle}" BorderBrush="Transparent">
-                <Image Source="Resources/Images/Icons/add_white.png" Width="30" Height="30"  Margin="12,10,12,10" VerticalAlignment="Top"
+            <Button Name="addBtn" Background="Transparent" Grid.Row="2" Style="{StaticResource ButtonStyle}" Click="LeftBarButtonsClicked">
+                <Image Source="Resources/Images/Icons/add_white.png" Width="30" Height="30"  Margin="10,10,12,10" VerticalAlignment="Top"
                         RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
-            </Button>
-            
-            <Button Grid.Row="3" Background="Transparent" Style="{DynamicResource ButtonStyle}" BorderBrush="Transparent">
-                <Image Source="Resources/Images/Icons/favourite_white.png" Width="30" Height="30"  Margin="12,10,12,10" VerticalAlignment="Top"
-                        RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTip}">Add</ToolTip>
+                </Button.ToolTip>
             </Button>
 
-            <Button Grid.Row="4" Background="Transparent" Style="{DynamicResource ButtonStyle}" BorderBrush="Transparent">
-                <Image Source="Resources/Images/Icons/settings_white.png" Width="30" Height="30"  Margin="12,10,12,10" VerticalAlignment="Top"
+            <Button Name="favBtn" Background="Transparent" Grid.Row="3" Style="{StaticResource ButtonStyle}" Click="LeftBarButtonsClicked">
+                <Image Source="Resources/Images/Icons/favourite_white.png" Width="30" Height="30"  Margin="10,10,12,10" VerticalAlignment="Top"
                         RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTip}">Favourite</ToolTip>
+                </Button.ToolTip>
+            </Button>
+
+            <Button Name="setBtn" Background="Transparent" Grid.Row="4" Style="{StaticResource ButtonStyle}" Click="LeftBarButtonsClicked">
+                <Image Source="Resources/Images/Icons/settings_white.png" Width="30" Height="30"  Margin="10,10,12,10" VerticalAlignment="Top"
+                        RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource ToolTip}">Settings</ToolTip>
+                </Button.ToolTip>
             </Button>
         </Grid>
         <Grid Grid.Column="1">
@@ -108,32 +75,35 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Background="#202225" MouseDown="ChangeWindowPosition" MouseMove="MaxChangeWindowPosition">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0" Orientation="Horizontal">
-                    <Label Content="CutCode" FontSize="18" Foreground="#94969A" FontFamily="{StaticResource poppins_semibold}" Height="34"/>
-                </StackPanel>
+                <Label Grid.Column="0" Content="CutCode" FontSize="20" Foreground="#94969A" FontFamily="{StaticResource poppins_semibold}" Height="34"/>
 
-                <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                        <Button Background="Transparent" Style="{DynamicResource ButtonStyle}" BorderBrush="Transparent" Click="MinimizeClicked">
+                <Grid Grid.Column="1" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- Title Bar Buttons  -->
+                    <Button Grid.Column="0" Background="Transparent" Style="{StaticResource TitleBarBtns}" Click="MinimizeClicked"  Margin="0,0,0,10">
                             <Image Source="Resources/Images/Icons/min_white.png" Width="25" Height="25" Margin="5,8,5,8"
                             RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
-                        </Button>
+                    </Button>
 
-                        <Button Background="Transparent" Style="{DynamicResource ButtonStyle}" BorderBrush="Transparent" Click="MaximizeClicked">
-                            <Image Source="Resources/Images/Icons/max_white.png" Width="22" Height="24"  Margin="5,8,5,8"
-                            RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
-                        </Button>
+                    <Button Grid.Column="1" Background="Transparent" Style="{StaticResource TitleBarBtns}" Click="MaximizeClicked"  Margin="0,0,0,10">
+                        <Image Source="Resources/Images/Icons/max_white.png" Width="22" Height="24"  Margin="5,8,5,8"
+                        RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                    </Button>
 
-                        <Button Background="Transparent" Style="{DynamicResource ExitButtonStyle}" BorderBrush="Transparent">
-                            <Image Source="Resources/Images/Icons/exit_white.png" Width="25" Height="25"  Margin="5,8,8,8" 
+                    <Button Grid.Column="2"  Background="Transparent" Style="{StaticResource ExitButtonStyle}" Margin="0,0,0,10">
+                        <Image Source="Resources/Images/Icons/exit_white.png" Width="25" Height="25"  Margin="5,8,8,8" 
                             RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
-                        </Button>
-                    </StackPanel>
-                </StackPanel>
+                    </Button>
+                </Grid>
             </Grid>
 
             <Grid Grid.Row="1">
