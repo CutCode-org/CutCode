@@ -26,7 +26,15 @@
     <None Remove="Resources\Images\Icons\min_white.png" />
     <None Remove="Resources\Images\Icons\settings_black.png" />
     <None Remove="Resources\Images\Icons\settings_white.png" />
+    <None Remove="Resources\Images\Icons\toggle_off_black.png" />
+    <None Remove="Resources\Images\Icons\toggle_off_white.png" />
+    <None Remove="Resources\Images\Icons\toggle_on_black.png" />
+    <None Remove="Resources\Images\Icons\toggle_on_white.png" />
     <None Remove="Resources\Images\logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,6 +57,10 @@
     <Resource Include="Resources\Images\Icons\min_white.png" />
     <Resource Include="Resources\Images\Icons\settings_black.png" />
     <Resource Include="Resources\Images\Icons\settings_white.png" />
+    <Resource Include="Resources\Images\Icons\toggle_off_black.png" />
+    <Resource Include="Resources\Images\Icons\toggle_off_white.png" />
+    <Resource Include="Resources\Images\Icons\toggle_on_black.png" />
+    <Resource Include="Resources\Images\Icons\toggle_on_white.png" />
     <Resource Include="Resources\Images\logo.png" />
   </ItemGroup>
 

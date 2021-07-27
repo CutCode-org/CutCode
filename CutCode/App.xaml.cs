@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,6 +14,9 @@ namespace CutCode
     /// </summary>
     public partial class App : Application
     {
-        
+        public App()
+        {
+            SimpleIoc.Default.Register<IThemeService, ThemeService>();
+        }
     }
 }

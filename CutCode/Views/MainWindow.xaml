@@ -1,0 +1,153 @@
+﻿<Window x:Class="CutCode.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CutCode"
+        mc:Ignorable="d"
+        Title="CutCode"
+        MinHeight="500" MinWidth="700"
+        Height="540" Width="740"
+        WindowStyle="None"
+        UseLayoutRounding="True"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0" CornerRadius="20" CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
+
+    <Window.Resources>
+        <!--Colors-->
+        <SolidColorBrush x:Key="background">#36393F</SolidColorBrush>
+        <SolidColorBrush x:Key="titleBar">#202225</SolidColorBrush>
+        <SolidColorBrush x:Key="sideBar">#2A2E33</SolidColorBrush>
+        <SolidColorBrush x:Key="mainTextColor">#94969A</SolidColorBrush>
+        <SolidColorBrush x:Key="toolTipColor">#1E1E1E</SolidColorBrush>
+
+        <Style x:Key="sideBarBtnToolTip" TargetType="ToolTip">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToolTip">
+                        <Border CornerRadius="0,10,10,0" BorderThickness="0" Background="{DynamicResource toolTipColor}"  Margin="5,5,5,5">
+                            <Label Content="{TemplateBinding Content}" FontSize="12" 
+                                Foreground="#94969A" FontFamily="{StaticResource poppins_semibold}" Height="34" Margin="2,6,2,2"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ToolTipService.Placement" Value="Right"/>
+        </Style>
+
+        <ImageSource x:Key="exit_img">pack://application:,,,/CutCode;component/Resources/Images/Icons/exit_white.png</ImageSource>
+        <ImageSource x:Key="min_img">pack://application:,,,/CutCode;component/Resources/Images/Icons/min_white.png</ImageSource>
+        <ImageSource x:Key="max_img">pack://application:,,,/CutCode;component/Resources/Images/Icons/max_white.png</ImageSource>
+
+
+        <ImageSource x:Key="home_img">pack://application:,,,/CutCode;component/Resources/Images/Icons/home_white.png</ImageSource>
+        <ImageSource x:Key="add_img">pack://application:,,,/CutCode;component/Resources/Images/Icons/add_white.png</ImageSource>
+        <ImageSource x:Key="fav_img">pack://application:,,,/CutCode;component/Resources/Images/Icons/favourite_white.png</ImageSource>
+        <ImageSource x:Key="setting_img">pack://application:,,,/CutCode;component/Resources/Images/Icons/settings_white.png</ImageSource>
+
+    </Window.Resources>
+
+    <Grid Background="{DynamicResource background}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="52"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Background="{DynamicResource sideBar}" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Image Grid.Row="0" Source="../Resources/Images/logo.png" Width="30" Height="30"  Margin="5,8,5,6" VerticalAlignment="Bottom"
+                    RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+    
+            <!-- left bar buttons -->
+            <Button Name="homeBtn" Background="#36393F" Grid.Row="1" Style="{StaticResource ButtonStyle}" 
+                     Command="{Binding ChangePageCommand}" CommandParameter="{x:Reference Name=homeBtn}">
+                <Image Source="{DynamicResource home_img}" Width="30" Height="30"  Margin="10,10,12,10" VerticalAlignment="Top"
+                        RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                <Button.ToolTip>
+                    <ToolTip Style="{DynamicResource sideBarBtnToolTip}">Home</ToolTip>
+                </Button.ToolTip>
+            </Button>
+
+            <Button Name="addBtn" Background="Transparent" Grid.Row="2" Style="{StaticResource ButtonStyle}" 
+                     Command="{Binding ChangePageCommand}" CommandParameter="{x:Reference Name=addBtn}">
+                <Image Source="{DynamicResource add_img}" Width="30" Height="30"  Margin="10,10,12,10" VerticalAlignment="Top"
+                        RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                
+                <Button.ToolTip>
+                    <ToolTip Style="{DynamicResource sideBarBtnToolTip}">Add</ToolTip>
+                </Button.ToolTip>
+            </Button>
+
+            <Button Name="favBtn" Background="Transparent" Grid.Row="3" Style="{StaticResource ButtonStyle}" 
+                    Command="{Binding ChangePageCommand}" CommandParameter="{x:Reference Name=favBtn}">
+                <Image Source="{DynamicResource fav_img}" Width="30" Height="30"  Margin="10,10,12,10" VerticalAlignment="Top"
+                        RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                <Button.ToolTip>
+                    <ToolTip Style="{DynamicResource sideBarBtnToolTip}">Favourite</ToolTip>
+                </Button.ToolTip>
+            </Button>
+
+            <Button Name="setBtn" Background="Transparent" Grid.Row="4" Style="{StaticResource ButtonStyle}" 
+                    Command="{Binding ChangePageCommand}" CommandParameter="{x:Reference Name=setBtn}">
+                <Image Source="{DynamicResource setting_img}" Width="30" Height="30"  Margin="10,10,12,10" VerticalAlignment="Top"
+                        RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                <Button.ToolTip>
+                    <ToolTip Style="{DynamicResource sideBarBtnToolTip}">Settings</ToolTip>
+                </Button.ToolTip>
+            </Button>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="44"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="{DynamicResource titleBar}" MouseDown="ChangeWindowPosition" MouseMove="MaxChangeWindowPosition">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="CutCode" FontSize="20" Foreground="{DynamicResource mainTextColor}" FontFamily="{StaticResource poppins_semibold}" Height="34"/>
+
+                <Grid Grid.Column="1" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- Title Bar Buttons  -->
+                    <Button Grid.Column="0" Background="Transparent" Style="{StaticResource TitleBarBtns}" Click="MinimizeClicked"  Margin="0,0,0,10">
+                        <Image Source="{DynamicResource min_img}" Width="23" Height="23" Margin="5,6,5,8"
+                            RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                    </Button>
+
+                    <Button Grid.Column="1" Background="Transparent" Style="{StaticResource TitleBarBtns}" Click="MaximizeClicked"  Margin="0,0,0,10">
+                        <Image Source="{DynamicResource max_img}" Width="23" Height="23"  Margin="5,6,5,8"
+                        RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                    </Button>
+
+                    <Button Grid.Column="2"  Background="Transparent" Style="{StaticResource ExitButtonStyle}" Margin="0,0,0,10">
+                        <Image Source="{DynamicResource exit_img}" Width="23" Height="23"  Margin="5,6,8,8" 
+                            RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                    </Button>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <ContentControl Content="{Binding currentPage}"/>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Window>
