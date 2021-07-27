@@ -39,44 +39,41 @@ namespace CutCode
             sideBarBtns.Add(new SideBarBtnModel("Favourite", _themeService));
             sideBarBtns.Add(new SideBarBtnModel("Settings", _themeService));
 
-            Pages = new List<Object>() { new HomePage(), new AddPage(), new FavPage(), new SettingPage()};
+            Pages = new List<Object>() { new HomePage(), new AddPage(), new FavPage(), new SettingPage() };
             currentPage = Pages[0];
         }
         private void ThemeChanged(object sender, EventArgs e)
         {
-            Trace.WriteLine("Theme changed ...");
 
-            backgroundColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#787C84") : (Color)ColorConverter.ConvertFromString("#36393F");
-            titleBarColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#23406C") : (Color)ColorConverter.ConvertFromString("#202225");
-            SideBarColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#000099") : (Color)ColorConverter.ConvertFromString("#2A2E33");
-            mainTextColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#A0A0A0") : (Color)ColorConverter.ConvertFromString("#94969A");
-            this.Resources["tooltip_background"] = _themeService.IsLightTheme ? (SolidColorBrush)new BrushConverter().ConvertFrom("#94969A") : (SolidColorBrush)new BrushConverter().ConvertFrom("#1E1E1E");
-            Application.Current.Resources["tooltip_foreground"] = !_themeService.IsLightTheme ? (SolidColorBrush)new BrushConverter().ConvertFrom("#94969A") : (SolidColorBrush)new BrushConverter().ConvertFrom("#1E1E1E");
+            backgroundColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#FCFCFC") : (Color)ColorConverter.ConvertFromString("#36393F");
+            titleBarColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#E3E5E8") : (Color)ColorConverter.ConvertFromString("#202225");
+            SideBarColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#C3C5CA") : (Color)ColorConverter.ConvertFromString("#2A2E33");
+            mainTextColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#0B0B13") : (Color)ColorConverter.ConvertFromString("#94969A");
+
+            exitImage = _themeService.IsLightTheme ? "../Resources/Images/Icons/exit_black.png" : "../Resources/Images/Icons/exit_white.png";
+            minImage = _themeService.IsLightTheme ? "../Resources/Images/Icons/min_black.png" : "../Resources/Images/Icons/min_white.png";
+            maxImage = _themeService.IsLightTheme ? "../Resources/Images/Icons/max_black.png" : "../Resources/Images/Icons/max_white.png";
+
+            titlebarBtnsHoverColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#D0D1D2") : (Color)ColorConverter.ConvertFromString("#373737");
         }
 
         private Object _currentPage;
         public Object currentPage
         {
             get => _currentPage;
-            set
-            {
-                if(value != _currentPage)
-                {
-                    SetAndNotify(ref _currentPage, value);
-                }
-            }
+            set { SetAndNotify(ref _currentPage, value); }
         }
 
-        //public SideBarBtnModel selected_item { get; set; }
         public void ChangePageCommand(string selected_item)
         {
+            //_themeService.IsLightTheme = _themeService.IsLightTheme ? false : true;
             int ind = 0;
             foreach (var btn in sideBarBtns)
             {
                 if (btn.toolTipText != selected_item) btn.background = (Color)ColorConverter.ConvertFromString("#00FFFFFF");
                 else ind = sideBarBtns.IndexOf(btn);
             }
-            sideBarBtns[ind].background = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#9933FF") : (Color)ColorConverter.ConvertFromString("#36393F");
+            sideBarBtns[ind].background = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#FCFCFC") : (Color)ColorConverter.ConvertFromString("#36393F");
             if (currentPage != Pages[ind]) currentPage = Pages[ind];
         }
 
@@ -86,7 +83,7 @@ namespace CutCode
             get => _backgroundColor;
             set
             {
-                if(value != _backgroundColor)
+                if (value != _backgroundColor)
                 {
                     SetAndNotify(ref _backgroundColor, value);
                 }
@@ -132,30 +129,42 @@ namespace CutCode
             }
         }
 
-        private Color _toolTipColor;
-        public Color toolTipColor
+        private string _exitImage;
+        public string exitImage
         {
-            get => _toolTipColor;
+            get => _exitImage;
             set
-            {
-                if (value != _toolTipColor)
-                {
-                    SetAndNotify(ref _toolTipColor, value);
-                }
-            }
+            { SetAndNotify(ref _exitImage, value); }
         }
 
-        private Color _toolTipTextColor;
-        public Color toolTipTextColor
+        private string _maxImage;
+        public string maxImage
         {
-            get => _toolTipTextColor;
+            get => _maxImage;
+            set
+            { SetAndNotify(ref _maxImage, value); }
+        }
+
+        private string _minImage;
+        public string minImage
+        {
+            get => _minImage;
+            set
+            { SetAndNotify(ref _minImage, value); }
+        }
+
+        private Color _titlebarBtnsHoverColor;
+        public Color titlebarBtnsHoverColor
+        {
+            get => _titlebarBtnsHoverColor;
             set
             {
-                if(value != _toolTipTextColor)
+                if (value != _titlebarBtnsHoverColor)
                 {
-                    SetAndNotify(ref _toolTipTextColor, value);
+                    SetAndNotify(ref _titlebarBtnsHoverColor, value);
                 }
             }
         }
     }
+        
 }

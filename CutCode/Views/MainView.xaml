@@ -24,13 +24,14 @@
         <myns:ColorToBrushConverter x:Key="ColorToBrushConverter" />
         <SolidColorBrush x:Key="tooltip_background" Color="White"/>
         <SolidColorBrush x:Key="tooltip_foreground" Color="White"/>
+
         <Style x:Key="sideBarBtnToolTip" TargetType="ToolTip">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ToolTip">
-                        <Border CornerRadius="0,10,10,0" BorderThickness="0" Background="{DynamicResource tooltip_background}"  Margin="5,5,5,5">
+                        <Border CornerRadius="0,10,10,0" BorderThickness="0" Background="{TemplateBinding Background}"  Margin="5,5,5,5">
                             <Label Content="{TemplateBinding Content}" FontSize="12" 
-                                Foreground="{DynamicResource tooltip_foreground}" 
+                                Foreground="{TemplateBinding BorderBrush}" 
                                    FontFamily="{StaticResource poppins_semibold}" Height="34" Margin="2,6,2,2"/>
                         </Border>
                     </ControlTemplate>
@@ -39,9 +40,53 @@
             <Setter Property="ToolTipService.Placement" Value="Right"/>
         </Style>
 
-        <ImageSource x:Key="exit_img">pack://application:,,,/CutCode;component/Resources/Images/Icons/exit_white.png</ImageSource>
-        <ImageSource x:Key="min_img">pack://application:,,,/CutCode;component/Resources/Images/Icons/min_white.png</ImageSource>
-        <ImageSource x:Key="max_img">pack://application:,,,/CutCode;component/Resources/Images/Icons/max_white.png</ImageSource>
+        <Style x:Key="TitleBarBtns" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border>
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}"/>
+                                            <Setter Property="BorderBrush" Value="Transparent"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid Background="Transparent">
+                                <ContentPresenter></ContentPresenter>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border>
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}"/>
+                                            <Setter Property="BorderBrush" Value="Transparent"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid Background="{TemplateBinding Background}">
+                                <ContentPresenter></ContentPresenter>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
     </Window.Resources>
 
@@ -66,13 +111,16 @@
                     <DataTemplate>
 
                         <Button Background="{Binding background, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" 
-                                Style="{StaticResource ButtonStyle}" 
+                                Style="{DynamicResource ButtonStyle}" 
+                                BorderBrush="{Binding buttonHoverColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}"
                                 Command="{s:Action ChangePageCommand}" CommandParameter="{Binding toolTipText}">
                             <Image Source="{Binding imageSource}" Width="30" Height="30"  Margin="10,10,12,10" VerticalAlignment="Top"
                                     RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
 
                             <Button.ToolTip>
-                                <ToolTip Content="{Binding toolTipText}" Style="{DynamicResource sideBarBtnToolTip}"/> 
+                                <ToolTip Content="{Binding toolTipText}" Style="{DynamicResource sideBarBtnToolTip}"
+                                         Background="{Binding toolTipBackground, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}"
+                                         BorderBrush="{Binding toolTipForeground, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}"/>
                             </Button.ToolTip>
 
                             
@@ -107,18 +155,20 @@
                     </Grid.ColumnDefinitions>
                     
                     <!-- Title Bar Buttons  -->
-                    <Button Grid.Column="0" Background="Transparent" Style="{StaticResource TitleBarBtns}" Click="MinimizeClicked"  Margin="0,0,0,10">
-                        <Image Source="{DynamicResource min_img}" Width="23" Height="23" Margin="5,6,5,8"
+                    <Button Grid.Column="0" Background="Transparent" Style="{DynamicResource TitleBarBtns}" 
+                            BorderBrush="{Binding titlebarBtnsHoverColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" Click="MinimizeClicked"  Margin="0,0,0,10">
+                        <Image Source="{Binding minImage}" Width="23" Height="23" Margin="5,6,5,8"
                             RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                     </Button>
 
-                    <Button Grid.Column="1" Background="Transparent" Style="{StaticResource TitleBarBtns}" Click="MaximizeClicked"  Margin="0,0,0,10">
-                        <Image Source="{DynamicResource max_img}" Width="23" Height="23"  Margin="5,6,5,8"
+                    <Button Grid.Column="1" Background="Transparent" Style="{DynamicResource TitleBarBtns}"
+                            BorderBrush="{Binding titlebarBtnsHoverColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" Click="MaximizeClicked"  Margin="0,0,0,10">
+                        <Image Source="{Binding maxImage}" Width="23" Height="23"  Margin="5,6,5,8"
                         RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                     </Button>
 
                     <Button Grid.Column="2"  Background="Transparent" Style="{StaticResource ExitButtonStyle}" Margin="0,0,0,10">
-                        <Image Source="{DynamicResource exit_img}" Width="23" Height="23"  Margin="5,6,8,8" 
+                        <Image Source="{Binding exitImage}" Width="23" Height="23"  Margin="5,6,8,8" 
                             RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                     </Button>
                 </Grid>
