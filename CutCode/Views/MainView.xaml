@@ -21,11 +21,11 @@
 
     <Window.Resources>
         <!--Colors-->
-        <SolidColorBrush x:Key="background">#36393F</SolidColorBrush>
-        <SolidColorBrush x:Key="titleBar">#202225</SolidColorBrush>
-        <SolidColorBrush x:Key="sideBar">#2A2E33</SolidColorBrush>
-        <SolidColorBrush x:Key="mainTextColor">#94969A</SolidColorBrush>
-        <SolidColorBrush x:Key="toolTipColor">#1E1E1E</SolidColorBrush>
+        <SolidColorBrush x:Key="background" Color="{Binding backgroundColor}"/>
+        <SolidColorBrush x:Key="titleBar" Color="{Binding titleBarColor}"/>
+        <SolidColorBrush x:Key="sideBar" Color="{Binding SideBarColor}"/>
+        <SolidColorBrush x:Key="mainTextColor" Color="{Binding mainTextColor}"/>
+        <SolidColorBrush x:Key="toolTipColor" Color="{Binding titleBarColor}"/>  
 
         <Style x:Key="sideBarBtnToolTip" TargetType="ToolTip">
             <Setter Property="Template">
@@ -45,12 +45,6 @@
         <ImageSource x:Key="min_img">pack://application:,,,/CutCode;component/Resources/Images/Icons/min_white.png</ImageSource>
         <ImageSource x:Key="max_img">pack://application:,,,/CutCode;component/Resources/Images/Icons/max_white.png</ImageSource>
 
-
-        <ImageSource x:Key="home_img">pack://application:,,,/CutCode;component/Resources/Images/Icons/home_white.png</ImageSource>
-        <ImageSource x:Key="add_img">pack://application:,,,/CutCode;component/Resources/Images/Icons/add_white.png</ImageSource>
-        <ImageSource x:Key="fav_img">pack://application:,,,/CutCode;component/Resources/Images/Icons/favourite_white.png</ImageSource>
-        <ImageSource x:Key="setting_img">pack://application:,,,/CutCode;component/Resources/Images/Icons/settings_white.png</ImageSource>
-
     </Window.Resources>
 
     <Grid Background="{DynamicResource background}">
@@ -59,55 +53,38 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Background="{DynamicResource sideBar}" VerticalAlignment="Stretch">
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-
+            
             <Image Grid.Row="0" Source="../Resources/Images/logo.png" Width="30" Height="30"  Margin="5,8,5,6" VerticalAlignment="Bottom"
                     RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
-    
-            <!-- left bar buttons -->
-            <Button Name="homeBtn" Background="#36393F" Grid.Row="1" Style="{StaticResource ButtonStyle}" 
-                     Command="{Binding ChangePageCommand}" CommandParameter="{x:Reference Name=homeBtn}">
-                <Image Source="{DynamicResource home_img}" Width="30" Height="30"  Margin="10,10,12,10" VerticalAlignment="Top"
-                        RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
-                <Button.ToolTip>
-                    <ToolTip Style="{DynamicResource sideBarBtnToolTip}">Home</ToolTip>
-                </Button.ToolTip>
-            </Button>
+            
+            <!-- Side Bar Buttons -->
+            <ListBox Grid.Row="1" Name="sideBarBtns" ItemsSource="{Binding sideBarBtns}" 
+                     SelectionChanged="{s:Action ChangePageCommand}" SelectedItem="{Binding selected_item}"
+                     ItemContainerStyle="{StaticResource ButtonStyle}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
 
-            <Button Name="addBtn" Background="Transparent" Grid.Row="2" Style="{StaticResource ButtonStyle}" 
-                     Command="{s:Action ChangePageCommand}" CommandParameter="{x:Reference Name=addBtn}">
-                <Image Source="{DynamicResource add_img}" Width="30" Height="30"  Margin="10,10,12,10" VerticalAlignment="Top"
-                        RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
-                
-                <Button.ToolTip>
-                    <ToolTip Style="{DynamicResource sideBarBtnToolTip}">Add</ToolTip>
-                </Button.ToolTip>
-            </Button>
+                        <Button Background="Transparent">
+                            <Image Source="{Binding imageSource}" Width="30" Height="30"  Margin="10,10,12,10" VerticalAlignment="Top"
+                                    RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
 
-            <Button Name="favBtn" Background="Transparent" Grid.Row="3" Style="{StaticResource ButtonStyle}" 
-                    Command="{Binding ChangePageCommand}" CommandParameter="{x:Reference Name=favBtn}">
-                <Image Source="{DynamicResource fav_img}" Width="30" Height="30"  Margin="10,10,12,10" VerticalAlignment="Top"
-                        RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
-                <Button.ToolTip>
-                    <ToolTip Style="{DynamicResource sideBarBtnToolTip}">Favourite</ToolTip>
-                </Button.ToolTip>
-            </Button>
+                            <Button.ToolTip>
+                                <ToolTip Style="{DynamicResource sideBarBtnToolTip}" Content="{Binding toolTipText}"/>
+                            </Button.ToolTip>
+                        </Button>
 
-            <Button Name="setBtn" Background="Transparent" Grid.Row="4" Style="{StaticResource ButtonStyle}" 
-                    Command="{Binding ChangePageCommand}" CommandParameter="{x:Reference Name=setBtn}">
-                <Image Source="{DynamicResource setting_img}" Width="30" Height="30"  Margin="10,10,12,10" VerticalAlignment="Top"
-                        RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
-                <Button.ToolTip>
-                    <ToolTip Style="{DynamicResource sideBarBtnToolTip}">Settings</ToolTip>
-                </Button.ToolTip>
-            </Button>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            
         </Grid>
+        
+        
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="44"/>
