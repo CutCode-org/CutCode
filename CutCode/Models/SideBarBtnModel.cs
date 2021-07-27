@@ -18,7 +18,7 @@ namespace CutCode
     public class SideBarBtnModel : Screen
     {
         private readonly IThemeService themeService;
-        private List<string> btnBothimages;
+        private List<string> btnBothimages = new List<string>();
         public SideBarBtnModel(string _toolTipText, IThemeService _themeService)
         {
             themeService = _themeService;
@@ -28,13 +28,13 @@ namespace CutCode
             btnBothimages.Add(SideBarBtns.SideBarBtnsLightTheme[index]);
             btnBothimages.Add(SideBarBtns.SideBarBtnsDarkTheme[index]);
             imageSource = themeService.IsLightTheme ? $"../Resources/Images/Icons/{btnBothimages[0]}" : $"../Resources/Images/Icons/{btnBothimages[1]}";
-            background = Brushes.Transparent;
+            background = (Color)ColorConverter.ConvertFromString("#00FFFFFF");
             themeService.ThemeChanged += ThemeChanged;
         }
         public string toolTipText { get; set; }
 
-        private SolidColorBrush _background;
-        public SolidColorBrush background
+        private Color _background;
+        public Color background
         {
             get => _background;
             set
@@ -61,9 +61,9 @@ namespace CutCode
         private void ThemeChanged(object sender, EventArgs e) 
         {
             imageSource = themeService.IsLightTheme ? $"../Resources/Images/Icons/{btnBothimages[0]}" : $"../Resources/Images/Icons/{btnBothimages[1]}";
-            if(background != Brushes.Transparent)
+            if(background != (Color)ColorConverter.ConvertFromString("#00FFFFFF"))
             {
-                background = themeService.IsLightTheme ? Brushes.Red : (SolidColorBrush)new BrushConverter().ConvertFrom("#36393F");
+                background = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("9933FF") : (Color)ColorConverter.ConvertFromString("#36393F");
             }
         } 
     }

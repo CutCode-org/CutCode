@@ -14,10 +14,10 @@ namespace CutCode
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainView : Window
     {
         private readonly IThemeService _themeService;
-        public MainWindow()
+        public MainView()
         {
             InitializeComponent();
         }
