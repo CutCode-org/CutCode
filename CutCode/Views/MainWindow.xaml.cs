@@ -1,7 +1,9 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
+using StyletIoC;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,10 +21,12 @@ namespace CutCode
         {
             InitializeComponent();
             var leftBarBtns = new List<Button>() { homeBtn, addBtn, favBtn, setBtn };
-            DataContext = new MainViewModel(leftBarBtns);
 
-            _themeService = SimpleIoc.Default.GetInstance<IThemeService>();
+
+            _themeService = StyletIoC.Get<IThemeService>();
             _themeService.ThemeChanged += ThemeChanged;
+
+            DataContext = new MainViewModel(leftBarBtns);
         }
 
         public void ThemeChanged(object sender, EventArgs e)

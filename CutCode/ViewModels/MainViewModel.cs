@@ -1,9 +1,12 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
+using StyletIoC;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +30,8 @@ namespace CutCode
             this.leftBarBtns = leftBarBtns;
             Pages = new List<Object>() { new HomePage(), new AddPage(), new FavPage(), new SettingPage()};
             currentPage = Pages[0];
+
+            //_themeService = ioc.Get<IThemeService>();
         }
 
         private Object _currentPage { get; set; }
@@ -43,9 +48,12 @@ namespace CutCode
             }
         }
 
+        private readonly IThemeService _themeService;
         public ICommand ChangePageCommand => new RelayCommand<object>(onChangePage);
         void onChangePage(object sender)
         {
+            _themeService.IsLightTheme = true;
+            Trace.WriteLine(_themeService.IsLightTheme);
             var btn = sender as Button;
             btn.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#36393F");
 
