@@ -1,0 +1,108 @@
+﻿<Grid x:Class="CutCode.SettingView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CutCode"
+      d:DataContext="{d:DesignInstance local:SettingViewModel}"
+      xmlns:myns="clr-namespace:CutCode"
+      xmlns:s="https://github.com/canton7/Stylet"
+      mc:Ignorable="d">
+
+    <Grid.Resources>
+        <myns:ColorToBrushConverter x:Key="ColorToBrushConverter" />
+        
+        <Style x:Key="ThemeBtnStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="8">
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}"/>
+                                            <Setter Property="BorderBrush" Value="Transparent"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid Background="Transparent">
+                                <ContentPresenter></ContentPresenter>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <ImageSource x:Key="toggle_on">pack://application:,,,/CutCode;component/Resources/Images/Icons/toggle_on_white.png</ImageSource>
+        <ImageSource x:Key="toggle_off">pack://application:,,,/CutCode;component/Resources/Images/Icons/toggle_off_white.png</ImageSource>
+
+        <SolidColorBrush x:Key="mainTextColor">#94969A</SolidColorBrush>
+        <SolidColorBrush x:Key="setting_frame">#25292E</SolidColorBrush>
+        <SolidColorBrush x:Key="setting_themeBtn">#17191B</SolidColorBrush>
+
+    </Grid.Resources>
+
+    <Grid.RowDefinitions>
+        <RowDefinition Height="20"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="20"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+
+    <Border Grid.Row="1" Background="{Binding cardBackgroundColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" Height="200" Width="550" CornerRadius="10" BorderThickness="0" Margin="0,0,10,0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Theme" Foreground="{Binding mainTextColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" FontSize="20" 
+                   Margin="20,10,0,2" FontFamily="{StaticResource poppins_semibold}"/>
+
+            <ItemsControl Grid.Row="1" Name="sideBarBtns" ItemsSource="{Binding themeBtns}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+
+                        <Border Background="{Binding backgroundColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" Margin="15,3,20,3"  CornerRadius="8">
+                            <Button Style="{DynamicResource ThemeBtnStyle}" BorderBrush="{Binding HoverbackgroundColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}"
+                                    Command="{s:Action ThemeChangeCommand}" CommandParameter="{Binding text}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Source="{Binding ToggleImage}" Width="23" Height="23" Margin="10,0,10,0"
+                                            RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                                    <Label Grid.Column="1" Content="{Binding text}" Foreground="{Binding textColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" 
+                                           FontSize="15.3"  FontFamily="{StaticResource poppins_semibold}"/>
+                                </Grid>
+                            </Button>
+                        </Border>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            
+        </Grid>
+    </Border>
+
+
+    <Border Grid.Row="4" Background="{Binding cardBackgroundColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" 
+            Height="160" Width="550" CornerRadius="10"  Margin="0,0,10,0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Shortcut key" Foreground="{Binding mainTextColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" 
+                   FontSize="20" Margin="20,10,0,0" FontFamily="{StaticResource poppins_semibold}"/>
+            <Grid Grid.Row="1">
+
+            </Grid>
+        </Grid>
+    </Border>
+
+</Grid>

@@ -1,5 +1,4 @@
-﻿using GalaSoft.MvvmLight.Ioc;
-using StyletIoC;
+﻿using StyletIoC;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,7 +15,6 @@ namespace CutCode
     /// </summary>
     public partial class MainView : Window
     {
-        private readonly IThemeService _themeService;
         public MainView()
         {
             InitializeComponent();

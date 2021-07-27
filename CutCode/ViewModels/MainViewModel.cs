@@ -1,6 +1,4 @@
-﻿using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
-using Stylet;
+﻿using Stylet;
 using StyletIoC;
 using System;
 using System.Collections.Generic;
@@ -24,12 +22,14 @@ namespace CutCode
         //private List<Button> leftBarBtns;
         private List<Object> Pages;
         private readonly IThemeService _themeService;
+        private IWindowManager windowManager;
         public ObservableCollection<SideBarBtnModel> sideBarBtns { get; set; }
-        public MainViewModel(IThemeService themeService)
+        public MainViewModel(IWindowManager _windowManager, IThemeService themeService)
         {
             _themeService = themeService;
+            windowManager = _windowManager;
             _themeService.ThemeChanged += ThemeChanged;
-            _themeService.IsLightTheme = false;
+            _themeService.IsLightTheme = true;
 
             sideBarBtns = new ObservableCollection<SideBarBtnModel>();
 
@@ -39,7 +39,8 @@ namespace CutCode
             sideBarBtns.Add(new SideBarBtnModel("Favourite", _themeService));
             sideBarBtns.Add(new SideBarBtnModel("Settings", _themeService));
 
-            Pages = new List<Object>() { new HomePage(), new AddPage(), new FavPage(), new SettingPage() };
+
+            Pages = new List<Object>() { new HomePage(), new AddPage(), new FavPage(), new SettingView() };
             currentPage = Pages[0];
         }
         private void ThemeChanged(object sender, EventArgs e)
@@ -47,7 +48,7 @@ namespace CutCode
 
             backgroundColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#FCFCFC") : (Color)ColorConverter.ConvertFromString("#36393F");
             titleBarColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#E3E5E8") : (Color)ColorConverter.ConvertFromString("#202225");
-            SideBarColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#C3C5CA") : (Color)ColorConverter.ConvertFromString("#2A2E33");
+            SideBarColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#D6D7DB") : (Color)ColorConverter.ConvertFromString("#2A2E33");
             mainTextColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#0B0B13") : (Color)ColorConverter.ConvertFromString("#94969A");
 
             exitImage = _themeService.IsLightTheme ? "../Resources/Images/Icons/exit_black.png" : "../Resources/Images/Icons/exit_white.png";
@@ -74,6 +75,7 @@ namespace CutCode
                 else ind = sideBarBtns.IndexOf(btn);
             }
             sideBarBtns[ind].background = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#FCFCFC") : (Color)ColorConverter.ConvertFromString("#36393F");
+            currentPage = windowManager.ShowWindow(Pages[ind]);
             if (currentPage != Pages[ind]) currentPage = Pages[ind];
         }
 

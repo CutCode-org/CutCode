@@ -28,13 +28,28 @@ namespace CutCode
             var index = SideBarBtns.AllSideBarBtns.IndexOf(_toolTipText);
             btnBothimages.Add(SideBarBtns.SideBarBtnsLightTheme[index]);
             btnBothimages.Add(SideBarBtns.SideBarBtnsDarkTheme[index]);
-            imageSource = themeService.IsLightTheme ? $"../Resources/Images/Icons/{btnBothimages[0]}" : $"../Resources/Images/Icons/{btnBothimages[1]}";
             background = (Color)ColorConverter.ConvertFromString("#00FFFFFF");
+
+            SetAppearance();
+        }
+        private void ThemeChanged(object sender, EventArgs e)
+        {
+            SetAppearance();
+        }
+
+        private void SetAppearance()
+        {
+            imageSource = themeService.IsLightTheme ? $"../Resources/Images/Icons/{btnBothimages[0]}" : $"../Resources/Images/Icons/{btnBothimages[1]}";
 
             buttonHoverColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#D6D7DA") : (Color)ColorConverter.ConvertFromString("#46494E");
 
             toolTipBackground = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#CBD0D5") : (Color)ColorConverter.ConvertFromString("#1E1E1E");
             toolTipForeground = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#060607") : (Color)ColorConverter.ConvertFromString("#94969A");
+
+            if (background != (Color)ColorConverter.ConvertFromString("#00FFFFFF"))
+            {
+                background = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#FCFCFC") : (Color)ColorConverter.ConvertFromString("#36393F");
+            }
         }
         public string toolTipText { get; set; }
 
@@ -61,20 +76,6 @@ namespace CutCode
                 {
                     SetAndNotify(ref _imageSource, value);
                 }
-            }
-        }
-        private void ThemeChanged(object sender, EventArgs e) 
-        {
-            imageSource = themeService.IsLightTheme ? $"../Resources/Images/Icons/{btnBothimages[0]}" : $"../Resources/Images/Icons/{btnBothimages[1]}";
-
-            buttonHoverColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#D6D7DA") : (Color)ColorConverter.ConvertFromString("#46494E");
-
-            toolTipBackground = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#CBD0D5") : (Color)ColorConverter.ConvertFromString("#1E1E1E");
-            toolTipForeground = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#060607") : (Color)ColorConverter.ConvertFromString("#94969A"); 
-
-            if (background != (Color)ColorConverter.ConvertFromString("#00FFFFFF"))
-            {
-                background = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#FCFCFC") : (Color)ColorConverter.ConvertFromString("#36393F");
             }
         }
 

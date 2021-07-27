@@ -18,12 +18,11 @@ namespace CutCode
     /// <summary>
     /// Interaction logic for SettingPage.xaml
     /// </summary>
-    public partial class SettingPage : Grid
+    public partial class SettingView : Grid
     {
-        public SettingPage()
+        public SettingView()
         {
             InitializeComponent();
-            DataContext = new SettingViewModel();
         }
     }
 }
