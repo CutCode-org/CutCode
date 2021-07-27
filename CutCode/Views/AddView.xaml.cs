@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CutCode
 {
     /// <summary>
-    /// Interaction logic for HomePage.xaml
+    /// Interaction logic for AddPage.xaml
     /// </summary>
-    public partial class HomePage : Grid
+    public partial class AddView : Grid
     {
-        public HomePage()
+        public AddView()
         {
             InitializeComponent();
         }

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace CutCode
 {
     /// <summary>
-    /// Interaction logic for AddPage.xaml
+    /// Interaction logic for FavPage.xaml
     /// </summary>
-    public partial class AddPage : Grid
+    public partial class FavView : Grid
     {
-        public AddPage()
+        public FavView()
         {
             InitializeComponent();
         }

@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CutCode
 {
     /// <summary>
-    /// Interaction logic for FavPage.xaml
+    /// Interaction logic for HomePage.xaml
     /// </summary>
-    public partial class FavPage : Grid
+    public partial class HomeView : Grid
     {
-        public FavPage()
+        public HomeView()
         {
             InitializeComponent();
         }

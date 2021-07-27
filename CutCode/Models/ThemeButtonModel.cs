@@ -32,14 +32,14 @@ namespace CutCode
                 if (text == "Light Mode")
                 {
                     backgroundColor = (Color)ColorConverter.ConvertFromString("#A7A9AC");
-                    _ToggleImage = $"../Resources/Images/Icons/toggle_on_black.png";
+                    ToggleImage = $"../Resources/Images/Icons/toggle_on_black.png";
                     HoverbackgroundColor = (Color)ColorConverter.ConvertFromString("#00FFFFFF");
                 }
 
                 else
                 {
-                    backgroundColor = (Color)ColorConverter.ConvertFromString("#CDCED2");
-                    _ToggleImage = $"../Resources/Images/Icons/toggle_off_black.png";
+                    backgroundColor = (Color)ColorConverter.ConvertFromString("#00FFFFFF");
+                    ToggleImage = $"../Resources/Images/Icons/toggle_off_black.png";
                     HoverbackgroundColor = (Color)ColorConverter.ConvertFromString("#AAACB0");
                 }
 
@@ -49,13 +49,13 @@ namespace CutCode
                 if (text == "Dark Mode")
                 {
                     backgroundColor = (Color)ColorConverter.ConvertFromString("#1D1D1E");
-                    _ToggleImage = $"../Resources/Images/Icons/toggle_on_white.png";
+                    ToggleImage = $"../Resources/Images/Icons/toggle_on_white.png";
                     HoverbackgroundColor = (Color)ColorConverter.ConvertFromString("#00FFFFFF");
                 }
                 else
                 {
-                    backgroundColor = (Color)ColorConverter.ConvertFromString("#202326");
-                    _ToggleImage = $"../Resources/Images/Icons/toggle_off_white.png";
+                    backgroundColor = (Color)ColorConverter.ConvertFromString("#00FFFFFF");
+                    ToggleImage = $"../Resources/Images/Icons/toggle_off_white.png";
                     HoverbackgroundColor = (Color)ColorConverter.ConvertFromString("#1F2021");
                 }
             }

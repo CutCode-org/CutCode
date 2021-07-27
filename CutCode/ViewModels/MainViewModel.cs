@@ -38,9 +38,10 @@ namespace CutCode
             sideBarBtns.Add(new SideBarBtnModel("Add", _themeService));
             sideBarBtns.Add(new SideBarBtnModel("Favourite", _themeService));
             sideBarBtns.Add(new SideBarBtnModel("Settings", _themeService));
+            sideBarBtns[0].background = (Color)ColorConverter.ConvertFromString("#00FFFFFF");
 
 
-            Pages = new List<Object>() { new HomePage(), new AddPage(), new FavPage(), new SettingView() };
+            Pages = new List<Object>() { new HomeViewModel(), new AddViewModel(), new FavViewModel(), new SettingViewModel(_themeService) };
             currentPage = Pages[0];
         }
         private void ThemeChanged(object sender, EventArgs e)
@@ -75,7 +76,6 @@ namespace CutCode
                 else ind = sideBarBtns.IndexOf(btn);
             }
             sideBarBtns[ind].background = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#FCFCFC") : (Color)ColorConverter.ConvertFromString("#36393F");
-            currentPage = windowManager.ShowWindow(Pages[ind]);
             if (currentPage != Pages[ind]) currentPage = Pages[ind];
         }
 

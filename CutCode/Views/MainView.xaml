@@ -175,7 +175,7 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <ContentControl Content="{Binding currentPage, UpdateSourceTrigger=PropertyChanged}"/>
+                <ContentControl s:View.Model="{Binding currentPage, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
 
         </Grid>
