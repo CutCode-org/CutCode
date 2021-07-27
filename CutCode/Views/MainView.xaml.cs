@@ -20,19 +20,6 @@ namespace CutCode
         public MainWindow()
         {
             InitializeComponent();
-            var leftBarBtns = new List<Button>() { homeBtn, addBtn, favBtn, setBtn };
-
-
-            _themeService = StyletIoC.Get<IThemeService>();
-            _themeService.ThemeChanged += ThemeChanged;
-
-            DataContext = new MainViewModel(leftBarBtns);
-        }
-
-        public void ThemeChanged(object sender, EventArgs e)
-        {
-            Trace.WriteLine("Theme Changed");
-            App.Current.Resources["background"] = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFF"); ;
         }
 
         public void ChangeWindowPosition(object sender, MouseButtonEventArgs e)

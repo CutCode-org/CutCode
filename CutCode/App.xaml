@@ -1,109 +1,117 @@
 ﻿<Application x:Class="CutCode.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:CutCode"
-             StartupUri="Views/MainWindow.xaml">
+             xmlns:s="https://github.com/canton7/Stylet"
+             xmlns:local="clr-namespace:CutCode">
     <Application.Resources>
-        <FontFamily x:Key="poppins_semibold">pack://CutCode:,,,Resources/Fonts/#Poppins SemiBold</FontFamily>
-        <FontFamily x:Key="poppins_regular">pack://CutCode:,,,Resources/Fonts/#Poppins Regular</FontFamily>
-        <FontFamily x:Key="roboto_light">pack://CutCode:,,,Resources/Fonts/#Roboto Light</FontFamily>
-        <FontFamily x:Key="roboto_regular">pack://CutCode:,,,Resources/Fonts/#Roboto Regular</FontFamily>
-        <FontFamily x:Key="roboto_bold">pack://CutCode:,,,Resources/Fonts/#Roboto Bold</FontFamily>
+        <s:ApplicationLoader>
+            <s:ApplicationLoader.Bootstrapper>
+                <local:Bootstrapper/>
+            </s:ApplicationLoader.Bootstrapper>
+            
+            
+            <FontFamily x:Key="poppins_semibold">pack://CutCode:,,,Resources/Fonts/#Poppins SemiBold</FontFamily>
+            <FontFamily x:Key="poppins_regular">pack://CutCode:,,,Resources/Fonts/#Poppins Regular</FontFamily>
+            <FontFamily x:Key="roboto_light">pack://CutCode:,,,Resources/Fonts/#Roboto Light</FontFamily>
+            <FontFamily x:Key="roboto_regular">pack://CutCode:,,,Resources/Fonts/#Roboto Regular</FontFamily>
+            <FontFamily x:Key="roboto_bold">pack://CutCode:,,,Resources/Fonts/#Roboto Bold</FontFamily>
 
-        <!--Main Page colors-->
-        <SolidColorBrush x:Key="background">#36393F</SolidColorBrush>
-        <SolidColorBrush x:Key="titleBar">#202225</SolidColorBrush>
-        <SolidColorBrush x:Key="sideBar">#2A2E33</SolidColorBrush>
+            <!--Main Page colors-->
+            <SolidColorBrush x:Key="background">#36393F</SolidColorBrush>
+            <SolidColorBrush x:Key="titleBar">#202225</SolidColorBrush>
+            <SolidColorBrush x:Key="sideBar">#2A2E33</SolidColorBrush>
 
-        <!--Setting Page colors-->
-        <SolidColorBrush x:Key="setting_frame">#25292E</SolidColorBrush>
-        <SolidColorBrush x:Key="setting_themeBtn">#17191B</SolidColorBrush>
+            <!--Setting Page colors-->
+            <SolidColorBrush x:Key="setting_frame">#25292E</SolidColorBrush>
+            <SolidColorBrush x:Key="setting_themeBtn">#17191B</SolidColorBrush>
 
-        <!--Text color-->
-        <SolidColorBrush x:Key="mainTextColor">#94969A</SolidColorBrush>
+            <!--Text color-->
+            <SolidColorBrush x:Key="mainTextColor">#94969A</SolidColorBrush>
 
 
-        <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border>
-                            <Border.Style>
-                                <Style TargetType="{x:Type Border}">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#1E1E1E"/>
-                                            <Setter Property="BorderBrush" Value="Transparent"/>
-                                        </Trigger>
-                                        <EventTrigger RoutedEvent="Button.MouseEnter">
-                                            <EventTrigger.Actions>
-                                                <BeginStoryboard>
-                                                    <Storyboard BeginTime="00:00:00" 
-                                                        RepeatBehavior="Forever" 
-                                                        AutoReverse="True"
-                                                        Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)">
-                                                        <ColorAnimation From="Transparent" To="#373737" Duration="0:0:3"/>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </EventTrigger.Actions>
-                                        </EventTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
-                            <Grid Background="{TemplateBinding Background}">
-                                <ContentPresenter></ContentPresenter>
-                            </Grid>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border>
+                                <Border.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#1E1E1E"/>
+                                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                            </Trigger>
+                                            <EventTrigger RoutedEvent="Button.MouseEnter">
+                                                <EventTrigger.Actions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard BeginTime="00:00:00" 
+                                                            RepeatBehavior="Forever" 
+                                                            AutoReverse="True"
+                                                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)">
+                                                            <ColorAnimation From="Transparent" To="#373737" Duration="0:0:3"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </EventTrigger.Actions>
+                                            </EventTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <Grid Background="{TemplateBinding Background}">
+                                    <ContentPresenter></ContentPresenter>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
-        <Style x:Key="TitleBarBtns" TargetType="Button">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border>
-                            <Border.Style>
-                                <Style TargetType="{x:Type Border}">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#373737"/>
-                                            <Setter Property="BorderBrush" Value="Transparent"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
-                            <Grid Background="Transparent">
-                                <ContentPresenter></ContentPresenter>
-                            </Grid>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+            <Style x:Key="TitleBarBtns" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border>
+                                <Border.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#373737"/>
+                                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <Grid Background="Transparent">
+                                    <ContentPresenter></ContentPresenter>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
-        <Style x:Key="ExitButtonStyle" TargetType="Button">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border>
-                            <Border.Style>
-                                <Style TargetType="{x:Type Border}">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#ed4245"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
-                            <Grid Background="Transparent">
-                                <ContentPresenter></ContentPresenter>
-                            </Grid>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+            <Style x:Key="ExitButtonStyle" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border>
+                                <Border.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#ed4245"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <Grid Background="Transparent">
+                                    <ContentPresenter></ContentPresenter>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+        </s:ApplicationLoader>
     </Application.Resources>
 </Application>

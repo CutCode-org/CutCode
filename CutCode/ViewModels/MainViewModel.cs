@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
+using Stylet;
 using StyletIoC;
 using System;
 using System.Collections.Generic;
@@ -16,25 +17,26 @@ using System.Windows.Media;
 
 namespace CutCode
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : Screen
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        private List<Button> leftBarBtns;
+        //private List<Button> leftBarBtns;
         private List<Object> Pages;
-        public MainViewModel(List<Button> leftBarBtns)
+        private readonly IThemeService _themeService;
+        public MainViewModel(IThemeService themeService)
         {
-            this.leftBarBtns = leftBarBtns;
+            //this.leftBarBtns = leftBarBtns;
             Pages = new List<Object>() { new HomePage(), new AddPage(), new FavPage(), new SettingPage()};
             currentPage = Pages[0];
 
-            //_themeService = ioc.Get<IThemeService>();
+            _themeService = themeService;
+            _themeService.ThemeChanged += ThemeChanged;
+        }
+        private void ThemeChanged(object sender, EventArgs e)
+        {
+            Trace.WriteLine("Theme changed ...");
         }
 
-        private Object _currentPage { get; set; }
+        private Object _currentPage;
         public Object currentPage
         {
             get => _currentPage;
@@ -42,19 +44,85 @@ namespace CutCode
             {
                 if(value != _currentPage)
                 {
-                    _currentPage = value;
-                    NotifyPropertyChanged();
+                    SetAndNotify(ref _currentPage, value);
                 }
             }
         }
 
-        private readonly IThemeService _themeService;
-        public ICommand ChangePageCommand => new RelayCommand<object>(onChangePage);
-        void onChangePage(object sender)
+        private SolidColorBrush _homeBtn;
+        public SolidColorBrush homeBtn
         {
-            _themeService.IsLightTheme = true;
-            Trace.WriteLine(_themeService.IsLightTheme);
-            var btn = sender as Button;
+            get => _homeBtn;
+            set
+            {
+                if (value != _homeBtn)
+                {
+                    SetAndNotify(ref _homeBtn, value);
+                }
+            }
+        }
+        public void HomeBtnCommand()
+        {
+
+        }
+
+        private SolidColorBrush _addBtn;
+        public SolidColorBrush addBtn
+        {
+            get => _addBtn;
+            set
+            {
+                if (value != _addBtn)
+                {
+                    SetAndNotify(ref _addBtn, value);
+                }
+            }
+        }
+        public void AddBtnCommand()
+        {
+
+        }
+
+        private SolidColorBrush _favBtn;
+        public SolidColorBrush favBtn
+        {
+            get => _favBtn;
+            set
+            {
+                if (value != _favBtn)
+                {
+                    SetAndNotify(ref _favBtn, value);
+                }
+            }
+        }
+        public void FavBtnCommand()
+        {
+
+        }
+
+        private SolidColorBrush _settingBtn;
+        public SolidColorBrush settingBtn
+        {
+            get => _settingBtn;
+            set
+            {
+                if (value != _settingBtn)
+                {
+                    SetAndNotify(ref _settingBtn, value);
+                }
+            }
+        }
+        public void SettingBtnCommand()
+        {
+
+        }
+
+
+
+        public void ChangePageCommand(Button btn)
+        {
+            //_themeService.IsLightTheme = true;
+            //Trace.WriteLine(_themeService.IsLightTheme);
             btn.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#36393F");
 
             int ind = 0;

@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CutCode"
+        xmlns:s="https://github.com/canton7/Stylet"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance local:MainViewModel}"
         Title="CutCode"
         MinHeight="500" MinWidth="700"
         Height="540" Width="740"
@@ -79,7 +81,7 @@
             </Button>
 
             <Button Name="addBtn" Background="Transparent" Grid.Row="2" Style="{StaticResource ButtonStyle}" 
-                     Command="{Binding ChangePageCommand}" CommandParameter="{x:Reference Name=addBtn}">
+                     Command="{s:Action ChangePageCommand}" CommandParameter="{x:Reference Name=addBtn}">
                 <Image Source="{DynamicResource add_img}" Width="30" Height="30"  Margin="10,10,12,10" VerticalAlignment="Top"
                         RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                 
@@ -145,7 +147,7 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <ContentControl Content="{Binding currentPage}"/>
+                <ContentControl Content="{Binding currentPage, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
 
         </Grid>
