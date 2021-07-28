@@ -38,7 +38,7 @@ namespace CutCode
             sideBarBtns.Add(new SideBarBtnModel("Add", _themeService));
             sideBarBtns.Add(new SideBarBtnModel("Favourite", _themeService));
             sideBarBtns.Add(new SideBarBtnModel("Settings", _themeService));
-            sideBarBtns[0].background = (Color)ColorConverter.ConvertFromString("#00FFFFFF");
+            sideBarBtns[0].background = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#FCFCFC") : (Color)ColorConverter.ConvertFromString("#36393F");
 
 
             Pages = new List<Object>() { new HomeViewModel(), new AddViewModel(), new FavViewModel(), new SettingViewModel(_themeService) };
@@ -46,10 +46,10 @@ namespace CutCode
         }
         private void ThemeChanged(object sender, EventArgs e)
         {
-
+            
             backgroundColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#FCFCFC") : (Color)ColorConverter.ConvertFromString("#36393F");
             titleBarColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#E3E5E8") : (Color)ColorConverter.ConvertFromString("#202225");
-            SideBarColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#D6D7DB") : (Color)ColorConverter.ConvertFromString("#2A2E33");
+            SideBarColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#F2F3F5") : (Color)ColorConverter.ConvertFromString("#2A2E33");
             mainTextColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#0B0B13") : (Color)ColorConverter.ConvertFromString("#94969A");
 
             exitImage = _themeService.IsLightTheme ? "../Resources/Images/Icons/exit_black.png" : "../Resources/Images/Icons/exit_white.png";
@@ -68,7 +68,6 @@ namespace CutCode
 
         public void ChangePageCommand(string selected_item)
         {
-            //_themeService.IsLightTheme = _themeService.IsLightTheme ? false : true;
             int ind = 0;
             foreach (var btn in sideBarBtns)
             {

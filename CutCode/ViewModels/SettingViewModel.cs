@@ -26,13 +26,13 @@ namespace CutCode
             themeBtns.Add(new ThemeButtonModel("Dark Mode", themeService));
 
             mainTextColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#0B0B13") : (Color)ColorConverter.ConvertFromString("#94969A");
-            cardBackgroundColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#E8E8E8") : (Color)ColorConverter.ConvertFromString("#25292E");
+            cardBackgroundColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#F2F3F5") : (Color)ColorConverter.ConvertFromString("#2F3136");
         }
 
         private void ThemeChanged(object sender, EventArgs e)
         {
             mainTextColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#0B0B13") : (Color)ColorConverter.ConvertFromString("#94969A");
-            cardBackgroundColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#E8E8E8") : (Color)ColorConverter.ConvertFromString("#25292E");
+            cardBackgroundColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#F2F3F5") : (Color)ColorConverter.ConvertFromString("#2F3136");
         }
 
         private Color _mainTextColor;

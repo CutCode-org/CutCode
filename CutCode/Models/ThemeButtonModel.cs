@@ -31,7 +31,7 @@ namespace CutCode
             {
                 if (text == "Light Mode")
                 {
-                    backgroundColor = (Color)ColorConverter.ConvertFromString("#A7A9AC");
+                    backgroundColor = (Color)ColorConverter.ConvertFromString("#DADDE1");
                     ToggleImage = $"../Resources/Images/Icons/toggle_on_black.png";
                     HoverbackgroundColor = (Color)ColorConverter.ConvertFromString("#00FFFFFF");
                 }
@@ -40,7 +40,7 @@ namespace CutCode
                 {
                     backgroundColor = (Color)ColorConverter.ConvertFromString("#00FFFFFF");
                     ToggleImage = $"../Resources/Images/Icons/toggle_off_black.png";
-                    HoverbackgroundColor = (Color)ColorConverter.ConvertFromString("#AAACB0");
+                    HoverbackgroundColor = (Color)ColorConverter.ConvertFromString("#E5E6E8");
                 }
 
             }
@@ -48,7 +48,7 @@ namespace CutCode
             {
                 if (text == "Dark Mode")
                 {
-                    backgroundColor = (Color)ColorConverter.ConvertFromString("#1D1D1E");
+                    backgroundColor = (Color)ColorConverter.ConvertFromString("#202225");
                     ToggleImage = $"../Resources/Images/Icons/toggle_on_white.png";
                     HoverbackgroundColor = (Color)ColorConverter.ConvertFromString("#00FFFFFF");
                 }
@@ -56,7 +56,7 @@ namespace CutCode
                 {
                     backgroundColor = (Color)ColorConverter.ConvertFromString("#00FFFFFF");
                     ToggleImage = $"../Resources/Images/Icons/toggle_off_white.png";
-                    HoverbackgroundColor = (Color)ColorConverter.ConvertFromString("#1F2021");
+                    HoverbackgroundColor = (Color)ColorConverter.ConvertFromString("#27282C");
                 }
             }
         }
