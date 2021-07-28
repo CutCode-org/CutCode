@@ -77,8 +77,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
-            <Image Grid.Row="0" Source="../Resources/Images/logo.png" Width="30" Height="30"  Margin="5,8,5,6" VerticalAlignment="Bottom"
+
+            <Image Grid.Row="0" Source="../Resources/Images/logo.png" Width="30" Height="30"  Margin="14,7,7,7"
                     RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
             
             <!-- Side Bar Buttons -->

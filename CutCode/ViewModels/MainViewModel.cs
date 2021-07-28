@@ -29,7 +29,7 @@ namespace CutCode
             _themeService = themeService;
             windowManager = _windowManager;
             _themeService.ThemeChanged += ThemeChanged;
-            _themeService.IsLightTheme = true;
+            _themeService.IsLightTheme = false;
 
             sideBarBtns = new ObservableCollection<SideBarBtnModel>();
 

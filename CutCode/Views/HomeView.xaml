@@ -7,5 +7,65 @@
           d:DataContext="{d:DesignInstance local:HomeViewModel}"
           xmlns:s="https://github.com/canton7/Stylet"
         mc:Ignorable="d">
-    <Label Content="Home" FontSize="30"/>
+    <Grid.Resources>
+
+        
+        
+        <Style x:Key="searchBar" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10" BorderThickness="0">
+                            <Grid>
+                                <TextBox FontSize="15"  VerticalAlignment="Center" x:Name="SearchTermTextBox" BorderBrush="Transparent" Margin="8,8,8,8"
+                                         FontFamily="{StaticResource poppins_regular}" Background="Transparent" 
+                                         Foreground="{TemplateBinding Foreground}" BorderThickness="0"/>
+
+                                <TextBlock IsHitTestVisible="False" Text="Search your code" FontFamily="{StaticResource poppins_regular}" FontSize="15"
+                                            HorizontalAlignment="Left" Margin="12,8,8,8" Foreground="#A8A8A8" Background="Transparent" VerticalAlignment="Center">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=SearchTermTextBox}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Grid.Resources>
+
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    
+    <Grid Grid.Row="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0"  Height="40" FontSize="17" Cursor="IBeam" VerticalAlignment="Center" Background="#2A2E33" Foreground="#EEEEEE"
+                 x:Name="SearchTermTextBox" Margin="25,15,5,5"  FontFamily="{StaticResource poppins_regular}" Style="{DynamicResource searchBar}" BorderBrush="Transparent"/>
+
+
+        </Grid>
+        <ComboBox Grid.Column="1" Height="30" Text="Sort by" Margin="5,5,15,5">
+            
+        </ComboBox>
+    </Grid>
 </Grid>
