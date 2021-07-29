@@ -27,8 +27,6 @@ namespace CutCode
         {
             InitializeComponent();
 
-            //SearchCommand?.Execute(null);
-
             searchBox.SetBinding(TextProperty, new Binding("Text"));
             exitBtn.Visibility = Visibility.Hidden;
             circularBar.Visibility = Visibility.Hidden;
@@ -37,7 +35,7 @@ namespace CutCode
 
             activityTimer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromMilliseconds(400),
+                Interval = TimeSpan.FromMilliseconds(600),
                 IsEnabled = true
             };
             activityTimer.Tick += InActivity;

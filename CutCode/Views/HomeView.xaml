@@ -9,35 +9,65 @@
         mc:Ignorable="d">
     <Grid.Resources>
         <local:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
-        
-        <Style x:Key="searchBar" TargetType="TextBox">
+
+        <Style x:Key="comboBoxStyle" TargetType="{x:Type ComboBox}">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="TextBox">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="10" BorderThickness="0">
-                            <Grid>
-                                <TextBox FontSize="15"  VerticalAlignment="Center" x:Name="SearchTermTextBox" BorderBrush="Transparent" Margin="8,8,8,8"
-                                         FontFamily="{StaticResource poppins_regular}" Background="Transparent" 
-                                         Foreground="{TemplateBinding Foreground}" BorderThickness="0"/>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton Grid.Column="2" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" 
+                                          Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" BorderBrush="{TemplateBinding BorderBrush}">
+                                <ToggleButton.Template>
+                                    <ControlTemplate>
+                                        <Grid>
+                                            
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Border x:Name="Border"  Grid.ColumnSpan="2" CornerRadius="5" 
+                                                    Background="{TemplateBinding Background}"
+                                                    BorderThickness="0"/>
+                                            
+                                            <Border Grid.Column="0" CornerRadius="5,0,0,5"  Margin="1" Background="Transparent" BorderThickness="1"/>
+                                            
+                                            <Path x:Name="Arrow" Grid.Column="1"  Fill="{TemplateBinding BorderBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z"/>
+                                            
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="ToggleButton.IsMouseOver" Value="true">
+                                                <Setter TargetName="Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}" />
+                                            </Trigger>
+                                            <Trigger Property="ToggleButton.IsChecked" Value="true">
+                                                <Setter TargetName="Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" />
+                                               
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
 
-                                <TextBlock IsHitTestVisible="False" Text="Search your code" FontFamily="{StaticResource poppins_regular}" FontSize="15"
-                                            HorizontalAlignment="Left" Margin="12,8,8,8" Foreground="#A8A8A8" Background="Transparent" VerticalAlignment="Center">
-                                    <TextBlock.Style>
-                                        <Style TargetType="{x:Type TextBlock}">
-                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Text, ElementName=SearchTermTextBox}" Value="">
-                                                    <Setter Property="Visibility" Value="Visible"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-                            </Grid>
-                        </Border>
+                            <ContentPresenter Name="ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" 
+                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" 
+                                              Margin="8,5,3,3"  />
+
+                            <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True"  Focusable="False" PopupAnimation="Slide">
+                                <Grid  Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                       Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}">
+
+                                    <Border x:Name="DropDownBorder" Background="{TemplateBinding Background}" CornerRadius="0,0,5,5" BorderThickness="0"/>
+                                    <ScrollViewer SnapsToDevicePixels="True" FontFamily="{StaticResource poppins_regular}" FontSize="13" Foreground="{TemplateBinding Background}">
+                                        <StackPanel IsItemsHost="True" Bo="Red"/>
+                                    </ScrollViewer>
+                                    
+                                </Grid>
+                            </Popup>
+                        </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+            </Style.Triggers>
         </Style>
     </Grid.Resources>
 
@@ -46,19 +76,35 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
-
     <Grid Grid.Row="0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <local:SearchBarControl BackgroundColor="{Binding searchBarBackground, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" 
-                                PlaceholderText="Search your code here" PlaceholderTextColor="Gray" SearchCommand="{s:Action SearchCommand}"
-                                ButtonHoverColor="{Binding searchBarHoverColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}"
-                                IsSearched="{Binding IsSearched}"
-                                TextColor="{Binding searchBarTextColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" Theme="{Binding Theme}" Margin="10,10,10,10"/>
+        
+        <local:SearchBarControl  Grid.Column="0" BackgroundColor="{Binding searchBarBackground, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" 
+                            PlaceholderText="Search your code here" PlaceholderTextColor="Gray" SearchCommand="{s:Action SearchCommand}"
+                            ButtonHoverColor="{Binding searchBarHoverColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}"
+                            IsSearched="{Binding IsSearched}"
+                            TextColor="{Binding searchBarTextColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" Theme="{Binding Theme}" Margin="10,10,10,10"/>
+    </Grid>
 
-        <ComboBox Grid.Column="1" Height="30" Text="Sort by" Margin="5,5,15,5">
+    <Grid Grid.Row="1" Margin="25,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <ComboBox Grid.Column="0" Height="30" Width="130" Text="Sort by" Margin="5,5,15,5" BorderThickness="0" Foreground="#202326"  
+                  Background="#2A2E33" IsDropDownOpen="false" Style="{DynamicResource comboBoxStyle}" BorderBrush="White">
+            
+            <ComboBoxItem>All Language</ComboBoxItem>
+            <ComboBoxItem>Python</ComboBoxItem>
+            <ComboBoxItem>Python</ComboBoxItem>
+            <ComboBoxItem>Python</ComboBoxItem>
+        </ComboBox>
+
+        <ComboBox Grid.Column="1" Height="30" Width="130" Text="Sort by" Margin="5,5,15,5">
 
         </ComboBox>
     </Grid>

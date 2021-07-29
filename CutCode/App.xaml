@@ -15,6 +15,7 @@
             <FontFamily x:Key="roboto_regular">pack://CutCode:,,,Resources/Fonts/#Roboto Regular</FontFamily>
             <FontFamily x:Key="roboto_bold">pack://CutCode:,,,Resources/Fonts/#Roboto Bold</FontFamily> 
 
+            
         </s:ApplicationLoader>
     </Application.Resources>
 </Application>
