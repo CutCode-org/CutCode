@@ -30,6 +30,7 @@ namespace CutCode
             searchBarBackground = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#DADBDC") : (Color)ColorConverter.ConvertFromString("#2A2E33");
             searchBarTextColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#000000") : (Color)ColorConverter.ConvertFromString("#FFFFFF");
             searchBarHoverColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#D0D1D2") : (Color)ColorConverter.ConvertFromString("#373737");
+            comboboxHoverColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#C5C7C9") : (Color)ColorConverter.ConvertFromString("#202326");
         }
 
         private Color _searchBarBackground;
@@ -56,6 +57,14 @@ namespace CutCode
             
         }
 
+        private Color _comboboxHoverColor;
+        public Color comboboxHoverColor
+        {
+            get => _comboboxHoverColor;
+            set => SetAndNotify(ref _comboboxHoverColor, value);
+
+        }
+
         private bool _Theme;
         public bool Theme
         {
@@ -77,7 +86,6 @@ namespace CutCode
             IsSearched = false;
             await Task.Delay(TimeSpan.FromSeconds(1)); // this will be changed to the search process
             IsSearched = true;
-
         }
     }
 }
