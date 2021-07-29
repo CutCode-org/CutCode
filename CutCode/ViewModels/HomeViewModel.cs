@@ -1,6 +1,7 @@
 ﻿using Stylet;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace CutCode
             themeService = _themeService;
             themeService.ThemeChanged += ThemeChanged;
             SetAppearance();
+            IsSearched = false;
         }
         private void ThemeChanged(object sender, EventArgs e)
         {
@@ -61,9 +63,21 @@ namespace CutCode
             set => SetAndNotify(ref _Theme, value);
             
         }
-        public void SearchCommand()
+
+        private bool _IsSearched;
+        public bool IsSearched
         {
-            // Search with the search text given
+            get => _IsSearched;
+            set => SetAndNotify(ref _IsSearched, value);
+
+        }
+        public async void SearchCommand(string text)
+        {
+            Trace.WriteLine("Searching ...");
+            IsSearched = false;
+            await Task.Delay(TimeSpan.FromSeconds(1)); // this will be changed to the search process
+            IsSearched = true;
+
         }
     }
 }

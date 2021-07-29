@@ -20,6 +20,7 @@
     <None Remove="Resources\Images\Icons\favourite_white.png" />
     <None Remove="Resources\Images\Icons\home_black.png" />
     <None Remove="Resources\Images\Icons\home_white.png" />
+    <None Remove="Resources\Images\Icons\loading.gif" />
     <None Remove="Resources\Images\Icons\max_black.png" />
     <None Remove="Resources\Images\Icons\max_white.png" />
     <None Remove="Resources\Images\Icons\min_black.png" />
@@ -51,6 +52,7 @@
     <Resource Include="Resources\Images\Icons\favourite_white.png" />
     <Resource Include="Resources\Images\Icons\home_black.png" />
     <Resource Include="Resources\Images\Icons\home_white.png" />
+    <Resource Include="Resources\Images\Icons\loading.gif" />
     <Resource Include="Resources\Images\Icons\max_black.png" />
     <Resource Include="Resources\Images\Icons\max_white.png" />
     <Resource Include="Resources\Images\Icons\min_black.png" />

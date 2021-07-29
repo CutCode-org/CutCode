@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace CutCode
 {
@@ -21,17 +22,25 @@ namespace CutCode
     /// </summary>
     public partial class SearchBarControl : UserControl
     {
+        private readonly DispatcherTimer activityTimer;
         public SearchBarControl()
         {
             InitializeComponent();
 
-            SearchCommand?.Execute(null);
+            //SearchCommand?.Execute(null);
 
             searchBox.SetBinding(TextProperty, new Binding("Text"));
-            searchBtn.Visibility = Visibility.Hidden;
-            searchBtn.Click += ClearClicked;
+            exitBtn.Visibility = Visibility.Hidden;
+            circularBar.Visibility = Visibility.Hidden;
+            exitBtn.Click += ClearClicked;
             searchBox.TextChanged += TextChanged;
 
+            activityTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(400),
+                IsEnabled = true
+            };
+            activityTimer.Tick += InActivity;
         }
 
         #region Text property
@@ -135,7 +144,7 @@ namespace CutCode
         private static void ButtonHoverColorPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is not SearchBarControl ctrl || e.NewValue is not SolidColorBrush) return;
-            ctrl.searchBtn.BorderBrush = (SolidColorBrush)e.NewValue;
+            ctrl.exitBtn.BorderBrush = (SolidColorBrush)e.NewValue;
         }
         #endregion
 
@@ -156,8 +165,30 @@ namespace CutCode
         }
         #endregion
 
+        #region IsSearched property
+        public static readonly DependencyProperty IsSearchedProperty =
+            DependencyProperty.Register("IsSearched", typeof(bool), typeof(SearchBarControl),
+                new PropertyMetadata(true, IsSearchedPropertyChanged));
+
+        public bool IsSearched
+        {
+            get => (bool)GetValue(IsSearchedProperty);
+            set => SetValue(IsSearchedProperty, value);
+        }
+        private static void IsSearchedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is not SearchBarControl ctrl || e.NewValue is not bool) return;
+            if (!string.IsNullOrEmpty(ctrl.Text))
+            {
+                ctrl.circularBar.Visibility = (bool)e.NewValue ? Visibility.Hidden : Visibility.Visible;
+                ctrl.exitBtn.Visibility = (bool)e.NewValue ? Visibility.Visible : Visibility.Hidden;
+                ctrl.activityTimer.IsEnabled = (bool)e.NewValue;
+            }
+        }
+        #endregion
+
         #region Search Command property
-        
+
         public static readonly DependencyProperty SearchCommandProperty =
             DependencyProperty.Register("SearchCommand", typeof(ICommand), typeof(SearchBarControl),
                 new PropertyMetadata(null));
@@ -172,13 +203,40 @@ namespace CutCode
         private void TextChanged(object sender, TextChangedEventArgs e)
         {
             Text = searchBox.Text;
-            if (string.IsNullOrEmpty(searchBox.Text)) searchBtn.Visibility = Visibility.Hidden;
-            else searchBtn.Visibility = Visibility.Visible;
+            exitBtn.Visibility = Visibility.Hidden;
+            circularBar.Visibility = string.IsNullOrEmpty(searchBox.Text) ? Visibility.Hidden : Visibility.Visible;
+            activityTimer.IsEnabled = true;
         }
 
         private void ClearClicked(object sender, EventArgs e)
         {
             searchBox.Text = "";
+        }
+
+
+        private string OldText = "";
+        private string SearchedText = "";
+        private void InActivity(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(Text))
+            {
+                if (OldText == Text)
+                {
+                    OldText = "";
+                    SearchedText = Text;
+                    SearchCommand?.Execute(Text);
+                    activityTimer.IsEnabled = false;
+                }
+                else
+                {
+                    if(SearchedText != Text) OldText = Text;
+                    else
+                    {
+                        exitBtn.Visibility = Visibility.Visible;
+                        circularBar.Visibility = Visibility.Hidden;
+                    }
+                }
+            }
         }
     }
 }

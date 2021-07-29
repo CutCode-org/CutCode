@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CutCode"
              d:DataContext="{d:DesignInstance local:SearchBarControl}"
-             mc:Ignorable="d" >
+             mc:Ignorable="d">
 
     <UserControl.Resources>
         <Style x:Key="ButtonStyle" TargetType="Button">
@@ -61,11 +61,11 @@
                     </TextBlock.Style>
                 </TextBlock>
 
-                <Button x:Name="searchBtn" Grid.Column="1" Grid.Row="0" Background="Transparent" Style="{DynamicResource ButtonStyle}">
+                <Button x:Name="exitBtn" Grid.Column="1" Grid.Row="0" Background="Transparent" Style="{DynamicResource ButtonStyle}">
                     <Image x:Name="exitBtnImage" Width="20" Height="20" Margin="0,0,8,5"  VerticalAlignment="Center" HorizontalAlignment="Center" 
                        RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                 </Button>
-
+                <local:CircularProgressBar x:Name="circularBar" Grid.Column="1" Grid.Row="0" Margin="5,5,10,5" Height="20" Width="20"/>
             </Grid>
         </Border>
     </Grid>
