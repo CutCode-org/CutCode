@@ -19,6 +19,16 @@ namespace CutCode
     /// <summary>
     /// Interaction logic for CodeBoxControl.xaml
     /// </summary>
+    /// 
+    public static class LangList
+    {
+        public static List<string> list = new List<string>()
+        {
+            "file", "c", "cpp", "csharp", "css", "dart", "golang", "html", "java", 
+            "javascript", "kotlin", "php", "python", "ruby", "rust","sql", "swift"
+        };
+    }
+
     public partial class CodeBoxControl : UserControl
     {
         public CodeBoxControl()
@@ -44,13 +54,15 @@ namespace CutCode
             if (d is not CodeBoxControl ctrl || e.NewValue is not IThemeService) return;
             ctrl.ThemeService = (IThemeService)e.NewValue;
             ctrl.ThemeService.ThemeChanged += ctrl.ThemeChanged;
+            ctrl.ThemeChanged(null, null);
         }
 
         private void ThemeChanged(object sender, EventArgs e)
         {
-            titleLabel.Background = ThemeService.IsLightTheme ? ColorCon.Convert("#000000") : ColorCon.Convert("#FFFFFF");
-            descLabel.Background = ThemeService.IsLightTheme ? ColorCon.Convert("#000000") : ColorCon.Convert("#FFFFFF");
-            card.Background = ThemeService.IsLightTheme ? ColorCon.Convert("#DADBDC") : ColorCon.Convert("#2A2E33");
+            titleLabel.Foreground = ThemeService.IsLightTheme ? ColorCon.Convert("#000000") : ColorCon.Convert("#FFFFFF");
+            descLabel.Foreground = ThemeService.IsLightTheme ? ColorCon.Convert("#000000") : ColorCon.Convert("#FFFFFF");
+            card.Background = ThemeService.IsLightTheme ? ColorCon.Convert("#E5E7E9") : ColorCon.Convert("#2A2E33");
+            card.BorderBrush = ThemeService.IsLightTheme ? ColorCon.Convert("#DCDEE1") : ColorCon.Convert("#212428");
         }
         #endregion
 
@@ -110,7 +122,21 @@ namespace CutCode
         private static void LangTypePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is not CodeBoxControl ctrl || e.NewValue is not string) return;
-            // show the image related thing
+            var lang = (string)e.NewValue;
+
+            bool found = false;
+            foreach(string i in LangList.list)
+            {
+                if(lang == i)
+                {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) throw new NotImplementedException("Language type not recognised");
+            ctrl.langImg.Source = new BitmapImage(new Uri(@$"../Resources/Images/LangLogo/{lang}.png", UriKind.Relative));
+
         }
         #endregion
 

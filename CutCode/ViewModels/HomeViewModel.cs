@@ -1,6 +1,7 @@
 ﻿using Stylet;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,17 @@ namespace CutCode
             themeService.ThemeChanged += ThemeChanged;
             SetAppearance();
             IsSearched = false;
+
+            AllCodes = new ObservableCollection<CodeBoxModel>();
+            var code1 = new CodeBoxModel("Pyqt5 scroll bar", "pyqt5 custom scroll bar made in python ok??", true, "python", themeService);
+            var code2 = new CodeBoxModel("Pyqt5 scroll bar", "pyqt5 custom scroll bar made in python ok??", true, "cpp", themeService);
+            var code3 = new CodeBoxModel("Pyqt5 scroll bar", "pyqt5 custom scroll bar made in python ok??", true, "csharp", themeService);
+            AllCodes.Add(code1);
+            AllCodes.Add(code2);
+            AllCodes.Add(code3);
+            AllCodes.Add(code1);
+            AllCodes.Add(code2);
+
         }
         private void ThemeChanged(object sender, EventArgs e)
         {
@@ -32,6 +44,8 @@ namespace CutCode
             searchBarHoverColor = themeService.IsLightTheme ? ColorCon.Convert("#D0D1D2") : ColorCon.Convert("#373737");
             comboboxHoverColor = themeService.IsLightTheme ? ColorCon.Convert("#C5C7C9") : ColorCon.Convert("#202326");
         }
+
+        public ObservableCollection<CodeBoxModel> AllCodes { get; set; }
 
         private SolidColorBrush _searchBarBackground;
         public SolidColorBrush searchBarBackground
