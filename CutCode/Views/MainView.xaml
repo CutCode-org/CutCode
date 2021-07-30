@@ -21,7 +21,6 @@
     </WindowChrome.WindowChrome>
 
     <Window.Resources>
-        <myns:ColorToBrushConverter x:Key="ColorToBrushConverter" />
         <SolidColorBrush x:Key="tooltip_background" Color="White"/>
         <SolidColorBrush x:Key="tooltip_foreground" Color="White"/>
 
@@ -66,12 +65,12 @@
 
     </Window.Resources>
 
-    <Grid Background="{Binding backgroundColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}">
+    <Grid Background="{Binding backgroundColor}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="52"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Background="{Binding SideBarColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" VerticalAlignment="Stretch">
+        <Grid Grid.Column="0" Background="{Binding SideBarColor}" VerticalAlignment="Stretch">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -86,16 +85,16 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
 
-                        <Button Background="{Binding background, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" 
-                                Style="{DynamicResource ButtonStyle}" BorderBrush="{Binding buttonHoverColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}"
+                        <Button Background="{Binding background}" 
+                                Style="{DynamicResource ButtonStyle}" BorderBrush="{Binding buttonHoverColor}"
                                 Command="{s:Action ChangePageCommand}" CommandParameter="{Binding toolTipText}">
                             <Image Source="{Binding imageSource}" Width="30" Height="30"  Margin="10,10,10,10" VerticalAlignment="Top"
                                     RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
 
                             <Button.ToolTip>
                                 <ToolTip Content="{Binding toolTipText}" Style="{DynamicResource sideBarBtnToolTip}"
-                                         Background="{Binding toolTipBackground, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}"
-                                         BorderBrush="{Binding toolTipForeground, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}"/>
+                                         Background="{Binding toolTipBackground}"
+                                         BorderBrush="{Binding toolTipForeground}"/>
                             </Button.ToolTip>
 
                             
@@ -113,13 +112,13 @@
                 <RowDefinition Height="44"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Background="{Binding titleBarColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" MouseDown="ChangeWindowPosition" MouseMove="MaxChangeWindowPosition">
+            <Grid Grid.Row="0" Background="{Binding titleBarColor}" MouseDown="ChangeWindowPosition" MouseMove="MaxChangeWindowPosition">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0" Content="CutCode" FontSize="20" Foreground="{Binding mainTextColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" 
+                <Label Grid.Column="0" Content="CutCode" FontSize="20" Foreground="{Binding mainTextColor}" 
                        FontFamily="{StaticResource poppins_semibold}" Height="34" Padding="15,0,0,0"/>
 
                 <Grid Grid.Column="1" VerticalAlignment="Center">
@@ -131,13 +130,13 @@
                     
                     <!-- Title Bar Buttons  -->
                     <Button Grid.Column="0" Background="Transparent" Style="{DynamicResource ButtonStyle}" 
-                            BorderBrush="{Binding titlebarBtnsHoverColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" Click="MinimizeClicked"  Margin="0,0,0,10">
+                            BorderBrush="{Binding titlebarBtnsHoverColor}" Click="MinimizeClicked"  Margin="0,0,0,10">
                         <Image Source="{Binding minImage}" Width="23" Height="23" Margin="5,6,5,8"
                             RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                     </Button>
 
                     <Button Grid.Column="1" Background="Transparent" Style="{DynamicResource ButtonStyle}"
-                            BorderBrush="{Binding titlebarBtnsHoverColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" Click="MaximizeClicked"  Margin="0,0,0,10">
+                            BorderBrush="{Binding titlebarBtnsHoverColor}" Click="MaximizeClicked"  Margin="0,0,0,10">
                         <Image Source="{Binding maxImage}" Width="23" Height="23"  Margin="5,6,5,8"
                         RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                     </Button>

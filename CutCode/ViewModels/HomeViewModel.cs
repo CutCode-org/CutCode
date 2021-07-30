@@ -27,38 +27,38 @@ namespace CutCode
         private void SetAppearance()
         {
             Theme = themeService.IsLightTheme;
-            searchBarBackground = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#DADBDC") : (Color)ColorConverter.ConvertFromString("#2A2E33");
-            searchBarTextColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#000000") : (Color)ColorConverter.ConvertFromString("#FFFFFF");
-            searchBarHoverColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#D0D1D2") : (Color)ColorConverter.ConvertFromString("#373737");
-            comboboxHoverColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#C5C7C9") : (Color)ColorConverter.ConvertFromString("#202326");
+            searchBarBackground = themeService.IsLightTheme ? ColorCon.Convert("#DADBDC") : ColorCon.Convert("#2A2E33");
+            searchBarTextColor = themeService.IsLightTheme ? ColorCon.Convert("#000000") : ColorCon.Convert("#FFFFFF");
+            searchBarHoverColor = themeService.IsLightTheme ? ColorCon.Convert("#D0D1D2") : ColorCon.Convert("#373737");
+            comboboxHoverColor = themeService.IsLightTheme ? ColorCon.Convert("#C5C7C9") : ColorCon.Convert("#202326");
         }
 
-        private Color _searchBarBackground;
-        public Color searchBarBackground
+        private SolidColorBrush _searchBarBackground;
+        public SolidColorBrush searchBarBackground
         {
             get => _searchBarBackground;
             set =>SetAndNotify(ref _searchBarBackground, value);
             
         }
 
-        private Color _searchBarHoverColor;
-        public Color searchBarHoverColor
+        private SolidColorBrush _searchBarHoverColor;
+        public SolidColorBrush searchBarHoverColor
         {
             get => _searchBarHoverColor;
             set => SetAndNotify(ref _searchBarHoverColor, value);
 
         }
 
-        private Color _searchBarTextColor;
-        public Color searchBarTextColor
+        private SolidColorBrush _searchBarTextColor;
+        public SolidColorBrush searchBarTextColor
         {
             get => _searchBarTextColor;
             set =>  SetAndNotify(ref _searchBarTextColor, value);
             
         }
 
-        private Color _comboboxHoverColor;
-        public Color comboboxHoverColor
+        private SolidColorBrush _comboboxHoverColor;
+        public SolidColorBrush comboboxHoverColor
         {
             get => _comboboxHoverColor;
             set => SetAndNotify(ref _comboboxHoverColor, value);

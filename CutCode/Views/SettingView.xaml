@@ -10,8 +10,7 @@
       mc:Ignorable="d">
 
     <Grid.Resources>
-        <myns:ColorToBrushConverter x:Key="ColorToBrushConverter" />
-        
+
         <Style x:Key="ThemeBtnStyle" TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -53,21 +52,21 @@
     </Grid.RowDefinitions>
 
 
-    <Border Grid.Row="1" Background="{Binding cardBackgroundColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" Height="180" Width="550" CornerRadius="10" BorderThickness="0" Margin="0,0,10,0">
+    <Border Grid.Row="1" Background="{Binding cardBackgroundColor}" Height="180" Width="550" CornerRadius="10" BorderThickness="0" Margin="0,0,10,0">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Theme" Foreground="{Binding mainTextColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" FontSize="20" 
+            <Label Grid.Row="0" Content="Theme" Foreground="{Binding mainTextColor}" FontSize="20" 
                    Margin="20,10,0,2" FontFamily="{StaticResource poppins_semibold}"/>
 
             <ItemsControl Grid.Row="1" Name="sideBarBtns" ItemsSource="{Binding themeBtns}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
 
-                        <Border Background="{Binding backgroundColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" Margin="15,3,20,3"  CornerRadius="8">
-                            <Button Style="{DynamicResource ThemeBtnStyle}" BorderBrush="{Binding HoverbackgroundColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}"
+                        <Border Background="{Binding backgroundColor}" Margin="15,3,20,3"  CornerRadius="8">
+                            <Button Style="{DynamicResource ThemeBtnStyle}" BorderBrush="{Binding HoverbackgroundColor}"
                                     Command="{s:Action ThemeChangeCommand}" CommandParameter="{Binding text}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -76,7 +75,7 @@
                                     </Grid.ColumnDefinitions>
                                     <Image Grid.Column="0" Source="{Binding ToggleImage}" Width="23" Height="23" Margin="10,0,10,0"
                                             RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
-                                    <Label Grid.Column="1" Content="{Binding text}" Foreground="{Binding textColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" 
+                                    <Label Grid.Column="1" Content="{Binding text}" Foreground="{Binding textColor}" 
                                            FontSize="15.3"  FontFamily="{StaticResource poppins_semibold}"/>
                                 </Grid>
                             </Button>
@@ -90,14 +89,14 @@
     </Border>
 
 
-    <Border Grid.Row="4" Background="{Binding cardBackgroundColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" 
+    <Border Grid.Row="4" Background="{Binding cardBackgroundColor}" 
             Height="160" Width="550" CornerRadius="10"  Margin="0,0,10,0">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Shortcut key" Foreground="{Binding mainTextColor, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" 
+            <Label Grid.Row="0" Content="Shortcut key" Foreground="{Binding mainTextColor}" 
                    FontSize="20" Margin="20,10,0,0" FontFamily="{StaticResource poppins_semibold}"/>
             <Grid Grid.Row="1">
 

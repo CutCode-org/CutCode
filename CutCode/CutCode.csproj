@@ -16,11 +16,11 @@
     <None Remove="Resources\Images\Icons\add_white.png" />
     <None Remove="Resources\Images\Icons\exit_black.png" />
     <None Remove="Resources\Images\Icons\exit_white.png" />
+    <None Remove="Resources\Images\Icons\fav.png" />
     <None Remove="Resources\Images\Icons\favourite_black.png" />
     <None Remove="Resources\Images\Icons\favourite_white.png" />
     <None Remove="Resources\Images\Icons\home_black.png" />
     <None Remove="Resources\Images\Icons\home_white.png" />
-    <None Remove="Resources\Images\Icons\loading.gif" />
     <None Remove="Resources\Images\Icons\max_black.png" />
     <None Remove="Resources\Images\Icons\max_white.png" />
     <None Remove="Resources\Images\Icons\min_black.png" />
@@ -31,6 +31,9 @@
     <None Remove="Resources\Images\Icons\toggle_off_white.png" />
     <None Remove="Resources\Images\Icons\toggle_on_black.png" />
     <None Remove="Resources\Images\Icons\toggle_on_white.png" />
+    <None Remove="Resources\Images\LangLogo\c.png" />
+    <None Remove="Resources\Images\LangLogo\cpp.png" />
+    <None Remove="Resources\Images\LangLogo\csharp.png" />
     <None Remove="Resources\Images\logo.png" />
   </ItemGroup>
 
@@ -48,11 +51,11 @@
     <Resource Include="Resources\Images\Icons\add_white.png" />
     <Resource Include="Resources\Images\Icons\exit_black.png" />
     <Resource Include="Resources\Images\Icons\exit_white.png" />
+    <Resource Include="Resources\Images\Icons\fav.png" />
     <Resource Include="Resources\Images\Icons\favourite_black.png" />
     <Resource Include="Resources\Images\Icons\favourite_white.png" />
     <Resource Include="Resources\Images\Icons\home_black.png" />
     <Resource Include="Resources\Images\Icons\home_white.png" />
-    <Resource Include="Resources\Images\Icons\loading.gif" />
     <Resource Include="Resources\Images\Icons\max_black.png" />
     <Resource Include="Resources\Images\Icons\max_white.png" />
     <Resource Include="Resources\Images\Icons\min_black.png" />
@@ -63,6 +66,23 @@
     <Resource Include="Resources\Images\Icons\toggle_off_white.png" />
     <Resource Include="Resources\Images\Icons\toggle_on_black.png" />
     <Resource Include="Resources\Images\Icons\toggle_on_white.png" />
+    <Resource Include="Resources\Images\LangLogo\c.png" />
+    <Resource Include="Resources\Images\LangLogo\cpp.png" />
+    <Resource Include="Resources\Images\LangLogo\csharp.png" />
+    <Resource Include="Resources\Images\LangLogo\css.png" />
+    <Resource Include="Resources\Images\LangLogo\dart.png" />
+    <Resource Include="Resources\Images\LangLogo\file.png" />
+    <Resource Include="Resources\Images\LangLogo\golang.png" />
+    <Resource Include="Resources\Images\LangLogo\html.png" />
+    <Resource Include="Resources\Images\LangLogo\java.png" />
+    <Resource Include="Resources\Images\LangLogo\javascript.png" />
+    <Resource Include="Resources\Images\LangLogo\kotlin.png" />
+    <Resource Include="Resources\Images\LangLogo\php.png" />
+    <Resource Include="Resources\Images\LangLogo\python.png" />
+    <Resource Include="Resources\Images\LangLogo\ruby.png" />
+    <Resource Include="Resources\Images\LangLogo\rust.png" />
+    <Resource Include="Resources\Images\LangLogo\sql.png" />
+    <Resource Include="Resources\Images\LangLogo\swift.png" />
     <Resource Include="Resources\Images\logo.png" />
   </ItemGroup>
 

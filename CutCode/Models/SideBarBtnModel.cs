@@ -28,7 +28,7 @@ namespace CutCode
             var index = SideBarBtns.AllSideBarBtns.IndexOf(_toolTipText);
             btnBothimages.Add(SideBarBtns.SideBarBtnsLightTheme[index]);
             btnBothimages.Add(SideBarBtns.SideBarBtnsDarkTheme[index]);
-            background = (Color)ColorConverter.ConvertFromString("#00FFFFFF");
+            background = ColorCon.Convert("#00FFFFFF");
 
             SetAppearance();
         }
@@ -41,21 +41,21 @@ namespace CutCode
         {
             imageSource = themeService.IsLightTheme ? $"../Resources/Images/Icons/{btnBothimages[0]}" : $"../Resources/Images/Icons/{btnBothimages[1]}";
 
-            buttonHoverColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#D6D7DA") : (Color)ColorConverter.ConvertFromString("#46494E");
+            buttonHoverColor = themeService.IsLightTheme ? ColorCon.Convert("#D6D7DA") : ColorCon.Convert("#46494E");
 
-            toolTipBackground = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#CBD0D5") : (Color)ColorConverter.ConvertFromString("#1E1E1E");
-            toolTipForeground = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#060607") : (Color)ColorConverter.ConvertFromString("#94969A");
+            toolTipBackground = themeService.IsLightTheme ? ColorCon.Convert("#CBD0D5") : ColorCon.Convert("#1E1E1E");
+            toolTipForeground = themeService.IsLightTheme ? ColorCon.Convert("#060607") : ColorCon.Convert("#94969A");
 
             
-            if (background != (Color)ColorConverter.ConvertFromString("#00FFFFFF"))
+            if (background.Color != ColorCon.Convert("#00FFFFFF").Color)
             {
-                background = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#FCFCFC") : (Color)ColorConverter.ConvertFromString("#36393F");
+                background = themeService.IsLightTheme ? ColorCon.Convert("#FCFCFC") : ColorCon.Convert("#36393F");
             }
         }
         public string toolTipText { get; set; }
 
-        private Color _background;
-        public Color background
+        private SolidColorBrush _background;
+        public SolidColorBrush background
         {
             get => _background;
             set
@@ -80,23 +80,23 @@ namespace CutCode
             }
         }
 
-        private Color _toolTipBackground;
-        public Color toolTipBackground
+        private SolidColorBrush _toolTipBackground;
+        public SolidColorBrush toolTipBackground
         {
             get => _toolTipBackground;
             set { SetAndNotify(ref _toolTipBackground, value); }
         }
 
-        private Color _toolTipForeground;
-        public Color toolTipForeground
+        private SolidColorBrush _toolTipForeground;
+        public SolidColorBrush toolTipForeground
         {
             get => _toolTipForeground;
             set { SetAndNotify(ref _toolTipForeground, value); }
         }
 
         
-        private Color _buttonHoverColor;
-        public Color buttonHoverColor
+        private SolidColorBrush _buttonHoverColor;
+        public SolidColorBrush buttonHoverColor
         {
             get => _buttonHoverColor;
             set { SetAndNotify(ref _buttonHoverColor, value); }

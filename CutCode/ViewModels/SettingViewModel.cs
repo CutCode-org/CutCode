@@ -25,18 +25,18 @@ namespace CutCode
             themeBtns.Add(new ThemeButtonModel("Light Mode", themeService));
             themeBtns.Add(new ThemeButtonModel("Dark Mode", themeService));
 
-            mainTextColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#0B0B13") : (Color)ColorConverter.ConvertFromString("#94969A");
-            cardBackgroundColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#F2F3F5") : (Color)ColorConverter.ConvertFromString("#2F3136");
+            mainTextColor = themeService.IsLightTheme ? ColorCon.Convert("#0B0B13") : ColorCon.Convert("#94969A");
+            cardBackgroundColor = themeService.IsLightTheme ? ColorCon.Convert("#F2F3F5") : ColorCon.Convert("#2F3136");
         }
 
         private void ThemeChanged(object sender, EventArgs e)
         {
-            mainTextColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#0B0B13") : (Color)ColorConverter.ConvertFromString("#94969A");
-            cardBackgroundColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#F2F3F5") : (Color)ColorConverter.ConvertFromString("#2F3136");
+            mainTextColor = themeService.IsLightTheme ? ColorCon.Convert("#0B0B13") : ColorCon.Convert("#94969A");
+            cardBackgroundColor = themeService.IsLightTheme ? ColorCon.Convert("#F2F3F5") : ColorCon.Convert("#2F3136");
         }
 
-        private Color _mainTextColor;
-        public Color mainTextColor
+        private SolidColorBrush _mainTextColor;
+        public SolidColorBrush mainTextColor
         {
             get => _mainTextColor;
             set
@@ -48,8 +48,8 @@ namespace CutCode
             }
         }
 
-        private Color _cardBackgroundColor;
-        public Color cardBackgroundColor
+        private SolidColorBrush _cardBackgroundColor;
+        public SolidColorBrush cardBackgroundColor
         {
             get => _cardBackgroundColor;
             set

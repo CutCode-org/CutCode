@@ -81,7 +81,7 @@ namespace CutCode
         #region PlaceholderText color property
         public static readonly DependencyProperty PlaceholderTextColorProperty =
             DependencyProperty.Register("PlaceholderTextColor", typeof(SolidColorBrush), typeof(SearchBarControl),
-                new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF")), PlaceholderTextColorPropertyChanged));
+                new PropertyMetadata(ColorCon.Convert("#FFFFFF"), PlaceholderTextColorPropertyChanged));
 
         public SolidColorBrush PlaceholderTextColor
         {
@@ -98,7 +98,7 @@ namespace CutCode
         #region Background color property
         public static readonly DependencyProperty BackgroundColorProperty =
             DependencyProperty.Register("BackgroundColor", typeof(SolidColorBrush), typeof(SearchBarControl),
-                new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#000000")), BackgroundColorPropertyChanged));
+                new PropertyMetadata(ColorCon.Convert("#000000"), BackgroundColorPropertyChanged));
 
         public SolidColorBrush BackgroundColor
         {
@@ -115,7 +115,7 @@ namespace CutCode
         #region Text color property
         public static readonly DependencyProperty TextColorProperty =
             DependencyProperty.Register("TextColor", typeof(SolidColorBrush), typeof(SearchBarControl),
-                new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF")), TextColorPropertyChanged));
+                new PropertyMetadata(ColorCon.Convert("#FFFFFF"), TextColorPropertyChanged));
 
         public SolidColorBrush TextColor
         {
@@ -132,7 +132,7 @@ namespace CutCode
         #region ButtonHover color property
         public static readonly DependencyProperty ButtonHoverColorProperty =
             DependencyProperty.Register("ButtonHoverColor", typeof(SolidColorBrush), typeof(SearchBarControl),
-                new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#000000")), ButtonHoverColorPropertyChanged));
+                new PropertyMetadata(ColorCon.Convert("#000000"), ButtonHoverColorPropertyChanged));
 
         public SolidColorBrush ButtonHoverColor
         {

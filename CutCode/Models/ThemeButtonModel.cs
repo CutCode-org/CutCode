@@ -26,21 +26,21 @@ namespace CutCode
 
         private void SetAppearance()
         {
-            textColor = themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#0B0B13") : (Color)ColorConverter.ConvertFromString("#94969A");
+            textColor = themeService.IsLightTheme ? ColorCon.Convert("#0B0B13") : ColorCon.Convert("#94969A");
             if (themeService.IsLightTheme == true)
             {
                 if (text == "Light Mode")
                 {
-                    backgroundColor = (Color)ColorConverter.ConvertFromString("#DADDE1");
+                    backgroundColor = ColorCon.Convert("#DADDE1");
                     ToggleImage = $"../Resources/Images/Icons/toggle_on_black.png";
-                    HoverbackgroundColor = (Color)ColorConverter.ConvertFromString("#00FFFFFF");
+                    HoverbackgroundColor = ColorCon.Convert("#00FFFFFF");
                 }
 
                 else
                 {
-                    backgroundColor = (Color)ColorConverter.ConvertFromString("#00FFFFFF");
+                    backgroundColor = ColorCon.Convert("#00FFFFFF");
                     ToggleImage = $"../Resources/Images/Icons/toggle_off_black.png";
-                    HoverbackgroundColor = (Color)ColorConverter.ConvertFromString("#E5E6E8");
+                    HoverbackgroundColor = ColorCon.Convert("#E5E6E8");
                 }
 
             }
@@ -48,15 +48,15 @@ namespace CutCode
             {
                 if (text == "Dark Mode")
                 {
-                    backgroundColor = (Color)ColorConverter.ConvertFromString("#202225");
+                    backgroundColor = ColorCon.Convert("#202225");
                     ToggleImage = $"../Resources/Images/Icons/toggle_on_white.png";
-                    HoverbackgroundColor = (Color)ColorConverter.ConvertFromString("#00FFFFFF");
+                    HoverbackgroundColor = ColorCon.Convert("#00FFFFFF");
                 }
                 else
                 {
-                    backgroundColor = (Color)ColorConverter.ConvertFromString("#00FFFFFF");
+                    backgroundColor = ColorCon.Convert("#00FFFFFF");
                     ToggleImage = $"../Resources/Images/Icons/toggle_off_white.png";
-                    HoverbackgroundColor = (Color)ColorConverter.ConvertFromString("#27282C");
+                    HoverbackgroundColor = ColorCon.Convert("#27282C");
                 }
             }
         }
@@ -68,8 +68,8 @@ namespace CutCode
             set { SetAndNotify(ref _text, value); }
         }
 
-        private Color _textColor;
-        public Color textColor
+        private SolidColorBrush _textColor;
+        public SolidColorBrush textColor
         {
             get => _textColor;
             set
@@ -88,8 +88,8 @@ namespace CutCode
             set { SetAndNotify(ref _ToggleImage, value); }
         }
 
-        private Color _backgroundColor;
-        public Color backgroundColor
+        private SolidColorBrush _backgroundColor;
+        public SolidColorBrush backgroundColor
         {
             get => _backgroundColor;
             set
@@ -101,8 +101,8 @@ namespace CutCode
             }
         }
 
-        private Color _HoverbackgroundColor;
-        public Color HoverbackgroundColor
+        private SolidColorBrush _HoverbackgroundColor;
+        public SolidColorBrush HoverbackgroundColor
         {
             get => _HoverbackgroundColor;
             set

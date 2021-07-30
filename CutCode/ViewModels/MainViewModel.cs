@@ -38,7 +38,7 @@ namespace CutCode
             sideBarBtns.Add(new SideBarBtnModel("Add", _themeService));
             sideBarBtns.Add(new SideBarBtnModel("Favourite", _themeService));
             sideBarBtns.Add(new SideBarBtnModel("Settings", _themeService));
-            sideBarBtns[0].background = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#FCFCFC") : (Color)ColorConverter.ConvertFromString("#36393F");
+            sideBarBtns[0].background = _themeService.IsLightTheme ? ColorCon.Convert("#FCFCFC") : ColorCon.Convert("#36393F");
 
 
             Pages = new List<Object>() { new HomeViewModel(themeService), new AddViewModel(), new FavViewModel(), new SettingViewModel(_themeService) };
@@ -47,16 +47,16 @@ namespace CutCode
         private void ThemeChanged(object sender, EventArgs e)
         {
             
-            backgroundColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#FCFCFC") : (Color)ColorConverter.ConvertFromString("#36393F");
-            titleBarColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#E3E5E8") : (Color)ColorConverter.ConvertFromString("#202225");
-            SideBarColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#F2F3F5") : (Color)ColorConverter.ConvertFromString("#2A2E33");
-            mainTextColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#0B0B13") : (Color)ColorConverter.ConvertFromString("#94969A");
+            backgroundColor = _themeService.IsLightTheme ? ColorCon.Convert("#FCFCFC") : ColorCon.Convert("#36393F");
+            titleBarColor = _themeService.IsLightTheme ? ColorCon.Convert("#E3E5E8") : ColorCon.Convert("#202225");
+            SideBarColor = _themeService.IsLightTheme ? ColorCon.Convert("#F2F3F5") : ColorCon.Convert("#2A2E33");
+            mainTextColor = _themeService.IsLightTheme ? ColorCon.Convert("#0B0B13") : ColorCon.Convert("#94969A");
 
             exitImage = _themeService.IsLightTheme ? "../Resources/Images/Icons/exit_black.png" : "../Resources/Images/Icons/exit_white.png";
             minImage = _themeService.IsLightTheme ? "../Resources/Images/Icons/min_black.png" : "../Resources/Images/Icons/min_white.png";
             maxImage = _themeService.IsLightTheme ? "../Resources/Images/Icons/max_black.png" : "../Resources/Images/Icons/max_white.png";
 
-            titlebarBtnsHoverColor = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#D0D1D2") : (Color)ColorConverter.ConvertFromString("#373737");
+            titlebarBtnsHoverColor = _themeService.IsLightTheme ? ColorCon.Convert("#D0D1D2") : ColorCon.Convert("#373737");
         }
 
         private Object _currentPage;
@@ -71,15 +71,15 @@ namespace CutCode
             int ind = 0;
             foreach (var btn in sideBarBtns)
             {
-                if (btn.toolTipText != selected_item) btn.background = (Color)ColorConverter.ConvertFromString("#00FFFFFF");
+                if (btn.toolTipText != selected_item) btn.background = ColorCon.Convert("#00FFFFFF");
                 else ind = sideBarBtns.IndexOf(btn);
             }
-            sideBarBtns[ind].background = _themeService.IsLightTheme ? (Color)ColorConverter.ConvertFromString("#FCFCFC") : (Color)ColorConverter.ConvertFromString("#36393F");
+            sideBarBtns[ind].background = _themeService.IsLightTheme ? ColorCon.Convert("#FCFCFC") : ColorCon.Convert("#36393F");
             if (currentPage != Pages[ind]) currentPage = Pages[ind];
         }
 
-        private Color _backgroundColor;
-        public Color backgroundColor
+        private SolidColorBrush _backgroundColor;
+        public SolidColorBrush backgroundColor
         {
             get => _backgroundColor;
             set
@@ -91,8 +91,8 @@ namespace CutCode
             }
         }
 
-        private Color _titleBarColor;
-        public Color titleBarColor
+        private SolidColorBrush _titleBarColor;
+        public SolidColorBrush titleBarColor
         {
             get => _titleBarColor;
             set
@@ -104,8 +104,8 @@ namespace CutCode
             }
         }
 
-        private Color _sideBarColor;
-        public Color SideBarColor
+        private SolidColorBrush _sideBarColor;
+        public SolidColorBrush SideBarColor
         {
             get => _sideBarColor;
             set
@@ -117,8 +117,8 @@ namespace CutCode
             }
         }
 
-        private Color _mainTextColor;
-        public Color mainTextColor
+        private SolidColorBrush _mainTextColor;
+        public SolidColorBrush mainTextColor
         {
             get => _mainTextColor;
             set
@@ -154,8 +154,8 @@ namespace CutCode
             { SetAndNotify(ref _minImage, value); }
         }
 
-        private Color _titlebarBtnsHoverColor;
-        public Color titlebarBtnsHoverColor
+        private SolidColorBrush _titlebarBtnsHoverColor;
+        public SolidColorBrush titlebarBtnsHoverColor
         {
             get => _titlebarBtnsHoverColor;
             set
