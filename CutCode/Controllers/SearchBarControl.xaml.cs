@@ -209,6 +209,7 @@ namespace CutCode
         private void ClearClicked(object sender, EventArgs e)
         {
             searchBox.Text = "";
+            SearchCommand?.Execute("");
         }
 
 

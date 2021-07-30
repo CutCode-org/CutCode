@@ -53,8 +53,8 @@
                             <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True"  Focusable="False" PopupAnimation="Slide">
                                 <Grid  Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
 
-                                    <Border x:Name="DropDownBorder" Background="{TemplateBinding Background}" CornerRadius="0,0,5,5" BorderThickness="0"/>
-                                    <ScrollViewer SnapsToDevicePixels="True">
+                                    <Border x:Name="DropDownBorder" Background="{TemplateBinding Background}" CornerRadius="5" BorderThickness="0"/>
+                                    <ScrollViewer SnapsToDevicePixels="True" Style="{StaticResource ScrollViewerStyle}" HorizontalAlignment="Stretch">
                                         <Grid Background="{TemplateBinding Background}">
                                             <StackPanel IsItemsHost="True"/>
                                         </Grid>
@@ -66,10 +66,8 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Style.Triggers>
-            </Style.Triggers>
         </Style>
-        
+
     </Grid.Resources>
 
     <Grid.RowDefinitions>
@@ -103,16 +101,18 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Content="Sort by" Foreground="{Binding searchBarTextColor}" 
                    FontSize="12" FontFamily="{StaticResource poppins_regular}"/>
-            <ComboBox Grid.Row="1" Height="30" Width="150" Text="Sort by" Margin="5,5,15,5" BorderThickness="0"
+            <ComboBox x:Name="sortCombobox" Grid.Row="1" Height="30" Width="150" Text="Sort by" Margin="5,5,15,5" BorderThickness="0"
                       Foreground="{Binding searchBarTextColor}"   FontFamily="{StaticResource poppins_regular}"
-                        Background="{Binding searchBarBackground}" 
+                        Background="{Binding comboboxBackgroundColor}"  SelectedIndex="0"
                         IsDropDownOpen="false" Style="{DynamicResource comboBoxStyle}" 
                       BorderBrush="{Binding comboboxHoverColor}">
-
-                <ComboBoxItem Foreground="{Binding searchBarTextColor}" 
-                              FontFamily="{StaticResource poppins_regular}" BorderThickness="0">Date</ComboBoxItem>
-                <ComboBoxItem Foreground="{Binding searchBarTextColor}" 
-                              FontFamily="{StaticResource poppins_regular}" BorderThickness="0">Alphabet</ComboBoxItem>
+                <ComboBoxItem>Date</ComboBoxItem>
+                <ComboBoxItem>Alphabet</ComboBoxItem>
+                <ComboBox.Resources>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                </ComboBox.Resources>
             </ComboBox>
         </Grid>
 
@@ -122,49 +122,40 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            
             <Label Grid.Row="0" Content="Language" Foreground="{Binding searchBarTextColor}" 
                    FontSize="12" FontFamily="{StaticResource poppins_regular}"/>
+
             <ComboBox Grid.Row="1" Height="30" Width="150" Text="Languages" Margin="5,5,15,5" BorderThickness="0"
                       Foreground="{Binding searchBarTextColor}"   FontFamily="{StaticResource poppins_regular}"
-                        Background="{Binding searchBarBackground}" 
+                        Background="{Binding comboboxBackgroundColor}" SelectedIndex="0"
                         IsDropDownOpen="false" Style="{DynamicResource comboBoxStyle}" 
-                      BorderBrush="{Binding comboboxHoverColor}">
+                      BorderBrush="{Binding comboboxHoverColor}" ItemsSource="{Binding AllLangs}">
 
-                <ComboBoxItem Foreground="{Binding searchBarTextColor}" 
-                              FontFamily="{StaticResource poppins_regular}" BorderThickness="0">All Language</ComboBoxItem>
-                <ComboBoxItem Foreground="{Binding searchBarTextColor}" 
-                              FontFamily="{StaticResource poppins_regular}" BorderThickness="0">Python</ComboBoxItem>
+
+                <ComboBox.Resources>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                </ComboBox.Resources>
             </ComboBox>
         </Grid>
     </Grid>
     <Grid Grid.Row="2" Margin="5,5,5,5">
-        <ListBox ItemsSource="{Binding AllCodes}" BorderThickness="0" Background="Transparent"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <local:CodeBoxControl Margin="5,5,5,5" Title="{Binding title}" Desc="{Binding desc}" 
-                                          
-                                  IsFavourite="{Binding isFav}" LangType="{Binding langType}" ThemeService="{Binding themeService}"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
 
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="BorderThickness" Value="0"/>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="ListBoxItem">
-                                <Border Name="Border" Padding="0" SnapsToDevicePixels="true">
-                                    <ContentPresenter />
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListBox.ItemContainerStyle>
-        </ListBox>
+        <ScrollViewer BorderBrush="Transparent" Style="{StaticResource ScrollViewerStyle}"
+                      BorderThickness="0">
+            <ItemsControl ItemsSource="{Binding AllCodes}" BorderThickness="0" Background="Transparent"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:CodeBoxControl Margin="5,5,5,5" Title="{Binding title}" Desc="{Binding desc}" 
+                                  IsFavourite="{Binding isFav}" LangType="{Binding langType}" ThemeService="{Binding themeService}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 
 </Grid>

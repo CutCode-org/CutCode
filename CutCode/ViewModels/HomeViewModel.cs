@@ -22,13 +22,19 @@ namespace CutCode
 
             AllCodes = new ObservableCollection<CodeBoxModel>();
             var code1 = new CodeBoxModel("Pyqt5 scroll bar", "pyqt5 custom scroll bar made in python ok??", true, "python", themeService);
-            var code2 = new CodeBoxModel("Pyqt5 scroll bar", "pyqt5 custom scroll bar made in python ok??", true, "cpp", themeService);
-            var code3 = new CodeBoxModel("Pyqt5 scroll bar", "pyqt5 custom scroll bar made in python ok??", true, "csharp", themeService);
+            var code2 = new CodeBoxModel("C++ binary search", "blah blah binary blah ... ye and ok \n so what??", false, "cpp", themeService);
+            var code3 = new CodeBoxModel("wpf sample combo box", "combo box style that is responseive to the ui and also \n and ok ?? blah ... ", true, "csharp", themeService);
             AllCodes.Add(code1);
             AllCodes.Add(code2);
             AllCodes.Add(code3);
             AllCodes.Add(code1);
             AllCodes.Add(code2);
+
+            AllLangs = new ObservableCollection<string>()
+            {
+            "All languages", "Python", "C++", "C#", "CSS", "Dart", "Golang", "Html", "Java",
+            "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
+            };
 
         }
         private void ThemeChanged(object sender, EventArgs e)
@@ -43,9 +49,11 @@ namespace CutCode
             searchBarTextColor = themeService.IsLightTheme ? ColorCon.Convert("#000000") : ColorCon.Convert("#FFFFFF");
             searchBarHoverColor = themeService.IsLightTheme ? ColorCon.Convert("#D0D1D2") : ColorCon.Convert("#373737");
             comboboxHoverColor = themeService.IsLightTheme ? ColorCon.Convert("#C5C7C9") : ColorCon.Convert("#202326");
+            comboboxBackgroundColor = themeService.IsLightTheme ? ColorCon.Convert("#E3E5E8") : ColorCon.Convert("#202225");
         }
 
-        public ObservableCollection<CodeBoxModel> AllCodes { get; set; }
+        public IList<CodeBoxModel> AllCodes { get; set; }
+        public IList<string> AllLangs { get; set; }
 
         private SolidColorBrush _searchBarBackground;
         public SolidColorBrush searchBarBackground
@@ -79,12 +87,19 @@ namespace CutCode
 
         }
 
+        private SolidColorBrush _comboboxBackgroundColor;
+        public SolidColorBrush comboboxBackgroundColor
+        {
+            get => _comboboxBackgroundColor;
+            set => SetAndNotify(ref _comboboxBackgroundColor, value);
+
+        }
+
         private bool _Theme;
         public bool Theme
         {
             get => _Theme;
             set => SetAndNotify(ref _Theme, value);
-            
         }
 
         private bool _IsSearched;

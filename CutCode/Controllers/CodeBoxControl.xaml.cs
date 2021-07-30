@@ -61,7 +61,7 @@ namespace CutCode
         {
             titleLabel.Foreground = ThemeService.IsLightTheme ? ColorCon.Convert("#000000") : ColorCon.Convert("#FFFFFF");
             descLabel.Foreground = ThemeService.IsLightTheme ? ColorCon.Convert("#000000") : ColorCon.Convert("#FFFFFF");
-            card.Background = ThemeService.IsLightTheme ? ColorCon.Convert("#E5E7E9") : ColorCon.Convert("#2A2E33");
+            card.Background = ThemeService.IsLightTheme ? ColorCon.Convert("#EAEEF2") : ColorCon.Convert("#2A2E33");
             card.BorderBrush = ThemeService.IsLightTheme ? ColorCon.Convert("#DCDEE1") : ColorCon.Convert("#212428");
         }
         #endregion
@@ -143,7 +143,7 @@ namespace CutCode
         #region IsFavourite property
         public static readonly DependencyProperty IsFavouriteProperty =
             DependencyProperty.Register("IsFavourite", typeof(bool), typeof(CodeBoxControl),
-                new FrameworkPropertyMetadata(false, IsFavouritePropertyChanged));
+                new FrameworkPropertyMetadata(true, IsFavouritePropertyChanged));
 
         public bool IsFavourite
         {

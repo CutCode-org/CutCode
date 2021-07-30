@@ -29,7 +29,7 @@
         
     </UserControl.Resources>
 
-    <Button x:Name="card" Style="{DynamicResource ButtonStyle}" BorderThickness="0" Height="110">
+    <Button x:Name="card" Style="{DynamicResource ButtonStyle}" BorderThickness="0" Height="110" Margin="0,0,15,0">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -55,7 +55,7 @@
 
 
                     <Image Grid.Column="1" x:Name="favImg"  Source="../Resources/Images/Icons/fav.png"
-                           Width="22" Height="22" VerticalAlignment="Center" Margin="5,5,15,5" HorizontalAlignment="Right"
+                           Width="20" Height="20" VerticalAlignment="Center" Margin="5,5,15,5" HorizontalAlignment="Right"
                            RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                 </Grid>
 
