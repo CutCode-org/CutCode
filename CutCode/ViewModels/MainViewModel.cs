@@ -41,7 +41,7 @@ namespace CutCode
             sideBarBtns[0].background = _themeService.IsLightTheme ? ColorCon.Convert("#FCFCFC") : ColorCon.Convert("#36393F");
 
 
-            Pages = new List<Object>() { new HomeViewModel(themeService), new AddViewModel(), new FavViewModel(themeService), new SettingViewModel(_themeService) };
+            Pages = new List<Object>() { new HomeViewModel(themeService), new AddViewModel(themeService), new FavViewModel(themeService), new SettingViewModel(_themeService) };
             currentPage = Pages[0];
         }
         private void ThemeChanged(object sender, EventArgs e)

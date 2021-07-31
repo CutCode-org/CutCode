@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Fonts\FiraCode-Regular.ttf" />
     <None Remove="Resources\Fonts\Poppins-Regular.ttf" />
     <None Remove="Resources\Fonts\Poppins-SemiBold.ttf" />
     <None Remove="Resources\Fonts\Roboto-Bold.ttf" />
@@ -42,6 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Fonts\FiraCode-Regular.ttf" />
     <Resource Include="Resources\Fonts\Poppins-Regular.ttf" />
     <Resource Include="Resources\Fonts\Poppins-SemiBold.ttf" />
     <Resource Include="Resources\Fonts\Roboto-Bold.ttf" />

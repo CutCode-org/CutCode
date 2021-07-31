@@ -8,6 +8,153 @@
       xmlns:s="https://github.com/canton7/Stylet"
       mc:Ignorable="d">
 
+    <Grid.Resources>
 
-    <Label Content="Add" FontSize="30"/>
+        <Style x:Key="textBoxStyle" TargetType="TextBox">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0" CornerRadius="8">
+                            <ContentPresenter Margin="5,5,5,5"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+    </Grid.Resources>
+
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+
+    <Label Grid.Row="0" Content="Add code" FontFamily="{StaticResource poppins_semibold}" Foreground="{Binding textBoxForeground}" FontSize="20" Margin="10,5,0,0"/>
+
+    <Grid Grid.Row="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Column="0">
+            <Border BorderThickness="0" Background="{Binding textBoxBackground}" Margin="10,0,5,5" CornerRadius="8" Height="38">
+                <Grid>
+                    <TextBox x:Name="titleEntry" MaxLength="40" Margin="5,0,25,0"  Width="400" VerticalContentAlignment="Center"
+                     Background="{Binding textBoxBackground}" Foreground="{Binding textBoxForeground}" 
+                     Text="{Binding title}" FontFamily="{StaticResource poppins_regular}" FontSize="15" BorderThickness="0"/>
+
+                    <TextBlock Text="Title" FontSize="15" FontFamily="{StaticResource poppins_regular}" 
+                        IsHitTestVisible="False" Foreground="#929292" Margin="10,7,0,0">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=titleEntry}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Column="1" Margin="10,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Language" FontFamily="{StaticResource poppins_regular}" Foreground="{Binding textBoxForeground}"/>
+            <ComboBox Grid.Row="1" Style="{StaticResource comboBoxStyle}" Background="{Binding textBoxBackground}" Width="130" Margin="5,0,0,0"
+                      SelectedIndex="0"
+                      BorderBrush="{Binding textBoxBackground}" ItemsSource="{Binding AllLangs}" Foreground="{Binding textBoxForeground}" FontFamily="{StaticResource poppins_regular}">
+                <ComboBox.Resources>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                </ComboBox.Resources>
+            </ComboBox>
+        </Grid>
+    </Grid>
+
+    <Border Grid.Row="2" BorderThickness="0" Background="{Binding textBoxBackground}" Margin="10,15,5,5" CornerRadius="8" Height="68" HorizontalAlignment="Left" Width="600">
+        <Grid>
+            <TextBox x:Name="descEntry" Margin="5,7,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top" MaxLength="120" 
+                     Background="{Binding textBoxBackground}" Foreground="{Binding textBoxForeground}" TextWrapping="Wrap"
+                     Text="{Binding desc}" FontFamily="{StaticResource poppins_regular}" FontSize="15" BorderThickness="0"/>
+
+            <TextBlock Text="Description" FontSize="15" FontFamily="{StaticResource poppins_regular}" 
+                        IsHitTestVisible="False" Foreground="#929292" Margin="10,7,0,0">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text, ElementName=descEntry}" Value="">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
+    </Border>
+
+    <Border Grid.Row="3" BorderThickness="0" Background="{Binding textBoxBackground}" Margin="10,15,12,5" CornerRadius="8" 
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid>
+            <TextBox x:Name="codeEditor" Margin="5,9,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top" MaxLength="2000"
+                     Background="{Binding textBoxBackground}" Foreground="Black" TextWrapping="Wrap" AcceptsReturn="True"
+                     Text="{Binding code}" FontFamily="{StaticResource firacode_regular}" FontSize="14" BorderThickness="0"/>
+
+            <TextBlock Text="Start by typing your code here ..." FontSize="15" FontFamily="{StaticResource poppins_regular}" 
+                        IsHitTestVisible="False" Foreground="#929292" Margin="10,7,0,0">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text, ElementName=codeEditor}" Value="">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
+    </Border>
+    <Grid Grid.Row="4">
+        <Border Background="{Binding textBoxBackground}" BorderThickness="0" Width="90" CornerRadius="7" Height="32" HorizontalAlignment="Right" Margin="5,0,30,7">
+            <Button Content="Done" Background="Transparent" BorderThickness="0" FontFamily="{StaticResource poppins_regular}" Foreground="{Binding textBoxForeground}"
+                    FontSize="18" BorderBrush="{Binding richtextBoxBackground}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Name="border" CornerRadius="10" BorderThickness="0" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Border>
+    </Grid>
 </Grid>
