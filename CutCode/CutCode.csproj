@@ -7,14 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Fonts\CascadiaMono.ttf" />
-    <None Remove="Resources\Fonts\FiraCode-Light.ttf" />
     <None Remove="Resources\Fonts\FiraCode-Regular.ttf" />
     <None Remove="Resources\Fonts\Poppins-Regular.ttf" />
     <None Remove="Resources\Fonts\Poppins-SemiBold.ttf" />
-    <None Remove="Resources\Fonts\Roboto-Bold.ttf" />
-    <None Remove="Resources\Fonts\Roboto-Light.ttf" />
-    <None Remove="Resources\Fonts\Roboto-Regular.ttf" />
     <None Remove="Resources\Images\Icons\add_black.png" />
     <None Remove="Resources\Images\Icons\add_white.png" />
     <None Remove="Resources\Images\Icons\exit_black.png" />
@@ -45,14 +40,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Fonts\CascadiaMono.ttf" />
-    <Resource Include="Resources\Fonts\FiraCode-Light.ttf" />
     <Resource Include="Resources\Fonts\FiraCode-Regular.ttf" />
     <Resource Include="Resources\Fonts\Poppins-Regular.ttf" />
     <Resource Include="Resources\Fonts\Poppins-SemiBold.ttf" />
-    <Resource Include="Resources\Fonts\Roboto-Bold.ttf" />
-    <Resource Include="Resources\Fonts\Roboto-Light.ttf" />
-    <Resource Include="Resources\Fonts\Roboto-Regular.ttf" />
     <Resource Include="Resources\Images\Icons\add_black.png" />
     <Resource Include="Resources\Images\Icons\add_white.png" />
     <Resource Include="Resources\Images\Icons\exit_black.png" />

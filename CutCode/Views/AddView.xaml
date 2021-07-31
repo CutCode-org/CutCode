@@ -29,22 +29,18 @@
     <Grid.RowDefinitions>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
         <RowDefinition Height="*"/>
         <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
 
-
-    <Label Grid.Row="0" Content="Add code" FontFamily="{StaticResource poppins_semibold}" Foreground="{Binding textBoxForeground}" FontSize="20" Margin="10,5,0,0"/>
-
-    <Grid Grid.Row="1">
+    <Grid Grid.Row="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         
         <Grid Grid.Column="0">
-            <Border BorderThickness="0" Background="{Binding textBoxBackground}" Margin="10,0,5,5" CornerRadius="8" Height="38">
+            <Border BorderThickness="0" Background="{Binding textBoxBackground}" Margin="10,18,5,5" CornerRadius="8" Height="38">
                 <Grid>
                     <TextBox x:Name="titleEntry" MaxLength="40" Margin="5,0,25,0"  Width="400" VerticalContentAlignment="Center"
                      Background="{Binding textBoxBackground}" Foreground="{Binding textBoxForeground}" 
@@ -85,9 +81,9 @@
         </Grid>
     </Grid>
 
-    <Border Grid.Row="2" BorderThickness="0" Background="{Binding textBoxBackground}" Margin="10,15,5,5" CornerRadius="8" Height="68" HorizontalAlignment="Left" Width="600">
+    <Border Grid.Row="1" BorderThickness="0" Background="{Binding textBoxBackground}" Margin="10,15,5,5" CornerRadius="8" Height="68" HorizontalAlignment="Left" Width="600">
         <Grid>
-            <TextBox x:Name="descEntry" Margin="5,7,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top" MaxLength="120" 
+            <TextBox x:Name="descEntry" Margin="5,7,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxLength="120" 
                      Background="{Binding textBoxBackground}" Foreground="{Binding textBoxForeground}" TextWrapping="Wrap"
                      Text="{Binding desc}" FontFamily="{StaticResource poppins_regular}" FontSize="15" BorderThickness="0"/>
 
@@ -107,33 +103,42 @@
         </Grid>
     </Border>
 
-    <Border Grid.Row="3" BorderThickness="0" Background="{Binding textBoxBackground}" Margin="10,15,12,5" CornerRadius="8" 
+    <Border Grid.Row="2" BorderThickness="0" Background="{Binding textBoxBackground}" Margin="10,15,12,5" CornerRadius="8" 
             HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Grid>
-            <local:CustomTextEditor x:Name="codeEditor" Margin="5,9,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top" MaxLength="2000"
+        <ScrollViewer Style="{StaticResource ScrollViewerStyle}">
+            <Grid>
+                <local:CustomTextEditor x:Name="codeEditor" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="5,9,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      Background="{Binding textBoxBackground}" Foreground="{Binding textBoxForeground}" TextWrapping="Wrap" AcceptsReturn="True"
-                     Text="{Binding code}" FontFamily="{StaticResource cascadiaMono}" AcceptsTab="True" FontSize="14" BorderThickness="0"/>
+                     Text="{Binding code}" FontFamily="{StaticResource firacode}" AcceptsTab="True" FontSize="14" BorderThickness="0"/>
 
-            <TextBlock Text="Start by typing your code here ..." FontSize="15" FontFamily="{StaticResource poppins_regular}" 
+                <TextBlock Text="Start by typing your code here ..." FontSize="15" FontFamily="{StaticResource poppins_regular}" 
                         IsHitTestVisible="False" Foreground="#929292" Margin="10,7,0,0">
-                <TextBlock.Style>
-                    <Style TargetType="{x:Type TextBlock}">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Text, ElementName=codeEditor}" Value="">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
-        </Grid>
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=codeEditor}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+        </ScrollViewer>
     </Border>
     
-    <Grid Grid.Row="4">
-        <Border Background="{Binding textBoxBackground}" BorderThickness="0" Width="90" CornerRadius="7" Height="32" HorizontalAlignment="Center" Margin="5,0,30,7">
-            <Button Content="Done" Background="Transparent" BorderThickness="0" FontFamily="{StaticResource poppins_regular}" Foreground="{Binding textBoxForeground}"
-                    FontSize="18" BorderBrush="{Binding richtextBoxBackground}">
+    <Grid Grid.Row="3">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Column="0" Content="{Binding leftText}" HorizontalAlignment="Right" Foreground="Red" FontSize="13" FontFamily="{StaticResource poppins_regular}"/>
+
+        <Border Grid.Column="1" Background="{Binding textBoxBackground}" BorderThickness="0" Width="120" CornerRadius="7" Height="32" HorizontalAlignment="Center" Margin="5,0,30,7">
+            <Button Content="Add code" Background="Transparent" BorderThickness="0" FontFamily="{StaticResource poppins_regular}" Foreground="{Binding textBoxForeground}"
+                    FontSize="18" BorderBrush="{Binding richtextBoxBackground}" Command="{s:Action DoneClicked}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="Transparent"/>

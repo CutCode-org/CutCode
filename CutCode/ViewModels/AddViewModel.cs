@@ -22,7 +22,7 @@ namespace CutCode
             "Any languages", "Python", "C++", "C#", "CSS", "Dart", "Golang", "Html", "Java",
             "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
             };
-
+            leftText = "";
             SetAppearance();
         }
         private void ThemeChanged(Object sender, EventArgs e)
@@ -89,9 +89,27 @@ namespace CutCode
             set => SetAndNotify(ref _code, value);
         }
 
+        private string _leftText;
+        public string leftText
+        {
+            get => _leftText;
+            set => SetAndNotify(ref _leftText, value);
+        }
+
         public void DoneClicked()
         {
-
+            if (string.IsNullOrEmpty(title))
+            {
+                leftText = "Title should not be emtpy";
+            }
+            else if (string.IsNullOrEmpty(code))
+            {
+                leftText = "Please add a code";
+            }
+            else
+            {
+                // done lets add the code ...
+            }
         }
     }
 }
