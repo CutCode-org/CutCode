@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Fonts\CascadiaMono.ttf" />
+    <None Remove="Resources\Fonts\FiraCode-Light.ttf" />
     <None Remove="Resources\Fonts\FiraCode-Regular.ttf" />
     <None Remove="Resources\Fonts\Poppins-Regular.ttf" />
     <None Remove="Resources\Fonts\Poppins-SemiBold.ttf" />
@@ -43,6 +45,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Fonts\CascadiaMono.ttf" />
+    <Resource Include="Resources\Fonts\FiraCode-Light.ttf" />
     <Resource Include="Resources\Fonts\FiraCode-Regular.ttf" />
     <Resource Include="Resources\Fonts\Poppins-Regular.ttf" />
     <Resource Include="Resources\Fonts\Poppins-SemiBold.ttf" />

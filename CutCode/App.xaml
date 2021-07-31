@@ -13,8 +13,7 @@
             <FontFamily x:Key="poppins_regular">pack://CutCode:,,,Resources/Fonts/#Poppins Regular</FontFamily>
             <FontFamily x:Key="roboto_light">pack://CutCode:,,,Resources/Fonts/#Roboto Light</FontFamily>
             <FontFamily x:Key="roboto_regular">pack://CutCode:,,,Resources/Fonts/#Roboto Regular</FontFamily>
-            <FontFamily x:Key="firacode_regular">pack://CutCode:,,,Resources/Fonts/#Roboto Bold</FontFamily>
-            <FontFamily x:Key="roboto_bold">pack://CutCode:,,,Resources/Fonts/#FiraCode Regular</FontFamily> 
+            <FontFamily x:Key="cascadiaMono">pack://CutCode:,,,Resources/Fonts/#Fira Code</FontFamily> 
 
             <!--Scrollbar Thumbs-->
             <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">

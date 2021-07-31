@@ -110,9 +110,9 @@
     <Border Grid.Row="3" BorderThickness="0" Background="{Binding textBoxBackground}" Margin="10,15,12,5" CornerRadius="8" 
             HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid>
-            <TextBox x:Name="codeEditor" Margin="5,9,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top" MaxLength="2000"
-                     Background="{Binding textBoxBackground}" Foreground="Black" TextWrapping="Wrap" AcceptsReturn="True"
-                     Text="{Binding code}" FontFamily="{StaticResource firacode_regular}" FontSize="14" BorderThickness="0"/>
+            <local:CustomTextEditor x:Name="codeEditor" Margin="5,9,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top" MaxLength="2000"
+                     Background="{Binding textBoxBackground}" Foreground="{Binding textBoxForeground}" TextWrapping="Wrap" AcceptsReturn="True"
+                     Text="{Binding code}" FontFamily="{StaticResource cascadiaMono}" AcceptsTab="True" FontSize="14" BorderThickness="0"/>
 
             <TextBlock Text="Start by typing your code here ..." FontSize="15" FontFamily="{StaticResource poppins_regular}" 
                         IsHitTestVisible="False" Foreground="#929292" Margin="10,7,0,0">
@@ -129,8 +129,9 @@
             </TextBlock>
         </Grid>
     </Border>
+    
     <Grid Grid.Row="4">
-        <Border Background="{Binding textBoxBackground}" BorderThickness="0" Width="90" CornerRadius="7" Height="32" HorizontalAlignment="Right" Margin="5,0,30,7">
+        <Border Background="{Binding textBoxBackground}" BorderThickness="0" Width="90" CornerRadius="7" Height="32" HorizontalAlignment="Center" Margin="5,0,30,7">
             <Button Content="Done" Background="Transparent" BorderThickness="0" FontFamily="{StaticResource poppins_regular}" Foreground="{Binding textBoxForeground}"
                     FontSize="18" BorderBrush="{Binding richtextBoxBackground}">
                 <Button.Style>
