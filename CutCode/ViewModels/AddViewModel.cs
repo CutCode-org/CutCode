@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace CutCode
             "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
             };
             leftText = "";
+            CurrentLang = AllLangs[0];
             SetAppearance();
         }
         private void ThemeChanged(Object sender, EventArgs e)
@@ -32,9 +34,10 @@ namespace CutCode
 
         private void SetAppearance()
         {
+            //  40444B
             textBoxBackground = themeService.IsLightTheme ? ColorCon.Convert("#DADBDC") : ColorCon.Convert("#2A2E33");
             textBoxForeground = themeService.IsLightTheme ? ColorCon.Convert("#000000") : ColorCon.Convert("#FFFFFF");
-            richtextBoxBackground = themeService.IsLightTheme ? ColorCon.Convert("#E3E5E8") : ColorCon.Convert("#202225");
+            richtextBoxBackground = themeService.IsLightTheme ? ColorCon.Convert("#E3E5E8") : ColorCon.Convert("#40444B");
             btnHoverColor = themeService.IsLightTheme ? ColorCon.Convert("#D0D1D2") : ColorCon.Convert("#373737");
         }
 
@@ -95,6 +98,22 @@ namespace CutCode
             get => _leftText;
             set => SetAndNotify(ref _leftText, value);
         }
+
+        private string _CurrentLang;
+        public string CurrentLang
+        {
+            get => _CurrentLang;
+            set
+            {
+                SetAndNotify(ref _CurrentLang, SyntaxLanguages[AllLangs.IndexOf(value)]);
+            }
+        }
+
+        private List<string> SyntaxLanguages = new List<string>()
+        {
+        "text", "Python", "C++", "C#", "CSS", "C#", "Java", "CSS", "Java",
+        "Java", "Java", "C++", "C++", "C#", "C++","C++", "Java"
+        };
 
         public void DoneClicked()
         {

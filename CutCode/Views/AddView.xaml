@@ -4,12 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CutCode"
+	  xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
       d:DataContext="{d:DesignInstance local:AddViewModel}"
       xmlns:s="https://github.com/canton7/Stylet"
       mc:Ignorable="d">
 
     <Grid.Resources>
-
+        <local:HighlightingDefinitionConverter x:Key="HighlightingDefinitionConverter"/>
         <Style x:Key="textBoxStyle" TargetType="TextBox">
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Foreground" Value="White"/>
@@ -70,7 +71,7 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Content="Language" FontFamily="{StaticResource poppins_regular}" Foreground="{Binding textBoxForeground}"/>
             <ComboBox Grid.Row="1" Style="{StaticResource comboBoxStyle}" Background="{Binding textBoxBackground}" Width="130" Margin="5,0,0,0"
-                      SelectedIndex="0"
+                      SelectedIndex="0" SelectedValue="{Binding CurrentLang}"
                       BorderBrush="{Binding textBoxBackground}" ItemsSource="{Binding AllLangs}" Foreground="{Binding textBoxForeground}" FontFamily="{StaticResource poppins_regular}">
                 <ComboBox.Resources>
                     <Style TargetType="ComboBoxItem">
@@ -103,29 +104,22 @@
         </Grid>
     </Border>
 
-    <Border Grid.Row="2" BorderThickness="0" Background="{Binding textBoxBackground}" Margin="10,15,12,5" CornerRadius="8" 
+    <Border Grid.Row="2" BorderThickness="0" Background="{Binding richtextBoxBackground}" Margin="10,15,12,5" CornerRadius="8" 
             HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <ScrollViewer Style="{StaticResource ScrollViewerStyle}">
-            <Grid>
-                <local:CustomTextEditor x:Name="codeEditor" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="5,9,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                     Background="{Binding textBoxBackground}" Foreground="{Binding textBoxForeground}" TextWrapping="Wrap" AcceptsReturn="True"
-                     Text="{Binding code}" FontFamily="{StaticResource firacode}" AcceptsTab="True" FontSize="14" BorderThickness="0"/>
-
-                <TextBlock Text="Start by typing your code here ..." FontSize="15" FontFamily="{StaticResource poppins_regular}" 
-                        IsHitTestVisible="False" Foreground="#929292" Margin="10,7,0,0">
-                    <TextBlock.Style>
-                        <Style TargetType="{x:Type TextBlock}">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text, ElementName=codeEditor}" Value="">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
-            </Grid>
-        </ScrollViewer>
+        <local:BindableAvalonEditor
+                xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                Background="{Binding richtextBoxBackground}"
+                Foreground="{Binding textBoxForeground}"
+                BorderThickness="0"
+                Margin="5,9,0,0"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                FontFamily="{StaticResource firacode}"
+                FontSize="14"
+                ShowLineNumbers="True"
+                ScrollViewer.CanContentScroll="True"
+                Text="{Binding code}"
+                SyntaxHighlighting="{Binding CurrentLang, Converter={StaticResource HighlightingDefinitionConverter}}"/>
     </Border>
     
     <Grid Grid.Row="3">
