@@ -13,6 +13,7 @@ namespace CutCode
         /// <summary>
         /// A bindable Text property
         /// </summary>
+
         public new string Text
         {
             get
@@ -61,13 +62,23 @@ namespace CutCode
             }
         }
 
+        private List<char> uniqueChars = new List<char>()
+        {
+            "'"[0], '"', '(', '[', '{', '<'
+        };
+
+        private List<char> uniqueExtChars = new List<char>()
+        {
+            "'"[0], '"', ')', ']', '}', '>'
+        };
+        private int oldText = 0;
+
         protected override void OnTextChanged(EventArgs e)
         {
             if (this.Document != null)
             {
-                Text = this.Document.Text;
+                Text = Document.Text;
             }
-
             base.OnTextChanged(e);
         }
 
