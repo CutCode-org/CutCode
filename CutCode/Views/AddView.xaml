@@ -108,7 +108,7 @@
             HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <local:BindableAvalonEditor
                 xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-                Background="{Binding richtextBoxBackground}"
+                Background="Transparent"
                 Foreground="{Binding textBoxForeground}"
                 BorderThickness="0"
                 Margin="5,9,0,0"
@@ -117,6 +117,8 @@
                 FontFamily="{StaticResource firacode}"
                 FontSize="14"
                 ShowLineNumbers="True"
+                
+                LineNumbersForeground="{Binding textBoxForeground}"
                 ScrollViewer.CanContentScroll="True"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
