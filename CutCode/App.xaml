@@ -167,8 +167,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
-
         </s:ApplicationLoader>
     </Application.Resources>
 </Application>

@@ -96,10 +96,17 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Shortcut key" Foreground="{Binding mainTextColor}" 
+            <Label Grid.Row="0" Content="About" Foreground="{Binding mainTextColor}" 
                    FontSize="20" Margin="20,10,0,0" FontFamily="{StaticResource poppins_semibold}"/>
             <Grid Grid.Row="1">
-
+                <TextBlock FontFamily="{StaticResource poppins_regular}" Foreground="{Binding mainTextColor}"
+                           Margin="27,6,20,0" FontSize="14" TextWrapping="Wrap">
+                    This app is an open-source project made by <Bold>Abdella Solomon</Bold> for the community. It boosts programmer's job by helping them save their snippets in a safe place.
+                    <LineBreak/>
+                    Connect with me on 
+                    <local:ExternalBrowserHyperlink NavigateUri="https://github.com/Abdesol">Github</local:ExternalBrowserHyperlink> and 
+                    <local:ExternalBrowserHyperlink NavigateUri="https://twitter.com/AbdellaSolomon">Twitter</local:ExternalBrowserHyperlink>.
+                </TextBlock>
             </Grid>
         </Grid>
     </Border>
