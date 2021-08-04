@@ -24,10 +24,13 @@ namespace CutCode
             SetAppearance();
             IsSearched = false;
 
+            var db = new DBManager();
+            //AllCodes = db.AllCodes;
+
             AllCodes = new ObservableCollection<CodeBoxModel>();
-            var code1 = new CodeBoxModel("Pyqt5 scroll bar", "pyqt5 custom scroll bar made in python ok??", true, "python", themeService);
-            var code2 = new CodeBoxModel("C++ binary search", "blah blah binary blah ... ye and ok \n so what??", false, "cpp", themeService);
-            var code3 = new CodeBoxModel("wpf sample combo box", "combo box style that is responseive to the ui and also \n and ok ?? blah ... ", true, "csharp", themeService);
+            var code1 = new CodeBoxModel("Pyqt5 scroll bar", "pyqt5 custom scroll bar made in python ok??", true, "python");
+            var code2 = new CodeBoxModel("C++ binary search", "blah blah binary blah ... ye and ok \n so what??", false, "cpp");
+            var code3 = new CodeBoxModel("wpf sample combo box", "combo box style that is responseive to the ui and also \n and ok ?? blah ... ", true, "csharp");
             AllCodes.Add(code1);
             AllCodes.Add(code2);
             AllCodes.Add(code3);

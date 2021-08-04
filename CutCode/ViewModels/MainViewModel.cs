@@ -67,10 +67,7 @@ namespace CutCode
             titlebarBtnsHoverColor = _themeService.IsLightTheme ? ColorCon.Convert("#D0D1D2") : ColorCon.Convert("#373737");
         }
 
-        private void PageChanged(object sender, EventArgs e)
-        {
-            currentPage = pageService.Page;
-        }
+        private void PageChanged(object sender, EventArgs e) => currentPage = pageService.Page;
 
         private void PageRemoteChanged(object sender, EventArgs e)
         {

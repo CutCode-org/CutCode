@@ -23,8 +23,8 @@ namespace CutCode
 
             AllLangs = new ObservableCollection<string>()
             {
-            "Any languages", "Python", "C++", "C#", "CSS", "Dart", "Golang", "Html", "Java",
-            "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
+                "Any languages", "Python", "C++", "C#", "CSS", "Dart", "Golang", "Html", "Java",
+                "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
             };
             leftText = "";
             CurrentLang = AllLangs[0];
