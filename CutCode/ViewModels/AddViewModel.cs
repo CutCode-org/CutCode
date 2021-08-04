@@ -13,10 +13,13 @@ namespace CutCode
     public class AddViewModel : Screen
     {
         private readonly IThemeService themeService;
-        public AddViewModel(IThemeService _themeService)
+        private readonly IPageService pageService;
+        public AddViewModel(IThemeService _themeService, IPageService _pageService)
         {
             themeService = _themeService;
             themeService.ThemeChanged += ThemeChanged;
+
+            pageService = _pageService;
 
             AllLangs = new ObservableCollection<string>()
             {
@@ -115,7 +118,7 @@ namespace CutCode
         "Java", "Java", "C++", "C++", "C#", "C++","C++", "Java"
         };
 
-        public void DoneClicked()
+        public void SaveCommand()
         {
             if (string.IsNullOrEmpty(title))
             {
@@ -127,8 +130,14 @@ namespace CutCode
             }
             else
             {
-                // done lets add the code ...
+                // done lets add the code and show the code view page ...
             }
+        }
+
+        public void CancelCommand()
+        {
+            pageService.remoteChange = "Home";
+            pageService.Page = AllViews.Pages[0];
         }
     }
 }

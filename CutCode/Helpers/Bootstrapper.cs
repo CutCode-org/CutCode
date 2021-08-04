@@ -7,13 +7,8 @@ namespace CutCode
     {
         protected override void ConfigureIoC(IStyletIoCBuilder builder)
         {
-            builder.Bind<IThemeService>().To<ThemeService>();
-            // Configure the IoC container in here
-        }
-
-        protected override void Configure()
-        {
-            // Perform any other configuration before the application starts
+            builder.Bind<IThemeService>().To<ThemeService>(); 
+            builder.Bind<IPageService>().To<PageService>();
         }
     }
 }

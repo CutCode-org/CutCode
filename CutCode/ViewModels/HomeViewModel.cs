@@ -13,10 +13,14 @@ namespace CutCode
     public class HomeViewModel : Screen
     {
         private readonly IThemeService themeService;
-        public HomeViewModel(IThemeService _themeService)
+        private readonly IPageService pageService;
+        public HomeViewModel(IThemeService _themeService, IPageService _pageService)
         {
             themeService = _themeService;
             themeService.ThemeChanged += ThemeChanged;
+
+            pageService = _pageService;
+
             SetAppearance();
             IsSearched = false;
 

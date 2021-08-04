@@ -22,14 +22,17 @@ namespace CutCode
         //private List<Button> leftBarBtns;
         private List<Object> Pages;
         private readonly IThemeService _themeService;
-        private IWindowManager windowManager;
+        private readonly IPageService pageService;
         public ObservableCollection<SideBarBtnModel> sideBarBtns { get; set; }
-        public MainViewModel(IWindowManager _windowManager, IThemeService themeService)
+        public MainViewModel(IThemeService themeService, IPageService _pageService)
         {
             _themeService = themeService;
-            windowManager = _windowManager;
             _themeService.ThemeChanged += ThemeChanged;
             _themeService.IsLightTheme = false;
+
+            pageService = _pageService;
+            pageService.PageChanged += PageChanged;
+            pageService.PageRemoteChanged += PageRemoteChanged;
 
             sideBarBtns = new ObservableCollection<SideBarBtnModel>();
 
@@ -41,9 +44,14 @@ namespace CutCode
             sideBarBtns[0].background = _themeService.IsLightTheme ? ColorCon.Convert("#FCFCFC") : ColorCon.Convert("#36393F");
 
 
-            Pages = new List<Object>() { new HomeViewModel(themeService), new AddViewModel(themeService), new FavViewModel(themeService), new SettingViewModel(_themeService) };
-            currentPage = Pages[0];
+            Pages = new List<Object>() {    new HomeViewModel(themeService, pageService), 
+                                            new AddViewModel(themeService, pageService), 
+                                            new FavViewModel(themeService), 
+                                            new SettingViewModel(_themeService) };
+            AllViews.Pages = Pages;
+            pageService.Page = Pages[0];
         }
+
         private void ThemeChanged(object sender, EventArgs e)
         {
             
@@ -57,6 +65,17 @@ namespace CutCode
             maxImage = _themeService.IsLightTheme ? "../Resources/Images/Icons/max_black.png" : "../Resources/Images/Icons/max_white.png";
 
             titlebarBtnsHoverColor = _themeService.IsLightTheme ? ColorCon.Convert("#D0D1D2") : ColorCon.Convert("#373737");
+        }
+
+        private void PageChanged(object sender, EventArgs e)
+        {
+            currentPage = pageService.Page;
+        }
+
+        private void PageRemoteChanged(object sender, EventArgs e)
+        {
+            var page = sender as string;
+            ChangePageCommand(page);
         }
 
         private Object _currentPage;
@@ -75,7 +94,7 @@ namespace CutCode
                 else ind = sideBarBtns.IndexOf(btn);
             }
             sideBarBtns[ind].background = _themeService.IsLightTheme ? ColorCon.Convert("#FCFCFC") : ColorCon.Convert("#36393F");
-            if (currentPage != Pages[ind]) currentPage = Pages[ind];
+            if (currentPage != Pages[ind]) pageService.Page = Pages[ind];
         }
 
         private SolidColorBrush _backgroundColor;

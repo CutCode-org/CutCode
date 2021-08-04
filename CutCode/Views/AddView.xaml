@@ -24,7 +24,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
     </Grid.Resources>
 
     <Grid.RowDefinitions>
@@ -129,14 +129,42 @@
     <Grid Grid.Row="3">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
         <Label Grid.Column="0" Content="{Binding leftText}" HorizontalAlignment="Right" Foreground="Red" FontSize="13" FontFamily="{StaticResource poppins_regular}"/>
+        
+        <Border Grid.Column="1" Background="{Binding richtextBoxBackground}" BorderThickness="0" Width="120" CornerRadius="7" Height="32" HorizontalAlignment="Center" Margin="5,0,10,7">
+            <Button Content="Cancel" Background="Transparent" BorderThickness="0" FontFamily="{StaticResource poppins_regular}" Foreground="{Binding textBoxForeground}"
+                    FontSize="16" BorderBrush="{Binding textBoxBackground}" Command="{s:Action CancelCommand}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Name="border" CornerRadius="10" BorderThickness="0" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
 
-        <Border Grid.Column="1" Background="{Binding textBoxBackground}" BorderThickness="0" Width="120" CornerRadius="7" Height="32" HorizontalAlignment="Center" Margin="5,0,30,7">
-            <Button Content="Add code" Background="Transparent" BorderThickness="0" FontFamily="{StaticResource poppins_regular}" Foreground="{Binding textBoxForeground}"
-                    FontSize="18" BorderBrush="{Binding richtextBoxBackground}" Command="{s:Action DoneClicked}">
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Border>
+
+        <Border Grid.Column="2" Background="{Binding richtextBoxBackground}" BorderThickness="0" Width="120" CornerRadius="7" Height="32" HorizontalAlignment="Center" Margin="5,0,30,7">
+            <Button Content="Save" Background="Transparent" BorderThickness="0" FontFamily="{StaticResource poppins_regular}" Foreground="{Binding textBoxForeground}"
+                    FontSize="16" BorderBrush="{Binding textBoxBackground}" Command="{s:Action SaveCommand}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="Transparent"/>
