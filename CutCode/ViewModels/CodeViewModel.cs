@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace CutCode
 {
@@ -24,6 +25,8 @@ namespace CutCode
             this.code = code.code;
             langType = code.langType;
             createdDate = "Will be changed later";
+
+            isEnabled = false;
         }
         private void ThemeChanged(object sender, EventArgs e)
         {
@@ -92,6 +95,69 @@ namespace CutCode
             {
                 SetAndNotify(ref _createdDate, value);
             }
+        }
+
+        private bool _isEnabled;
+        public bool isEnabled
+        {
+            get => _isEnabled;
+            set => SetAndNotify(ref _isEnabled, value);
+        }
+
+        private SolidColorBrush _textForeground;
+        public SolidColorBrush textForeground
+        {
+            get => _textForeground;
+            set => SetAndNotify(ref _textForeground, value);
+        }
+
+        private SolidColorBrush _textBackground;
+        public SolidColorBrush textBackground
+        {
+            get => _textBackground;
+            set => SetAndNotify(ref _textBackground, value);
+        }
+
+        private SolidColorBrush _codeBackground;
+        public SolidColorBrush codeBackground
+        {
+            get => _codeBackground;
+            set => SetAndNotify(ref _codeBackground, value);
+        }
+
+        public void FavCommand()
+        {
+
+        }
+
+        public void CopyCommand()
+        {
+
+        }
+
+        public void DelCommand()
+        {
+
+        }
+
+        public void BackCommand()
+        {
+
+        }
+
+        public void EditCommand()
+        {
+            isEnabled = true;
+        }
+
+        public void SaveCommand()
+        {
+            isEnabled = false;
+        }
+
+        public void CancelCommand()
+        {
+
         }
     }
 }
