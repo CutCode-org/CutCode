@@ -10,4 +10,25 @@
     <Grid.Resources>
         
     </Grid.Resources>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <Grid Grid.Row="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0">
+            
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Horizontal">
+            
+        </StackPanel>
+    </Grid>
+
+    <Grid Grid.Row="1">
+        
+    </Grid>
 </Grid>

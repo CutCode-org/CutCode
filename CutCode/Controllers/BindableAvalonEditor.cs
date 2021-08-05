@@ -16,10 +16,7 @@ namespace CutCode
 
         public new string Text
         {
-            get
-            {
-                return (string)GetValue(TextProperty);
-            }
+            get => (string)GetValue(TextProperty);
             set
             {
                 SetValue(TextProperty, value);
@@ -60,26 +57,6 @@ namespace CutCode
                 target.Document.Text = (string)newValue;
                 target.CaretOffset = Math.Min(caretOffset, newValue.ToString().Length);
             }
-        }
-
-        private List<char> uniqueChars = new List<char>()
-        {
-            "'"[0], '"', '(', '[', '{', '<'
-        };
-
-        private List<char> uniqueExtChars = new List<char>()
-        {
-            "'"[0], '"', ')', ']', '}', '>'
-        };
-        private int oldText = 0;
-
-        protected override void OnTextChanged(EventArgs e)
-        {
-            if (this.Document != null)
-            {
-                Text = Document.Text;
-            }
-            base.OnTextChanged(e);
         }
 
         /// <summary>

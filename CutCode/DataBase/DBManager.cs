@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace CutCode
 {
-    public class DBManager
+    public class DbManager
     {
         public List<CodeBoxModel> AllCodes { get; set; }
         private readonly IThemeService themeService;
-        public DBManager(IThemeService _themeService)
+        public DbManager(IThemeService _themeService)
         {
             themeService = _themeService;
         }

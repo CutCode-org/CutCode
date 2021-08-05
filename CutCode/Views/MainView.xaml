@@ -63,6 +63,35 @@
             </Setter>
         </Style>
 
+        <Style x:Key="SideBarButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border>
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+                                            <Setter Property="RenderTransform">
+                                                <Setter.Value>
+                                                    <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid Background="{TemplateBinding Background}">
+                                <ContentPresenter></ContentPresenter>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
     </Window.Resources>
 
     <Grid Background="{Binding backgroundColor}">
@@ -86,7 +115,7 @@
                     <DataTemplate>
 
                         <Button Background="{Binding background}" 
-                                Style="{DynamicResource ButtonStyle}" BorderBrush="{Binding buttonHoverColor}"
+                                Style="{DynamicResource SideBarButtonStyle}"
                                 Command="{s:Action ChangePageCommand}" CommandParameter="{Binding toolTipText}">
                             <Image Source="{Binding imageSource}" Width="30" Height="30"  Margin="15,10,10,10" VerticalAlignment="Top"
                                     RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>

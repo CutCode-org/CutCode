@@ -41,8 +41,6 @@ namespace CutCode
         {
             imageSource = themeService.IsLightTheme ? $"../Resources/Images/Icons/{btnBothimages[0]}" : $"../Resources/Images/Icons/{btnBothimages[1]}";
 
-            buttonHoverColor = themeService.IsLightTheme ? ColorCon.Convert("#D6D7DA") : ColorCon.Convert("#46494E");
-
             toolTipBackground = themeService.IsLightTheme ? ColorCon.Convert("#CBD0D5") : ColorCon.Convert("#1E1E1E");
             toolTipForeground = themeService.IsLightTheme ? ColorCon.Convert("#060607") : ColorCon.Convert("#94969A");
 
@@ -92,14 +90,6 @@ namespace CutCode
         {
             get => _toolTipForeground;
             set { SetAndNotify(ref _toolTipForeground, value); }
-        }
-
-        
-        private SolidColorBrush _buttonHoverColor;
-        public SolidColorBrush buttonHoverColor
-        {
-            get => _buttonHoverColor;
-            set { SetAndNotify(ref _buttonHoverColor, value); }
         }
     }
 }

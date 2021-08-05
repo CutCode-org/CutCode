@@ -59,6 +59,7 @@ namespace CutCode
         public IList<CodeBoxModel> AllCodes { get; set; }
         public IList<string> AllLangs { get; set; }
 
+        #region Color
         private SolidColorBrush _searchBarBackground;
         public SolidColorBrush searchBarBackground
         {
@@ -98,6 +99,7 @@ namespace CutCode
             set => SetAndNotify(ref _comboboxBackgroundColor, value);
 
         }
+        #endregion
 
         private bool _Theme;
         public bool Theme
@@ -121,10 +123,9 @@ namespace CutCode
             IsSearched = true;
         }
 
-        public void CodeSelectCommand(CodeBoxModel code)
+        public void CodeSelectCommand(CodeBoxModel code) 
         {
-            Trace.WriteLine("Item selected");
-            Trace.WriteLine(code.title);
+            pageService.Page = new CodeViewModel(themeService, pageService, code);
         }
     }
 }

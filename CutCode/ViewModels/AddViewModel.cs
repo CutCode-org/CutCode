@@ -137,7 +137,7 @@ namespace CutCode
         public void CancelCommand()
         {
             pageService.remoteChange = "Home";
-            pageService.Page = AllViews.Pages[0];
+            pageService.Page = new HomeViewModel(themeService, pageService);
         }
     }
 }

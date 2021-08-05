@@ -48,13 +48,11 @@ namespace CutCode
                                             new AddViewModel(themeService, pageService), 
                                             new FavViewModel(themeService), 
                                             new SettingViewModel(_themeService) };
-            AllViews.Pages = Pages;
             pageService.Page = Pages[0];
         }
 
         private void ThemeChanged(object sender, EventArgs e)
         {
-            
             backgroundColor = _themeService.IsLightTheme ? ColorCon.Convert("#FCFCFC") : ColorCon.Convert("#36393F");
             titleBarColor = _themeService.IsLightTheme ? ColorCon.Convert("#E3E5E8") : ColorCon.Convert("#202225");
             SideBarColor = _themeService.IsLightTheme ? ColorCon.Convert("#F2F3F5") : ColorCon.Convert("#2A2E33");
@@ -67,19 +65,19 @@ namespace CutCode
             titlebarBtnsHoverColor = _themeService.IsLightTheme ? ColorCon.Convert("#D0D1D2") : ColorCon.Convert("#373737");
         }
 
+        private Object _currentPage;
+        public Object currentPage
+        {
+            get => _currentPage;
+            set { SetAndNotify(ref _currentPage, value); }
+        }
+
         private void PageChanged(object sender, EventArgs e) => currentPage = pageService.Page;
 
         private void PageRemoteChanged(object sender, EventArgs e)
         {
             var page = sender as string;
             ChangePageCommand(page);
-        }
-
-        private Object _currentPage;
-        public Object currentPage
-        {
-            get => _currentPage;
-            set { SetAndNotify(ref _currentPage, value); }
         }
 
         public void ChangePageCommand(string selected_item)
@@ -90,10 +88,12 @@ namespace CutCode
                 if (btn.toolTipText != selected_item) btn.background = ColorCon.Convert("#00FFFFFF");
                 else ind = sideBarBtns.IndexOf(btn);
             }
+
             sideBarBtns[ind].background = _themeService.IsLightTheme ? ColorCon.Convert("#FCFCFC") : ColorCon.Convert("#36393F");
             if (currentPage != Pages[ind]) pageService.Page = Pages[ind];
         }
 
+        #region Color
         private SolidColorBrush _backgroundColor;
         public SolidColorBrush backgroundColor
         {
@@ -146,6 +146,20 @@ namespace CutCode
             }
         }
 
+        private SolidColorBrush _titlebarBtnsHoverColor;
+        public SolidColorBrush titlebarBtnsHoverColor
+        {
+            get => _titlebarBtnsHoverColor;
+            set
+            {
+                if (value != _titlebarBtnsHoverColor)
+                {
+                    SetAndNotify(ref _titlebarBtnsHoverColor, value);
+                }
+            }
+        }
+        #endregion
+
         private string _exitImage;
         public string exitImage
         {
@@ -168,19 +182,6 @@ namespace CutCode
             get => _minImage;
             set
             { SetAndNotify(ref _minImage, value); }
-        }
-
-        private SolidColorBrush _titlebarBtnsHoverColor;
-        public SolidColorBrush titlebarBtnsHoverColor
-        {
-            get => _titlebarBtnsHoverColor;
-            set
-            {
-                if (value != _titlebarBtnsHoverColor)
-                {
-                    SetAndNotify(ref _titlebarBtnsHoverColor, value);
-                }
-            }
         }
     }
         
