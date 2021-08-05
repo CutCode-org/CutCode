@@ -9,18 +9,19 @@ namespace CutCode
     public class DBManager
     {
         public List<CodeBoxModel> AllCodes { get; set; }
-        public DBManager()
+        private readonly IThemeService themeService;
+        public DBManager(IThemeService _themeService)
         {
-
+            themeService = _themeService;
         }
 
-        public static CodeBoxModel AddCode(string _title, string _desc, string _lang, string _code)
+        public CodeBoxModel AddCode(string _title, string _desc, string _lang, string _code)
         {
-            var _id = 0; // will be set later ...
-            return new CodeBoxModel(_title, _desc, false, _lang);
+            ///var _id = 0; // will be set later ...
+            return new CodeBoxModel(2, "C++ binary search", "blah blah binary blah ... ye and ok \n so what??", false, "cpp", "print('Hello world')", 1628136352, themeService);
         }
 
-        public static bool DelCode(CodeBoxModel code)
+        public bool DelCode(CodeBoxModel code)
         {
             try
             {
@@ -33,12 +34,12 @@ namespace CutCode
             return true;
         }
 
-        public static List<CodeBoxModel> SearchCode(string searchText)
+        public List<CodeBoxModel> SearchCode(string searchText)
         {
             return new List<CodeBoxModel>();
         }
 
-        public static bool EditCode(CodeBoxModel newCode)
+        public bool EditCode(CodeBoxModel newCode)
         {
             try
             {

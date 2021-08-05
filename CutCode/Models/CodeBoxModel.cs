@@ -9,12 +9,18 @@ namespace CutCode
 {
     public class CodeBoxModel
     {
-        public CodeBoxModel(string __title, string __desc, bool __isFav, string __langType)
+        public CodeBoxModel(int _id, string _title, string _desc, bool _isFav, string _langType, string _code, long _created, IThemeService _themeService)
         {
-            title = __title;
-            desc = __desc;
-            isFav = __isFav;
-            langType = __langType;
+            id = _id;
+            title = _title;
+            desc = _desc;
+            isFav = _isFav;
+            langType = _langType;
+            code = _code;
+            // do something with the time long here ...
+            dateCreated = "12:01 AM";
+
+            themeService = _themeService;
             // there are something to be changed in the initializer ...
         }
         public int id { get; set; }
@@ -24,5 +30,7 @@ namespace CutCode
         public  string langType { get; set; }
         public string code { get; set; }
         public long created { get; set; }
+        public string dateCreated { get; set; }
+        public IThemeService themeService { get; set; }
     }
 }

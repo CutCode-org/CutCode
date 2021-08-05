@@ -29,7 +29,7 @@
         
     </UserControl.Resources>
 
-    <Button x:Name="card" Style="{DynamicResource ButtonStyle}" BorderThickness="0" Height="110" Margin="0,0,15,0">
+    <Button x:Name="card" Style="{DynamicResource ButtonStyle}" BorderThickness="0" Height="110" Margin="0,0,15,0" Click="ButtonClicked">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>

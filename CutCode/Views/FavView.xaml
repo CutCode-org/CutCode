@@ -37,7 +37,8 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:CodeBoxControl Margin="5,5,5,5" Title="{Binding title}" Desc="{Binding desc}" 
-                                  IsFavourite="{Binding isFav}" LangType="{Binding langType}" ThemeService="{Binding themeService}"/>
+                                              Command="{s:Action CodeSelectCommand}" CommandParameter="{Binding .}"
+                                                IsFavourite="{Binding isFav}" LangType="{Binding langType}" ThemeService="{Binding themeService}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

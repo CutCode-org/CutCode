@@ -36,6 +36,8 @@ namespace CutCode
             InitializeComponent();
         }
 
+        public void ButtonClicked(object sender, EventArgs e) => Command?.Execute(CommandParameter);
+
         #region ThemeService property
         public static readonly DependencyProperty ThemeServiceProperty =
             DependencyProperty.Register("ThemeService", typeof(IThemeService), typeof(CodeBoxControl),
@@ -170,6 +172,21 @@ namespace CutCode
         {
             get => (ICommand)GetValue(CommandProperty);
             set => SetValue(CommandProperty, value);
+        }
+        #endregion
+
+        #region CommandParameter property
+        public static readonly DependencyProperty CommandParameterProperty =
+            DependencyProperty.Register("CommandParameter", typeof(CodeBoxModel), typeof(CodeBoxControl),
+                new FrameworkPropertyMetadata(null));
+
+        public CodeBoxModel CommandParameter
+        {
+            get => (CodeBoxModel)GetValue(CommandParameterProperty);
+            set
+            {
+                SetValue(CommandParameterProperty, value);
+            }
         }
         #endregion
     }
