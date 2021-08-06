@@ -24,8 +24,14 @@ namespace CutCode
     {
         public static List<string> list = new List<string>()
         {
-            "file", "c", "cpp", "csharp", "css", "dart", "golang", "html", "java", 
-            "javascript", "kotlin", "php", "python", "ruby", "rust","sql", "swift"
+            "file", "python", "cpp", "csharp", "css", "dart", "golang", "html", "java", 
+            "javascript", "kotlin", "php", "c", "ruby", "rust","sql", "swift"
+        };
+
+        public static List<string> Langs = new List<string>()
+        {
+        "All languages", "Python", "C++", "C#", "CSS", "Dart", "Golang", "Html", "Java",
+        "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
         };
     }
 
@@ -127,7 +133,7 @@ namespace CutCode
             var lang = (string)e.NewValue;
 
             bool found = false;
-            foreach(string i in LangList.list)
+            foreach(string i in LangList.Langs)
             {
                 if(lang == i)
                 {
@@ -137,7 +143,7 @@ namespace CutCode
             }
 
             if (!found) throw new NotImplementedException("Language type not recognised");
-            ctrl.langImg.Source = new BitmapImage(new Uri(@$"../Resources/Images/LangLogo/{lang}.png", UriKind.Relative));
+            ctrl.langImg.Source = new BitmapImage(new Uri(@$"../Resources/Images/LangLogo/{LangList.list[LangList.Langs.IndexOf(lang)]}.png", UriKind.Relative));
 
         }
         #endregion

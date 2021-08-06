@@ -22,9 +22,9 @@ namespace CutCode
             IsSearched = false;
 
             AllCodes = new ObservableCollection<CodeBoxModel>();
-            var code1 = new CodeBoxModel(1, "Pyqt5 scroll bar", "pyqt5 custom scroll bar made in python ok??", true, "python", "print('Hello world')", 1628136352, themeService);
-            var code2 = new CodeBoxModel(2, "C++ binary search", "blah blah binary blah ... ye and ok \n so what??", false, "cpp", "print('Hello world')", 1628136352, themeService);
-            var code3 = new CodeBoxModel(3, "wpf sample combo box", "combo box style that is responseive to the ui and also \n and ok ?? blah ... ", true, "csharp", "print('Hello world')", 1628136352, themeService);
+            var code1 = new CodeBoxModel(1, "Pyqt5 scroll bar", "pyqt5 custom scroll bar made in python ok??", true, "Python", "print('Hello world')", 1628136352, themeService);
+            var code2 = new CodeBoxModel(2, "C++ binary search", "blah blah binary blah ... ye and ok \n so what??", false, "C++", "print('Hello world')", 1628136352, themeService);
+            var code3 = new CodeBoxModel(3, "wpf sample combo box", "combo box style that is responseive to the ui and also \n and ok ?? blah ... ", true, "C#", "print('Hello world')", 1628136352, themeService);
             AllCodes.Add(code1);
             AllCodes.Add(code2);
             AllCodes.Add(code3);

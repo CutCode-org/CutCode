@@ -11,7 +11,35 @@
             
             <FontFamily x:Key="poppins_semibold">pack://CutCode:,,,Resources/Fonts/#Poppins SemiBold</FontFamily>
             <FontFamily x:Key="poppins_regular">pack://CutCode:,,,Resources/Fonts/#Poppins Regular</FontFamily>
-            <FontFamily x:Key="firacode">pack://CutCode:,,,Resources/Fonts/#Fira Code</FontFamily> 
+            <FontFamily x:Key="firacode">pack://CutCode:,,,Resources/Fonts/#Fira Code</FontFamily>
+
+            <Style x:Key="ImgButtonStyle" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border>
+                                <Border.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+                                                <Setter Property="RenderTransform">
+                                                    <Setter.Value>
+                                                        <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <Grid Background="{TemplateBinding Background}">
+                                    <ContentPresenter></ContentPresenter>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
             <!--Scrollbar Thumbs-->
             <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows;
 
 namespace CutCode
 {
@@ -22,10 +23,12 @@ namespace CutCode
             title = code.title;
             desc = code.desc;
             this.code = code.code;
+            isFav = code.isFav;
             langType = code.langType;
             createdDate = "Will be changed later";
 
             isEnabled = false;
+            oppisEnabled = !isEnabled;
 
             SetAppearance();
         }
@@ -35,12 +38,17 @@ namespace CutCode
             textBackground = themeService.IsLightTheme ? ColorCon.Convert("#DADBDC") : ColorCon.Convert("#2A2E33");
             textForeground = themeService.IsLightTheme ? ColorCon.Convert("#1A1A1A") : ColorCon.Convert("#F7F7F7");
             codeBackground = themeService.IsLightTheme ? ColorCon.Convert("#E3E5E8") : ColorCon.Convert("#2C3036");
+            ButtonsBackground = themeService.IsLightTheme ? ColorCon.Convert("#F2F2F2") : ColorCon.Convert("#2A2C30");
 
             copyAddr = themeService.IsLightTheme ? "../Resources/Images/Icons/copy_black.png" : "../Resources/Images/Icons/copy_white.png";
-            favAddr = isFav ? "../Resources/Images/Icons/favT.png" : "../Resources/Images/Icons/favF.png";
+            favAddr = isFav ? "../Resources/Images/Icons/fav.png" : themeService.IsLightTheme ? "../Resources/Images/Icons/fav_black.png" : "../Resources/Images/Icons/fav_white.png";
             backAddr = themeService.IsLightTheme ? "../Resources/Images/Icons/back_black.png" : "../Resources/Images/Icons/back_white.png";
             editAddr = themeService.IsLightTheme ? "../Resources/Images/Icons/edit_black.png" : "../Resources/Images/Icons/edit_white.png";
-            delAddr = "../Resources/Images/Icons/delete.png";
+            saveAddr = themeService.IsLightTheme ? "../Resources/Images/Icons/save_black.png" : "../Resources/Images/Icons/save_white.png";
+            closeAddr = themeService.IsLightTheme ? "../Resources/Images/Icons/exit_black.png" : "../Resources/Images/Icons/exit_white.png";
+
+            opacity1 = 1;
+            opacity2 = 0.3;
         }
 
         #region Code datas
@@ -110,6 +118,37 @@ namespace CutCode
             get => _isEnabled;
             set => SetAndNotify(ref _isEnabled, value);
         }
+
+        private bool _oppisEnabled;
+        public bool oppisEnabled
+        {
+            get => _oppisEnabled;
+            set => SetAndNotify(ref _oppisEnabled, value);
+        }
+
+        private string _leftText;
+        public string leftText
+        {
+            get => _leftText;
+            set
+            {
+                SetAndNotify(ref _leftText, value);
+            }
+        }
+
+        private double _opacity1;
+        public double opacity1
+        {
+            get => _opacity1;
+            set => SetAndNotify(ref _opacity1, value);
+        }
+
+        private double _opacity2;
+        public double opacity2
+        {
+            get => _opacity2;
+            set => SetAndNotify(ref _opacity2, value);
+        }
         #endregion
 
         #region Color
@@ -118,6 +157,13 @@ namespace CutCode
         {
             get => _mainTextColor;
             set => SetAndNotify(ref _mainTextColor, value);
+        }
+
+        private SolidColorBrush _ButtonsBackground;
+        public SolidColorBrush ButtonsBackground
+        {
+            get => _ButtonsBackground;
+            set => SetAndNotify(ref _ButtonsBackground, value);
         }
 
         private SolidColorBrush _textForeground;
@@ -171,11 +217,18 @@ namespace CutCode
             set => SetAndNotify(ref _editAddr, value);
         }
 
-        private string _delAddr;
-        public string delAddr
+        private string _closeAddr;
+        public string closeAddr
         {
-            get => _delAddr;
-            set => SetAndNotify(ref _delAddr, value);
+            get => _closeAddr;
+            set => SetAndNotify(ref _closeAddr, value);
+        }
+
+        private string _saveAddr;
+        public string saveAddr
+        {
+            get => _saveAddr;
+            set => SetAndNotify(ref _saveAddr, value);
         }
         #endregion
 
@@ -183,12 +236,14 @@ namespace CutCode
 
         public void FavCommand()
         {
-
+            // add it to database
+            isFav = !isFav;
+            favAddr = isFav ? "../Resources/Images/Icons/fav.png" : themeService.IsLightTheme ? "../Resources/Images/Icons/fav_black.png" : "../Resources/Images/Icons/fav_white.png";
         }
 
         public void CopyCommand()
         {
-
+            if (!string.IsNullOrEmpty(code)) Clipboard.SetText(code);
         }
 
         public void DelCommand()
@@ -199,20 +254,43 @@ namespace CutCode
 
         public void BackCommand() => pageService.Page = new HomeViewModel(themeService, pageService);
 
+        private string BeforeEditTitle;
+        private string BeforeEditDesc;
+        private string BeforeEditCode;
         public void EditCommand()
         {
+            BeforeEditCode = code;
+            BeforeEditTitle = title;
+            BeforeEditDesc = desc;
+
             isEnabled = true;
+            oppisEnabled = !isEnabled;
+
+            opacity1 = 0.3;
+            opacity2 = 1;
         }
 
         public void SaveCommand()
         {
             // do some savings
             isEnabled = false;
+            oppisEnabled = !isEnabled;
+
+            opacity1 = 1;
+            opacity2 = 0.3;
         }
 
         public void CancelCommand()
         {
+            code = BeforeEditCode;
+            title = BeforeEditTitle;
+            desc = BeforeEditDesc;
+
             isEnabled = false;
+            oppisEnabled = !isEnabled;
+
+            opacity1 = 1;
+            opacity2 = 0.3;
         }
         #endregion
     }

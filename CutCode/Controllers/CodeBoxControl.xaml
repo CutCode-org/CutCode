@@ -54,7 +54,7 @@
                         Margin="0,5,0,0"/>
 
 
-                    <Image Grid.Column="1" x:Name="favImg"  Source="../Resources/Images/Icons/favT.png"
+                    <Image Grid.Column="1" x:Name="favImg"  Source="../Resources/Images/Icons/fav.png"
                            Width="20" Height="20" VerticalAlignment="Center" Margin="5,5,15,5" HorizontalAlignment="Right"
                            RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                 </Grid>
