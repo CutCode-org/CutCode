@@ -13,12 +13,18 @@ namespace CutCode
     {
         private readonly IThemeService themeService;
         private readonly IPageService pageService;
-        public CodeViewModel(IThemeService _themeService, IPageService _pageService, CodeBoxModel code)
+        private readonly IDataBase database;
+        public CodeBoxModel codeModel;
+        public CodeViewModel(IThemeService _themeService, IPageService _pageService, IDataBase _database, CodeBoxModel code)
         {
             themeService = _themeService;
             pageService = _pageService;
 
+            database = _database;
+
             SetAppearance();
+
+            codeModel = code;
 
             title = code.title;
             desc = code.desc;
@@ -236,8 +242,9 @@ namespace CutCode
 
         public void FavCommand()
         {
-            // add it to database
             isFav = !isFav;
+            codeModel.isFav = isFav;
+            database.FavModify(codeModel);
             favAddr = isFav ? "../Resources/Images/Icons/fav.png" : themeService.IsLightTheme ? "../Resources/Images/Icons/fav_black.png" : "../Resources/Images/Icons/fav_white.png";
         }
 
@@ -248,11 +255,11 @@ namespace CutCode
 
         public void DelCommand()
         {
-            // delete the code before going back ...
+            database.DelCode(codeModel);
             BackCommand();
         }
 
-        public void BackCommand() => pageService.Page = new HomeViewModel(themeService, pageService);
+        public void BackCommand() => pageService.Page = new HomeViewModel(themeService, pageService, database);
 
         private string BeforeEditTitle;
         private string BeforeEditDesc;
@@ -272,7 +279,12 @@ namespace CutCode
 
         public void SaveCommand()
         {
-            // do some savings
+            codeModel.title = title;
+            codeModel.desc = desc;
+            codeModel.code = code;
+
+            database.EditCode(codeModel);
+
             isEnabled = false;
             oppisEnabled = !isEnabled;
 

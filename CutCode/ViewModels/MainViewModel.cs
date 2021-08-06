@@ -23,8 +23,9 @@ namespace CutCode
         private List<Object> Pages;
         private readonly IThemeService _themeService;
         private readonly IPageService pageService;
+        private readonly IDataBase database;
         public ObservableCollection<SideBarBtnModel> sideBarBtns { get; set; }
-        public MainViewModel(IThemeService themeService, IPageService _pageService)
+        public MainViewModel(IThemeService themeService, IPageService _pageService, IDataBase _dataBase)
         {
             _themeService = themeService;
             _themeService.ThemeChanged += ThemeChanged;
@@ -33,6 +34,10 @@ namespace CutCode
             pageService = _pageService;
             pageService.PageChanged += PageChanged;
             pageService.PageRemoteChanged += PageRemoteChanged;
+
+            database = _dataBase;
+            DataBaseStatic.AllCodes = database.AllCodes;
+            database.PropertyChanged += DataBaseUpdated;
 
             sideBarBtns = new ObservableCollection<SideBarBtnModel>();
 
@@ -44,12 +49,14 @@ namespace CutCode
             sideBarBtns[0].background = _themeService.IsLightTheme ? ColorCon.Convert("#FCFCFC") : ColorCon.Convert("#36393F");
 
 
-            Pages = new List<Object>() {    new HomeViewModel(themeService, pageService), 
-                                            new AddViewModel(themeService, pageService), 
-                                            new FavViewModel(themeService), 
+            Pages = new List<Object>() {    new HomeViewModel(themeService, pageService, database), 
+                                            new AddViewModel(themeService, pageService, database), 
+                                            new FavViewModel(themeService, pageService, database), 
                                             new SettingViewModel(_themeService) };
             pageService.Page = Pages[0];
         }
+
+        private void DataBaseUpdated(object sender, EventArgs e) => DataBaseStatic.AllCodes = database.AllCodes;
 
         private void ThemeChanged(object sender, EventArgs e)
         {
@@ -184,5 +191,9 @@ namespace CutCode
             { SetAndNotify(ref _minImage, value); }
         }
     }
-        
+    
+    public static class DataBaseStatic
+    {
+        public static ObservableCollection<CodeBoxModel> AllCodes = new ObservableCollection<CodeBoxModel>();
+    }
 }

@@ -30,7 +30,7 @@ namespace CutCode
 
         public static List<string> Langs = new List<string>()
         {
-        "All languages", "Python", "C++", "C#", "CSS", "Dart", "Golang", "Html", "Java",
+        "Any language", "Python", "C++", "C#", "CSS", "Dart", "Golang", "Html", "Java",
         "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
         };
     }

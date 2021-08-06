@@ -14,16 +14,19 @@ namespace CutCode
     {
         private readonly IThemeService themeService;
         private readonly IPageService pageService;
-        public AddViewModel(IThemeService _themeService, IPageService _pageService)
+        private readonly IDataBase database;
+        public AddViewModel(IThemeService _themeService, IPageService _pageService, IDataBase _database)
         {
             themeService = _themeService;
             themeService.ThemeChanged += ThemeChanged;
 
             pageService = _pageService;
 
+            database = _database;
+
             AllLangs = new ObservableCollection<string>()
             {
-                "Any languages", "Python", "C++", "C#", "CSS", "Dart", "Golang", "Html", "Java",
+                "Any language", "Python", "C++", "C#", "CSS", "Dart", "Golang", "Html", "Java",
                 "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
             };
             leftText = "";
@@ -130,14 +133,22 @@ namespace CutCode
             }
             else
             {
-                // done lets add the code and show the code view page ...
+                leftText = "";
+                var codeModel = database.AddCode(title, desc, code, AllLangs[SyntaxLanguages.IndexOf(CurrentLang)]);
+
+                pageService.remoteChange = "Home";
+                pageService.Page = new CodeViewModel(themeService, pageService, database, codeModel);
+
+                title = ""; desc = ""; code = ""; CurrentLang = AllLangs[0]; 
             }
         }
 
         public void CancelCommand()
         {
             pageService.remoteChange = "Home";
-            pageService.Page = new HomeViewModel(themeService, pageService);
+            pageService.Page = new HomeViewModel(themeService, pageService, database);
+
+            title = ""; desc = ""; code = ""; CurrentLang = AllLangs[0];
         }
     }
 }

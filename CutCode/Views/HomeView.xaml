@@ -45,9 +45,8 @@
                       Foreground="{Binding searchBarTextColor}"   FontFamily="{StaticResource poppins_regular}"
                         Background="{Binding comboboxBackgroundColor}"  SelectedIndex="0"
                         IsDropDownOpen="false" Style="{StaticResource comboBoxStyle}" 
+                      SelectedValue="{Binding CurrentSort1}" ItemsSource="{Binding Sorts}"
                       BorderBrush="{Binding comboboxHoverColor}">
-                <ComboBoxItem>Date</ComboBoxItem>
-                <ComboBoxItem>Alphabet</ComboBoxItem>
                 <ComboBox.Resources>
                     <Style TargetType="ComboBoxItem">
                         <Setter Property="BorderThickness" Value="0"/>
@@ -70,6 +69,7 @@
                       Foreground="{Binding searchBarTextColor}"   FontFamily="{StaticResource poppins_regular}"
                         Background="{Binding comboboxBackgroundColor}" SelectedIndex="0"
                         IsDropDownOpen="false" Style="{StaticResource comboBoxStyle}" 
+                      SelectedValue="{Binding CurrentSort2}"
                       BorderBrush="{Binding comboboxHoverColor}" ItemsSource="{Binding AllLangs}">
 
 

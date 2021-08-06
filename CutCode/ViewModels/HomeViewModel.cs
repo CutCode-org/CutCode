@@ -14,37 +14,34 @@ namespace CutCode
     {
         private readonly IThemeService themeService;
         private readonly IPageService pageService;
-        public HomeViewModel(IThemeService _themeService, IPageService _pageService)
+        private readonly IDataBase database;
+        public HomeViewModel(IThemeService _themeService, IPageService _pageService, IDataBase _dataBase)
         {
             themeService = _themeService;
             themeService.ThemeChanged += ThemeChanged;
 
             pageService = _pageService;
 
+            database = _dataBase;
+            database.PropertyChanged += DataBaseUpdated;
+
             SetAppearance();
             IsSearched = false;
 
-            AllCodes = new ObservableCollection<CodeBoxModel>();
-            var code1 = new CodeBoxModel(1, "Pyqt5 scroll bar", "pyqt5 custom scroll bar made in python ok??", true, "Python", "print('Hello world')", 1628136352, themeService);
-            var code2 = new CodeBoxModel(2, "C++ binary search", "blah blah binary blah ... ye and ok \n so what??", false, "C++", "print('Hello world')", 1628136352, themeService);
-            var code3 = new CodeBoxModel(3, "wpf sample combo box", "combo box style that is responseive to the ui and also \n and ok ?? blah ... ", true, "C#", "print('Hello world')", 1628136352, themeService);
-            AllCodes.Add(code1);
-            AllCodes.Add(code2);
-            AllCodes.Add(code3);
-            AllCodes.Add(code1);
-            AllCodes.Add(code2);
+            AllCodes = DataBaseStatic.AllCodes;
 
             AllLangs = new ObservableCollection<string>()
             {
             "All languages", "Python", "C++", "C#", "CSS", "Dart", "Golang", "Html", "Java",
             "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
             };
-
+            Sorts = new ObservableCollection<string>() { "Date", "Alphabet" };
         }
         private void ThemeChanged(object sender, EventArgs e)
         {
             SetAppearance();
         }
+        private void DataBaseUpdated(object sender, EventArgs e) => AllCodes = database.AllCodes;
 
         private void SetAppearance()
         {
@@ -58,6 +55,7 @@ namespace CutCode
 
         public IList<CodeBoxModel> AllCodes { get; set; }
         public IList<string> AllLangs { get; set; }
+        public IList<string> Sorts { get; set; }
 
         #region Color
         private SolidColorBrush _searchBarBackground;
@@ -115,17 +113,41 @@ namespace CutCode
             set => SetAndNotify(ref _IsSearched, value);
 
         }
-        public async void SearchCommand(string text)
+
+        private string _CurrentSort1;
+        public string CurrentSort1
         {
-            Trace.WriteLine("Searching ...");
+            get => _CurrentSort1;
+            set
+            {
+                ComboBoxItemSelected(value);
+                SetAndNotify(ref _CurrentSort1, value);
+            }
+        }
+
+        private string _CurrentSort2;
+        public string CurrentSort2
+        {
+            get => _CurrentSort2;
+            set 
+            {
+                ComboBoxItemSelected(value);
+                SetAndNotify(ref _CurrentSort2, value);
+            } 
+        }
+
+        private void ComboBoxItemSelected(string kind) => database.OrderCode(kind);
+
+        public void SearchCommand(string text)
+        {
             IsSearched = false;
-            await Task.Delay(TimeSpan.FromSeconds(1)); // this will be changed to the search process
+            database.SearchCode(text);
             IsSearched = true;
         }
 
         public void CodeSelectCommand(CodeBoxModel code) 
         {
-            pageService.Page = new CodeViewModel(themeService, pageService, code);
+            pageService.Page = new CodeViewModel(themeService, pageService, database, code);
         }
     }
 }

@@ -14,6 +14,11 @@ namespace CutCode
         /// A bindable Text property
         /// </summary>
 
+        protected override void OnTextChanged(EventArgs e)
+        {
+            base.OnTextChanged(e);
+            Text = Document.Text;
+        }
         public new string Text
         {
             get => (string)GetValue(TextProperty);
@@ -34,7 +39,7 @@ namespace CutCode
                 typeof(BindableAvalonEditor),
                 new FrameworkPropertyMetadata
                 {
-                    DefaultValue = default(string),
+                    DefaultValue = "",
                     BindsTwoWayByDefault = true,
                     PropertyChangedCallback = OnDependencyPropertyChanged
                 }
