@@ -31,7 +31,13 @@ namespace CutCode
             {
                 AllCodes.Add(new CodeBoxModel(c.Id, c.title, c.desc, c.isFav, c.lang, c.code, c.timestamp, themeService));
             }
-            PropertyChanged();
+
+            var lst = new ObservableCollection<CodeBoxModel>();
+            foreach (var code in AllCodes)
+            {
+                if (code.isFav) lst.Add(code);
+            }
+            FavCodes = lst;
         }
 
         private int GetIndex(CodeBoxModel code)
@@ -56,8 +62,8 @@ namespace CutCode
             }
             FavCodes = lst;
                 
-            AllCodesUpdated.Invoke(AllCodes, EventArgs.Empty);
-            FavCodesUpdated.Invoke(FavCodes, EventArgs.Empty);
+            AllCodesUpdated?.Invoke(this, EventArgs.Empty);
+            FavCodesUpdated?.Invoke(this, EventArgs.Empty);
         } 
 
         public CodeBoxModel AddCode(string title, string desc, string code, string langType)
@@ -139,7 +145,10 @@ namespace CutCode
             if (ind > 2) 
             {
                 lst = new ObservableCollection<CodeBoxModel>();
-                foreach (var code in currentCodes) if (code.langType == order) lst.Add(code);
+                foreach (var code in currentCodes)
+                {
+                    if (code.langType == order) lst.Add(code);
+                }
             }
             else
             {
@@ -184,7 +193,7 @@ namespace CutCode
 
         public ObservableCollection<CodeBoxModel> SearchCode(string text, string from, ObservableCollection<CodeBoxModel> codes)
         {
-            return codes;
+            return new ObservableCollection<CodeBoxModel>();
         }
     }
 }

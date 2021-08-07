@@ -244,8 +244,8 @@ namespace CutCode
         {
             isFav = !isFav;
             codeModel.isFav = isFav;
-            database.FavModify(codeModel);
-            favAddr = isFav ? "../Resources/Images/Icons/fav.png" : themeService.IsLightTheme ? "../Resources/Images/Icons/fav_black.png" : "../Resources/Images/Icons/fav_white.png";
+            var isdone = database.FavModify(codeModel);
+            if(isdone) favAddr = isFav ? "../Resources/Images/Icons/fav.png" : themeService.IsLightTheme ? "../Resources/Images/Icons/fav_black.png" : "../Resources/Images/Icons/fav_white.png";
         }
 
         public void CopyCommand()
@@ -255,8 +255,8 @@ namespace CutCode
 
         public void DelCommand()
         {
-            database.DelCode(codeModel);
-            BackCommand();
+            var isdone = database.DelCode(codeModel);
+            if(isdone) BackCommand();
         }
 
         public void BackCommand() => pageService.Page = MainViewModel.Pages[0];
@@ -283,13 +283,16 @@ namespace CutCode
             codeModel.desc = desc;
             codeModel.code = code;
 
-            database.EditCode(codeModel);
+            var isdone = database.EditCode(codeModel);
 
-            isEnabled = false;
-            oppisEnabled = !isEnabled;
+            if (isdone)
+            {
+                isEnabled = false;
+                oppisEnabled = !isEnabled;
 
-            opacity1 = 1;
-            opacity2 = 0.3;
+                opacity1 = 1;
+                opacity2 = 0.3;
+            }
         }
 
         public void CancelCommand()

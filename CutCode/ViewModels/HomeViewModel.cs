@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace CutCode
@@ -23,12 +24,11 @@ namespace CutCode
             pageService = _pageService;
 
             database = _dataBase;
+            AllCodes = database.AllCodes;
             database.AllCodesUpdated += AllCodesUpdated;
 
             SetAppearance();
             IsSearched = false;
-
-            AllCodes = database.AllCodes;
 
             AllLangs = new ObservableCollection<string>()
             {
@@ -41,8 +41,6 @@ namespace CutCode
         {
             SetAppearance();
         }
-        private void AllCodesUpdated(object sender, EventArgs e) => AllCodes = database.AllCodes;
-
         private void SetAppearance()
         {
             Theme = themeService.IsLightTheme;
@@ -52,6 +50,7 @@ namespace CutCode
             comboboxHoverColor = themeService.IsLightTheme ? ColorCon.Convert("#C5C7C9") : ColorCon.Convert("#202326");
             comboboxBackgroundColor = themeService.IsLightTheme ? ColorCon.Convert("#E3E5E8") : ColorCon.Convert("#202225");
         }
+        private void AllCodesUpdated(object sender, EventArgs e) => AllCodes = database.AllCodes;
 
         public ObservableCollection<CodeBoxModel> AllCodes { get; set; }
         public IList<string> AllLangs { get; set; }
@@ -121,7 +120,7 @@ namespace CutCode
             set
             {
                 SetAndNotify(ref _CurrentSort1, value);
-                ComboBoxItemSelected(value);
+                Application.Current.Dispatcher.Invoke(new Action(() => { ComboBoxItemSelected(value); }));
             }
         }
 
@@ -132,7 +131,7 @@ namespace CutCode
             set 
             {
                 SetAndNotify(ref _CurrentSort2, value);
-                ComboBoxItemSelected(value);
+                Application.Current.Dispatcher.Invoke(new Action(() => { ComboBoxItemSelected(value); }));
             } 
         }
 

@@ -40,7 +40,6 @@ namespace CutCode
 
         private void SetAppearance()
         {
-            //  40444B
             textBoxBackground = themeService.IsLightTheme ? ColorCon.Convert("#DADBDC") : ColorCon.Convert("#2A2E33");
             textBoxForeground = themeService.IsLightTheme ? ColorCon.Convert("#1A1A1A") : ColorCon.Convert("#F7F7F7");
             richtextBoxBackground = themeService.IsLightTheme ? ColorCon.Convert("#E3E5E8") : ColorCon.Convert("#2C3036");
