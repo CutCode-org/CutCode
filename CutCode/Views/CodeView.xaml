@@ -114,7 +114,7 @@
 
                     <Label Grid.Row="0" Content="Language" FontSize="13" FontFamily="{StaticResource poppins_semibold}" 
                            Margin="5,0,0,-9" Foreground="{Binding textForeground}"/>
-                    <Label Grid.Row="1" Content="{Binding langType}" FontSize="16" FontFamily="{StaticResource poppins_regular}"
+                    <Label Grid.Row="1" Content="{Binding langType}" FontSize="15" FontFamily="{StaticResource poppins_regular}"
                             Margin="5,0,0,0" Foreground="{Binding textForeground}"/>
                 </Grid>
             </Border>
@@ -130,7 +130,7 @@
                 <Label Grid.Row="0" Content="Description" FontSize="14" FontFamily="{StaticResource poppins_semibold}" 
                            Margin="5,0,0,0" Foreground="{Binding textForeground}"/>
                 <TextBox Grid.Row="1" Text="{Binding desc}" FontSize="16" FontFamily="{StaticResource poppins_regular}" CaretBrush="{Binding textForeground}"
-                            Margin="10,0,0,10" Foreground="{Binding textForeground}" Background="Transparent" BorderThickness="0"
+                            Margin="10,0,0,10" Foreground="{Binding textForeground}" Background="Transparent" BorderThickness="0" TextWrapping="Wrap"
                              IsReadOnly="{Binding oppisEnabled}"/>
             </Grid>
         </Border>

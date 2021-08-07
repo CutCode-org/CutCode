@@ -36,6 +36,8 @@ namespace CutCode
             "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
             };
             Sorts = new ObservableCollection<string>() { "Date", "Alphabet" };
+
+            VisChange();
         }
         private void ThemeChanged(object sender, EventArgs e)
         {
@@ -50,9 +52,33 @@ namespace CutCode
             comboboxHoverColor = themeService.IsLightTheme ? ColorCon.Convert("#C5C7C9") : ColorCon.Convert("#202326");
             comboboxBackgroundColor = themeService.IsLightTheme ? ColorCon.Convert("#E3E5E8") : ColorCon.Convert("#202225");
         }
-        private void AllCodesUpdated(object sender, EventArgs e) => AllCodes = database.AllCodes;
+        private void AllCodesUpdated(object sender, EventArgs e) 
+        {
+            AllCodes = database.AllCodes;
+            VisChange();
+        } 
 
-        public ObservableCollection<CodeBoxModel> AllCodes { get; set; }
+        private void VisChange(string text = "You don't have any notes :(")
+        {
+            if(AllCodes.Count == 0)
+            {
+                labelVis = Visibility.Visible;
+                codesVis = Visibility.Hidden;
+                emptyLabel = text;
+            }
+            else
+            {
+                labelVis = Visibility.Hidden;
+                codesVis = Visibility.Visible;
+            }
+        }
+
+        private ObservableCollection<CodeBoxModel> _AllCodes;
+        public ObservableCollection<CodeBoxModel> AllCodes
+        {
+            get => _AllCodes;
+            set => SetAndNotify(ref _AllCodes, value);
+        }
         public IList<string> AllLangs { get; set; }
         public IList<string> Sorts { get; set; }
 
@@ -98,6 +124,26 @@ namespace CutCode
         }
         #endregion
 
+        private Visibility _labelVis;
+        public Visibility labelVis
+        {
+            get => _labelVis;
+            set => SetAndNotify(ref _labelVis, value);
+        }
+        private Visibility _codesVis;
+        public Visibility codesVis
+        {
+            get => _codesVis;
+            set => SetAndNotify(ref _codesVis, value);
+        }
+
+        private string _emptyLabel;
+        public string emptyLabel
+        {
+            get => _emptyLabel;
+            set => SetAndNotify(ref _emptyLabel, value);
+        }
+
         private bool _Theme;
         public bool Theme
         {
@@ -137,14 +183,23 @@ namespace CutCode
 
         private void ComboBoxItemSelected(string kind) 
         {
-            Trace.WriteLine($"Gone order them ... {kind} ...");
-            AllCodes = database.OrderCode(kind, AllCodes);
+            AllCodes = database.OrderCode(kind);
+            VisChange("Not found :(");
         } 
 
         public void SearchCommand(string text)
         {
             IsSearched = false;
-            AllCodes = database.SearchCode(text, "Home", AllCodes);
+            if(text == "")
+            {
+                AllCodes = database.AllCodes;
+                VisChange();
+            }
+            else
+            {
+                AllCodes = database.SearchCode(text, "Home");
+                VisChange("Not found :(");
+            }
             IsSearched = true;
         }
 

@@ -200,10 +200,14 @@ namespace CutCode
 
         private void TextChanged(object sender, TextChangedEventArgs e)
         {
-            Text = searchBox.Text;
-            exitBtn.Visibility = Visibility.Hidden;
-            circularBar.Visibility = string.IsNullOrEmpty(searchBox.Text) ? Visibility.Hidden : Visibility.Visible;
-            activityTimer.IsEnabled = true;
+            if (searchBox.Text.Count() == 0) ClearClicked(null, null);
+            else
+            {
+                Text = searchBox.Text;
+                exitBtn.Visibility = Visibility.Hidden;
+                circularBar.Visibility = string.IsNullOrEmpty(searchBox.Text) ? Visibility.Hidden : Visibility.Visible;
+                activityTimer.IsEnabled = true;
+            }
         }
 
         private void ClearClicked(object sender, EventArgs e)

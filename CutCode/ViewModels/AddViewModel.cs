@@ -104,13 +104,16 @@ namespace CutCode
             set => SetAndNotify(ref _leftText, value);
         }
 
+        private int ind;
+
         private string _CurrentLang;
         public string CurrentLang
         {
             get => _CurrentLang;
             set
             {
-                SetAndNotify(ref _CurrentLang, SyntaxLanguages[AllLangs.IndexOf(value)]);
+                ind = AllLangs.IndexOf(value);
+                SetAndNotify(ref _CurrentLang, SyntaxLanguages[ind]);
             }
         }
 
@@ -133,7 +136,7 @@ namespace CutCode
             else
             {
                 leftText = "";
-                var codeModel = database.AddCode(title, desc, code, AllLangs[SyntaxLanguages.IndexOf(CurrentLang)]);
+                var codeModel = database.AddCode(title, desc, code, AllLangs[ind]);
 
                 pageService.remoteChange = "Home";
                 pageService.Page = new CodeViewModel(themeService, pageService, database, codeModel);

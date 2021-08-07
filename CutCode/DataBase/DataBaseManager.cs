@@ -135,12 +135,12 @@ namespace CutCode
             "Html", "Java", "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
         };
 
-        public ObservableCollection<CodeBoxModel> OrderCode(string order, ObservableCollection<CodeBoxModel> codes)
+        public ObservableCollection<CodeBoxModel> OrderCode(string order)
         {
             int ind = AllOrderKind.IndexOf(order);
             ObservableCollection<CodeBoxModel> lst;
 
-            var currentCodes = codes;
+            var currentCodes = AllCodes;
 
             if (ind > 2) 
             {
@@ -154,17 +154,10 @@ namespace CutCode
             {
                 if (ind == 0) lst = new ObservableCollection<CodeBoxModel>(currentCodes.OrderBy(x => x.title).ToList());
                 else if(ind == 1) lst = new ObservableCollection<CodeBoxModel>(currentCodes.OrderBy(x => x.timestamp).ToList());
-                else
-                {
-                    var dbcodes = _db.Query<CodeTable>("SELECT * From CodeTable");
-                    lst = new ObservableCollection<CodeBoxModel>();
-                    foreach(var c in dbcodes)
-                    {
-                        lst.Add(new CodeBoxModel(c.Id, c.title, c.desc, c.isFav, c.lang, c.code, c.timestamp, themeService));
-                    }
-                }
+                else lst = AllCodes;
             }
 
+            if (ind < 2) AllCodes = lst;
             return lst;
         }
 
@@ -191,9 +184,40 @@ namespace CutCode
             return true;
         }
 
-        public ObservableCollection<CodeBoxModel> SearchCode(string text, string from, ObservableCollection<CodeBoxModel> codes)
+        public ObservableCollection<CodeBoxModel> SearchCode(string text, string from)
         {
-            return new ObservableCollection<CodeBoxModel>();
+            var currentCode = from == "Home" ? AllCodes : FavCodes;
+
+            var lst = new ObservableCollection<CodeBoxModel>();
+            foreach(var code in currentCode)
+            {
+                bool add = false;
+
+                int f = 0;
+                if (code.title.Length >= text.Length)
+                {
+                    foreach (var i in code.title)
+                    {
+                        if (text.Contains(i)) 
+                        {
+                            text.Remove(text.IndexOf(i));
+                            f++;
+                        }
+                    }
+                }
+                else continue;
+
+                if (code.title == text) add = true;
+                else if (code.title.Length < 3)
+                {
+                    if (f >= 1) add = true;
+                }
+                else if (f >= 3) add = true;
+
+                if (add) lst.Add(code);
+            }
+
+            return lst;
         }
     }
 }

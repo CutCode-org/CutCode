@@ -9,71 +9,37 @@ using System.Threading.Tasks;
 
 namespace CutCode
 {
-    public class CodeBoxModel : INotifyPropertyChanged
+    public class CodeBoxModel : Screen
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         public int id { get; set; }
-        private string _title { get; set; }
+        private string _title;
         public string title
         {
             get => _title;
-            set
-            {
-                if(_title != value)
-                {
-                    _title = value;
-                    NotifyPropertyChanged();
-                }
-            }
+            set => SetAndNotify(ref _title, value);
         }
 
-        private string _desc { get; set; }
+        private string _desc;
         public string desc
         {
             get => _desc;
-            set
-            {
-                if (_desc != value)
-                {
-                    _desc = value;
-                    NotifyPropertyChanged();
-                }
-            }
+            set => SetAndNotify(ref _desc, value);
         }
 
-        private bool _isFav { get; set; }
+        private bool _isFav;
         public bool isFav
         {
             get => _isFav;
-            set
-            {
-                if (_isFav != value)
-                {
-                    _isFav = value;
-                    NotifyPropertyChanged();
-                }
-            }
+            set => SetAndNotify(ref _isFav, value);
         }
 
         public string langType { get; set; }
 
-        private string _code { get; set; }
+        private string _code;
         public string code
         {
             get => _code;
-            set
-            {
-                if (_code != value)
-                {
-                    _code = value;
-                    NotifyPropertyChanged();
-                }
-            }
+            set => SetAndNotify(ref _code, value);
         }
         public long timestamp { get; set; }
         public string date { get; set; }

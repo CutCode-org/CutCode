@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace CutCode
@@ -27,10 +28,9 @@ namespace CutCode
             database = _database;
             AllCodes = database.FavCodes;
             database.FavCodesUpdated += FavCodesUpdated;
+
+            VisChange();
         }
-
-        private void FavCodesUpdated(object sender, EventArgs e) => AllCodes = database.FavCodes;
-
         private void ThemeChanged(object sender, EventArgs e)
         {
             SetAppearance();
@@ -43,7 +43,54 @@ namespace CutCode
             searchBarHoverColor = themeService.IsLightTheme ? ColorCon.Convert("#D0D1D2") : ColorCon.Convert("#373737");
         }
 
-        public ObservableCollection<CodeBoxModel> AllCodes { get; set; }
+        private void FavCodesUpdated(object sender, EventArgs e)
+        {
+            AllCodes = database.FavCodes;
+            VisChange();
+        }
+
+        private void VisChange(string text = "You don't have any favourite notes :(")
+        {
+            if (AllCodes.Count == 0)
+            {
+                labelVis = Visibility.Visible;
+                codesVis = Visibility.Hidden;
+                emptyLabel = text;
+            }
+            else
+            {
+                labelVis = Visibility.Hidden;
+                codesVis = Visibility.Visible;
+            }
+        }
+
+
+        private Visibility _labelVis;
+        public Visibility labelVis
+        {
+            get => _labelVis;
+            set => SetAndNotify(ref _labelVis, value);
+        }
+        private Visibility _codesVis;
+        public Visibility codesVis
+        {
+            get => _codesVis;
+            set => SetAndNotify(ref _codesVis, value);
+        }
+
+        private string _emptyLabel;
+        public string emptyLabel
+        {
+            get => _emptyLabel;
+            set => SetAndNotify(ref _emptyLabel, value);
+        }
+
+        private ObservableCollection<CodeBoxModel> _AllCodes;
+        public ObservableCollection<CodeBoxModel> AllCodes
+        {
+            get => _AllCodes;
+            set => SetAndNotify(ref _AllCodes, value);
+        }
 
         private SolidColorBrush _searchBarBackground;
         public SolidColorBrush searchBarBackground
@@ -86,7 +133,16 @@ namespace CutCode
         public void SearchCommand(string text)
         {
             IsSearched = false;
-            AllCodes = database.SearchCode(text, "Fav", AllCodes);
+            if (text == "")
+            {
+                AllCodes = database.FavCodes;
+                VisChange();
+            }
+            else
+            {
+                AllCodes = database.SearchCode(text, "Home");
+                if (AllCodes.Count == 0) VisChange("Not found :(");
+            }
             IsSearched = true;
         }
 
