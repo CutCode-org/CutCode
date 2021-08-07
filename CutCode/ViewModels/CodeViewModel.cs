@@ -259,7 +259,7 @@ namespace CutCode
             BackCommand();
         }
 
-        public void BackCommand() => pageService.Page = new HomeViewModel(themeService, pageService, database);
+        public void BackCommand() => pageService.Page = MainViewModel.Pages[0];
 
         private string BeforeEditTitle;
         private string BeforeEditDesc;

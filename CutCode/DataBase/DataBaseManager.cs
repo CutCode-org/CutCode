@@ -13,6 +13,7 @@ namespace CutCode
     public class DataBaseManager : IDataBase
     {
         public ObservableCollection<CodeBoxModel> AllCodes { get; set; }
+        public ObservableCollection<CodeBoxModel> FavCodes { get; set; }
         private SQLiteConnection _db;
         private readonly IThemeService themeService;
         public DataBaseManager(IThemeService _themeService)
@@ -30,6 +31,7 @@ namespace CutCode
             {
                 AllCodes.Add(new CodeBoxModel(c.Id, c.title, c.desc, c.isFav, c.lang, c.code, c.timestamp, themeService));
             }
+            PropertyChanged();
         }
 
         private int GetIndex(CodeBoxModel code)
@@ -43,9 +45,20 @@ namespace CutCode
             return ind;
         }
 
-        public event EventHandler PropertyChanged;
-        public void AllCodesPropertyChanged() => PropertyChanged?.Invoke(this, EventArgs.Empty);
-        
+        public event EventHandler AllCodesUpdated;
+        public event EventHandler FavCodesUpdated;
+        public void PropertyChanged() 
+        {
+            var lst = new ObservableCollection<CodeBoxModel>();
+            foreach (var code in AllCodes)
+            {
+                if (code.isFav) lst.Add(code);
+            }
+            FavCodes = lst;
+                
+            AllCodesUpdated.Invoke(AllCodes, EventArgs.Empty);
+            FavCodesUpdated.Invoke(FavCodes, EventArgs.Empty);
+        } 
 
         public CodeBoxModel AddCode(string title, string desc, string code, string langType)
         {
@@ -65,7 +78,7 @@ namespace CutCode
             int id = (int)SQLite3.LastInsertRowid(_db.Handle);
             var codeModel = new CodeBoxModel(id, title, desc, false, langType, code, time, themeService);
             AllCodes.Add(codeModel);
-            AllCodesPropertyChanged();
+            PropertyChanged();
 
             return codeModel;
         }
@@ -85,7 +98,7 @@ namespace CutCode
                         _db.Update(dbCode);
                     });
                     AllCodes[GetIndex(code)] = code;
-                    AllCodesPropertyChanged();
+                    PropertyChanged();
                 }
             }
             catch
@@ -101,7 +114,7 @@ namespace CutCode
             {
                 _db.Delete<CodeTable>(code.id);
                 AllCodes.Remove(code);
-                AllCodesPropertyChanged();
+                PropertyChanged();
             }
             catch
             {
@@ -115,32 +128,35 @@ namespace CutCode
             "Alphabet", "Date", "All languages", "Python", "C++", "C#", "CSS", "Dart", "Golang", 
             "Html", "Java", "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
         };
-        public void OrderCode(string order)
+
+        public ObservableCollection<CodeBoxModel> OrderCode(string order, ObservableCollection<CodeBoxModel> codes)
         {
             int ind = AllOrderKind.IndexOf(order);
             ObservableCollection<CodeBoxModel> lst;
 
+            var currentCodes = codes;
+
             if (ind > 2) 
             {
                 lst = new ObservableCollection<CodeBoxModel>();
-                foreach (var code in AllCodes) if (code.langType == order) lst.Add(code);
+                foreach (var code in currentCodes) if (code.langType == order) lst.Add(code);
             }
             else
             {
-                if (ind == 0) lst = new ObservableCollection<CodeBoxModel>(AllCodes.OrderBy(x => x.title).ToList());
-                else if(ind == 1) lst = new ObservableCollection<CodeBoxModel>(AllCodes.OrderBy(x => x.timestamp).ToList());
+                if (ind == 0) lst = new ObservableCollection<CodeBoxModel>(currentCodes.OrderBy(x => x.title).ToList());
+                else if(ind == 1) lst = new ObservableCollection<CodeBoxModel>(currentCodes.OrderBy(x => x.timestamp).ToList());
                 else
                 {
-                    var codes = _db.Query<CodeTable>("SELECT * From CodeTable");
+                    var dbcodes = _db.Query<CodeTable>("SELECT * From CodeTable");
                     lst = new ObservableCollection<CodeBoxModel>();
-                    foreach(var c in codes)
+                    foreach(var c in dbcodes)
                     {
                         lst.Add(new CodeBoxModel(c.Id, c.title, c.desc, c.isFav, c.lang, c.code, c.timestamp, themeService));
                     }
                 }
             }
-            AllCodes = lst;
-            AllCodesPropertyChanged();
+
+            return lst;
         }
 
         public bool FavModify(CodeBoxModel code)
@@ -156,7 +172,7 @@ namespace CutCode
                         _db.Update(dbCode);
                     });
                     AllCodes[GetIndex(code)] = code;
-                    AllCodesPropertyChanged();
+                    PropertyChanged();
                 }
             }
             catch
@@ -166,9 +182,9 @@ namespace CutCode
             return true;
         }
 
-        public void SearchCode(string text)
+        public ObservableCollection<CodeBoxModel> SearchCode(string text, string from, ObservableCollection<CodeBoxModel> codes)
         {
-
+            return codes;
         }
     }
 }

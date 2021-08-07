@@ -10,12 +10,14 @@ namespace CutCode
     public interface IDataBase
     {
         ObservableCollection<CodeBoxModel> AllCodes { get; set; }
-        event EventHandler PropertyChanged;
+        ObservableCollection<CodeBoxModel> FavCodes { get; set; }
+        event EventHandler AllCodesUpdated;
+        event EventHandler FavCodesUpdated;
         CodeBoxModel AddCode(string title, string desc, string code, string langType);
         bool EditCode(CodeBoxModel code);
         bool DelCode(CodeBoxModel code);
-        void OrderCode(string order);
+        ObservableCollection<CodeBoxModel> OrderCode(string order, ObservableCollection<CodeBoxModel> codes);
         bool FavModify(CodeBoxModel code);
-        void SearchCode(string text);
+        ObservableCollection<CodeBoxModel> SearchCode(string text, string from, ObservableCollection<CodeBoxModel> codes);
     }
 }

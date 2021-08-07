@@ -25,23 +25,11 @@ namespace CutCode
             pageService = _pageService;
 
             database = _database;
-            database.PropertyChanged += DataBaseUpdated;
-
-            AllCodes = new ObservableCollection<CodeBoxModel>();
-            foreach(var code in DataBaseStatic.AllCodes)
-            {
-                if (code.isFav) AllCodes.Add(code);
-            }
+            AllCodes = database.FavCodes;
+            database.FavCodesUpdated += FavCodesUpdated;
         }
 
-        private void DataBaseUpdated(object sender, EventArgs e)
-        {
-            AllCodes = new ObservableCollection<CodeBoxModel>();
-            foreach (var code in DataBaseStatic.AllCodes)
-            {
-                if (code.isFav) AllCodes.Add(code);
-            }
-        }
+        private void FavCodesUpdated(object sender, EventArgs e) => AllCodes = database.FavCodes;
 
         private void ThemeChanged(object sender, EventArgs e)
         {
@@ -98,12 +86,13 @@ namespace CutCode
         public void SearchCommand(string text)
         {
             IsSearched = false;
-            database.SearchCode(text);
+            AllCodes = database.SearchCode(text, "Fav", AllCodes);
             IsSearched = true;
         }
 
         public void CodeSelectCommand(CodeBoxModel code)
         {
+            pageService.remoteChange = "Home";
             pageService.Page = new CodeViewModel(themeService, pageService, database, code);
         }
     }

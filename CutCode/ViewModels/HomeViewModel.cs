@@ -23,12 +23,12 @@ namespace CutCode
             pageService = _pageService;
 
             database = _dataBase;
-            database.PropertyChanged += DataBaseUpdated;
+            database.AllCodesUpdated += AllCodesUpdated;
 
             SetAppearance();
             IsSearched = false;
 
-            AllCodes = DataBaseStatic.AllCodes;
+            AllCodes = database.AllCodes;
 
             AllLangs = new ObservableCollection<string>()
             {
@@ -41,7 +41,7 @@ namespace CutCode
         {
             SetAppearance();
         }
-        private void DataBaseUpdated(object sender, EventArgs e) => AllCodes = database.AllCodes;
+        private void AllCodesUpdated(object sender, EventArgs e) => AllCodes = database.AllCodes;
 
         private void SetAppearance()
         {
@@ -53,7 +53,7 @@ namespace CutCode
             comboboxBackgroundColor = themeService.IsLightTheme ? ColorCon.Convert("#E3E5E8") : ColorCon.Convert("#202225");
         }
 
-        public IList<CodeBoxModel> AllCodes { get; set; }
+        public ObservableCollection<CodeBoxModel> AllCodes { get; set; }
         public IList<string> AllLangs { get; set; }
         public IList<string> Sorts { get; set; }
 
@@ -120,8 +120,8 @@ namespace CutCode
             get => _CurrentSort1;
             set
             {
-                ComboBoxItemSelected(value);
                 SetAndNotify(ref _CurrentSort1, value);
+                ComboBoxItemSelected(value);
             }
         }
 
@@ -131,17 +131,21 @@ namespace CutCode
             get => _CurrentSort2;
             set 
             {
-                ComboBoxItemSelected(value);
                 SetAndNotify(ref _CurrentSort2, value);
+                ComboBoxItemSelected(value);
             } 
         }
 
-        private void ComboBoxItemSelected(string kind) => database.OrderCode(kind);
+        private void ComboBoxItemSelected(string kind) 
+        {
+            Trace.WriteLine($"Gone order them ... {kind} ...");
+            AllCodes = database.OrderCode(kind, AllCodes);
+        } 
 
         public void SearchCommand(string text)
         {
             IsSearched = false;
-            database.SearchCode(text);
+            AllCodes = database.SearchCode(text, "Home", AllCodes);
             IsSearched = true;
         }
 

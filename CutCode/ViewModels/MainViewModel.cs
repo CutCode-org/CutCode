@@ -20,7 +20,7 @@ namespace CutCode
     public class MainViewModel : Screen
     {
         //private List<Button> leftBarBtns;
-        private List<Object> Pages;
+        public static List<Object> Pages;
         private readonly IThemeService _themeService;
         private readonly IPageService pageService;
         private readonly IDataBase database;
@@ -36,8 +36,6 @@ namespace CutCode
             pageService.PageRemoteChanged += PageRemoteChanged;
 
             database = _dataBase;
-            DataBaseStatic.AllCodes = database.AllCodes;
-            database.PropertyChanged += DataBaseUpdated;
 
             sideBarBtns = new ObservableCollection<SideBarBtnModel>();
 
@@ -55,8 +53,6 @@ namespace CutCode
                                             new SettingViewModel(_themeService) };
             pageService.Page = Pages[0];
         }
-
-        private void DataBaseUpdated(object sender, EventArgs e) => DataBaseStatic.AllCodes = database.AllCodes;
 
         private void ThemeChanged(object sender, EventArgs e)
         {
@@ -190,10 +186,5 @@ namespace CutCode
             set
             { SetAndNotify(ref _minImage, value); }
         }
-    }
-    
-    public static class DataBaseStatic
-    {
-        public static ObservableCollection<CodeBoxModel> AllCodes = new ObservableCollection<CodeBoxModel>();
     }
 }
