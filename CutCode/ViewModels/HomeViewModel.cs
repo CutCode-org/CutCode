@@ -27,6 +27,8 @@ namespace CutCode
             AllCodes = database.AllCodes;
             database.AllCodesUpdated += AllCodesUpdated;
 
+            sortby = database.sortBy == "Date" ? 0 : 1;
+
             SetAppearance();
             IsSearched = false;
 
@@ -136,6 +138,7 @@ namespace CutCode
             get => _codesVis;
             set => SetAndNotify(ref _codesVis, value);
         }
+        public int sortby { get; set; }
 
         private string _emptyLabel;
         public string emptyLabel
@@ -166,7 +169,11 @@ namespace CutCode
             set
             {
                 SetAndNotify(ref _CurrentSort1, value);
-                Application.Current.Dispatcher.Invoke(new Action(() => { ComboBoxItemSelected(value); }));
+                Application.Current.Dispatcher.Invoke(new Action(() => 
+                { 
+                    ComboBoxItemSelected(value);
+                    database.sortBy = value;
+                }));
             }
         }
 

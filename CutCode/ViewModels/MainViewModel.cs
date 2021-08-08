@@ -29,13 +29,13 @@ namespace CutCode
         {
             _themeService = themeService;
             _themeService.ThemeChanged += ThemeChanged;
-            _themeService.IsLightTheme = false;
 
             pageService = _pageService;
             pageService.PageChanged += PageChanged;
             pageService.PageRemoteChanged += PageRemoteChanged;
 
             database = _dataBase;
+            _themeService.IsLightTheme = database.isLightTheme;
 
             sideBarBtns = new ObservableCollection<SideBarBtnModel>();
 
@@ -50,7 +50,7 @@ namespace CutCode
             Pages = new List<Object>() {    new HomeViewModel(themeService, pageService, database), 
                                             new AddViewModel(themeService, pageService, database), 
                                             new FavViewModel(themeService, pageService, database), 
-                                            new SettingViewModel(_themeService) };
+                                            new SettingViewModel(_themeService, database) };
             pageService.Page = Pages[0];
         }
 

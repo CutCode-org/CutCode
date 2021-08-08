@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace CutCode
 {
@@ -16,6 +18,8 @@ namespace CutCode
         public ObservableCollection<CodeBoxModel> FavCodes { get; set; }
         private SQLiteConnection _db;
         private readonly IThemeService themeService;
+
+        private string prefpath = "pref.json";
         public DataBaseManager(IThemeService _themeService)
         {
             var path = "DataBase.db";
@@ -38,7 +42,46 @@ namespace CutCode
                 if (code.isFav) lst.Add(code);
             }
             FavCodes = lst;
+
+            if (File.Exists(prefpath))
+            {
+                string pref = File.ReadAllText(prefpath);
+                prefModel = JsonConvert.DeserializeObject<PrefModel>(pref);
+                isLightTheme = prefModel.IsLightTheme;
+                sortBy = prefModel.SortBy;
+            }
+            else
+            {
+                isLightTheme = true;
+                sortBy = "Date";
+                prefModel = new PrefModel() { IsLightTheme = isLightTheme, SortBy = sortBy};
+                UpdatePref();
+            }
         }
+
+        #region Preference region
+
+        private PrefModel prefModel = new PrefModel();
+        public bool isLightTheme { get; set; }
+        public string sortBy { get; set; }
+
+        public void ChangeSort(string sort) 
+        {
+            prefModel.SortBy = sort;
+            UpdatePref();
+        } 
+        public void ChangeTheme(bool IsLightTheme)
+        {
+            prefModel.IsLightTheme = IsLightTheme;
+            UpdatePref();
+        }
+        private void UpdatePref()
+        {
+            var json = JsonConvert.SerializeObject(prefModel);
+            File.WriteAllText(prefpath, json);
+        }
+
+        #endregion
 
         private int GetIndex(CodeBoxModel code)
         {
@@ -155,6 +198,8 @@ namespace CutCode
                 if (ind == 0) lst = new ObservableCollection<CodeBoxModel>(currentCodes.OrderBy(x => x.title).ToList());
                 else if(ind == 1) lst = new ObservableCollection<CodeBoxModel>(currentCodes.OrderBy(x => x.timestamp).ToList());
                 else lst = AllCodes;
+
+                if (ind == 0 || ind == 1) ChangeSort(AllOrderKind[ind]);
             }
 
             if (ind < 2) AllCodes = lst;
@@ -189,10 +234,9 @@ namespace CutCode
             var currentCode = from == "Home" ? AllCodes : FavCodes;
 
             var lst = new ObservableCollection<CodeBoxModel>();
-            foreach(var code in currentCode)
+            var lst2 = new ObservableCollection<CodeBoxModel>();
+            foreach (var code in currentCode)
             {
-                bool add = false;
-
                 int f = 0;
                 if (code.title.Length >= text.Length)
                 {
@@ -207,16 +251,15 @@ namespace CutCode
                 }
                 else continue;
 
-                if (code.title == text) add = true;
+                if (code.title == text) lst.Add(code);
                 else if (code.title.Length < 3)
                 {
-                    if (f >= 1) add = true;
+                    if (f >= 1) lst2.Add(code);
                 }
-                else if (f >= 3) add = true;
-
-                if (add) lst.Add(code);
+                else if (f >= 3) lst2.Add(code);
             }
 
+            lst.Concat(lst2);
             return lst;
         }
     }

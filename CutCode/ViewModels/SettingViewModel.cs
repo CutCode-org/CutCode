@@ -15,9 +15,11 @@ namespace CutCode
     {
         public ObservableCollection<ThemeButtonModel> themeBtns { get; set; }
         private readonly IThemeService themeService;
-
-        public SettingViewModel(IThemeService _themeService)
+        private readonly IDataBase database;
+        public SettingViewModel(IThemeService _themeService, IDataBase _database)
         {
+            database = _database;
+
             themeService = _themeService;
             themeService.ThemeChanged += ThemeChanged;
 
@@ -60,7 +62,11 @@ namespace CutCode
                 }
             }
         }
-        public void ThemeChangeCommand(string selectedTheme) => themeService.IsLightTheme = selectedTheme == "Light Mode" ?  true : false;
+        public void ThemeChangeCommand(string selectedTheme) 
+        {
+            themeService.IsLightTheme = selectedTheme == "Light Mode" ? true : false;
+            database.ChangeTheme(themeService.IsLightTheme);
+        } 
 
     }
 }

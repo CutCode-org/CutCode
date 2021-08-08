@@ -19,5 +19,11 @@ namespace CutCode
         ObservableCollection<CodeBoxModel> OrderCode(string order);
         bool FavModify(CodeBoxModel code);
         ObservableCollection<CodeBoxModel> SearchCode(string text, string from);
+
+        bool isLightTheme { get; set; }
+        string sortBy { get; set; }
+
+        void ChangeSort(string sort);
+        void ChangeTheme(bool IsLightTheme);
     }
 }

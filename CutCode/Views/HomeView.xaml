@@ -43,7 +43,7 @@
                    FontSize="12" FontFamily="{StaticResource poppins_regular}"/>
             <ComboBox x:Name="sortCombobox" Grid.Row="1" Height="30" Width="150" Text="Sort by" Margin="5,5,15,5" BorderThickness="0"
                       Foreground="{Binding searchBarTextColor}"   FontFamily="{StaticResource poppins_regular}"
-                        Background="{Binding comboboxBackgroundColor}"  SelectedIndex="0"
+                        Background="{Binding comboboxBackgroundColor}"  SelectedIndex="{Binding sortby}"
                         IsDropDownOpen="false" Style="{StaticResource comboBoxStyle}" 
                       SelectedValue="{Binding CurrentSort1}" ItemsSource="{Binding Sorts}"
                       BorderBrush="{Binding comboboxHoverColor}">

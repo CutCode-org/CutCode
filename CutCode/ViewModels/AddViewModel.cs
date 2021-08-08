@@ -30,7 +30,6 @@ namespace CutCode
                 "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
             };
             leftText = "";
-            CurrentLang = AllLangs[0];
             SetAppearance();
         }
         private void ThemeChanged(Object sender, EventArgs e)
@@ -141,7 +140,7 @@ namespace CutCode
                 pageService.remoteChange = "Home";
                 pageService.Page = new CodeViewModel(themeService, pageService, database, codeModel);
 
-                title = ""; desc = ""; code = ""; CurrentLang = AllLangs[0]; 
+                MainViewModel.Pages[1] = new AddViewModel(themeService, pageService, database);
             }
         }
 
@@ -150,7 +149,7 @@ namespace CutCode
             pageService.remoteChange = "Home";
             pageService.Page = MainViewModel.Pages[0];
 
-            title = ""; desc = ""; code = ""; CurrentLang = AllLangs[0];
+            MainViewModel.Pages[1] = new AddViewModel(themeService, pageService, database);
         }
     }
 }
