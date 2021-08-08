@@ -23,7 +23,6 @@ namespace CutCode
         public static List<Object> Pages;
         private readonly IThemeService _themeService;
         private readonly IPageService pageService;
-        private readonly IDataBase database;
         public ObservableCollection<SideBarBtnModel> sideBarBtns { get; set; }
         public MainViewModel(IThemeService themeService, IPageService _pageService, IDataBase _dataBase)
         {

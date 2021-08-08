@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
+using System.Security.AccessControl;
 
 namespace CutCode
 {
@@ -19,12 +20,17 @@ namespace CutCode
         private SQLiteConnection _db;
         private readonly IThemeService themeService;
 
-        private string prefpath = "pref.json";
+        private string prefpath { get; set; }
         #region Set region
         public DataBaseManager(IThemeService _themeService)
         {
-            var path = "DataBase.db";
-            _db = new SQLiteConnection(path);
+            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var path = Path.Combine(appDataPath, "CutCode");
+            Directory.CreateDirectory(path);
+            var dbpath = Path.Combine(path, "DataBase.db");
+            prefpath = Path.Combine(path, "pref.json");
+
+            _db = new SQLiteConnection(dbpath);
             _db.CreateTable<CodeTable>();
 
             if (File.Exists(prefpath))
