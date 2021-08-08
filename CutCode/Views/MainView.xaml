@@ -76,7 +76,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Image Grid.Row="0" Source="../Resources/Images/logo.png" Width="30" Height="30"  Margin="15,12,7,7"
+            <Image Grid.Row="0" Source="../Resources/Images/logo.png" Width="35" Height="35"  Margin="15,12,7,7"
                     RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
             
             <!-- Side Bar Buttons -->
@@ -108,7 +108,7 @@
         
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="48"/>
+                <RowDefinition Height="54"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Background="{Binding titleBarColor}" MouseDown="ChangeWindowPosition" MouseMove="MaxChangeWindowPosition">

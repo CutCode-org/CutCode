@@ -190,8 +190,11 @@ namespace CutCode
 
         private void ComboBoxItemSelected(string kind) 
         {
-            AllCodes = database.OrderCode(kind);
-            VisChange("Not found :(");
+            if(AllCodes.Count > 0)
+            {
+                AllCodes = database.OrderCode(kind);
+                VisChange("Not found :(");
+            }
         } 
 
         public void SearchCommand(string text)
@@ -199,13 +202,17 @@ namespace CutCode
             IsSearched = false;
             if(text == "")
             {
+
                 AllCodes = database.AllCodes;
                 VisChange();
             }
             else
             {
-                AllCodes = database.SearchCode(text, "Home");
-                VisChange("Not found :(");
+                if (AllCodes.Count > 0)
+                {
+                    AllCodes = database.SearchCode(text, "Home");
+                    VisChange("Not found :(");
+                }
             }
             IsSearched = true;
         }

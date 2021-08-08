@@ -140,8 +140,11 @@ namespace CutCode
             }
             else
             {
-                AllCodes = database.SearchCode(text, "Home");
-                if (AllCodes.Count == 0) VisChange("Not found :(");
+                if(AllCodes.Count > 0)
+                {
+                    AllCodes = database.SearchCode(text, "Home");
+                    if (AllCodes.Count == 0) VisChange("Not found :(");
+                }
             }
             IsSearched = true;
         }
