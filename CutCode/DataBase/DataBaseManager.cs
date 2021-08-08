@@ -20,28 +20,12 @@ namespace CutCode
         private readonly IThemeService themeService;
 
         private string prefpath = "pref.json";
+        #region Set region
         public DataBaseManager(IThemeService _themeService)
         {
             var path = "DataBase.db";
             _db = new SQLiteConnection(path);
             _db.CreateTable<CodeTable>();
-
-            themeService = _themeService;
-
-            AllCodes = new ObservableCollection<CodeBoxModel>();
-
-            var codes = _db.Query<CodeTable>("SELECT * From CodeTable");
-            foreach (var c in codes)
-            {
-                AllCodes.Add(new CodeBoxModel(c.Id, c.title, c.desc, c.isFav, c.lang, c.code, c.timestamp, themeService));
-            }
-
-            var lst = new ObservableCollection<CodeBoxModel>();
-            foreach (var code in AllCodes)
-            {
-                if (code.isFav) lst.Add(code);
-            }
-            FavCodes = lst;
 
             if (File.Exists(prefpath))
             {
@@ -57,7 +41,26 @@ namespace CutCode
                 prefModel = new PrefModel() { IsLightTheme = isLightTheme, SortBy = sortBy};
                 UpdatePref();
             }
+
+            themeService = _themeService;
+            themeService.IsLightTheme = isLightTheme;
+
+            AllCodes = new ObservableCollection<CodeBoxModel>();
+
+            var codes = _db.Query<CodeTable>("SELECT * From CodeTable");
+            foreach (var c in codes)
+            {
+                AllCodes.Add(new CodeBoxModel(c.Id, c.title, c.desc, c.isFav, c.lang, c.code, c.timestamp, themeService));
+            }
+
+            var lst = new ObservableCollection<CodeBoxModel>();
+            foreach (var code in AllCodes)
+            {
+                if (code.isFav) lst.Add(code);
+            }
+            FavCodes = lst;
         }
+        #endregion
 
         #region Preference region
 

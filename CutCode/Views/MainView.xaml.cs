@@ -44,5 +44,10 @@ namespace CutCode
         {
             WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
         }
+
+        private void ExitClicked(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
