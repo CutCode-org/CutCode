@@ -40,7 +40,7 @@ Forexample, sometimes as a developer, we need to type one code snippets in most 
 6. Syntax highlighting based on the type of programming language
 
 # Release
-Download the app from [here](https://github.com/Abdesol)
+Download the app setup from [here](https://www.mediafire.com/file/dhsgn5i7rsmon5l/CutCode_Installer.exe/file)
 
 # Contributers
 
