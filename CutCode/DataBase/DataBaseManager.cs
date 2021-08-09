@@ -82,6 +82,7 @@ namespace CutCode
         public void ChangeTheme(bool IsLightTheme)
         {
             prefModel.IsLightTheme = IsLightTheme;
+            themeService.IsLightTheme = IsLightTheme;
             UpdatePref();
         }
         private void UpdatePref()

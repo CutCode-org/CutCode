@@ -61,8 +61,8 @@ namespace CutCode
         {
             if (d is not CodeBoxControl ctrl || e.NewValue is not IThemeService) return;
             ctrl.ThemeService = (IThemeService)e.NewValue;
-            ctrl.ThemeService.ThemeChanged += ctrl.ThemeChanged;
             ctrl.ThemeChanged(null, null);
+            ctrl.ThemeService.ThemeChanged += ctrl.ThemeChanged;
         }
 
         private void ThemeChanged(object sender, EventArgs e)

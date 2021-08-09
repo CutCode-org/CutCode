@@ -67,6 +67,5 @@ namespace CutCode
             themeService.IsLightTheme = selectedTheme == "Light Mode" ? true : false;
             database.ChangeTheme(themeService.IsLightTheme);
         } 
-
     }
 }

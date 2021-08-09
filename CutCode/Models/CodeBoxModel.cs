@@ -43,7 +43,6 @@ namespace CutCode
             set => SetAndNotify(ref _code, value);
         }
         public long timestamp { get; set; }
-        public string date { get; set; }
         public IThemeService themeService { get; set; }
 
 
@@ -57,7 +56,6 @@ namespace CutCode
             code = _code;
             timestamp = _timestamp;
             themeService = _themeService;
-            date = DateTimeOffset.FromUnixTimeSeconds(timestamp).LocalDateTime.ToString("d MMM yyyy");
         }
     }
 }
