@@ -1,17 +1,16 @@
-# CutCode - boost your job programmer!
+<div align="center">
+    <h1>CutCode - boost your job programmer!</h1>
+    <img src="./imgs/banner.png" width=900px>
+</div>
 <br>
-<img src="./imgs/banner.png" width=900px height=400px>
-<br>
-<br>
-
 CutCode is an open source project made for developers to boost their job by helping them save essential code snippets in safe place. 
 <br> 
-Forexample, sometimes as a developer, we need to type one code snippets in most of our projects and for doing that we go check previous projects and grab the code from there. But using this app, you can get all this essential code snippets in one place. You can search through your codes, you can give them title and description. And also you can add them to favourite codes so that you can get it quickly from the favourite codes page.
+For example, sometimes as a developer, we need to type one code snippets in most of our projects and for doing that we go check previous projects and grab the code from there. But using this app, you can get all this essential code snippets in one place. You can search through your codes, you can give them title and description. And also you can add them to favourite codes so that you can get it quickly from the favourite codes page.
 
 <br>
 <br>
 
-# Appearance
+# Appearance 🎨
 
 <b>
 <div> 
@@ -30,7 +29,7 @@ Forexample, sometimes as a developer, we need to type one code snippets in most 
 <br>
 
 
-# Features
+# Features ✨
 
 1. Dark and Light mode support
 2. Codes are saved in a database
@@ -39,7 +38,7 @@ Forexample, sometimes as a developer, we need to type one code snippets in most 
 5. Minimalistic Interface
 6. Syntax highlighting based on the type of programming language
 
-# Release
+# Release 🚀
 Download the app setup from [here](https://www.mediafire.com/file/dhsgn5i7rsmon5l/CutCode_Installer.exe/file)
 
 # Contributers
@@ -48,7 +47,7 @@ Main Contributer - [Abdella Solomon(Me)](https://github.com/Abdesol)
 <br>
 Logo Designer - [Sap](https://github.com/imsaptarshi)
 
-# Additional
+# Additional 
 
 Connect with me on [GitHub](https://github.com/Abdesol) and [Twitter](https://twitter.com/AbdellaSolomon).
 <br>
