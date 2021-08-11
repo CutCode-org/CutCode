@@ -15,7 +15,7 @@ namespace CutCode
         public static List<string> SideBarBtnsLightTheme = new List<string>() { "home_black.png", "add_black.png", "fav_black.png", "settings_black.png" };
 
     }
-    public class SideBarBtnModel : Screen
+    public class SideBarBtnModel : PropertyChangedBase
     {
         private readonly IThemeService themeService;
         private List<string> btnBothimages = new List<string>();

@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace CutCode
 {
-    public class ThemeButtonModel : Screen
+    public class ThemeButtonModel : PropertyChangedBase
     {
         private readonly IThemeService themeService;
         public ThemeButtonModel(string _text, IThemeService _themeService)

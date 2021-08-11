@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CutCode
 {
-    public class CodeBoxModel : Screen
+    public class CodeBoxModel : PropertyChangedBase
     {
         public int id { get; set; }
         private string _title;
