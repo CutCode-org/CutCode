@@ -132,7 +132,6 @@ namespace CutCode
 
         public async void SearchCommand(string text)
         {
-            Trace.WriteLine($"this is {text}");
             IsSearched = false;
             if (text == "")
             {
