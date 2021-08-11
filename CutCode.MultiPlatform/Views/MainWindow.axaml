@@ -1,0 +1,19 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:CutCode.MultiPlatform.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        MinHeight="500" MinWidth="700"
+        Height="570" Width="800"
+        x:Class="CutCode.MultiPlatform.Views.MainWindow"
+        Icon="/Assets/logo.ico"
+        Title="CutCode.MultiPlatform">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+  <Button Content="Click me" Width="200" Height="100" BorderThickness="0" Background="Red"/>
+
+</Window>
