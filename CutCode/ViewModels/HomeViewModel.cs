@@ -197,7 +197,7 @@ namespace CutCode
             }
         } 
 
-        public void SearchCommand(string text)
+        public async void SearchCommand(string text)
         {
             IsSearched = false;
             if(text == "")
@@ -210,7 +210,7 @@ namespace CutCode
             {
                 if (AllCodes.Count > 0)
                 {
-                    AllCodes = database.SearchCode(text, "Home");
+                    AllCodes = await database.SearchCode(text, "Home");
                     VisChange("Not found :(");
                 }
             }

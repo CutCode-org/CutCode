@@ -207,6 +207,7 @@ namespace CutCode
                 exitBtn.Visibility = Visibility.Hidden;
                 circularBar.Visibility = string.IsNullOrEmpty(searchBox.Text) ? Visibility.Hidden : Visibility.Visible;
                 activityTimer.IsEnabled = true;
+                letsType = true;
             }
         }
 
@@ -214,9 +215,10 @@ namespace CutCode
         {
             searchBox.Text = "";
             SearchCommand?.Execute("");
+            letsType = false;
         }
 
-
+        private bool letsType = true;
         private string OldText = "";
         private string SearchedText = "";
         private void InActivity(object sender, EventArgs e)
@@ -225,10 +227,13 @@ namespace CutCode
             {
                 if (OldText == Text)
                 {
-                    OldText = "";
-                    SearchedText = Text;
-                    SearchCommand?.Execute(Text);
-                    activityTimer.IsEnabled = false;
+                    if (letsType)
+                    {
+                        OldText = "";
+                        SearchedText = Text;
+                        SearchCommand?.Execute(Text);
+                        activityTimer.IsEnabled = false;
+                    }
                 }
                 else
                 {

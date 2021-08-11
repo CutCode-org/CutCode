@@ -130,8 +130,9 @@ namespace CutCode
             set => SetAndNotify(ref _IsSearched, value);
         }
 
-        public void SearchCommand(string text)
+        public async void SearchCommand(string text)
         {
+            Trace.WriteLine($"this is {text}");
             IsSearched = false;
             if (text == "")
             {
@@ -142,7 +143,7 @@ namespace CutCode
             {
                 if(AllCodes.Count > 0)
                 {
-                    AllCodes = database.SearchCode(text, "Home");
+                    AllCodes = await database.SearchCode(text, "Home");
                     if (AllCodes.Count == 0) VisChange("Not found :(");
                 }
             }

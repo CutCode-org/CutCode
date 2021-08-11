@@ -18,7 +18,7 @@ namespace CutCode
         bool DelCode(CodeBoxModel code);
         ObservableCollection<CodeBoxModel> OrderCode(string order);
         bool FavModify(CodeBoxModel code);
-        ObservableCollection<CodeBoxModel> SearchCode(string text, string from);
+        Task<ObservableCollection<CodeBoxModel>> SearchCode(string text, string from);
 
         bool isLightTheme { get; set; }
         string sortBy { get; set; }

@@ -212,7 +212,7 @@ namespace CutCode
                 if (ind == 0 || ind == 1) ChangeSort(AllOrderKind[ind]);
             }
 
-            if (ind < 2) AllCodes = lst;
+            //if (ind < 2) AllCodes = lst;
             return lst;
         }
 
@@ -239,7 +239,7 @@ namespace CutCode
             return true;
         }
 
-        public ObservableCollection<CodeBoxModel> SearchCode(string text, string from)
+        public async Task<ObservableCollection<CodeBoxModel>> SearchCode(string text, string from)
         {
             var currentCode = from == "Home" ? AllCodes : FavCodes;
 
