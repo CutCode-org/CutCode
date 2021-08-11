@@ -16,7 +16,7 @@ namespace CutCode
         CodeBoxModel AddCode(string title, string desc, string code, string langType);
         bool EditCode(CodeBoxModel code);
         bool DelCode(CodeBoxModel code);
-        ObservableCollection<CodeBoxModel> OrderCode(string order);
+        Task<ObservableCollection<CodeBoxModel>> OrderCode(string order);
         bool FavModify(CodeBoxModel code);
         Task<ObservableCollection<CodeBoxModel>> SearchCode(string text, string from);
 

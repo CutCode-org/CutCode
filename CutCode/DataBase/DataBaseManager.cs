@@ -188,7 +188,7 @@ namespace CutCode
             "Html", "Java", "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
         };
 
-        public ObservableCollection<CodeBoxModel> OrderCode(string order)
+        public async Task<ObservableCollection<CodeBoxModel>> OrderCode(string order)
         {
             int ind = AllOrderKind.IndexOf(order);
             ObservableCollection<CodeBoxModel> lst;
@@ -212,7 +212,6 @@ namespace CutCode
                 if (ind == 0 || ind == 1) ChangeSort(AllOrderKind[ind]);
             }
 
-            //if (ind < 2) AllCodes = lst;
             return lst;
         }
 

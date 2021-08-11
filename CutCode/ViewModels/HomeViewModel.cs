@@ -188,13 +188,10 @@ namespace CutCode
             } 
         }
 
-        private void ComboBoxItemSelected(string kind) 
+        private async void ComboBoxItemSelected(string kind) 
         {
-            if(AllCodes.Count > 0)
-            {
-                AllCodes = database.OrderCode(kind);
-                VisChange("Not found :(");
-            }
+            AllCodes = await database.OrderCode(kind);
+            VisChange("Not found :(");
         } 
 
         public async void SearchCommand(string text)
