@@ -237,39 +237,16 @@ namespace CutCode
             }
             return true;
         }
-
         public async Task<ObservableCollection<CodeBoxModel>> SearchCode(string text, string from)
         {
             var currentCode = from == "Home" ? AllCodes : FavCodes;
-
-            var lst = new ObservableCollection<CodeBoxModel>();
-            var lst2 = new ObservableCollection<CodeBoxModel>();
-            foreach (var code in currentCode)
+            var newCodesList = currentCode.Where(x => x.title.ToLower().Contains(text.ToLower())).ToList();
+            var newCodes = new ObservableCollection<CodeBoxModel>();
+            foreach(var code in newCodesList)
             {
-                int f = 0;
-                if (code.title.Length >= text.Length)
-                {
-                    foreach (var i in code.title)
-                    {
-                        if (text.Contains(i)) 
-                        {
-                            text.Remove(text.IndexOf(i));
-                            f++;
-                        }
-                    }
-                }
-                else continue;
-
-                if (code.title == text) lst.Add(code);
-                else if (code.title.Length < 3)
-                {
-                    if (f >= 1) lst2.Add(code);
-                }
-                else if (f >= 3) lst2.Add(code);
+                newCodes.Add(code);
             }
-
-            lst.Concat(lst2);
-            return lst;
+            return newCodes;
         }
     }
 }
