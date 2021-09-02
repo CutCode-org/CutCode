@@ -8,13 +8,25 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|iPhone = Debug|iPhone
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
 		Release|Any CPU = Release|Any CPU
+		Release|iPhone = Release|iPhone
+		Release|iPhoneSimulator = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{05099602-B5CB-4056-A265-035AD8982699}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{05099602-B5CB-4056-A265-035AD8982699}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05099602-B5CB-4056-A265-035AD8982699}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{05099602-B5CB-4056-A265-035AD8982699}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{05099602-B5CB-4056-A265-035AD8982699}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{05099602-B5CB-4056-A265-035AD8982699}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
 		{05099602-B5CB-4056-A265-035AD8982699}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05099602-B5CB-4056-A265-035AD8982699}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05099602-B5CB-4056-A265-035AD8982699}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{05099602-B5CB-4056-A265-035AD8982699}.Release|iPhone.Build.0 = Release|Any CPU
+		{05099602-B5CB-4056-A265-035AD8982699}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{05099602-B5CB-4056-A265-035AD8982699}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
