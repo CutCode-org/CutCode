@@ -7,8 +7,6 @@
         d:DataContext="{d:DesignInstance local:HomeViewModel}"
         xmlns:s="https://github.com/canton7/Stylet"
         mc:Ignorable="d">
-    <Grid.Resources>
-    </Grid.Resources>
 
     <Grid.RowDefinitions>
         <RowDefinition Height="Auto"/>

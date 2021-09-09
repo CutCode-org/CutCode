@@ -14,6 +14,7 @@ namespace CutCode
     public class SettingViewModel : Screen
     {
         public ObservableCollection<ThemeButtonModel> themeBtns { get; set; }
+        public ObservableCollection<SyncBtnModel> SyncBtns { get; set; }
         private readonly IThemeService themeService;
         private readonly IDataBase database;
         public SettingViewModel(IThemeService _themeService, IDataBase _database)
@@ -27,14 +28,20 @@ namespace CutCode
             themeBtns.Add(new ThemeButtonModel("Light Mode", themeService));
             themeBtns.Add(new ThemeButtonModel("Dark Mode", themeService));
 
-            mainTextColor = themeService.IsLightTheme ? ColorCon.Convert("#0B0B13") : ColorCon.Convert("#94969A");
-            cardBackgroundColor = themeService.IsLightTheme ? ColorCon.Convert("#F2F3F5") : ColorCon.Convert("#2F3136");
+            SyncBtns = new ObservableCollection<SyncBtnModel>() 
+            {
+                new SyncBtnModel("Import", themeService),
+                new SyncBtnModel("Export", themeService)
+            };
+
+            ThemeChanged(null, null);
         }
 
         private void ThemeChanged(object sender, EventArgs e)
         {
             mainTextColor = themeService.IsLightTheme ? ColorCon.Convert("#0B0B13") : ColorCon.Convert("#94969A");
             cardBackgroundColor = themeService.IsLightTheme ? ColorCon.Convert("#F2F3F5") : ColorCon.Convert("#2F3136");
+            syncButtonBackground = themeService.IsLightTheme ? ColorCon.Convert("#E5E6E8") : ColorCon.Convert("#27282C");
         }
 
         private SolidColorBrush _mainTextColor;
@@ -62,10 +69,28 @@ namespace CutCode
                 }
             }
         }
+
+        private SolidColorBrush _syncButtonBackground;
+        public SolidColorBrush syncButtonBackground
+        {
+            get => _syncButtonBackground;
+            set
+            {
+                if (value != _syncButtonBackground)
+                {
+                    SetAndNotify(ref _syncButtonBackground, value);
+                }
+            }
+        }
         public void ThemeChangeCommand(string selectedTheme) 
         {
             themeService.IsLightTheme = selectedTheme == "Light Mode" ? true : false;
             database.ChangeTheme(themeService.IsLightTheme);
         } 
+
+        public void SyncCommand(string syncType)
+        {
+
+        }
     }
 }

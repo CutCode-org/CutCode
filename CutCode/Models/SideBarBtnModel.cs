@@ -10,9 +10,9 @@ namespace CutCode
 {
     public static class SideBarBtns
     {
-        public static List<string> AllSideBarBtns = new List<string>() { "Home", "Add", "Favourite", "Settings"};
-        public static List<string> SideBarBtnsDarkTheme = new List<string>() { "home_white.png", "add_white.png", "fav_white.png", "settings_white.png" };
-        public static List<string> SideBarBtnsLightTheme = new List<string>() { "home_black.png", "add_black.png", "fav_black.png", "settings_black.png" };
+        public static List<string> AllSideBarBtns = new List<string>() { "Home", "Add", "Favourite", "Share","Settings"};
+        public static List<string> SideBarBtnsDarkTheme = new List<string>() { "home_white.png", "add_white.png", "fav_white.png", "share_white.png", "settings_white.png" };
+        public static List<string> SideBarBtnsLightTheme = new List<string>() { "home_black.png", "add_black.png", "fav_black.png", "share_black.png", "settings_black.png" };
 
     }
     public class SideBarBtnModel : PropertyChangedBase

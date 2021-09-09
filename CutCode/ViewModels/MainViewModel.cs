@@ -40,13 +40,15 @@ namespace CutCode
             sideBarBtns.Add(new SideBarBtnModel("Home", _themeService));
             sideBarBtns.Add(new SideBarBtnModel("Add", _themeService));
             sideBarBtns.Add(new SideBarBtnModel("Favourite", _themeService));
+            sideBarBtns.Add(new SideBarBtnModel("Share", _themeService));
             sideBarBtns.Add(new SideBarBtnModel("Settings", _themeService));
             sideBarBtns[0].background = _themeService.IsLightTheme ? ColorCon.Convert("#FCFCFC") : ColorCon.Convert("#36393F");
 
 
             Pages = new List<Object>() {    new HomeViewModel(_themeService, pageService, _dataBase), 
                                             new AddViewModel(_themeService, pageService, _dataBase), 
-                                            new FavViewModel(_themeService, pageService, _dataBase), 
+                                            new FavViewModel(_themeService, pageService, _dataBase),
+                                            new ShareViewModel(_themeService, pageService, _dataBase),
                                             new SettingViewModel(_themeService, _dataBase) };
             pageService.Page = Pages[0];
         }

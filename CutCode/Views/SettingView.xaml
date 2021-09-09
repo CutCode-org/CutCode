@@ -44,71 +44,114 @@
 
     </Grid.Resources>
 
-    <Grid.RowDefinitions>
-        <RowDefinition Height="20"/>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="20"/>
-        <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
-
-
-    <Border Grid.Row="1" Background="{Binding cardBackgroundColor}" Height="180" Width="550" CornerRadius="10" BorderThickness="0" Margin="0,0,10,0">
+    <ScrollViewer Style="{StaticResource ScrollViewerStyle}" Margin="0,5,10,5">
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Theme" Foreground="{Binding mainTextColor}" FontSize="20" 
-                   Margin="20,10,0,2" FontFamily="{StaticResource poppins_semibold}"/>
-
-            <ItemsControl Grid.Row="1" Name="sideBarBtns" ItemsSource="{Binding themeBtns}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-
-                        <Border Background="{Binding backgroundColor}" Margin="15,3,20,3"  CornerRadius="8">
-                            <Button Style="{DynamicResource ThemeBtnStyle}" BorderBrush="{Binding HoverbackgroundColor}"
-                                    Command="{s:Action ThemeChangeCommand}" CommandParameter="{Binding text}">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0" Source="{Binding ToggleImage}" Width="23" Height="23" Margin="10,0,10,0"
-                                            RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
-                                    <Label Grid.Column="1" Content="{Binding text}" Foreground="{Binding textColor}" 
-                                           FontSize="15.3"  FontFamily="{StaticResource poppins_semibold}"/>
-                                </Grid>
-                            </Button>
-                        </Border>
-
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            
-        </Grid>
-    </Border>
-
-
-    <Border Grid.Row="4" Background="{Binding cardBackgroundColor}" 
-            Height="160" Width="550" CornerRadius="10"  Margin="0,0,10,0">
-        <Grid>
-            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="About" Foreground="{Binding mainTextColor}" 
-                   FontSize="20" Margin="20,10,0,0" FontFamily="{StaticResource poppins_semibold}"/>
-            <Grid Grid.Row="1">
-                <TextBlock FontFamily="{StaticResource poppins_regular}" Foreground="{Binding mainTextColor}"
-                           Margin="27,6,20,0" FontSize="14" TextWrapping="Wrap">
-                    This app is an open-source project made by <Bold>Abdella Solomon</Bold> for the community. It boosts programmer's job by helping them save their snippets in a safe place.
-                    <LineBreak/>
-                    Connect with me on 
-                    <local:ExternalBrowserHyperlink NavigateUri="https://github.com/Abdesol">Github</local:ExternalBrowserHyperlink> and 
-                    <local:ExternalBrowserHyperlink NavigateUri="https://twitter.com/AbdellaSolomon">Twitter</local:ExternalBrowserHyperlink>.
-                </TextBlock>
-            </Grid>
+
+
+            <Border Grid.Row="1" Background="{Binding cardBackgroundColor}" Height="180" Width="550" CornerRadius="10" BorderThickness="0" Margin="0,0,10,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="Theme" Foreground="{Binding mainTextColor}" FontSize="20" 
+                       Margin="20,10,0,2" FontFamily="{StaticResource poppins_semibold}"/>
+
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding themeBtns}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+
+                                <Border Background="{Binding backgroundColor}" Margin="15,3,20,3"  CornerRadius="8" BorderThickness="0">
+                                    <Button Style="{DynamicResource ThemeBtnStyle}" BorderBrush="{Binding HoverbackgroundColor}" BorderThickness="0"
+                                        Command="{s:Action ThemeChangeCommand}" CommandParameter="{Binding text}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Grid.Column="0" Source="{Binding ToggleImage}" Width="23" Height="23" Margin="10,0,10,0"
+                                                RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                                            <Label Grid.Column="1" Content="{Binding text}" Foreground="{Binding textColor}" 
+                                               FontSize="15.3"  FontFamily="{StaticResource poppins_semibold}"/>
+                                        </Grid>
+                                    </Button>
+                                </Border>
+
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="3" Background="{Binding cardBackgroundColor}" Height="180" Width="550" CornerRadius="10" BorderThickness="0" Margin="0,0,10,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Label Grid.Row="0" Content="Sync" Foreground="{Binding mainTextColor}" FontSize="20" 
+                       Margin="20,10,0,2" FontFamily="{StaticResource poppins_semibold}"/>
+
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding SyncBtns}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+
+                                <Border Background="{Binding backgroundColor}" Margin="15,3,20,13"  CornerRadius="8" Height="45" BorderThickness="0">
+                                    <Button Style="{DynamicResource ThemeBtnStyle}" BorderBrush="{Binding HoverbackgroundColor}" BorderThickness="0"
+                                            Command="{s:Action SyncCommand}" CommandParameter="{Binding text}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Grid.Column="0" Source="{Binding img}" Width="28" Height="28" Margin="10,0,10,0" VerticalAlignment="Center"
+                                                RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                                            <Label Grid.Column="1" Content="{Binding text}" Foreground="{Binding textColor}" VerticalAlignment="Center"
+                                               FontSize="15.3" Margin="4,0,0,0" FontFamily="{StaticResource poppins_semibold}"/>
+                                        </Grid>
+                                    </Button>
+                                </Border>
+
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Border>
+
+
+            <Border Grid.Row="5" Background="{Binding cardBackgroundColor}" 
+                Height="160" Width="550" CornerRadius="10"  Margin="0,0,10,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="About" Foreground="{Binding mainTextColor}" 
+                       FontSize="20" Margin="20,10,0,0" FontFamily="{StaticResource poppins_semibold}"/>
+                    <Grid Grid.Row="1">
+                        <TextBlock FontFamily="{StaticResource poppins_regular}" Foreground="{Binding mainTextColor}"
+                               Margin="27,6,20,0" FontSize="14" TextWrapping="Wrap">
+                        This app is an open-source project made by <Bold>Abdella Solomon</Bold> for the community. It boosts programmer's job by helping them save their snippets in a safe place.
+                        <LineBreak/>
+                        Connect with me on 
+                        <local:ExternalBrowserHyperlink NavigateUri="https://github.com/Abdesol">Github</local:ExternalBrowserHyperlink> and 
+                        <local:ExternalBrowserHyperlink NavigateUri="https://twitter.com/AbdellaSolomon">Twitter</local:ExternalBrowserHyperlink>.
+                        </TextBlock>
+                    </Grid>
+                </Grid>
+            </Border>
         </Grid>
-    </Border>
+    </ScrollViewer>
 
 </Grid>
