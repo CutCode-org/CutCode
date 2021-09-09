@@ -22,10 +22,13 @@ namespace CutCode
         //private List<Button> leftBarBtns;
         public static List<Object> Pages;
         private readonly IThemeService _themeService;
+        private IWindowManager windowManager;
         private readonly IPageService pageService;
         public ObservableCollection<SideBarBtnModel> sideBarBtns { get; set; }
-        public MainViewModel(IThemeService themeService, IPageService _pageService, IDataBase _dataBase)
+        public MainViewModel(IWindowManager _windowManager,IThemeService themeService, IPageService _pageService, IDataBase _dataBase)
         {
+            windowManager = _windowManager;
+
             _themeService = themeService;
             _themeService.ThemeChanged += ThemeChanged;
             _themeService.IsLightTheme = _dataBase.isLightTheme;
@@ -93,6 +96,11 @@ namespace CutCode
 
             sideBarBtns[ind].background = _themeService.IsLightTheme ? ColorCon.Convert("#FCFCFC") : ColorCon.Convert("#36393F");
             if (currentPage != Pages[ind]) pageService.Page = Pages[ind];
+
+            if(selected_item == "Share")
+            {
+                windowManager.ShowDialog(new NotificationDialogViewModel(_themeService, "Just for test"));
+            }
         }
 
         #region Color

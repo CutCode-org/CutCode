@@ -84,7 +84,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
 
-                        <Button Background="{Binding background}" 
+                        <Button Background="{Binding background}" BorderThickness="0"
                                 Style="{StaticResource ImgButtonStyle}"
                                 Command="{s:Action ChangePageCommand}" CommandParameter="{Binding toolTipText}">
                             <Image Source="{Binding imageSource}"   Margin="15,10,10,10" VerticalAlignment="Top"
