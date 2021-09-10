@@ -45,7 +45,7 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="0" FontSize="10.5"  FontFamily="{StaticResource poppins_semibold}" Content="Notification" Foreground="{Binding textColor}"/>
             <Label Grid.Row="1" Foreground="{Binding textColor}" Content="{Binding message}" Margin="0,-12,0,0"
-                FontSize="14"  FontFamily="{StaticResource poppins_semibold}"/>
+                FontSize="14"  FontFamily="{StaticResource poppins_regular}"/>
         </Grid>
     </Border>
 </UserControl>
