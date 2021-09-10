@@ -10,7 +10,7 @@ namespace CutCode
     public interface IPageService
     {
         event EventHandler PageChanged;
-        Object Page { get; set; }
+        System.Object Page { get; set; }
         event EventHandler PageRemoteChanged;
         string remoteChange { get; set; }
         
@@ -19,8 +19,8 @@ namespace CutCode
     public class PageService : IPageService
     {
         public event EventHandler PageChanged;
-        private Object _Page { get; set; }
-        public Object Page
+        private System.Object _Page { get; set; }
+        public System.Object Page
         {
             get => _Page;
             set

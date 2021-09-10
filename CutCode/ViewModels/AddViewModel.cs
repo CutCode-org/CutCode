@@ -32,7 +32,7 @@ namespace CutCode
             leftText = "";
             SetAppearance();
         }
-        private void ThemeChanged(Object sender, EventArgs e)
+        private void ThemeChanged(System.Object sender, EventArgs e)
         {
             SetAppearance();
         }

@@ -37,30 +37,15 @@
     </UserControl.Resources>
 
     <Border Background="{Binding background}" CornerRadius="8"
-        Height="50" MinWidth="250">
+        Height="50" MinWidth="230">
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="40"/>
-            </Grid.ColumnDefinitions>
-
-            <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0" FontSize="10.5"  FontFamily="{StaticResource poppins_semibold}" Content="Notification" Foreground="{Binding textColor}"/>
-                <Label Grid.Row="1" Foreground="{Binding textColor}" Content="{Binding message}" Margin="0,-12,0,0"
-                   FontSize="14"  FontFamily="{StaticResource poppins_semibold}"/>
-            </Grid>
-
-            <Button Margin="10,2,2,2"  Grid.Column="1" Background="Transparent" 
-                    Style="{DynamicResource ButtonStyle}" Command="{s:Action ExitCommand}"
-                    BorderBrush="{Binding exitBtnHoverColor}" VerticalAlignment="Center" Height="50">
-                <Image Width="18" Height="18" Source="{Binding exitImage}"
-                    RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
-            </Button>
-
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" FontSize="10.5"  FontFamily="{StaticResource poppins_semibold}" Content="Notification" Foreground="{Binding textColor}"/>
+            <Label Grid.Row="1" Foreground="{Binding textColor}" Content="{Binding message}" Margin="0,-12,0,0"
+                FontSize="14"  FontFamily="{StaticResource poppins_semibold}"/>
         </Grid>
     </Border>
 </UserControl>

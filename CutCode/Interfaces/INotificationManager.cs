@@ -18,15 +18,15 @@ namespace CutCode
         public event EventHandler ShowNotification;
         public void CreateNotification(string message, int delay)
         {
-            var notify = new NotifyModel(){ Message = message, Delay= delay};
+            var notify = new Object(){ Message = message, Delay= delay};
             ShowNotification?.Invoke(notify, EventArgs.Empty);
         }
     }
 
-    public class NotifyModel : PropertyChangedBase
+    public class Object : PropertyChangedBase
     {
         public string Message { get; set; }
         public int Delay { get; set; }
-        public Object View { get; set; }
+        public System.Object View { get; set; }
     }
 }

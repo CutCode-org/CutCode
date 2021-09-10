@@ -21,7 +21,7 @@ namespace CutCode
     public class MainViewModel : Screen
     {
         //private List<Button> leftBarBtns;
-        public static List<Object> Pages;
+        public static List<System.Object> Pages;
         private readonly IThemeService _themeService;
         private IWindowManager windowManager;
         private readonly IPageService pageService;
@@ -33,7 +33,7 @@ namespace CutCode
 
             notifyManager = _notifyManager;
             notifyManager.ShowNotification += showNotification;
-            notificationList = new ObservableCollection<NotifyModel>();
+            notificationList = new ObservableCollection<Object>();
 
             _themeService = themeService;
             _themeService.ThemeChanged += ThemeChanged;
@@ -54,7 +54,7 @@ namespace CutCode
             sideBarBtns[0].background = _themeService.IsLightTheme ? ColorCon.Convert("#FCFCFC") : ColorCon.Convert("#36393F");
 
 
-            Pages = new List<Object>() {    new HomeViewModel(_themeService, pageService, _dataBase), 
+            Pages = new List<System.Object>() {    new HomeViewModel(_themeService, pageService, _dataBase), 
                                             new AddViewModel(_themeService, pageService, _dataBase), 
                                             new FavViewModel(_themeService, pageService, _dataBase),
                                             new ShareViewModel(_themeService, pageService, _dataBase),
@@ -76,8 +76,8 @@ namespace CutCode
             titlebarBtnsHoverColor = _themeService.IsLightTheme ? ColorCon.Convert("#D0D1D2") : ColorCon.Convert("#373737");
         }
 
-        private Object _currentPage;
-        public Object currentPage
+        private System.Object _currentPage;
+        public System.Object currentPage
         {
             get => _currentPage;
             set { SetAndNotify(ref _currentPage, value); }
@@ -102,15 +102,7 @@ namespace CutCode
 
             sideBarBtns[ind].background = _themeService.IsLightTheme ? ColorCon.Convert("#FCFCFC") : ColorCon.Convert("#36393F");
             if (currentPage != Pages[ind]) pageService.Page = Pages[ind];
-
-            
-            if(selected_item == "Share")
-            {
-                notifyManager.CreateNotification($"{k} : This is just for test", 5);
-                k++;
-            }
         }
-        private int k = 1;
         #region Color
         private SolidColorBrush _backgroundColor;
         public SolidColorBrush backgroundColor
@@ -203,20 +195,20 @@ namespace CutCode
         }
 
         #region NotificationDialogView
-        private ObservableCollection<NotifyModel> _notificationList;
-        public ObservableCollection<NotifyModel> notificationList
+        private ObservableCollection<Object> _notificationList;
+        public ObservableCollection<Object> notificationList
         {
             get => _notificationList;
             set => SetAndNotify(ref _notificationList, value);
         }
 
-        private List<NotifyModel> WaitingNotifications = new List<NotifyModel>();
+        private List<Object> WaitingNotifications = new List<Object>();
         private void showNotification(object sender, EventArgs e)
         {
-            var notification = sender as NotifyModel;
+            var notification = sender as Object;
 
             var notifcationViewModel = new NotificationDialogViewModel(_themeService, notification.Message);
-            notification.View = (Object)notifcationViewModel;
+            notification.View = (System.Object)notifcationViewModel;
 
             if(notificationList.Count > 2)
             {

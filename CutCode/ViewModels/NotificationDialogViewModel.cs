@@ -22,17 +22,7 @@ namespace CutCode
         private void SetAppearance(object sender, EventArgs e)
         {
             background = themeService.IsLightTheme ? ColorCon.Convert("#DCDCDC") : ColorCon.Convert("#26292F");
-            exitBtnHoverColor = themeService.IsLightTheme ? ColorCon.Convert("#D0D1D2") : ColorCon.Convert("#1F232B");
-            textColor = themeService.IsLightTheme ? ColorCon.Convert("#060607") : ColorCon.Convert("#94969A");
-            exitImage = themeService.IsLightTheme ? "../Resources/Images/Icons/exit_black.png" : "../Resources/Images/Icons/exit_white.png";
-        }
-
-        private string _exitImage;
-        public string exitImage
-        {
-            get => _exitImage;
-            set
-            { SetAndNotify(ref _exitImage, value); }
+            textColor = themeService.IsLightTheme ? ColorCon.Convert("#060607") : ColorCon.Convert("#F0F0F0");
         }
 
         private string _message;
@@ -62,25 +52,6 @@ namespace CutCode
                     SetAndNotify(ref _textColor, value);
                 }
             }
-        }
-
-        private SolidColorBrush _exitBtnHoverColor;
-        public SolidColorBrush exitBtnHoverColor
-        {
-            get => _exitBtnHoverColor;
-            set
-            {
-                if (value != _exitBtnHoverColor)
-                {
-                    SetAndNotify(ref _exitBtnHoverColor, value);
-                }
-            }
-
-        }
-
-        public void ExitCommand()
-        {
-
         }
     }
 }
