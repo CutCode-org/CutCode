@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stylet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,9 +23,10 @@ namespace CutCode
         }
     }
 
-    public class NotifyModel
+    public class NotifyModel : PropertyChangedBase
     {
         public string Message { get; set; }
         public int Delay { get; set; }
+        public Object View { get; set; }
     }
 }

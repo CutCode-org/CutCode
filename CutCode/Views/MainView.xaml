@@ -153,8 +153,15 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <ContentControl Visibility="{Binding notifcationDialogVisibility}" HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                    s:View.Model="{Binding notificationDialogView, UpdateSourceTrigger=PropertyChanged}"/>
+                <ItemsControl Background="Transparent" 
+                              ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              HorizontalAlignment="Right" VerticalAlignment="Bottom" ItemsSource="{Binding notificationList}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ContentControl s:View.Model="{Binding View, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </Grid>
 
         </Grid>

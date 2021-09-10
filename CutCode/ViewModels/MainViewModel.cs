@@ -33,6 +33,7 @@ namespace CutCode
 
             notifyManager = _notifyManager;
             notifyManager.ShowNotification += showNotification;
+            notificationList = new ObservableCollection<NotifyModel>();
 
             _themeService = themeService;
             _themeService.ThemeChanged += ThemeChanged;
@@ -102,12 +103,14 @@ namespace CutCode
             sideBarBtns[ind].background = _themeService.IsLightTheme ? ColorCon.Convert("#FCFCFC") : ColorCon.Convert("#36393F");
             if (currentPage != Pages[ind]) pageService.Page = Pages[ind];
 
+            
             if(selected_item == "Share")
             {
-                notifyManager.CreateNotification("This is just for test", 6);
+                notifyManager.CreateNotification($"{k} : This is just for test", 5);
+                k++;
             }
         }
-
+        private int k = 1;
         #region Color
         private SolidColorBrush _backgroundColor;
         public SolidColorBrush backgroundColor
@@ -200,38 +203,48 @@ namespace CutCode
         }
 
         #region NotificationDialogView
-        private Object _notificationDialogView;
-        public Object notificationDialogView
+        private ObservableCollection<NotifyModel> _notificationList;
+        public ObservableCollection<NotifyModel> notificationList
         {
-            get => _notificationDialogView;
-            set => SetAndNotify(ref _notificationDialogView, value);
+            get => _notificationList;
+            set => SetAndNotify(ref _notificationList, value);
         }
 
-        private Visibility _notifcationDialogVisibility;
-        public Visibility notifcationDialogVisibility
-        {
-            get => _notifcationDialogVisibility;
-            set => SetAndNotify(ref _notifcationDialogVisibility, value);
-        }
-
+        private List<NotifyModel> WaitingNotifications = new List<NotifyModel>();
         private void showNotification(object sender, EventArgs e)
         {
-            var noitification = sender as NotifyModel;
+            var notification = sender as NotifyModel;
 
-            var notifcationViewModel = new NotificationDialogViewModel(_themeService, noitification.Message);
-            notificationDialogView = (Object)notifcationViewModel;
+            var notifcationViewModel = new NotificationDialogViewModel(_themeService, notification.Message);
+            notification.View = (Object)notifcationViewModel;
 
-            notifcationDialogVisibility = Visibility.Visible;
-            var closeTimer = new DispatcherTimer
+            if(notificationList.Count > 2)
             {
-                Interval = TimeSpan.FromSeconds(noitification.Delay),
-                IsEnabled = true
-            };
-            closeTimer.Tick += (object sender, EventArgs e) =>
+                WaitingNotifications.Add(notification);
+            }
+            else
             {
-                notifcationDialogVisibility = Visibility.Hidden;
-                closeTimer.Stop();
-            };
+                notificationList.Add(notification);
+
+                var closeTimer = new DispatcherTimer
+                {
+                    Interval = TimeSpan.FromSeconds(notification.Delay),
+                    IsEnabled = true
+                };
+                closeTimer.Tick += CloseNotification;
+            }
+        }
+
+        private void CloseNotification(object sender, EventArgs e)
+        {
+            notificationList.RemoveAt(0);
+            if (WaitingNotifications.Count != 0)
+            {
+                var notification = WaitingNotifications[0];
+                WaitingNotifications.RemoveAt(0);
+                notifyManager.CreateNotification(notification.Message, notification.Delay);
+            }
+            (sender as DispatcherTimer).Stop();
         }
         #endregion
     }
