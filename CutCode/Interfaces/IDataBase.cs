@@ -25,5 +25,8 @@ namespace CutCode
 
         void ChangeSort(string sort);
         void ChangeTheme(bool IsLightTheme);
+
+        string ExportData(string path);
+        string ImportData(string path);
     }
 }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
 using System.Security.AccessControl;
+using System.IO.Compression;
 
 namespace CutCode
 {
@@ -21,17 +22,15 @@ namespace CutCode
         private readonly IThemeService themeService;
 
         private string prefpath { get; set; }
+        private string dbpath { get; set; }
         #region Set region
         public DataBaseManager(IThemeService _themeService)
         {
             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var path = Path.Combine(appDataPath, "CutCode");
             Directory.CreateDirectory(path);
-            var dbpath = Path.Combine(path, "DataBase.db");
+            dbpath = Path.Combine(path, "DataBase.db");
             prefpath = Path.Combine(path, "pref.json");
-
-            _db = new SQLiteConnection(dbpath);
-            _db.CreateTable<CodeTable>();
 
             if (File.Exists(prefpath))
             {
@@ -44,12 +43,18 @@ namespace CutCode
             {
                 isLightTheme = true;
                 sortBy = "Date";
-                prefModel = new PrefModel() { IsLightTheme = isLightTheme, SortBy = sortBy};
+                prefModel = new PrefModel() { IsLightTheme = isLightTheme, SortBy = sortBy };
                 UpdatePref();
             }
 
             themeService = _themeService;
             themeService.IsLightTheme = isLightTheme;
+            OpenDB();
+        }
+        private void OpenDB()
+        {
+            _db = new SQLiteConnection(dbpath);
+            _db.CreateTable<CodeTable>();
 
             AllCodes = new ObservableCollection<CodeBoxModel>();
 
@@ -65,6 +70,8 @@ namespace CutCode
                 if (code.isFav) lst.Add(code);
             }
             FavCodes = lst;
+
+            PropertyChanged();
         }
         #endregion
 
@@ -74,11 +81,11 @@ namespace CutCode
         public bool isLightTheme { get; set; }
         public string sortBy { get; set; }
 
-        public void ChangeSort(string sort) 
+        public void ChangeSort(string sort)
         {
             prefModel.SortBy = sort;
             UpdatePref();
-        } 
+        }
         public void ChangeTheme(bool IsLightTheme)
         {
             prefModel.IsLightTheme = IsLightTheme;
@@ -96,7 +103,7 @@ namespace CutCode
         private int GetIndex(CodeBoxModel code)
         {
             int ind = 0;
-            foreach(var c in AllCodes)
+            foreach (var c in AllCodes)
             {
                 if (c.id == code.id) break;
                 ind++;
@@ -106,7 +113,7 @@ namespace CutCode
 
         public event EventHandler AllCodesUpdated;
         public event EventHandler FavCodesUpdated;
-        public void PropertyChanged() 
+        public void PropertyChanged()
         {
             var lst = new ObservableCollection<CodeBoxModel>();
             foreach (var code in AllCodes)
@@ -114,10 +121,10 @@ namespace CutCode
                 if (code.isFav) lst.Add(code);
             }
             FavCodes = lst;
-                
+
             AllCodesUpdated?.Invoke(this, EventArgs.Empty);
             FavCodesUpdated?.Invoke(this, EventArgs.Empty);
-        } 
+        }
 
         public CodeBoxModel AddCode(string title, string desc, string code, string langType)
         {
@@ -147,7 +154,7 @@ namespace CutCode
             try
             {
                 var dbCode = _db.Query<CodeTable>("select * from CodeTable where Id = ?", code.id).FirstOrDefault();
-                if(dbCode is not null)
+                if (dbCode is not null)
                 {
                     dbCode.title = code.title;
                     dbCode.desc = code.desc;
@@ -184,7 +191,7 @@ namespace CutCode
 
         private List<string> AllOrderKind = new List<string>()
         {
-            "Alphabet", "Date", "All languages", "Python", "C++", "C#", "CSS", "Dart", "Golang", 
+            "Alphabet", "Date", "All languages", "Python", "C++", "C#", "CSS", "Dart", "Golang",
             "Html", "Java", "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
         };
 
@@ -195,7 +202,7 @@ namespace CutCode
 
             var currentCodes = AllCodes;
 
-            if (ind > 2) 
+            if (ind > 2)
             {
                 lst = new ObservableCollection<CodeBoxModel>();
                 foreach (var code in currentCodes)
@@ -206,7 +213,7 @@ namespace CutCode
             else
             {
                 if (ind == 0) lst = new ObservableCollection<CodeBoxModel>(currentCodes.OrderBy(x => x.title).ToList());
-                else if(ind == 1) lst = new ObservableCollection<CodeBoxModel>(currentCodes.OrderBy(x => x.timestamp).ToList());
+                else if (ind == 1) lst = new ObservableCollection<CodeBoxModel>(currentCodes.OrderBy(x => x.timestamp).ToList());
                 else lst = AllCodes;
 
                 if (ind == 0 || ind == 1) ChangeSort(AllOrderKind[ind]);
@@ -242,11 +249,43 @@ namespace CutCode
             var currentCode = from == "Home" ? AllCodes : FavCodes;
             var newCodesList = currentCode.Where(x => x.title.ToLower().Contains(text.ToLower())).ToList();
             var newCodes = new ObservableCollection<CodeBoxModel>();
-            foreach(var code in newCodesList)
+            foreach (var code in newCodesList)
             {
                 newCodes.Add(code);
             }
             return newCodes;
+        }
+
+        public string ExportData(string path)
+        {
+            if (Path.GetExtension(path) != ".whl") return "This type of file are not supported!";
+            _db.Close();
+            var bytes = File.ReadAllBytes(dbpath);
+            File.WriteAllBytes(path, bytes);
+            OpenDB();
+
+            return "Successfully exported your codes!";
+        }
+
+        public string ImportData(string path)
+        {
+            _db.Close();
+            var currentData = File.ReadAllBytes(dbpath);
+
+            var importingData = File.ReadAllBytes(path);
+            File.WriteAllBytes(dbpath, importingData);
+            try
+            {
+                OpenDB();
+            }
+            catch
+            {
+                _db.Close();
+                File.WriteAllBytes(dbpath, currentData);
+                OpenDB();
+                return "Your syncing file is corrupted! We are unable to sync your codes!";
+            }
+            return "Successfully imported your codes!";
         }
     }
 }

@@ -3,23 +3,27 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Media;
 
 namespace CutCode
 {
-    public class SettingViewModel : Screen
+    public class SettingViewModel : Stylet.Screen
     {
         public ObservableCollection<ThemeButtonModel> themeBtns { get; set; }
         public ObservableCollection<SyncBtnModel> SyncBtns { get; set; }
         private readonly IThemeService themeService;
         private readonly IDataBase database;
-        public SettingViewModel(IThemeService _themeService, IDataBase _database)
+        private readonly INotificationManager notificationManager;
+        public SettingViewModel(IThemeService _themeService, IDataBase _database, INotificationManager _notificationManager)
         {
             database = _database;
+            notificationManager = _notificationManager;
 
             themeService = _themeService;
             themeService.ThemeChanged += ThemeChanged;
@@ -90,7 +94,35 @@ namespace CutCode
 
         public void SyncCommand(string syncType)
         {
+            string message = "";
 
+            if(syncType == "Import")
+            {
+                var fileDialog = new OpenFileDialog();
+                fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                fileDialog.DefaultExt = "whl";
+                fileDialog.Filter = "whl files (*.whl)|*.whl";
+                fileDialog.ShowDialog();
+
+                if (!string.IsNullOrEmpty(fileDialog.FileName))
+                {
+                    message = database.ImportData(fileDialog.FileName);
+                }
+            }
+            else
+            {
+                var fileDialog = new SaveFileDialog();
+                fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                fileDialog.DefaultExt = "whl";
+                fileDialog.FileName = $"Export_CutCode_{DateTime.Now.ToString("yyyyMMddhhmmss")}.whl";
+                fileDialog.Filter = "whl files (*.whl)|*.whl";
+                fileDialog.ShowDialog();
+                if (!string.IsNullOrEmpty(fileDialog.FileName))
+                {
+                    message = database.ExportData(fileDialog.FileName);
+                }
+            }
+            if(!string.IsNullOrEmpty(message)) notificationManager.CreateNotification(message, 4);
         }
     }
 }

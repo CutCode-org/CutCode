@@ -58,7 +58,7 @@ namespace CutCode
                                             new AddViewModel(_themeService, pageService, _dataBase), 
                                             new FavViewModel(_themeService, pageService, _dataBase),
                                             new ShareViewModel(_themeService, pageService, _dataBase),
-                                            new SettingViewModel(_themeService, _dataBase) };
+                                            new SettingViewModel(_themeService, _dataBase, notifyManager) };
             pageService.Page = Pages[0];
         }
 
