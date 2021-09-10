@@ -13,6 +13,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace CutCode
 {
@@ -38,8 +39,15 @@ namespace CutCode
                 Top = mainView.Top + mainView.Height - (Height + 10);
                 Left = mainView.Left + mainView.Width - (Width + 10);
             }
+
+            var closeTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(3),
+                IsEnabled = true
+            };
+            closeTimer.Tick += exitBtnClick;
         }
 
-        private void exitBtnClick(object sender, RoutedEventArgs e) => Close();
+        private void exitBtnClick(object sender, EventArgs e) => Close();
     }
 }
