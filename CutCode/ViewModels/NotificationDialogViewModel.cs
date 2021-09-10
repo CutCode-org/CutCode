@@ -10,9 +10,17 @@ namespace CutCode
 {
     public class NotificationDialogViewModel : Screen
     {
-        public NotificationDialogViewModel(IThemeService themeService, string _message)
+        private readonly IThemeService themeService;
+        public NotificationDialogViewModel(IThemeService _themeService, string _message)
         {
             message = _message;
+            themeService = _themeService;
+            SetAppearance(null, null);
+            themeService.ThemeChanged += SetAppearance;
+        }
+
+        private void SetAppearance(object sender, EventArgs e)
+        {
             background = themeService.IsLightTheme ? ColorCon.Convert("#DCDCDC") : ColorCon.Convert("#26292F");
             exitBtnHoverColor = themeService.IsLightTheme ? ColorCon.Convert("#D0D1D2") : ColorCon.Convert("#1F232B");
             textColor = themeService.IsLightTheme ? ColorCon.Convert("#060607") : ColorCon.Convert("#94969A");
@@ -67,6 +75,11 @@ namespace CutCode
                     SetAndNotify(ref _exitBtnHoverColor, value);
                 }
             }
+
+        }
+
+        public void ExitCommand()
+        {
 
         }
     }

@@ -10,6 +10,7 @@ namespace CutCode
             builder.Bind<IThemeService>().To<ThemeService>(); 
             builder.Bind<IPageService>().To<PageService>();
             builder.Bind<IDataBase>().To<DataBaseManager>();
+            builder.Bind<INotificationManager>().To<NotificationManager>();
         }
     }
 }

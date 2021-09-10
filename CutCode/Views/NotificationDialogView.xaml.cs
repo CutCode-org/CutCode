@@ -20,14 +20,14 @@ namespace CutCode
     /// <summary>
     /// Interaction logic for NotificationDialogView.xaml
     /// </summary>
-    public partial class NotificationDialogView : Window
+    public partial class NotificationDialogView : System.Windows.Controls.UserControl
     {
         public NotificationDialogView()
         {
             InitializeComponent();
 
+            /*
             var mainView = System.Windows.Application.Current.Windows[0] as MainView;
-            
             if(mainView.WindowState == WindowState.Maximized)
             {
                 var currentScreen = Screen.FromHandle(new WindowInteropHelper(mainView).Handle).Bounds;
@@ -39,15 +39,15 @@ namespace CutCode
                 Top = mainView.Top + mainView.Height - (Height + 10);
                 Left = mainView.Left + mainView.Width - (Width + 10);
             }
-
             var closeTimer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(3),
                 IsEnabled = true
             };
             closeTimer.Tick += exitBtnClick;
+            */
         }
 
-        private void exitBtnClick(object sender, EventArgs e) => Close();
+        //private void exitBtnClick(object sender, EventArgs e) => Close();
     }
 }

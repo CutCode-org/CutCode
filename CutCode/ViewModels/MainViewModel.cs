@@ -14,6 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace CutCode
 {
@@ -24,10 +25,14 @@ namespace CutCode
         private readonly IThemeService _themeService;
         private IWindowManager windowManager;
         private readonly IPageService pageService;
+        private readonly INotificationManager notifyManager;
         public ObservableCollection<SideBarBtnModel> sideBarBtns { get; set; }
-        public MainViewModel(IWindowManager _windowManager,IThemeService themeService, IPageService _pageService, IDataBase _dataBase)
+        public MainViewModel(IWindowManager _windowManager,IThemeService themeService, IPageService _pageService, IDataBase _dataBase, INotificationManager _notifyManager)
         {
             windowManager = _windowManager;
+
+            notifyManager = _notifyManager;
+            notifyManager.ShowNotification += showNotification;
 
             _themeService = themeService;
             _themeService.ThemeChanged += ThemeChanged;
@@ -99,7 +104,7 @@ namespace CutCode
 
             if(selected_item == "Share")
             {
-                windowManager.ShowDialog(new NotificationDialogViewModel(_themeService, "Just for test"));
+                notifyManager.CreateNotification("This is just for test", 6);
             }
         }
 
@@ -193,5 +198,41 @@ namespace CutCode
             set
             { SetAndNotify(ref _minImage, value); }
         }
+
+        #region NotificationDialogView
+        private Object _notificationDialogView;
+        public Object notificationDialogView
+        {
+            get => _notificationDialogView;
+            set => SetAndNotify(ref _notificationDialogView, value);
+        }
+
+        private Visibility _notifcationDialogVisibility;
+        public Visibility notifcationDialogVisibility
+        {
+            get => _notifcationDialogVisibility;
+            set => SetAndNotify(ref _notifcationDialogVisibility, value);
+        }
+
+        private void showNotification(object sender, EventArgs e)
+        {
+            var noitification = sender as NotifyModel;
+
+            var notifcationViewModel = new NotificationDialogViewModel(_themeService, noitification.Message);
+            notificationDialogView = (Object)notifcationViewModel;
+
+            notifcationDialogVisibility = Visibility.Visible;
+            var closeTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(noitification.Delay),
+                IsEnabled = true
+            };
+            closeTimer.Tick += (object sender, EventArgs e) =>
+            {
+                notifcationDialogVisibility = Visibility.Hidden;
+                closeTimer.Stop();
+            };
+        }
+        #endregion
     }
 }
