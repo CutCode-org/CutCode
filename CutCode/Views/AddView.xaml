@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CutCode"
-	  xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
       d:DataContext="{d:DesignInstance local:AddViewModel}"
       xmlns:s="https://github.com/canton7/Stylet"
       mc:Ignorable="d">
@@ -104,24 +103,20 @@
         </Grid>
     </Border>
 
-    <Border Grid.Row="2" BorderThickness="0" Background="{Binding richtextBoxBackground}" Margin="10,15,12,5" CornerRadius="8" 
-            HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Border Grid.Row="2" BorderThickness="0" Background="{Binding richtextBoxBackground}" Margin="10,15,12,5" CornerRadius="8">
         <local:BindableAvalonEditor
-                xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                VerticalAlignment="Stretch"
                 Background="Transparent"
                 Foreground="{Binding textBoxForeground}"
                 BorderThickness="0"
                 Margin="5,9,0,0"
-                VerticalAlignment="Stretch"
-                HorizontalAlignment="Stretch"
                 FontFamily="{StaticResource firacode}"
                 FontSize="14"
                 ShowLineNumbers="True"
-                
                 LineNumbersForeground="{Binding textBoxForeground}"
                 ScrollViewer.CanContentScroll="True"
-                ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                ScrollViewer.VerticalScrollBarVisibility="Visible"
                 Text="{Binding code}"
                 SyntaxHighlighting="{Binding CurrentLang, Converter={StaticResource HighlightingDefinitionConverter}}"/>
     </Border>
