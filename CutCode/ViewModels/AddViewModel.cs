@@ -119,7 +119,7 @@ namespace CutCode
         private List<string> SyntaxLanguages = new List<string>()
         {
         "text", "Python", "C++", "C#", "CSS", "C#", "Java", "CSS", "Java",
-        "Java", "Java", "C++", "C++", "C#", "C++","C++", "Java"
+        "JavaScript", "Java", "C++", "C++", "C#", "C++","C++", "Java"
         };
 
         public void SaveCommand()

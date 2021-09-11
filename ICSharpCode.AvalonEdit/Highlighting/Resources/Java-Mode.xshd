@@ -2,16 +2,16 @@
 <!-- syntaxdefinition for Java 2001 by Jonathan Pierce & Mike Krueger -->
 <!-- converted to AvalonEdit format by Siegfried Pammer in 2010 -->
 <SyntaxDefinition name="Java" extensions=".java" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
-  <Color name="MethodName" foreground="DarkBlue" />
-  <Color name="Digits" foreground="DarkBlue" fontStyle="italic" />
-  <Color name="String" foreground="Magenta"  />
-  <Color name="Character" foreground="Magenta"  />
+  <Color name="MethodName" foreground="#7a82da" />
+  <Color name="Digits" foreground="#ff78f8" fontStyle="italic" />
+  <Color name="String" foreground="#DEB454"/>
+  <Color name="Character" foreground="Yellow"  />
   <Color name="Comment" foreground="SlateGray" />
-  <Color name="Punctuation" foreground="DarkGreen" />
+  <Color name="Punctuation" foreground="Green" />
   <Color name="AccessKeywords" foreground="Black" fontWeight="bold" />
   <Color name="OperatorKeywords" foreground="DarkCyan" fontWeight="bold" />
-  <Color name="SelectionStatements" foreground="Blue" fontWeight="bold" />
-  <Color name="IterationStatements" foreground="Blue" fontWeight="bold" />
+  <Color name="SelectionStatements" foreground="#4067CF" fontWeight="bold" />
+  <Color name="IterationStatements" foreground="#4067CF" fontWeight="bold" />
   <Color name="ExceptionHandlingStatements" foreground="Teal" fontWeight="bold" />
   <Color name="ValueTypes" foreground="Red" fontWeight="bold" />
   <Color name="ReferenceTypes" foreground="Red" />

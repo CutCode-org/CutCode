@@ -6,7 +6,7 @@
 	<Color name="Character" foreground="Fuchsia" />
 	<Color name="String" foreground="Fuchsia" />
 	<Color name="Preprocessor" foreground="Green" />
-	<Color name="Punctuation" foreground="DarkGreen" />
+	<Color name="Punctuation" foreground="Green" />
 	<Color name="MethodName" foreground="#7a82da" fontWeight="bold" />
 	<Color name="Digits" foreground="#ff78f8" />
 	<Color name="CompoundKeywords" foreground="Black" fontWeight="bold" />
@@ -19,9 +19,9 @@
 	<Color name="BooleanConstants" foreground="#FF000000" fontWeight="bold" />
 	<Color name="Keywords" foreground="#1D2F90" fontWeight="bold" />
 	<Color name="LoopKeywords" foreground="#1D2F90" fontWeight="bold" />
-	<Color name="JumpKeywords" foreground="#213A70" />
+	<Color name="JumpKeywords" foreground="#7a82da" />
 	<Color name="ExceptionHandling" foreground="#FF008080" fontWeight="bold" />
-	<Color name="ControlFlow" foreground="#1D2F90" fontWeight="bold" />
+	<Color name="ControlFlow" foreground="#4067CF" fontWeight="bold" />
 	<RuleSet ignoreCase="false">
 		<Rule color="Punctuation">
 		[?,.;()\[\]{}+\-/%*&lt;&gt;^=~!&amp;]+
