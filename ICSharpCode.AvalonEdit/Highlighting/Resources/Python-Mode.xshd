@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <SyntaxDefinition name="Python" extensions=".py;.pyw" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
 	<Color name="Comment" foreground="Green" exampleText="# comment" />
-	<Color name="String" foreground="Gray" exampleText="name = 'abc'"/>
-	<Color name="MethodCall" foreground="Purple" exampleText="def Hello()"/>
-	<Color name="NumberLiteral" foreground="DarkBlue" exampleText="3.1415f"/>
-	<Color name="Keywords" fontWeight="bold" foreground="Blue" exampleText="if"/>
+	<Color name="String" foreground="Yellow" exampleText="name = 'abc'"/>
+	<Color name="MethodCall" foreground="#7a82da" exampleText="def Hello()"/>
+	<Color name="NumberLiteral" foreground="#ff78f8" exampleText="3.1415f"/>
+	<Color name="Keywords" fontWeight="bold" foreground="#2753A6" exampleText="if"/>
 
 	<Property name="DocCommentMarker" value="///" />
 

@@ -18,7 +18,7 @@
 						<ScrollViewer
 							Style="{DynamicResource ScrollViewerStyle}"
 							Focusable="False"
-							Name="PART_ScrollViewer"
+							x:Name="PART_ScrollViewer"
 							CanContentScroll="True"
 							VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}"
 							HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"

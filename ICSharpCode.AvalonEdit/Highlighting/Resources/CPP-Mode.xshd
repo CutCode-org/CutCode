@@ -7,21 +7,21 @@
 	<Color name="String" foreground="Fuchsia" />
 	<Color name="Preprocessor" foreground="Green" />
 	<Color name="Punctuation" foreground="DarkGreen" />
-	<Color name="MethodName" foreground="MidnightBlue" fontWeight="bold" />
-	<Color name="Digits" foreground="DarkBlue" />
+	<Color name="MethodName" foreground="#7a82da" fontWeight="bold" />
+	<Color name="Digits" foreground="#ff78f8" />
 	<Color name="CompoundKeywords" foreground="Black" fontWeight="bold" />
 	<Color name="This" foreground="Black" fontWeight="bold" />
-	<Color name="Operators" foreground="#FF008B8B" fontWeight="bold" />
+	<Color name="Operators" foreground="#4067CF" fontWeight="bold" />
 	<Color name="Namespace" foreground="#FF008000" fontWeight="bold" />
 	<Color name="Friend" foreground="#FFA52A2A" />
-	<Color name="Modifiers" foreground="#FF0000FF" fontWeight="bold" />
+	<Color name="Modifiers" foreground="#7a82da" fontWeight="bold" />
 	<Color name="TypeKeywords" foreground="#FFFF0000" />
 	<Color name="BooleanConstants" foreground="#FF000000" fontWeight="bold" />
-	<Color name="Keywords" foreground="#FF0000FF" fontWeight="bold" />
-	<Color name="LoopKeywords" foreground="#FF0000FF" fontWeight="bold" />
-	<Color name="JumpKeywords" foreground="#FF000080" />
+	<Color name="Keywords" foreground="#1D2F90" fontWeight="bold" />
+	<Color name="LoopKeywords" foreground="#1D2F90" fontWeight="bold" />
+	<Color name="JumpKeywords" foreground="#213A70" />
 	<Color name="ExceptionHandling" foreground="#FF008080" fontWeight="bold" />
-	<Color name="ControlFlow" foreground="#FF0000FF" fontWeight="bold" />
+	<Color name="ControlFlow" foreground="#1D2F90" fontWeight="bold" />
 	<RuleSet ignoreCase="false">
 		<Rule color="Punctuation">
 		[?,.;()\[\]{}+\-/%*&lt;&gt;^=~!&amp;]+
