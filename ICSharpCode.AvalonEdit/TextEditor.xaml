@@ -16,7 +16,7 @@
 						BorderBrush="{TemplateBinding BorderBrush}"
 						BorderThickness="{TemplateBinding BorderThickness}">
 						<ScrollViewer
-							Style="{DynamicResource ScrollViewerStyle}"
+                            Style="{DynamicResource ScrollViewerStyle}"
 							Focusable="False"
 							x:Name="PART_ScrollViewer"
 							CanContentScroll="True"
