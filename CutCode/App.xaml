@@ -107,29 +107,6 @@
                                     </Track.DecreaseRepeatButton>
                                 </Track>
                             </Grid>
-
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsEnabled" Value="false">
-                                    <Setter TargetName="Thumb" Property="Visibility" Value="Collapsed"/>
-                                </Trigger>
-                                <Trigger Property="Orientation" Value="Horizontal">
-                                    <Setter TargetName="GridRoot" Property="LayoutTransform">
-                                        <Setter.Value>
-                                            <RotateTransform Angle="-90"/>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter TargetName="PART_Track" Property="LayoutTransform">
-                                        <Setter.Value>
-                                            <RotateTransform Angle="-90"/>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="Width" Value="8"/>
-                                    <Setter Property="Height" Value="Auto"/>
-                                    <Setter TargetName="Thumb" Property="Tag" Value="Horizontal"/>
-                                    <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand"/>
-                                    <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -152,36 +129,13 @@
                                         <Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}" Style="{StaticResource HorizontalScrollThumbs}"/>
                                     </Track.Thumb>
                                     <Track.IncreaseRepeatButton>
-                                        <RepeatButton x:Name="PageRight" Command="ScrollBar.PageRightCommand" Opacity="0" Focusable="false"/>
+                                        <RepeatButton x:Name="PageRight" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="false"/>
                                     </Track.IncreaseRepeatButton>
                                     <Track.DecreaseRepeatButton>
-                                        <RepeatButton x:Name="PageLeft" Command="ScrollBar.PageLeftCommand" Opacity="0" Focusable="false"/>
+                                        <RepeatButton x:Name="PageLeft" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="false"/>
                                     </Track.DecreaseRepeatButton>
                                 </Track>
                             </Grid>
-
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsEnabled" Value="false">
-                                    <Setter TargetName="Thumb" Property="Visibility" Value="Collapsed"/>
-                                </Trigger>
-                                <Trigger Property="Orientation" Value="Horizontal">
-                                    <Setter TargetName="GridRoot" Property="LayoutTransform">
-                                        <Setter.Value>
-                                            <RotateTransform Angle="-90"/>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter TargetName="PART_Track" Property="LayoutTransform">
-                                        <Setter.Value>
-                                            <RotateTransform Angle="-90"/>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="Width" Value="Auto"/>
-                                    <Setter Property="Height" Value="8"/>
-                                    <Setter TargetName="Thumb" Property="Tag" Value="Horizontal"/>
-                                    <Setter TargetName="PageLeft" Property="Command" Value="ScrollBar.PageLeftCommand"/>
-                                    <Setter TargetName="PageRight" Property="Command" Value="ScrollBar.PageRightCommand"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -203,12 +157,12 @@
                                     <RowDefinition />
                                     <RowDefinition Height="16"/>
                                 </Grid.RowDefinitions>
-                                <ScrollContentPresenter Grid.ColumnSpan="3"/>
-                                <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="1" Value="{TemplateBinding VerticalOffset}" 
+                                <ScrollContentPresenter Grid.Column="0"/>
+                                <ScrollBar x:Name="PART_VerticalScrollBar" Value="{TemplateBinding VerticalOffset}" Grid.Column="1"
                                            Maximum="{TemplateBinding ScrollableHeight}" ViewportSize="{TemplateBinding ViewportHeight}" 
                                            Style="{DynamicResource VerticalScrollBar}" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"/>
 
-                                <ScrollBar x:Name="PART_HorizontalScrollBar" Grid.Row="1" Value="{TemplateBinding HorizontalOffset}" 
+                                <ScrollBar x:Name="PART_HorizontalScrollBar" Grid.Row="1" Value="{TemplateBinding HorizontalOffset}" Orientation="Horizontal"
                                            Maximum="{TemplateBinding ScrollableWidth}" ViewportSize="{TemplateBinding ViewportWidth}" 
                                            Style="{DynamicResource HorizontalScrollBar}" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"/>
                             </Grid>
