@@ -103,11 +103,6 @@ namespace CutCode
 
             sideBarBtns[ind].background = _themeService.IsLightTheme ? ColorCon.Convert("#FCFCFC") : ColorCon.Convert("#36393F");
             if (currentPage != Pages[ind]) pageService.Page = Pages[ind];
-
-            if(selected_item == "Settings")
-            {
-                notifyManager.CreateNotification("Simple test", 10);
-            }
         }
         #region Color
         private SolidColorBrush _backgroundColor;
@@ -209,6 +204,7 @@ namespace CutCode
         }
 
         private List<NotifyObject> WaitingNotifications = new List<NotifyObject>();
+        private List<LiveNotification> liveNotifications = new List<LiveNotification>();
         private void showNotification(object sender, EventArgs e)
         {
             var notification = sender as NotifyObject;
@@ -229,6 +225,7 @@ namespace CutCode
                     Interval = TimeSpan.FromSeconds(notification.Delay),
                     IsEnabled = true
                 };
+                liveNotifications.Add(new LiveNotification() { timer = closeTimer, notification = notification});
                 closeTimer.Tick += CloseNotification;
             }
         }
@@ -236,15 +233,38 @@ namespace CutCode
         private void exitNotification(object sender, EventArgs e)
         {
             var notification = sender as NotifyObject;
+            var liveNotification = new LiveNotification();
+            foreach (var _liveNotification in liveNotifications)
+            {
+                if (_liveNotification.notification == notification)
+                {
+                    liveNotification = _liveNotification;
+                    break;
+                }
+            }
             notificationList.Remove(notification);
             UpdateNotification();
+            liveNotification.timer.Stop();
+            liveNotifications.Remove(liveNotification);
         }
 
         private void CloseNotification(object sender, EventArgs e)
         {
-            if(notificationList.Count > 0) notificationList.RemoveAt(0);
+            var timer = sender as DispatcherTimer;
+            var liveNotification = new LiveNotification();
+            foreach(var _liveNotification in liveNotifications)
+            {
+                if(_liveNotification.timer == timer)
+                {
+                    liveNotification = _liveNotification;
+                    break;
+                } 
+            }
+
+            notificationList.Remove(liveNotification.notification);
+            liveNotifications.Remove(liveNotification);
             UpdateNotification();
-            (sender as DispatcherTimer).Stop();
+            timer.Stop();
         }
 
         private void UpdateNotification()

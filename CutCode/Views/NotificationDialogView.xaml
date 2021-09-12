@@ -55,7 +55,7 @@
             </Grid>
             
             <Button Grid.Column="1" Background="Transparent"
-                    Style="{DynamicResource ButtonStyle}" Command="{s:Action ExitCommand}" Margin="0,0,5,0"
+                    Style="{DynamicResource ButtonStyle}" Command="{s:Action ExitCommand}" Margin="5,0,5,0"
                     BorderBrush="{Binding exitBtnHoverColor}" VerticalAlignment="Center" Height="20" Width="20">
                 <Image  Width="15" Height="15" Source="{Binding exitImage}"
                         RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
