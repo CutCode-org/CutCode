@@ -20,7 +20,6 @@ namespace CutCode
 {
     public class MainViewModel : Screen
     {
-        //private List<Button> leftBarBtns;
         public static List<System.Object> Pages;
         private readonly IThemeService _themeService;
         private IWindowManager windowManager;
@@ -46,11 +45,10 @@ namespace CutCode
 
             sideBarBtns = new ObservableCollection<SideBarBtnModel>();
 
-            // there should be some kind of condition here
             sideBarBtns.Add(new SideBarBtnModel("Home", _themeService));
             sideBarBtns.Add(new SideBarBtnModel("Add", _themeService));
             sideBarBtns.Add(new SideBarBtnModel("Favourite", _themeService));
-            //sideBarBtns.Add(new SideBarBtnModel("Share", _themeService));
+            sideBarBtns.Add(new SideBarBtnModel("Share", _themeService));
             sideBarBtns.Add(new SideBarBtnModel("Settings", _themeService));
             sideBarBtns[0].background = _themeService.IsLightTheme ? ColorCon.Convert("#FCFCFC") : ColorCon.Convert("#36393F");
 
@@ -58,7 +56,7 @@ namespace CutCode
             Pages = new List<System.Object>() {    new HomeViewModel(_themeService, pageService, _dataBase), 
                                             new AddViewModel(_themeService, pageService, _dataBase), 
                                             new FavViewModel(_themeService, pageService, _dataBase),
-                                            //new ShareViewModel(_themeService, pageService, _dataBase),
+                                            new ShareViewModel(_themeService, pageService, _dataBase),
                                             new SettingViewModel(_themeService, _dataBase, notifyManager) };
             pageService.Page = Pages[0];
         }
