@@ -33,7 +33,8 @@ namespace CutCode
 
             notifyManager = _notifyManager;
             notifyManager.ShowNotification += showNotification;
-            notificationList = new ObservableCollection<Object>();
+            notifyManager.OnCloseNotification += exitNotification;
+            notificationList = new ObservableCollection<NotifyObject>();
 
             _themeService = themeService;
             _themeService.ThemeChanged += ThemeChanged;
@@ -102,6 +103,11 @@ namespace CutCode
 
             sideBarBtns[ind].background = _themeService.IsLightTheme ? ColorCon.Convert("#FCFCFC") : ColorCon.Convert("#36393F");
             if (currentPage != Pages[ind]) pageService.Page = Pages[ind];
+
+            if(selected_item == "Settings")
+            {
+                notifyManager.CreateNotification("Simple test", 10);
+            }
         }
         #region Color
         private SolidColorBrush _backgroundColor;
@@ -195,20 +201,20 @@ namespace CutCode
         }
 
         #region NotificationDialogView
-        private ObservableCollection<Object> _notificationList;
-        public ObservableCollection<Object> notificationList
+        private ObservableCollection<NotifyObject> _notificationList;
+        public ObservableCollection<NotifyObject> notificationList
         {
             get => _notificationList;
             set => SetAndNotify(ref _notificationList, value);
         }
 
-        private List<Object> WaitingNotifications = new List<Object>();
+        private List<NotifyObject> WaitingNotifications = new List<NotifyObject>();
         private void showNotification(object sender, EventArgs e)
         {
-            var notification = sender as Object;
+            var notification = sender as NotifyObject;
 
-            var notifcationViewModel = new NotificationDialogViewModel(_themeService, notification.Message);
-            notification.View = (System.Object)notifcationViewModel;
+            var notifcationViewModel = new NotificationDialogViewModel(_themeService, notifyManager, notification);
+            notification.View = (Object)notifcationViewModel;
 
             if(notificationList.Count > 2)
             {
@@ -227,16 +233,33 @@ namespace CutCode
             }
         }
 
+        private void exitNotification(object sender, EventArgs e)
+        {
+            var notification = sender as NotifyObject;
+            notificationList.Remove(notification);
+            UpdateNotification();
+        }
+
         private void CloseNotification(object sender, EventArgs e)
         {
-            notificationList.RemoveAt(0);
-            if (WaitingNotifications.Count != 0)
-            {
-                var notification = WaitingNotifications[0];
-                WaitingNotifications.RemoveAt(0);
-                notifyManager.CreateNotification(notification.Message, notification.Delay);
-            }
+            if(notificationList.Count > 0) notificationList.RemoveAt(0);
+            UpdateNotification();
             (sender as DispatcherTimer).Stop();
+        }
+
+        private void UpdateNotification()
+        {
+            if (WaitingNotifications.Count > 0)
+            {
+                for (int i = 0; i < (3 - notificationList.Count); i++)
+                {
+                    if (WaitingNotifications.Count == 0) break;
+
+                    var notification = WaitingNotifications[i];
+                    WaitingNotifications.RemoveAt(i);
+                    notifyManager.CreateNotification(notification.Message, notification.Delay);
+                }
+            }
         }
         #endregion
     }

@@ -36,16 +36,30 @@
         </Style>
     </UserControl.Resources>
 
-    <Border Background="{Binding background}" CornerRadius="8"
+    <Border Background="{Binding background}" CornerRadius="6"
         Height="50" MinWidth="230">
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0" FontSize="10.5"  FontFamily="{StaticResource poppins_semibold}" Content="Notification" Foreground="{Binding textColor}"/>
-            <Label Grid.Row="1" Foreground="{Binding textColor}" Content="{Binding message}" Margin="0,-12,0,0"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" FontSize="10.5"  FontFamily="{StaticResource poppins_semibold}" Content="Notification" Foreground="{Binding textColor}"/>
+                <Label Grid.Row="1" Foreground="{Binding textColor}" Content="{Binding message}" Margin="0,-12,0,0"
                 FontSize="14"  FontFamily="{StaticResource poppins_regular}"/>
+            </Grid>
+            
+            <Button Grid.Column="1" Background="Transparent"
+                    Style="{DynamicResource ButtonStyle}" Command="{s:Action ExitCommand}" Margin="0,0,5,0"
+                    BorderBrush="{Binding exitBtnHoverColor}" VerticalAlignment="Center" Height="20" Width="20">
+                <Image  Width="15" Height="15" Source="{Binding exitImage}"
+                        RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+            </Button>
         </Grid>
     </Border>
 </UserControl>

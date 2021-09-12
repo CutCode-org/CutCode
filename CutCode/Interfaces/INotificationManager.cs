@@ -11,6 +11,8 @@ namespace CutCode
     {
         event EventHandler ShowNotification;
         void CreateNotification(string message, int delay);
+        void CloseNotification(NotifyObject notification);
+        event EventHandler OnCloseNotification;
     }
 
     public class NotificationManager : INotificationManager
@@ -18,12 +20,15 @@ namespace CutCode
         public event EventHandler ShowNotification;
         public void CreateNotification(string message, int delay)
         {
-            var notify = new Object(){ Message = message, Delay= delay};
+            var notify = new NotifyObject(){ Message = message, Delay= delay};
             ShowNotification?.Invoke(notify, EventArgs.Empty);
         }
+
+        public event EventHandler OnCloseNotification;
+        public void CloseNotification(NotifyObject notification) => OnCloseNotification?.Invoke(notification, EventArgs.Empty);
     }
 
-    public class Object : PropertyChangedBase
+    public class NotifyObject : PropertyChangedBase
     {
         public string Message { get; set; }
         public int Delay { get; set; }

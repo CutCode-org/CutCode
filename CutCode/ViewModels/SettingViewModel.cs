@@ -102,9 +102,9 @@ namespace CutCode
                 fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 fileDialog.DefaultExt = "whl";
                 fileDialog.Filter = "whl files (*.whl)|*.whl";
-                fileDialog.ShowDialog();
+                var dialogResult = fileDialog.ShowDialog();
 
-                if (!string.IsNullOrEmpty(fileDialog.FileName))
+                if (dialogResult != DialogResult.Cancel && !string.IsNullOrEmpty(fileDialog.FileName))
                 {
                     message = database.ImportData(fileDialog.FileName);
                 }
@@ -116,8 +116,8 @@ namespace CutCode
                 fileDialog.DefaultExt = "whl";
                 fileDialog.FileName = $"Export_CutCode_{DateTime.Now.ToString("yyyyMMddhhmmss")}.whl";
                 fileDialog.Filter = "whl files (*.whl)|*.whl";
-                fileDialog.ShowDialog();
-                if (!string.IsNullOrEmpty(fileDialog.FileName))
+                var dialogResult = fileDialog.ShowDialog();
+                if (dialogResult != DialogResult.Cancel)
                 {
                     message = database.ExportData(fileDialog.FileName);
                 }
