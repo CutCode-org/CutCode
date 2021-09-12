@@ -133,8 +133,8 @@
                 ShowLineNumbers="True"
                 LineNumbersForeground="{Binding textBoxForeground}"
                 ScrollViewer.CanContentScroll="True"
-                ScrollViewer.HorizontalScrollBarVisibility="Visible"
-                ScrollViewer.VerticalScrollBarVisibility="Visible"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
                 Text="{Binding code}"
                 SyntaxHighlighting="{Binding CurrentLang, Converter={StaticResource HighlightingDefinitionConverter}}"/>
     </Border>

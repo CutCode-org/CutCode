@@ -47,16 +47,9 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Thumb}">
                             <Grid x:Name="Grid">
-                                <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent"/>
                                 <Border x:Name="Rectangle1" CornerRadius="5" HorizontalAlignment="Stretch" 
                                         VerticalAlignment="Stretch" Width="Auto" Height="Auto" Background="{TemplateBinding Background}"/>
                             </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="Tag" Value="Horizontal">
-                                    <Setter TargetName="Rectangle1" Property="Width" Value="Auto"/>
-                                    <Setter TargetName="Rectangle1" Property="Height" Value="7"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -67,16 +60,9 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Thumb}">
                             <Grid x:Name="Grid">
-                                <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent"/>
                                 <Border x:Name="Rectangle1" CornerRadius="5" HorizontalAlignment="Stretch" 
                                         VerticalAlignment="Stretch" Width="Auto" Height="Auto" Background="{TemplateBinding Background}"/>
                             </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="Tag" Value="Horizontal">
-                                    <Setter TargetName="Rectangle1" Property="Width" Value="Auto"/>
-                                    <Setter TargetName="Rectangle1" Property="Height" Value="7"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -142,9 +128,8 @@
             </Style>
 
             <!-- ScrollViewer -->
-            <Style x:Key="ScrollViewerStyle" TargetType="{x:Type ScrollViewer}">
+            <Style x:Key="ScrollViewerStyle" TargetType="{x:Type ScrollViewer}" BasedOn="{StaticResource {x:Type ScrollViewer}}">
                 <Setter Property="OverridesDefaultStyle" Value="True"/>
-                <Setter Property="FlowDirection" Value="LeftToRight"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ScrollViewer}">

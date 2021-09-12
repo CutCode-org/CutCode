@@ -17,7 +17,10 @@ namespace CutCode
         protected override void OnTextChanged(EventArgs e)
         {
             base.OnTextChanged(e);
-            Text = Document.Text;
+            Text = Document.Text; 
+            
+            double vertOffset = (this.TextArea.TextView.DefaultLineHeight) * this.Document.LineCount;
+            this.ScrollToVerticalOffset(vertOffset);
         }
         public new string Text
         {
@@ -42,7 +45,7 @@ namespace CutCode
                     DefaultValue = "",
                     BindsTwoWayByDefault = true,
                     PropertyChangedCallback = OnDependencyPropertyChanged
-                }
+    }
             );
 
         protected static void OnDependencyPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
