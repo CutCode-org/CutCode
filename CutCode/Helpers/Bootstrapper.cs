@@ -11,6 +11,7 @@ namespace CutCode
             builder.Bind<IPageService>().To<PageService>();
             builder.Bind<IDataBase>().To<DataBaseManager>();
             builder.Bind<INotificationManager>().To<NotificationManager>();
+            builder.Bind<IApiManager>().To<ApiManager>();
         }
     }
 }

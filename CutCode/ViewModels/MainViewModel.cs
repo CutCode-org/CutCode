@@ -20,13 +20,22 @@ namespace CutCode
 {
     public class MainViewModel : Screen
     {
-        public static List<System.Object> Pages;
+
         private readonly IThemeService _themeService;
-        private IWindowManager windowManager;
+        private readonly IWindowManager windowManager;
         private readonly IPageService pageService;
         private readonly INotificationManager notifyManager;
+        private readonly IApiManager apiManager;
+
+        public static List<System.Object> Pages;
         public ObservableCollection<SideBarBtnModel> sideBarBtns { get; set; }
-        public MainViewModel(IWindowManager _windowManager,IThemeService themeService, IPageService _pageService, IDataBase _dataBase, INotificationManager _notifyManager)
+
+        public MainViewModel(IWindowManager _windowManager,
+                            IThemeService themeService, 
+                            IPageService _pageService, 
+                            IDataBase _dataBase, 
+                            INotificationManager _notifyManager,
+                            IApiManager _apiManager)
         {
             windowManager = _windowManager;
 
@@ -43,6 +52,8 @@ namespace CutCode
             pageService.PageChanged += PageChanged;
             pageService.PageRemoteChanged += PageRemoteChanged;
 
+            apiManager = _apiManager;
+
             sideBarBtns = new ObservableCollection<SideBarBtnModel>();
 
             sideBarBtns.Add(new SideBarBtnModel("Home", _themeService));
@@ -56,7 +67,7 @@ namespace CutCode
             Pages = new List<System.Object>() {    new HomeViewModel(_themeService, pageService, _dataBase), 
                                             new AddViewModel(_themeService, pageService, _dataBase), 
                                             new FavViewModel(_themeService, pageService, _dataBase),
-                                            new ShareViewModel(_themeService, pageService, _dataBase),
+                                            new ShareViewModel(_themeService, pageService, _dataBase, apiManager, notifyManager),
                                             new SettingViewModel(_themeService, _dataBase, notifyManager) };
             pageService.Page = Pages[0];
         }
@@ -100,7 +111,15 @@ namespace CutCode
             }
 
             sideBarBtns[ind].background = _themeService.IsLightTheme ? ColorCon.Convert("#FCFCFC") : ColorCon.Convert("#36393F");
-            if (currentPage != Pages[ind]) pageService.Page = Pages[ind];
+            if (currentPage != Pages[ind]) 
+            {
+                pageService.Page = Pages[ind];
+                if(selected_item == "Share")
+                {
+                    if (!apiManager.IsInternetAvailable())
+                        notifyManager.CreateNotification("You need internet connection to share codes!", 10);
+                }
+            }
         }
         #region Color
         private SolidColorBrush _backgroundColor;

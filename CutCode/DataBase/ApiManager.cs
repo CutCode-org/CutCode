@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CutCode
 {
-    public class ApiManager
+    public class ApiManager : IApiManager
     {
         public HttpClient client;
         private string sharingApiAddr = "Something";
