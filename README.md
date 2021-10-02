@@ -1,8 +1,7 @@
-<div align="center">
-    <h1>CutCode - boost your job programmer!</h1>
-    <img src="./imgs/banner.png" width=900px>
-</div>
+![Banner](https://user-images.githubusercontent.com/63385587/135706502-35fee274-a8d2-48da-b9a9-50213ae3104a.png)
+
 <br>
+
 CutCode is an open source project made for developers to boost their job by helping them save essential code snippets in safe place. 
 <br> 
 For example, sometimes as a developer, we need to type one code snippets in most of our projects and for doing that we go check previous projects and grab the code from there. But using this app, you can get all this essential code snippets in one place. You can search through your codes, you can give them title and description. And also you can add them to favourite codes so that you can get it quickly from the favourite codes page.
