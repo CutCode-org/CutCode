@@ -10,7 +10,7 @@
         
         Icon="/Assets/avalonia-logo.ico"
         Title="CutCode"
-        Background="{Binding BackgroundColor}"
+        Background="{Binding backgroundColor}"
         
         CanResize="True" 
         WindowStartupLocation="CenterScreen" 
