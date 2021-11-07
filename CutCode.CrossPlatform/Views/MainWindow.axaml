@@ -10,7 +10,12 @@
         
         Icon="/Assets/avalonia-logo.ico"
         Title="CutCode"
+        
         Background="{Binding backgroundColor}"
+        BorderThickness="0"
+        BorderBrush="Transparent"
+        TransparencyLevelHint="Transparent"
+        
         
         CanResize="True" 
         WindowStartupLocation="CenterScreen" 
@@ -22,5 +27,6 @@
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
+    
 
 </Window>
