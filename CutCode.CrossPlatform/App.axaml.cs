@@ -1,10 +1,10 @@
-using Autofac;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.ViewModels;
 using CutCode.CrossPlatform.Views;
+using CutCode.DataBase;
 using Splat;
 
 namespace CutCode.CrossPlatform
@@ -20,11 +20,12 @@ namespace CutCode.CrossPlatform
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                var databaseService = new DataBase();
-                var themeService = new ThemeService(databaseService);
+                var themeService = new ThemeService();
+                var pageService = new PageService();
+                var database = new DataBaseManager(themeService);
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(themeService),
+                    DataContext = new MainWindowViewModel(themeService, pageService, database)
                 };
             }
 

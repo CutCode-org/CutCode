@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CutCode
+namespace CutCode.CrossPlatform.Interfaces
 {
     public interface IThemeService
     {
