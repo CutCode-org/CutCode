@@ -12,24 +12,25 @@ namespace CutCode.CrossPlatform.ViewModels
     public class MainWindowViewModel : ViewModelBase
     {
         private readonly ThemeService themeService;
-        private ColorModel colorModel;
-        public MainWindowViewModel(ThemeService _themeService)
+        private readonly IPageService pageService;
+
+        public MainWindowViewModel()
+        {
+            
+        }
+        public MainWindowViewModel(ThemeService _themeService, IPageService _pageService, IDataBase database)
         {
             themeService = _themeService;
-            colorModel = themeService.CurrentColorModel;
             themeService.ThemeChanged += ThemeChanged;
         }
 
         private void ThemeChanged(object sender, EventArgs e)
         {
-            var currentColorModel = (ColorModel) sender;
-            colorModel = currentColorModel;
             UpdateTheme();
         }
 
         private void UpdateTheme()
         {
-            BackgroundColor = colorModel.background;
         }
 
         private Brush _backgroundColor;
