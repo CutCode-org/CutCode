@@ -34,7 +34,6 @@ namespace CutCode.CrossPlatform.Controllers
 
             exitBtn.Click += ClearClicked;
             searchBox.GetObservable(TextBox.TextProperty).Subscribe(TextChanged);
-            TextBox.TextProperty.Changed.Subscribe(e => {  });
 
             activityTimer = new DispatcherTimer
             {
