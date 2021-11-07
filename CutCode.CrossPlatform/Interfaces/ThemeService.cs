@@ -13,23 +13,16 @@ namespace CutCode.CrossPlatform.Interfaces
 
     public class ThemeService : IThemeService
     {
+        private readonly IDataBase databaseService;
         public ColorModel CurrentColorModel { get; set; }
         public event EventHandler ThemeChanged = null!;
         
-        public ThemeService()
+        public ThemeService(IDataBase _databaseService)
         {
-            var themeId = GetCurrentThemeId(); // get the Id From Cache
-            CurrentColorModel = ThemeConfig(themeId); // extract the Colors from the theme Id
-        }
-
-        private int GetCurrentThemeId()
-        /*
-         Method: Extracting(Getting) Theme id of the user preference from cache folder
-         Return: Integer 
-         */
-        {
-            // Do read from cache and return the theme id.
-            return 0;
+            databaseService = _databaseService;
+            
+            var themeId = databaseService.GetCurrentThemeId(); // get the Id From Cache
+            CurrentColorModel = databaseService.GetColorModelById(themeId); // extract the Colors from the theme Id
         }
 
         public void ChangeTheme(int themeId)
@@ -38,18 +31,8 @@ namespace CutCode.CrossPlatform.Interfaces
          Return: void 
          */
         {
-            CurrentColorModel = ThemeConfig(themeId); // extract the Color with the theme Id
+            CurrentColorModel = databaseService.GetColorModelById(themeId); // extract the Color with the theme Id
             ThemeChanged?.Invoke(CurrentColorModel, EventArgs.Empty); // invoke the theme chanaged event
-        }
-
-        private static ColorModel ThemeConfig(int themeId)
-        /*
-         Method: Extracting the colors based on the theme Id
-         Return: ColorModel
-         */
-        {
-            // do the extraction here
-            return new ColorModel();
         }
     }
 }

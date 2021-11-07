@@ -20,7 +20,8 @@ namespace CutCode.CrossPlatform
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                var themeService = new ThemeService();
+                var databaseService = new DataBase();
+                var themeService = new ThemeService(databaseService);
                 desktop.MainWindow = new MainWindow
                 {
                     DataContext = new MainWindowViewModel(themeService),
