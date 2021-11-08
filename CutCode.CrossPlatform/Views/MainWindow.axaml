@@ -35,7 +35,7 @@
         </ControlTemplate>
       </Setter>
     </Style>
-    <Style Selector="Button.ButtonStyle">
+    <Style Selector=":is(Button).ButtonStyle">
       <Setter Property="Template">
         <ControlTemplate>
           <Border>
@@ -82,7 +82,14 @@
               <ToolTip.Tip>
                 <ToolTip Name="sideBarBtnToolTip" Content="{Binding toolTipText}"
                          Background="{Binding toolTipBackground}"
-                         BorderBrush="{Binding toolTipForeground}"/>
+                         BorderBrush="{Binding toolTipForeground}">
+                  <ToolTip.Background>
+                    <SolidColorBrush Color="{Binding toolTipBackground}"/>
+                  </ToolTip.Background>
+                  <ToolTip.BorderBrush>
+                    <SolidColorBrush Color="{Binding toolTipForeground}"/>
+                  </ToolTip.BorderBrush>
+                </ToolTip>
               </ToolTip.Tip>
             </Button>
           </DataTemplate>
@@ -90,30 +97,38 @@
       </ItemsControl>
     </Grid>
     <Grid Grid.Column="1" RowDefinitions="54,*">
-      <Grid Grid.Row="0" Background="{Binding titleBarColor}" 
+      <Grid Grid.Row="0"
             PointerPressed="ChangeWindowPosition" 
             PointerMoved="MaxChangeWindowPosition"
             ColumnDefinitions="*,auto">
+        <Grid.Background>
+          <SolidColorBrush Color="{Binding titleBarColor}"/>
+        </Grid.Background>
 
-        <Label Grid.Column="0" Content="CutCode" FontSize="20" Foreground="{Binding mainTextColor}"
-               FontFamily="{StaticResource poppins_semibold}" Height="34" Padding="15,3,0,0"/>
+        <Label Grid.Column="0" Content="CutCode" FontSize="20"
+               FontFamily="{StaticResource poppins_semibold}" Height="34" Padding="15,3,0,0">
+          <Label.Background>
+            <SolidColorBrush Color="{Binding mainTextColor}"/>
+          </Label.Background>
+        </Label>
 
-        <Grid Grid.Column="1" VerticalAlignment="Center">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-          </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" VerticalAlignment="Center" ColumnDefinitions="auto,auto,auto">
 
           <!-- Title Bar Buttons  -->
           <Button Grid.Column="0" Background="Transparent" Classes="ButtonStyle" Height="54"
-                  BorderBrush="{Binding titlebarBtnsHoverColor}" Click="MinimizeClicked"  Margin="0,0,0,20">
+                  Click="MinimizeClicked"  Margin="0,0,0,20">
+            <Button.BorderBrush>
+              <SolidColorBrush Color="{Binding titlebarBtnsHoverColor}"/>
+            </Button.BorderBrush>
             <Image Source="{Binding minImage}" Width="23" Height="23" Margin="4,0,4,15"
                 RenderOptions.BitmapInterpolationMode="HighQuality"/>
           </Button>
 
           <Button Grid.Column="1" Background="Transparent" Classes="ButtonStyle" Height="54"
-                  BorderBrush="{Binding titlebarBtnsHoverColor}" Click="MaximizeClicked"  Margin="0,0,0,20">
+                  Click="MaximizeClicked"  Margin="0,0,0,20">
+            <Button.BorderBrush>
+              <SolidColorBrush Color="{Binding titlebarBtnsHoverColor}"/>
+            </Button.BorderBrush>
             <Image Source="{Binding maxImage}" Width="23" Height="23"  Margin="4,0,4,15"
                    RenderOptions.BitmapInterpolationMode="HighQuality"/>
           </Button>
