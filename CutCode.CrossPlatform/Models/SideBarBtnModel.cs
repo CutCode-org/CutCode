@@ -30,7 +30,7 @@ namespace CutCode.CrossPlatform.Models
             var index = SideBarBtns.AllSideBarBtns.IndexOf(_toolTipText);
             btnBothimages.Add(SideBarBtns.SideBarBtnsLightTheme[index]);
             btnBothimages.Add(SideBarBtns.SideBarBtnsDarkTheme[index]);
-            background = SolidColorBrush.Parse("#00FFFFFF");
+            background = Color.Parse("#00FFFFFF");
 
             SetAppearance();
         }
@@ -43,19 +43,19 @@ namespace CutCode.CrossPlatform.Models
         {
             imageSource = themeService.IsLightTheme ? $"../Resources/Images/Icons/{btnBothimages[0]}" : $"../Resources/Images/Icons/{btnBothimages[1]}";
 
-            toolTipBackground = themeService.IsLightTheme ? SolidColorBrush.Parse("#CBD0D5") : SolidColorBrush.Parse("#1E1E1E");
-            toolTipForeground = themeService.IsLightTheme ? SolidColorBrush.Parse("#060607") : SolidColorBrush.Parse("#94969A");
+            toolTipBackground = themeService.IsLightTheme ? Color.Parse("#CBD0D5") : Color.Parse("#1E1E1E");
+            toolTipForeground = themeService.IsLightTheme ? Color.Parse("#060607") : Color.Parse("#94969A");
 
             
-            if (background.Color != SolidColorBrush.Parse("#00FFFFFF").Color)
+            if (background != Color.Parse("#00FFFFFF"))
             {
-                background = themeService.IsLightTheme ? SolidColorBrush.Parse("#FCFCFC") : SolidColorBrush.Parse("#36393F");
+                background = themeService.IsLightTheme ? Color.Parse("#FCFCFC") : Color.Parse("#36393F");
             }
         }
         public string toolTipText { get; set; }
 
-        private SolidColorBrush _background;
-        public SolidColorBrush background
+        private Color _background;
+        public Color background
         {
             get => _background;
             set
@@ -80,15 +80,15 @@ namespace CutCode.CrossPlatform.Models
             }
         }
 
-        private SolidColorBrush _toolTipBackground;
-        public SolidColorBrush toolTipBackground
+        private Color _toolTipBackground;
+        public Color toolTipBackground
         {
             get => _toolTipBackground;
             set { this.RaiseAndSetIfChanged(ref _toolTipBackground, value); }
         }
 
-        private SolidColorBrush _toolTipForeground;
-        public SolidColorBrush toolTipForeground
+        private Color _toolTipForeground;
+        public Color toolTipForeground
         {
             get => _toolTipForeground;
             set { this.RaiseAndSetIfChanged(ref _toolTipForeground, value); }

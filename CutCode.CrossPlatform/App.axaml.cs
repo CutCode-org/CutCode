@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.ViewModels;
 using CutCode.CrossPlatform.Views;

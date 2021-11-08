@@ -36,20 +36,20 @@ namespace CutCode.CrossPlatform.ViewModels
         
         private void ThemeChanged(object sender, EventArgs e)
         {
-            backgroundColor = themeService.IsLightTheme ? SolidColorBrush.Parse("#FCFCFC") : SolidColorBrush.Parse("#36393F");
-            titleBarColor = themeService.IsLightTheme ? SolidColorBrush.Parse("#E3E5E8") : SolidColorBrush.Parse("#202225");
-            SideBarColor = themeService.IsLightTheme ? SolidColorBrush.Parse("#F2F3F5") : SolidColorBrush.Parse("#2A2E33");
-            mainTextColor = themeService.IsLightTheme ? SolidColorBrush.Parse("#0B0B13") : SolidColorBrush.Parse("#94969A");
+            backgroundColor = themeService.IsLightTheme ? Color.Parse("#FCFCFC") : Color.Parse("#36393F");
+            titleBarColor = themeService.IsLightTheme ? Color.Parse("#E3E5E8") : Color.Parse("#202225");
+            SideBarColor = themeService.IsLightTheme ? Color.Parse("#F2F3F5") : Color.Parse("#2A2E33");
+            mainTextColor = themeService.IsLightTheme ? Color.Parse("#0B0B13") : Color.Parse("#94969A");
 
             exitImage = themeService.IsLightTheme ? "../Resources/Images/Icons/exit_black.png" : "../Resources/Images/Icons/exit_white.png";
             minImage = themeService.IsLightTheme ? "../Resources/Images/Icons/min_black.png" : "../Resources/Images/Icons/min_white.png";
             maxImage = themeService.IsLightTheme ? "../Resources/Images/Icons/max_black.png" : "../Resources/Images/Icons/max_white.png";
 
-            titlebarBtnsHoverColor = themeService.IsLightTheme ? SolidColorBrush.Parse("#D0D1D2") : SolidColorBrush.Parse("#373737");
+            titlebarBtnsHoverColor = themeService.IsLightTheme ? Color.Parse("#D0D1D2") : Color.Parse("#373737");
         }
 
-        private System.Object _currentPage;
-        public System.Object currentPage
+        private object _currentPage;
+        public object currentPage
         {
             get => _currentPage;
             set => this.RaiseAndSetIfChanged(ref _currentPage, value);
@@ -68,11 +68,11 @@ namespace CutCode.CrossPlatform.ViewModels
             int ind = 0;
             foreach (var btn in sideBarBtns)
             {
-                if (btn.toolTipText != selected_item) btn.background = SolidColorBrush.Parse("#00FFFFFF");
+                if (btn.toolTipText != selected_item) btn.background = Color.Parse("#00FFFFFF");
                 else ind = sideBarBtns.IndexOf(btn);
             }
 
-            sideBarBtns[ind].background = themeService.IsLightTheme ? SolidColorBrush.Parse("#FCFCFC") : SolidColorBrush.Parse("#36393F");
+            sideBarBtns[ind].background = themeService.IsLightTheme ? Color.Parse("#FCFCFC") : Color.Parse("#36393F");
             if (currentPage != Pages[ind]) 
             {
                 pageService.Page = Pages[ind];
@@ -80,36 +80,36 @@ namespace CutCode.CrossPlatform.ViewModels
         }
         
         #region Color
-        private SolidColorBrush _backgroundColor;
-        public SolidColorBrush backgroundColor
+        private Color _backgroundColor;
+        public Color backgroundColor
         {
             get => _backgroundColor;
             set => this.RaiseAndSetIfChanged(ref _backgroundColor, value);
         }
 
-        private SolidColorBrush _titleBarColor;
-        public SolidColorBrush titleBarColor
+        private Color _titleBarColor;
+        public Color titleBarColor
         {
             get => _titleBarColor;
             set => this.RaiseAndSetIfChanged(ref _titleBarColor, value);
         }
 
-        private SolidColorBrush _sideBarColor;
-        public SolidColorBrush SideBarColor
+        private Color _sideBarColor;
+        public Color SideBarColor
         {
             get => _sideBarColor;
             set => this.RaiseAndSetIfChanged(ref _sideBarColor, value);
         }
 
-        private SolidColorBrush _mainTextColor;
-        public SolidColorBrush mainTextColor
+        private Color _mainTextColor;
+        public Color mainTextColor
         {
             get => _mainTextColor;
             set => this.RaiseAndSetIfChanged(ref _mainTextColor, value);
         }
 
-        private SolidColorBrush _titlebarBtnsHoverColor;
-        public SolidColorBrush titlebarBtnsHoverColor
+        private Color _titlebarBtnsHoverColor;
+        public Color titlebarBtnsHoverColor
         {
             get => _titlebarBtnsHoverColor;
             set => this.RaiseAndSetIfChanged(ref _titlebarBtnsHoverColor, value);
