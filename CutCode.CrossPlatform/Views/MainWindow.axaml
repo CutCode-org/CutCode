@@ -81,9 +81,7 @@
               <Image Source="{Binding imageSource}" Margin="15,10,10,10" VerticalAlignment="Top"
                      RenderOptions.BitmapInterpolationMode="HighQuality"/>
               <ToolTip.Tip>
-                <ToolTip Name="sideBarBtnToolTip" Content="{Binding toolTipText}"
-                         Background="{Binding toolTipBackground}"
-                         BorderBrush="{Binding toolTipForeground}">
+                <ToolTip Name="sideBarBtnToolTip" Content="{Binding toolTipText}">
                   <ToolTip.Background>
                     <SolidColorBrush Color="{Binding toolTipBackground}"/>
                   </ToolTip.Background>
