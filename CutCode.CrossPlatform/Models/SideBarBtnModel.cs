@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.ViewModels;
 using ReactiveUI;
@@ -20,9 +23,12 @@ namespace CutCode.CrossPlatform.Models
     public class SideBarBtnModel : ViewModelBase
     {
         private readonly IThemeService themeService;
+        private readonly IAssetLoader assetLoader;
         private List<string> btnBothimages = new List<string>();
         public SideBarBtnModel(string _toolTipText, IThemeService _themeService)
         {
+            assetLoader = AvaloniaLocator.CurrentMutable.GetService<IAssetLoader>();
+            
             themeService = _themeService;
             themeService.ThemeChanged += ThemeChanged;
 
@@ -41,7 +47,7 @@ namespace CutCode.CrossPlatform.Models
 
         private void SetAppearance()
         {
-            imageSource = themeService.IsLightTheme ? $"../Resources/Images/Icons/{btnBothimages[0]}" : $"../Resources/Images/Icons/{btnBothimages[1]}";
+            imageSource = themeService.IsLightTheme ? ImageFromUri($"avares://CutCode.CrossPlatform/Assets/Images/Icons/{btnBothimages[0]}") : ImageFromUri($"avares://CutCode.CrossPlatform/Assets/Images/Icons/{btnBothimages[1]}");
 
             toolTipBackground = themeService.IsLightTheme ? Color.Parse("#CBD0D5") : Color.Parse("#1E1E1E");
             toolTipForeground = themeService.IsLightTheme ? Color.Parse("#060607") : Color.Parse("#94969A");
@@ -52,6 +58,13 @@ namespace CutCode.CrossPlatform.Models
                 background = themeService.IsLightTheme ? Color.Parse("#FCFCFC") : Color.Parse("#36393F");
             }
         }
+        
+        private IImage ImageFromUri(string path)
+        {
+            var uri = new Uri(path);
+            return assetLoader.Exists(uri) ? new Bitmap(assetLoader.Open(uri)) : throw new Exception("WTF");
+        } 
+        
         public string toolTipText { get; set; }
 
         private Color _background;
@@ -67,8 +80,8 @@ namespace CutCode.CrossPlatform.Models
             }
         }
 
-        private string _imageSource;
-        public string imageSource
+        private IImage _imageSource;
+        public IImage imageSource
         {
             get => _imageSource;
             set

@@ -5,6 +5,7 @@
       <map>
         <entry key="CutCode.CrossPlatform/App.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Controllers/WindowButtons.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
+        <entry key="CutCode.CrossPlatform/Views/MainWindow.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
       </map>
     </option>
   </component>
