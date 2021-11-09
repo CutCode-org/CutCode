@@ -32,7 +32,7 @@
     <Style Selector="ToolTip#sideBarBtnToolTip">
       <Setter Property="Template">
         <ControlTemplate>
-          <Border CornerRadius="0,10,10,0" BorderThickness="0" Background="{TemplateBinding Background}"  Margin="5,5,5,5">
+          <Border VerticalAlignment="Top" CornerRadius="0,10,10,0" BorderThickness="0" Background="{TemplateBinding Background}"  Margin="5,5,5,5">
               <Label Content="{TemplateBinding Content}" FontSize="12"
                      Foreground="{TemplateBinding BorderBrush}"
                      FontFamily="{DynamicResource poppins_semibold}" FontWeight="SemiBold" Height="34" Margin="2,6,2,2"/>
@@ -79,16 +79,19 @@
         <ItemsControl.ItemTemplate>
           <DataTemplate>
             <Button BorderThickness="0"
-                    Command="{Binding ChangePageCommand}" CommandParameter="{Binding toolTipText}"
+                    Command="{Binding ChangePageCommand}" 
+                    CommandParameter="{Binding toolTipText}"
                     Classes="ImgButton"
                     ToolTip.Placement="Right">
               <Button.Background>
                 <SolidColorBrush Color="{Binding background}"/>
               </Button.Background>
-              <Image Source="{Binding imageSource}" Margin="15,10,10,10" VerticalAlignment="Top"
+              <Image Source="{Binding imageSource}" 
+                     Margin="15,10,10,10"
+                     Width="25" Height="25"
                      RenderOptions.BitmapInterpolationMode="HighQuality"/>
               <ToolTip.Tip>
-                <ToolTip Name="sideBarBtnToolTip" Content="{Binding toolTipText}">
+                <ToolTip Name="sideBarBtnToolTip" Content="{Binding toolTipText}" VerticalAlignment="Top">
                   <ToolTip.Background>
                     <SolidColorBrush Color="{Binding toolTipBackground}"/>
                   </ToolTip.Background>
