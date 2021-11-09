@@ -6,10 +6,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="DataBase" />
-    <Folder Include="Controllers" />
     <Folder Include="Helpers" />
     <Folder Include="Models\" />
+    <Folder Include="Controllers\" />
     <AvaloniaResource Include="Assets\**" />
+    <AvaloniaResource Include="Assets\Images\Icons\**" />
     <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup>
