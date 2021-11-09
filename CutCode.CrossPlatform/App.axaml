@@ -1,15 +1,16 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="using:CutCode.CrossPlatform"
+             xmlns:sys="using:System"
              x:Class="CutCode.CrossPlatform.App">
   <Application.DataTemplates>
     <local:ViewLocator/>
   </Application.DataTemplates>
 
   <Application.Resources>
-    <FontFamily x:Key="poppins_semibold">avares://CutCode.CrossPlaftorm/Assets/Fonts/Poppins-SemiBold.ttf</FontFamily>
-    <FontFamily x:Key="poppins_regular">avares://CutCode.CrossPlatform/Assets/Fonts/Poppins-Regular.ttf</FontFamily>
-    <FontFamily x:Key="firacode">avares://CutCode.CrossPlatform/Assets/Fonts/FiraCode-Regular.ttf</FontFamily>
+    <sys:String x:Key="poppins_semibold">avares://CutCode.CrossPlaftorm/Assets/Fonts/Poppins-SemiBold.ttf</sys:String>
+    <sys:String x:Key="poppins_regular">avares://CutCode.CrossPlatform/Assets/Fonts/Poppins-Regular.ttf</sys:String>
+    <sys:String x:Key="firacode">avares://CutCode.CrossPlatform/Assets/Fonts/FiraCode-Regular.ttf</sys:String>
   </Application.Resources>
   
   <Application.Styles>

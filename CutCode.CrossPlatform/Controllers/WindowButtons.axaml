@@ -3,16 +3,18 @@
         xmlns:controls="using:CutCode.CrossPlatform.Controllers">
     <Design.PreviewWith>
         <Border Padding="0" Background="White">
-            <controls:WindowButtons Foreground="Black" Height="54" Width="162"/>
+            <controls:WindowButtons Foreground="Black" Height="54" Width="162" WindowState="Maximized"/>
         </Border>
     </Design.PreviewWith>
     <Style Selector="Button.btn">
         <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="15"/>
         <Setter Property="Template">
             <ControlTemplate>
                 <ContentPresenter Name="PART_ContentPresenter"
                                   Content="{TemplateBinding Content}"
-                                  Background="{TemplateBinding Background}"/>
+                                  Background="{TemplateBinding Background}"
+                                  Padding="{TemplateBinding Padding}"/>
             </ControlTemplate>
         </Setter>
     </Style>
@@ -20,35 +22,56 @@
         <!-- Set Defaults -->
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid ColumnDefinitions="54,54,54">
-                    <Button Grid.Column="0" Background="{TemplateBinding Background}" Name="PART_MinimizeButton" Classes="btn">
+                <Grid ColumnDefinitions="54,54,54" >
+                    <Button Grid.Column="0" Background="{TemplateBinding Background}"
+                            Name="PART_MinimizeButton" Classes="btn"
+                            Foreground="{TemplateBinding Foreground}">
                         <Image>
                             <DrawingImage>
                                 <DrawingGroup>
                                     <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                    <GeometryDrawing Brush="{Binding $parent[controls:WindowButtons].Foreground}" Geometry="F1M14,11L2,11 2,14 14,14z" />
+                                    <GeometryDrawing Brush="{Binding  $parent[Button].Foreground}" Geometry="F1M14,11L2,11 2,14 14,14z" />
                                 </DrawingGroup>
                             </DrawingImage>
                         </Image>
                     </Button>
-                    <Button Grid.Column="1" Background="{TemplateBinding Background}" Name="PART_MediumButton" Classes="btn">
-                        
+                    <Button Grid.Column="1" 
+                            Background="{TemplateBinding Background}" 
+                            Name="PART_MediumButton" Classes="btn"
+                            Foreground="{TemplateBinding Foreground}">
+                        <Image>
+                            <DrawingImage>
+                                <DrawingGroup>
+                                    <GeometryDrawing Brush="{Binding  $parent[Button].Foreground}"
+                                                     Geometry="{DynamicResource mediumPath}"/>
+                                </DrawingGroup>
+                            </DrawingImage>
+                        </Image>                       
                     </Button>
-                    <Button Grid.Column="2" Background="{TemplateBinding Background}" Name="PART_CloseButton" Classes="btn">
-                        
+                    <Button Grid.Column="2"
+                            Background="{TemplateBinding Background}"
+                            Name="PART_CloseButton" Classes="btn"
+                            Foreground="{TemplateBinding Foreground}">
+                        <Image>
+                            <DrawingImage>
+                                <DrawingGroup>
+                                    <GeometryDrawing Brush="{Binding  $parent[Button].Foreground}" Geometry="F1M43.0250015258789,-168.024993896484L100,-111.050003051758 156.975006103516,-168.024993896484 168.024993896484,-156.975006103516 111.050003051758,-100 168.024993896484,-43.0250015258789 156.975006103516,-31.9750022888184 100,-88.9499969482422 43.0250015258789,-31.9750022888184 31.9750022888184,-43.0250015258789 88.9499969482422,-100 31.9750022888184,-156.975006103516 43.0250015258789,-168.024993896484z"/> 
+                                </DrawingGroup>
+                            </DrawingImage>
+                        </Image>
                     </Button>
                 </Grid>
-                
-                <!-- <DrawingImage x:Key="Codeicons.ChromeRestore"> -->
-                <!--     <GeometryDrawing  Brush="#FF000000" Geometry="F1M50,-125L50,-37.5 137.5,-37.5 137.5,-125 50,-125z M75,-150L75,-137.5 150,-137.5 150,-62.5 162.5,-62.5 162.5,-150 75,-150z M62.5,-162.5L175,-162.5 175,-50 150,-50 150,-25 37.5,-25 37.5,-137.5 62.5,-137.5 62.5,-162.5z"   /> -->
-                <!-- </DrawingImage> -->
-                <!-- <DrawingImage x:Key="Codeicons.ChromeMaximize"> -->
-                <!--     <GeometryDrawing  Brush="#FF000000" Geometry="F1M50,-150L50,-50 150,-50 150,-150 50,-150z M37.5,-162.5L162.5,-162.5 162.5,-37.5 37.5,-37.5 37.5,-162.5z"   /> -->
-                <!-- </DrawingImage> -->
-                <!-- <DrawingImage x:Key="Codeicons.ChromeClose"> -->
-                <!--     <GeometryDrawing  Brush="#FF000000" Geometry="F1M43.0250015258789,-168.024993896484L100,-111.050003051758 156.975006103516,-168.024993896484 168.024993896484,-156.975006103516 111.050003051758,-100 168.024993896484,-43.0250015258789 156.975006103516,-31.9750022888184 100,-88.9499969482422 43.0250015258789,-31.9750022888184 31.9750022888184,-43.0250015258789 88.9499969482422,-100 31.9750022888184,-156.975006103516 43.0250015258789,-168.024993896484z"   /> -->
-                <!-- </DrawingImage> -->
             </ControlTemplate>
         </Setter>
+    </Style>
+    <Style Selector="controls|WindowButtons[WindowState=Normal]">
+        <Style.Resources>
+            <PathGeometry x:Key="mediumPath">F1M50,-150L50,-50 150,-50 150,-150 50,-150z M37.5,-162.5L162.5,-162.5 162.5,-37.5 37.5,-37.5 37.5,-162.5z</PathGeometry>
+        </Style.Resources>
+    </Style>
+    <Style Selector="controls|WindowButtons[WindowState=Maximized]">
+        <Style.Resources>
+            <PathGeometry x:Key="mediumPath">F1M50,-125L50,-37.5 137.5,-37.5 137.5,-125 50,-125z M75,-150L75,-137.5 150,-137.5 150,-62.5 162.5,-62.5 162.5,-150 75,-150z M62.5,-162.5L175,-162.5 175,-50 150,-50 150,-25 37.5,-25 37.5,-137.5 62.5,-137.5 62.5,-162.5z</PathGeometry>
+        </Style.Resources>
     </Style>
 </Styles>
