@@ -3,34 +3,39 @@
         xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="using:CutCode.CrossPlatform.Controllers"
+        xmlns:conv="using:CutCode.CrossPlatform.Converters"
         mc:Ignorable="d" 
         MinHeight="500" MinWidth="700"
         d:DesignHeight="570" d:DesignWidth="800"
         x:Class="CutCode.CrossPlatform.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="CutCode"
-        Background="{Binding backgroundColor}"
         BorderThickness="0"
         BorderBrush="Transparent"
         TransparencyLevelHint="Transparent"
-        CanResize="True" 
+        WindowState="Maximized"
         CornerRadius="50"
         WindowStartupLocation="CenterScreen"
         ExtendClientAreaToDecorationsHint="True" 
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="-1">
+  <Window.Background>
+    <SolidColorBrush Color="{Binding backgroundColor}"/>
+  </Window.Background>
   <Design.DataContext>
     <vm:MainWindowViewModel/>
   </Design.DataContext>
 
   <Window.Styles>
+    <StyleInclude Source="avares://CutCode.CrossPlatform/Controllers/WindowButtons.axaml"/>
     <Style Selector="ToolTip#sideBarBtnToolTip">
       <Setter Property="Template">
         <ControlTemplate>
           <Border VerticalAlignment="Top" CornerRadius="0,10,10,0" BorderThickness="0" Background="{TemplateBinding Background}"  Margin="5,5,5,5">
               <Label Content="{TemplateBinding Content}" FontSize="12"
                      Foreground="{TemplateBinding BorderBrush}"
-                     FontFamily="{StaticResource poppins_semibold}" Height="34" Margin="2,6,2,2"/>
+                     FontFamily="{DynamicResource poppins_semibold}" FontWeight="SemiBold" Height="34" Margin="2,6,2,2"/>
           </Border>
         </ControlTemplate>
       </Setter>
@@ -52,8 +57,10 @@
       <Setter Property="BorderBrush" Value="Transparent"/>
     </Style>
   </Window.Styles>
-
-  <Grid ColumnDefinitions="55,*">
+  <Window.Resources>
+    <conv:StringToFontFamily x:Key="stringToFont"/>
+  </Window.Resources>
+  <Grid ColumnDefinitions="55,*" Margin="{Binding $parent[Window].OffScreenMargin}">
     <Grid.Background>
       <SolidColorBrush Color="{Binding backgroundColor}"/>
     </Grid.Background>
@@ -107,40 +114,42 @@
           <SolidColorBrush Color="{Binding titleBarColor}"/>
         </Grid.Background>
 
-        <Label Grid.Column="0" Content="CutCode" FontSize="20"
-               FontFamily="{StaticResource poppins_semibold}" Height="34" Padding="15,3,0,0">
+        <Label Grid.Column="0" Content="CutCode" FontSize="20" FontWeight="Bold" Height="34" Padding="15,3,0,0">
           <Label.Foreground>
             <SolidColorBrush Color="{Binding mainTextColor}"/>
           </Label.Foreground>
         </Label>
 
-        <Grid Grid.Column="1" VerticalAlignment="Center" ColumnDefinitions="auto,auto,auto">
-
-          <!-- Title Bar Buttons  -->
-          <Button Grid.Column="0" Background="Transparent" Classes="ButtonStyle" Height="54"
-                  Click="MinimizeClicked"  Margin="0,0,0,20">
-            <Button.BorderBrush>
-              <SolidColorBrush Color="{Binding titlebarBtnsHoverColor}"/>
-            </Button.BorderBrush>
-            <Image Source="{Binding minImage}" Width="23" Height="23" Margin="4,0,4,15"
-                RenderOptions.BitmapInterpolationMode="HighQuality"/>
-          </Button>
-
-          <Button Grid.Column="1" Background="Transparent" Classes="ButtonStyle" Height="54"
-                  Click="MaximizeClicked"  Margin="0,0,0,20">
-            <Button.BorderBrush>
-              <SolidColorBrush Color="{Binding titlebarBtnsHoverColor}"/>
-            </Button.BorderBrush>
-            <Image Source="{Binding maxImage}" Width="23" Height="23"  Margin="4,0,4,15"
-                   RenderOptions.BitmapInterpolationMode="HighQuality"/>
-          </Button>
-
-          <Button Grid.Column="2"  Background="Transparent" Classes="ButtonStyle" Height="54"
-                  BorderBrush="#ed4245" Click="ExitClicked" Margin="0,0,0,20">
-            <Image Source="{Binding exitImage}" Width="23" Height="23"  Margin="4,0,10,15"
-                   RenderOptions.BitmapInterpolationMode="HighQuality"/>
-          </Button>
-        </Grid>
+        <!-- <Grid Grid.Column="1" VerticalAlignment="Center" ColumnDefinitions="auto,auto,auto"> -->
+        <!-- -->
+        <!--   ~1~ Title Bar Buttons  @1@ -->
+        <!--   <Button Grid.Column="0" Background="Transparent" Classes="ButtonStyle" Height="54" -->
+        <!--           Click="MinimizeClicked"  Margin="0,0,0,20"> -->
+        <!--     <Button.BorderBrush> -->
+        <!--       <SolidColorBrush Color="{Binding titlebarBtnsHoverColor}"/> -->
+        <!--     </Button.BorderBrush> -->
+        <!--     <Image Source="{Binding minImage}" Width="23" Height="23" Margin="4,0,4,15" -->
+        <!--         RenderOptions.BitmapInterpolationMode="HighQuality"/> -->
+        <!--   </Button> -->
+        <!-- -->
+        <!--   <Button Grid.Column="1" Background="Transparent" Classes="ButtonStyle" Height="54" -->
+        <!--           Click="MaximizeClicked"  Margin="0,0,0,20"> -->
+        <!--     <Button.BorderBrush> -->
+        <!--       <SolidColorBrush Color="{Binding titlebarBtnsHoverColor}"/> -->
+        <!--     </Button.BorderBrush> -->
+        <!--     <Image Source="{Binding maxImage}" Width="23" Height="23"  Margin="4,0,4,15" -->
+        <!--            RenderOptions.BitmapInterpolationMode="HighQuality"/> -->
+        <!--   </Button> -->
+        <!-- -->
+        <!--   <Button Grid.Column="2"  Background="Transparent" Classes="ButtonStyle" Height="54" -->
+        <!--           BorderBrush="#ed4245" Click="ExitClicked" Margin="0,0,0,20"> -->
+        <!--     <Image Source="{Binding exitImage}" Width="23" Height="23"  Margin="4,0,10,15" -->
+        <!--            RenderOptions.BitmapInterpolationMode="HighQuality"/> -->
+        <!--   </Button> -->
+        <!-- </Grid> -->
+        <controls:WindowButtons Grid.Column="1" 
+                                Window="{Binding $parent[Window]}" 
+                                WindowState="{Binding $parent[Window].WindowState, Mode=TwoWay}"/>
       </Grid>
 
       <Grid Grid.Row="1">
@@ -158,7 +167,6 @@
           </ItemsControl.ItemTemplate>
         </ItemsControl>
       </Grid>
-
     </Grid>
   </Grid>
 </Window>
