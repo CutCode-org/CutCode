@@ -39,6 +39,15 @@ namespace CutCode.CrossPlatform.ViewModels
             
             pageService.PageChanged += PageChanged;
             pageService.PageRemoteChanged += PageRemoteChanged;
+            
+            sideBarBtns = new ObservableCollection<SideBarBtnModel>();
+
+            sideBarBtns.Add(new SideBarBtnModel("Home", _themeService));
+            sideBarBtns.Add(new SideBarBtnModel("Add", _themeService));
+            sideBarBtns.Add(new SideBarBtnModel("Favourite", _themeService));
+            sideBarBtns.Add(new SideBarBtnModel("Settings", _themeService));
+            
+            sideBarBtns[0].background = _themeService.IsLightTheme ? Color.Parse("#FCFCFC") : Color.Parse("#36393F");
         }
         
         private void ThemeChanged(object sender, EventArgs e)
