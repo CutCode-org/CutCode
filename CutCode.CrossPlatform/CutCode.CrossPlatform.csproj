@@ -9,7 +9,8 @@
     <Folder Include="Controllers" />
     <Folder Include="Helpers" />
     <Folder Include="Models\" />
-    <AvaloniaResource Include="Assets\**" />
+    <AvaloniaResource Include="Assets\**"/>
+    <AvaloniaResource Include="Assets\Images\Icons\**"/>
     <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup>

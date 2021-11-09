@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using Avalonia;
 using Avalonia.Controls.Templates;
 using Avalonia.Media;
+using Avalonia.Platform;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using ReactiveUI;
+using Avalonia.Media;
+using Avalonia.Media.Imaging;
 
 namespace CutCode.CrossPlatform.ViewModels
 {
@@ -14,6 +18,7 @@ namespace CutCode.CrossPlatform.ViewModels
     {
         private readonly ThemeService themeService;
         private readonly IPageService pageService;
+        private readonly IAssetLoader assetLoader;
         
         public static List<System.Object> Pages;
         public ObservableCollection<SideBarBtnModel> sideBarBtns { get; set; }
@@ -21,9 +26,11 @@ namespace CutCode.CrossPlatform.ViewModels
         public MainWindowViewModel()
         {
             // for the xaml load
+            assetLoader = AvaloniaLocator.CurrentMutable.GetService<IAssetLoader>();
         }
         public MainWindowViewModel(ThemeService _themeService, IPageService _pageService, IDataBase database)
         {
+            assetLoader = AvaloniaLocator.CurrentMutable.GetService<IAssetLoader>();
             themeService = _themeService;
             themeService.ThemeChanged += ThemeChanged;
             themeService.IsLightTheme = database.isLightTheme;
@@ -41,13 +48,19 @@ namespace CutCode.CrossPlatform.ViewModels
             SideBarColor = themeService.IsLightTheme ? Color.Parse("#F2F3F5") : Color.Parse("#2A2E33");
             mainTextColor = themeService.IsLightTheme ? Color.Parse("#0B0B13") : Color.Parse("#94969A");
 
-            exitImage = themeService.IsLightTheme ? "../Resources/Images/Icons/exit_black.png" : "../Resources/Images/Icons/exit_white.png";
-            minImage = themeService.IsLightTheme ? "../Resources/Images/Icons/min_black.png" : "../Resources/Images/Icons/min_white.png";
-            maxImage = themeService.IsLightTheme ? "../Resources/Images/Icons/max_black.png" : "../Resources/Images/Icons/max_white.png";
+            exitImage = themeService.IsLightTheme ? ImageFromUri($"avares://CutCode.CrossPlatform/Assets/Images/Icons/exit_black.png") : ImageFromUri($"avares://CutCode.CrossPlatform/Assets/Images/Icons/exit_white.png");
+            minImage = themeService.IsLightTheme ? ImageFromUri($"avares://CutCode.CrossPlatform/Assets/Images/Icons/min_black.png") : ImageFromUri($"avares://CutCode.CrossPlatform/Assets/Images/Icons/min_white.png");
+            maxImage = themeService.IsLightTheme ? ImageFromUri($"avares://CutCode.CrossPlatform/Assets/Images/Icons/max_black.png") : ImageFromUri($"avares://CutCode.CrossPlatform/Assets/Images/Icons/max_white.png");
 
             titlebarBtnsHoverColor = themeService.IsLightTheme ? Color.Parse("#D0D1D2") : Color.Parse("#373737");
         }
 
+        private IImage ImageFromUri(string path)
+        {
+            var uri = new Uri(path);
+            return assetLoader.Exists(uri) ? new Bitmap(assetLoader.Open(uri)) : throw new Exception("WTF");
+        } 
+        
         private object _currentPage;
         public object currentPage
         {
@@ -116,22 +129,22 @@ namespace CutCode.CrossPlatform.ViewModels
         }
         #endregion
 
-        private string _exitImage;
-        public string exitImage
+        private IImage _exitImage;
+        public IImage exitImage
         {
             get => _exitImage;
             set => this.RaiseAndSetIfChanged(ref _exitImage, value);
         }
 
-        private string _maxImage;
-        public string maxImage
+        private IImage _maxImage;
+        public IImage maxImage
         {
             get => _maxImage;
             set => this.RaiseAndSetIfChanged(ref _maxImage, value);
         }
 
-        private string _minImage;
-        public string minImage
+        private IImage _minImage;
+        public IImage minImage
         {
             get => _minImage;
             set => this.RaiseAndSetIfChanged(ref _minImage, value);

@@ -40,7 +40,8 @@
         <ControlTemplate>
           <Border>
             <Grid Background="{TemplateBinding Background}">
-              <ContentPresenter Name="PART_ContentPresenter"/>
+              <ContentPresenter Name="PART_ContentPresenter"
+                                Content="{TemplateBinding Content}"/>
             </Grid>
           </Border>
         </ControlTemplate>
@@ -107,9 +108,9 @@
 
         <Label Grid.Column="0" Content="CutCode" FontSize="20"
                FontFamily="{StaticResource poppins_semibold}" Height="34" Padding="15,3,0,0">
-          <Label.Background>
+          <Label.Foreground>
             <SolidColorBrush Color="{Binding mainTextColor}"/>
-          </Label.Background>
+          </Label.Foreground>
         </Label>
 
         <Grid Grid.Column="1" VerticalAlignment="Center" ColumnDefinitions="auto,auto,auto">

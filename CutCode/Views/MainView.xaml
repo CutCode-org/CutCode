@@ -120,7 +120,7 @@
                 <Label Grid.Column="0" Content="CutCode" FontSize="20" Foreground="{Binding mainTextColor}" 
                        FontFamily="{StaticResource poppins_semibold}" Height="34" Padding="15,3,0,0"/>
 
-                <Grid Grid.Column="1" VerticalAlignment="Center">
+                <Grid Grid.Column="1" VerticalAlignment="Center" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
