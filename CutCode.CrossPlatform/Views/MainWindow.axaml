@@ -3,6 +3,7 @@
         xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="using:CutCode.CrossPlatform.Views"
         xmlns:controls="using:CutCode.CrossPlatform.Controllers"
         xmlns:conv="using:CutCode.CrossPlatform.Converters"
         mc:Ignorable="d" 
@@ -136,6 +137,7 @@
              </Path>
            </Viewbox>   
          </TabItem.Header>
+        <views:HomeView DataContext="{Binding HomeViewModel}"/>
       </TabItem>
       <TabItem>
          <TabItem.Header>
@@ -147,6 +149,7 @@
              </Path>
            </Viewbox>   
          </TabItem.Header>
+        <views:AddView/>
        </TabItem>       
        <TabItem>
          <TabItem.Header>
@@ -158,8 +161,9 @@
              </Path>
            </Viewbox>   
          </TabItem.Header>
-       </TabItem>     
-       <TabItem>
+         <views:FavoritesView/>
+       </TabItem>    
+      <TabItem>
          <TabItem.Header>
            <Viewbox>
              <Grid>
@@ -176,6 +180,7 @@
              </Grid>
            </Viewbox>   
          </TabItem.Header>
+        <views:SettingsView/>
        </TabItem>
      </TabControl>
   </Grid>

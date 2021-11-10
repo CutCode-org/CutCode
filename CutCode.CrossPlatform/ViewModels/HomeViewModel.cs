@@ -179,7 +179,7 @@ namespace CutCode
             set
             {
                 this.RaiseAndSetIfChanged(ref _CurrentSort1, value);
-                Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+                Dispatcher.UIThread.Post(() =>
                 { 
                     ComboBoxItemSelected(value);
                     database.sortBy = value;
@@ -201,7 +201,7 @@ namespace CutCode
             set 
             {
                 this.RaiseAndSetIfChanged(ref _CurrentSort2, value);
-                Avalonia.Threading.Dispatcher.UIThread.Post(() => { ComboBoxItemSelected(value); });
+                Dispatcher.UIThread.Post(() => { ComboBoxItemSelected(value); });
                 // Application.Current.Dispatcher.Invoke(new Action(() => { ComboBoxItemSelected(value); }));
             } 
         }
