@@ -85,7 +85,7 @@
                     Command="{Binding ChangePageCommand}" 
                     CommandParameter="{Binding toolTipText}"
                     Classes="ImgButton"
-                    ToolTip.Placement="Right">
+                    ToolTip.Placement="Right" ToolTip.VerticalOffset="0">
               <Button.Background>
                 <SolidColorBrush Color="{Binding background}"/>
               </Button.Background>
@@ -94,7 +94,7 @@
                      Width="27" Height="27"
                      RenderOptions.BitmapInterpolationMode="HighQuality"/>
               <ToolTip.Tip>
-                <ToolTip Name="sideBarBtnToolTip" Content="{Binding toolTipText}" VerticalAlignment="Top">
+                <ToolTip Name="sideBarBtnToolTip" CornerRadius="20" Content="{Binding toolTipText}" VerticalAlignment="Top">
                   <ToolTip.Background>
                     <SolidColorBrush Color="{Binding toolTipBackground}"/>
                   </ToolTip.Background>
