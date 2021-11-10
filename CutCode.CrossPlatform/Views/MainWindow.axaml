@@ -35,10 +35,11 @@
         <ControlTemplate>
           <Border VerticalAlignment="Top" CornerRadius="0,10,10,0"
                   BorderThickness="0" Background="{TemplateBinding Background}"  
-                  Margin="5,5,5,5">
+                  Margin="5,7,0,5">
               <Label Content="{TemplateBinding Content}" FontSize="12"
                      Foreground="{TemplateBinding BorderBrush}"
-                     FontWeight="SemiBold" Height="34" Margin="4,6,3,2"/>
+                     Padding="5,5,0,0"
+                     FontWeight="SemiBold" Height="34" Margin="4,6,13,2"/>
           </Border>
         </ControlTemplate>
       </Setter>

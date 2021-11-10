@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reactive;
 using System.Text;
 using Avalonia;
 using Avalonia.Controls.Templates;
@@ -27,6 +28,7 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             // for the xaml load
             assetLoader = AvaloniaLocator.CurrentMutable.GetService<IAssetLoader>();
+            RegisterCommands();
         }
         public MainWindowViewModel(ThemeService _themeService, IPageService _pageService, IDataBase database)
         {
@@ -48,6 +50,13 @@ namespace CutCode.CrossPlatform.ViewModels
             sideBarBtns.Add(new SideBarBtnModel("Settings", _themeService));
             
             sideBarBtns[0].background = _themeService.IsLightTheme ? Color.Parse("#FCFCFC") : Color.Parse("#36393F");
+            RegisterCommands();
+        }
+
+        public ReactiveCommand<Unit, Unit> _ChangePageCommand { get; set; }
+        private void RegisterCommands()
+        {
+            _ChangePageCommand = ReactiveCommand.Create<Unit>(ChangePageCommand);
         }
         
         private void ThemeChanged(object sender, EventArgs e)
@@ -87,6 +96,7 @@ namespace CutCode.CrossPlatform.ViewModels
 
         public void ChangePageCommand(string selected_item)
         {
+            Console.WriteLine("Page change ... ");
             int ind = 0;
             foreach (var btn in sideBarBtns)
             {
