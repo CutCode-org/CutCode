@@ -62,7 +62,7 @@ namespace CutCode.CrossPlatform.Models
         private IImage ImageFromUri(string path)
         {
             var uri = new Uri(path);
-            return assetLoader.Exists(uri) ? new Bitmap(assetLoader.Open(uri)) : throw new Exception("WTF");
+            return assetLoader.Exists(uri) ? new Bitmap(assetLoader.Open(uri)) : throw new Exception();
         } 
         
         public string toolTipText { get; set; }
