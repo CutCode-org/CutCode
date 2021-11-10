@@ -25,4 +25,40 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
   </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Assets\Images\Icons\add_black.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\add_white.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\back_black.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\back_white.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\copy_black.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\copy_white.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\delete.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\edit_black.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\edit_white.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\exit_black.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\exit_white.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\export_icon_black.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\export_icon_white.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\fav.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\fav_black.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\fav_white.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\home_black.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\home_white.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\import_icon_black.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\import_icon_white.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\max_black.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\max_white.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\min_black.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\min_white.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\save_black.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\save_white.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\settings_black.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\settings_white.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\share_black.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\share_white.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\toggle_off_black.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\toggle_off_white.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\toggle_on_black.png" />
+    <UpToDateCheckInput Remove="Assets\Images\Icons\toggle_on_white.png" />
+  </ItemGroup>
 </Project>
