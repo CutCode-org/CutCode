@@ -57,6 +57,9 @@
       <Setter Property="Background" Value="{Binding $parent[Button].BorderBrush}"/>
       <Setter Property="BorderBrush" Value="Transparent"/>
     </Style>
+    <Style Selector="TabControl#tabControl /template/ ContentPresenter#PART_SelectedContentHost">
+      <Setter Property="Padding" Value="-12,0,-12,0"/>
+    </Style>
   </Window.Styles>
   <Window.Resources>
     <conv:StringToFontFamily x:Key="stringToFont"/>
@@ -86,6 +89,7 @@
         </Label.Foreground>
       </Label>
       <ToggleSwitch Grid.Column="1" 
+                    Margin="0 0 10 0"
                     OffContent="Light" OnContent="Dark"
                     IsChecked="{Binding !ThemeService.IsLightTheme}">
         <ToggleSwitch.Foreground>
@@ -102,7 +106,7 @@
       </controls:WindowButtons.Foreground>
     </controls:WindowButtons>
     
-    <TabControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"
+    <TabControl Name="tabControl" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"
                 TabStripPlacement="Left"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
       <TabControl.Background>
