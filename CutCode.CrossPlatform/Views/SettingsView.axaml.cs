@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace CutCode.CrossPlatform.Views
 {
-    public partial class HomeView : UserControl
+    public class SettingsView : UserControl
     {
-        public HomeView()
+        public SettingsView()
         {
             InitializeComponent();
         }

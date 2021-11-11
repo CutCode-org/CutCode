@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using System.Text;
 using Avalonia;
 using Avalonia.Controls.Templates;
@@ -22,13 +21,11 @@ namespace CutCode.CrossPlatform.ViewModels
         private readonly IAssetLoader assetLoader;
         
         public static List<System.Object> Pages;
-        public ObservableCollection<SideBarBtnModel> sideBarBtns { get; set; }
 
         public MainWindowViewModel()
         {
             // for the xaml load
             assetLoader = AvaloniaLocator.CurrentMutable.GetService<IAssetLoader>();
-            RegisterCommands();
         }
         public MainWindowViewModel(ThemeService _themeService, IPageService _pageService, IDataBase database)
         {
@@ -38,25 +35,9 @@ namespace CutCode.CrossPlatform.ViewModels
             themeService.IsLightTheme = database.isLightTheme;
             
             pageService = _pageService;
-            
-            pageService.PageChanged += PageChanged;
-            pageService.PageRemoteChanged += PageRemoteChanged;
-            
-            sideBarBtns = new ObservableCollection<SideBarBtnModel>();
+            HomeViewModel = new HomeViewModel(themeService, pageService, database);
 
-            sideBarBtns.Add(new SideBarBtnModel("Home", _themeService));
-            sideBarBtns.Add(new SideBarBtnModel("Add", _themeService));
-            sideBarBtns.Add(new SideBarBtnModel("Favourite", _themeService));
-            sideBarBtns.Add(new SideBarBtnModel("Settings", _themeService));
-            
-            sideBarBtns[0].background = _themeService.IsLightTheme ? Color.Parse("#FCFCFC") : Color.Parse("#36393F");
-            RegisterCommands();
-        }
-
-        public ReactiveCommand<Unit, Unit> _ChangePageCommand { get; set; }
-        private void RegisterCommands()
-        {
-            _ChangePageCommand = ReactiveCommand.Create<Unit>(ChangePageCommand);
+            //sideBarBtns[0].background = _themeService.IsLightTheme ? Color.Parse("#FCFCFC") : Color.Parse("#36393F");
         }
         
         private void ThemeChanged(object sender, EventArgs e)
@@ -66,10 +47,6 @@ namespace CutCode.CrossPlatform.ViewModels
             SideBarColor = themeService.IsLightTheme ? Color.Parse("#F2F3F5") : Color.Parse("#2A2E33");
             mainTextColor = themeService.IsLightTheme ? Color.Parse("#0B0B13") : Color.Parse("#94969A");
 
-            exitImage = themeService.IsLightTheme ? ImageFromUri($"avares://CutCode.CrossPlatform/Assets/Images/Icons/exit_black.png") : ImageFromUri($"avares://CutCode.CrossPlatform/Assets/Images/Icons/exit_white.png");
-            minImage = themeService.IsLightTheme ? ImageFromUri($"avares://CutCode.CrossPlatform/Assets/Images/Icons/min_black.png") : ImageFromUri($"avares://CutCode.CrossPlatform/Assets/Images/Icons/min_white.png");
-            maxImage = themeService.IsLightTheme ? ImageFromUri($"avares://CutCode.CrossPlatform/Assets/Images/Icons/max_black.png") : ImageFromUri($"avares://CutCode.CrossPlatform/Assets/Images/Icons/max_white.png");
-
             titlebarBtnsHoverColor = themeService.IsLightTheme ? Color.Parse("#D0D1D2") : Color.Parse("#373737");
         }
 
@@ -77,40 +54,19 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             var uri = new Uri(path);
             return assetLoader.Exists(uri) ? new Bitmap(assetLoader.Open(uri)) : throw new Exception("WTF");
-        } 
-        
-        private object _currentPage;
-        public object currentPage
-        {
-            get => _currentPage;
-            set => this.RaiseAndSetIfChanged(ref _currentPage, value);
         }
 
-        private void PageChanged(object sender, EventArgs e) => currentPage = pageService.Page;
+        #region Pages
 
-        private void PageRemoteChanged(object sender, EventArgs e)
+        private HomeViewModel _HomeViewModel;
+
+        public HomeViewModel HomeViewModel
         {
-            var page = sender as string;
-            ChangePageCommand(page);
+            get => _HomeViewModel;
+            set => this.RaiseAndSetIfChanged(ref _HomeViewModel, value);
         }
+        #endregion
 
-        public void ChangePageCommand(string selected_item)
-        {
-            Console.WriteLine("Page change ... ");
-            int ind = 0;
-            foreach (var btn in sideBarBtns)
-            {
-                if (btn.toolTipText != selected_item) btn.background = Color.Parse("#00FFFFFF");
-                else ind = sideBarBtns.IndexOf(btn);
-            }
-
-            sideBarBtns[ind].background = themeService.IsLightTheme ? Color.Parse("#FCFCFC") : Color.Parse("#36393F");
-            if (currentPage != Pages[ind]) 
-            {
-                pageService.Page = Pages[ind];
-            }
-        }
-        
         #region Color
         private Color _backgroundColor;
         public Color backgroundColor
@@ -148,25 +104,5 @@ namespace CutCode.CrossPlatform.ViewModels
         }
         #endregion
 
-        private IImage _exitImage;
-        public IImage exitImage
-        {
-            get => _exitImage;
-            set => this.RaiseAndSetIfChanged(ref _exitImage, value);
-        }
-
-        private IImage _maxImage;
-        public IImage maxImage
-        {
-            get => _maxImage;
-            set => this.RaiseAndSetIfChanged(ref _maxImage, value);
-        }
-
-        private IImage _minImage;
-        public IImage minImage
-        {
-            get => _minImage;
-            set => this.RaiseAndSetIfChanged(ref _minImage, value);
-        }
     }
 }
