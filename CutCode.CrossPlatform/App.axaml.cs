@@ -21,12 +21,11 @@ namespace CutCode.CrossPlatform
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                var themeService = new ThemeService();
-                var pageService = new PageService();
-                var database = new DataBaseManager(themeService);
+                AvaloniaLocator.CurrentMutable.BindToSelfSingleton<ThemeService>();
+                AvaloniaLocator.CurrentMutable.BindToSelfSingleton<DataBaseManager>();
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(themeService, pageService, database)
+                    DataContext = new MainWindowViewModel()
                 };
             }
 

@@ -2,8 +2,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
              xmlns:controls="using:CutCode.CrossPlatform.Controllers"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             Background="{Binding backgroundColor}"
              x:Class="CutCode.CrossPlatform.Views.HomeView">
+    <Design.DataContext>
+        <vm:HomeViewModel/>
+    </Design.DataContext>
     This is homeview page
 </UserControl>

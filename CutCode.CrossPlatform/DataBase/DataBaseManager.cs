@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Security.AccessControl;
 using System.IO.Compression;
+using Avalonia;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 
@@ -26,7 +27,7 @@ namespace CutCode.DataBase
         private string prefpath { get; set; }
         private string dbpath { get; set; }
         #region Set region
-        public DataBaseManager(IThemeService _themeService)
+        public DataBaseManager()
         {
             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var path = Path.Combine(appDataPath, "CutCode");
@@ -49,7 +50,7 @@ namespace CutCode.DataBase
                 UpdatePref();
             }
 
-            themeService = _themeService;
+            themeService = AvaloniaLocator.CurrentMutable.GetService<ThemeService>();
             themeService.IsLightTheme = isLightTheme;
             OpenDB();
         }

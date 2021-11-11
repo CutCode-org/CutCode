@@ -9,6 +9,7 @@ using Avalonia.Input.Platform;
 using Avalonia.Media;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
+using CutCode.DataBase;
 using ReactiveUI;
 
 namespace CutCode.CrossPlatform.ViewModels
@@ -16,15 +17,13 @@ namespace CutCode.CrossPlatform.ViewModels
     public class CodeViewModel : ViewModelBase
     {
         private readonly IThemeService themeService;
-        private readonly IPageService pageService;
         private readonly IDataBase database;
         public CodeBoxModel codeModel;
-        public CodeViewModel(IThemeService _themeService, IPageService _pageService, IDataBase _database, CodeBoxModel code)
+        public CodeViewModel(CodeBoxModel code)
         {
-            themeService = _themeService;
-            pageService = _pageService;
+            themeService = AvaloniaLocator.CurrentMutable.GetService<ThemeService>();
 
-            database = _database;
+            database = AvaloniaLocator.CurrentMutable.GetService<DataBaseManager>();
 
             SetAppearance();
 
@@ -256,14 +255,6 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             if (!string.IsNullOrEmpty(code)) Application.Current.Clipboard.SetTextAsync(code);
         }
-
-        public void DelCommand()
-        {
-            var isdone = database.DelCode(codeModel);
-            if(isdone) BackCommand();
-        }
-
-        public void BackCommand() => pageService.Page = MainWindowViewModel.Pages[0];
 
         private string BeforeEditTitle;
         private string BeforeEditDesc;

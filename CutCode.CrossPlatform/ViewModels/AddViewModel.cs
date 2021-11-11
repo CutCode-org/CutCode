@@ -5,9 +5,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Media;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.ViewModels;
+using CutCode.DataBase;
 using ReactiveUI;
 
 namespace CutCode.CrossPlatform.ViewModels
@@ -15,16 +17,13 @@ namespace CutCode.CrossPlatform.ViewModels
     public class AddViewModel : ViewModelBase
     {
         private readonly IThemeService themeService;
-        private readonly IPageService pageService;
         private readonly IDataBase database;
-        public AddViewModel(IThemeService _themeService, IPageService _pageService, IDataBase _database)
+        public AddViewModel()
         {
-            themeService = _themeService;
+            themeService = AvaloniaLocator.CurrentMutable.GetService<ThemeService>();
             themeService.ThemeChanged += ThemeChanged;
 
-            pageService = _pageService;
-
-            database = _database;
+            database = AvaloniaLocator.CurrentMutable.GetService<DataBaseManager>();
 
             AllLangs = new ObservableCollection<string>()
             {
@@ -139,19 +138,11 @@ namespace CutCode.CrossPlatform.ViewModels
                 leftText = "";
                 var codeModel = database.AddCode(title, desc, code, AllLangs[ind]);
 
+                /*
                 pageService.remoteChange = "Home";
-                pageService.Page = new CodeViewModel(themeService, pageService, database, codeModel);
-
-                MainWindowViewModel.Pages[1] = new AddViewModel(themeService, pageService, database);
+                pageService.Page = new CodeViewModel(themeService, database, codeModel);
+                */
             }
-        }
-
-        public void CancelCommand()
-        {
-            pageService.remoteChange = "Home";
-            pageService.Page = MainWindowViewModel.Pages[0];
-
-            MainWindowViewModel.Pages[1] = new AddViewModel(themeService, pageService, database);
         }
     }
 }

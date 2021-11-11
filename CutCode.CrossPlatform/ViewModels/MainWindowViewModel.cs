@@ -11,33 +11,23 @@ using CutCode.CrossPlatform.Models;
 using ReactiveUI;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using CutCode.DataBase;
 
 namespace CutCode.CrossPlatform.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
         private ThemeService themeService;
-        private readonly IPageService pageService;
         private readonly IAssetLoader assetLoader;
-        
-        public static List<System.Object> Pages;
-
         public MainWindowViewModel()
         {
-            // for the xaml load
             assetLoader = AvaloniaLocator.CurrentMutable.GetService<IAssetLoader>();
-        }
-        public MainWindowViewModel(ThemeService _themeService, IPageService _pageService, IDataBase database)
-        {
-            assetLoader = AvaloniaLocator.CurrentMutable.GetService<IAssetLoader>();
-            themeService = _themeService;
-            themeService.ThemeChanged += ThemeChanged;
-            themeService.IsLightTheme = database.isLightTheme;
             
-            pageService = _pageService;
-            HomeViewModel = new HomeViewModel(themeService, pageService, database);
-
-            //sideBarBtns[0].background = _themeService.IsLightTheme ? Color.Parse("#FCFCFC") : Color.Parse("#36393F");
+            themeService = AvaloniaLocator.CurrentMutable.GetService<ThemeService>();
+            themeService.ThemeChanged += ThemeChanged;
+            
+            var database = AvaloniaLocator.CurrentMutable.GetService<DataBaseManager>();
+            themeService.IsLightTheme = database.isLightTheme;
         }
         
         private void ThemeChanged(object sender, EventArgs e)

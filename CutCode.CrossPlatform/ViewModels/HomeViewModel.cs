@@ -12,23 +12,24 @@ using Avalonia.Threading;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.ViewModels;
+using CutCode.DataBase;
 using ReactiveUI;
 
-namespace CutCode
+namespace CutCode.CrossPlatform.ViewModels
 {
     public class HomeViewModel : ViewModelBase
     {
         private readonly IThemeService themeService;
-        private readonly IPageService pageService;
         private readonly IDataBase database;
-        public HomeViewModel(IThemeService _themeService, IPageService _pageService, IDataBase _dataBase)
+        
+        public HomeViewModel()
         {
-            themeService = _themeService;
+        
+            themeService = AvaloniaLocator.CurrentMutable.GetService<ThemeService>();
             themeService.ThemeChanged += ThemeChanged;
 
-            pageService = _pageService;
 
-            database = _dataBase;
+            database = AvaloniaLocator.CurrentMutable.GetService<DataBaseManager>();
             AllCodes = database.AllCodes;
             database.AllCodesUpdated += AllCodesUpdated;
 
@@ -53,6 +54,7 @@ namespace CutCode
         private void SetAppearance()
         {
             Theme = themeService.IsLightTheme;
+            backgroundColor =  themeService.IsLightTheme ? Color.Parse("#FCFCFC") : Color.Parse("#36393F");
             searchBarBackground = themeService.IsLightTheme ? Color.Parse("#DADBDC") : Color.Parse("#2A2E33");
             searchBarTextColor = themeService.IsLightTheme ? Color.Parse("#000000") : Color.Parse("#FFFFFF");
             searchBarHoverColor = themeService.IsLightTheme ? Color.Parse("#D0D1D2") : Color.Parse("#373737");
@@ -231,10 +233,13 @@ namespace CutCode
             }
             IsSearched = true;
         }
+        
+        private Color _backgroundColor;
 
-        public void CodeSelectCommand(CodeBoxModel code) 
+        public Color backgroundColor
         {
-            pageService.Page = new CodeViewModel(themeService, pageService, database, code);
+            get => _backgroundColor;
+            set => this.RaiseAndSetIfChanged(ref _backgroundColor, value);
         }
     }
 }
