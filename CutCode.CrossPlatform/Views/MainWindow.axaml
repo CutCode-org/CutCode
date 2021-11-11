@@ -73,16 +73,26 @@
              Width="35" Height="35"
              RenderOptions.BitmapInterpolationMode="HighQuality"/>
     </Border>
-    <Label Grid.Column="1" Grid.Row="0" Content="CutCode" FontSize="20" FontWeight="Bold" 
-           Padding="15"
-           PointerPressed="ChangeWindowPosition">
-      <Label.Foreground>
-        <SolidColorBrush Color="{Binding mainTextColor}"/>
-      </Label.Foreground>
-      <Label.Background>
-        <SolidColorBrush Color="{Binding titleBarColor}"/>
-      </Label.Background>
-    </Label>
+    <Grid Grid.Column="1" Grid.Row="0"
+          ColumnDefinitions="*,auto"
+          PointerPressed="ChangeWindowPosition">
+      <Grid.Background> 
+         <SolidColorBrush Color="{Binding titleBarColor}"/>
+      </Grid.Background>
+      <Label Grid.Column="0" Content="CutCode" FontSize="20" FontWeight="Bold" 
+             Padding="15">
+        <Label.Foreground>
+          <SolidColorBrush Color="{Binding mainTextColor}"/>
+        </Label.Foreground>
+      </Label>
+      <ToggleSwitch Grid.Column="1" 
+                    OffContent="Light" OnContent="Dark"
+                    IsChecked="{Binding !ThemeService.IsLightTheme}">
+        <ToggleSwitch.Foreground>
+          <SolidColorBrush Color="{Binding mainTextColor}"/>
+        </ToggleSwitch.Foreground>
+      </ToggleSwitch>
+    </Grid>
     <controls:WindowButtons Grid.Column="2" Grid.Row="0" HostWindow="{Binding $parent[Window]}">
       <controls:WindowButtons.Background>
         <SolidColorBrush Color="{Binding titleBarColor}"/>
