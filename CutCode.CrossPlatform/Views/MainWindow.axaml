@@ -87,6 +87,9 @@
       <controls:WindowButtons.Background>
         <SolidColorBrush Color="{Binding titleBarColor}"/>
       </controls:WindowButtons.Background>
+      <controls:WindowButtons.Foreground>
+        <SolidColorBrush Color="{Binding mainTextColor}"/>
+      </controls:WindowButtons.Foreground>
     </controls:WindowButtons>
     
     <TabControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"

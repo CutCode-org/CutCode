@@ -42,6 +42,7 @@ namespace CutCode.CrossPlatform.ViewModels
         
         private void ThemeChanged(object sender, EventArgs e)
         {
+            windowsBtnColor = themeService.IsLightTheme ? Color.Parse("#090909") : Color.Parse("#F2F2F2");
             backgroundColor = themeService.IsLightTheme ? Color.Parse("#FCFCFC") : Color.Parse("#36393F");
             titleBarColor = themeService.IsLightTheme ? Color.Parse("#E3E5E8") : Color.Parse("#202225");
             SideBarColor = themeService.IsLightTheme ? Color.Parse("#F2F3F5") : Color.Parse("#2A2E33");
@@ -68,6 +69,13 @@ namespace CutCode.CrossPlatform.ViewModels
         #endregion
 
         #region Color
+        private Color _windowsBtnColor;
+        public Color windowsBtnColor
+        {
+            get => _windowsBtnColor;
+            set => this.RaiseAndSetIfChanged(ref _windowsBtnColor, value);
+        }
+        
         private Color _backgroundColor;
         public Color backgroundColor
         {

@@ -47,6 +47,7 @@
     </Setter>
   </Style>
   <Style Selector="controls|WindowButtons Panel#PART_RestoreButton Path">
+    <Setter Property="Fill" Value="Red"/>
     <Setter Property="Data" Value="F1M50,-150L50,-50 150,-50 150,-150 50,-150z M37.5,-162.5L162.5,-162.5 162.5,-37.5 37.5,-37.5 37.5,-162.5z" />
   </Style>
   <Style Selector="controls|WindowButtons:maximized Panel#PART_RestoreButton Path">
