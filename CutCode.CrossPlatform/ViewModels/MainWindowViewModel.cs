@@ -16,7 +16,7 @@ namespace CutCode.CrossPlatform.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private readonly ThemeService themeService;
+        private ThemeService themeService;
         private readonly IPageService pageService;
         private readonly IAssetLoader assetLoader;
         
@@ -67,6 +67,12 @@ namespace CutCode.CrossPlatform.ViewModels
         }
         #endregion
 
+        public ThemeService ThemeService
+        {
+            get => themeService;
+            set => this.RaiseAndSetIfChanged(ref themeService, value);
+        }
+        
         #region Color
         private Color _backgroundColor;
         public Color backgroundColor
