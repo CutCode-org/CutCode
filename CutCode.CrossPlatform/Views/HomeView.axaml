@@ -5,10 +5,9 @@
              xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
              xmlns:controls="using:CutCode.CrossPlatform.Controllers"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             Background="{Binding backgroundColor}"
              x:Class="CutCode.CrossPlatform.Views.HomeView">
-    <Design.DataContext>
-        <vm:HomeViewModel/>
-    </Design.DataContext>
+    <UserControl.Background>
+        <SolidColorBrush Color="{Binding backgroundColor}"/>
+    </UserControl.Background>
     This is homeview page
 </UserControl>

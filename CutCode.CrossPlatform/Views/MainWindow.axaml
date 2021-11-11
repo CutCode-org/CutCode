@@ -154,7 +154,7 @@
              </Path>
            </Viewbox>   
          </TabItem.Header>
-        <views:HomeView DataContext="{Binding HomeViewModel}"/>
+        <views:HomeView/>
       </TabItem>
       <TabItem>
          <TabItem.Header>
