@@ -21,8 +21,8 @@ namespace CutCode.CrossPlatform
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                AvaloniaLocator.CurrentMutable.BindToSelfSingleton<ThemeService>();
-                AvaloniaLocator.CurrentMutable.BindToSelfSingleton<DataBaseManager>();
+                AvaloniaLocator.CurrentMutable.Bind<ThemeService>().ToConstant(new ThemeService());
+                AvaloniaLocator.CurrentMutable.Bind<DataBaseManager>().ToConstant(new DataBaseManager());
                 desktop.MainWindow = new MainWindow
                 {
                     DataContext = new MainWindowViewModel()

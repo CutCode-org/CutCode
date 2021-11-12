@@ -17,24 +17,15 @@ using ReactiveUI;
 
 namespace CutCode.CrossPlatform.ViewModels
 {
-    public class HomeViewModel : ViewModelBase
+    public class HomeViewModel : PageBaseViewModel
     {
-        private readonly IThemeService themeService;
-        private readonly IDataBase database;
-        
         public HomeViewModel()
         {
-            themeService = AvaloniaLocator.CurrentMutable.GetService<ThemeService>();
-            themeService.ThemeChanged += ThemeChanged;
+            AllCodes = DataBase.AllCodes;
+            DataBase.AllCodesUpdated += AllCodesUpdated;
 
+            sortby = DataBase.sortBy == "Date" ? 0 : 1;
 
-            database = AvaloniaLocator.CurrentMutable.GetService<DataBaseManager>();
-            AllCodes = database.AllCodes;
-            database.AllCodesUpdated += AllCodesUpdated;
-
-            sortby = database.sortBy == "Date" ? 0 : 1;
-
-            SetAppearance();
             IsSearched = false;
 
             AllLangs = new ObservableCollection<string>()
@@ -46,23 +37,30 @@ namespace CutCode.CrossPlatform.ViewModels
 
             VisChange();
         }
-        private void ThemeChanged(object sender, EventArgs e)
+
+        protected override void OnLightThemeIsSet()
         {
-            SetAppearance();
+            backgroundColor =  Color.Parse("#FCFCFC");
+            searchBarBackground = Color.Parse("#DADBDC");
+            searchBarTextColor = Color.Parse("#000000");
+            searchBarHoverColor = Color.Parse("#D0D1D2");
+            comboboxHoverColor = Color.Parse("#C5C7C9");
+            comboboxBackgroundColor = Color.Parse("#E3E5E8");
         }
-        private void SetAppearance()
+
+        protected override void OnDarkThemeIsSet()
         {
-            Theme = themeService.IsLightTheme;
-            backgroundColor =  themeService.IsLightTheme ? Color.Parse("#FCFCFC") : Color.Parse("#36393F");
-            searchBarBackground = themeService.IsLightTheme ? Color.Parse("#DADBDC") : Color.Parse("#2A2E33");
-            searchBarTextColor = themeService.IsLightTheme ? Color.Parse("#000000") : Color.Parse("#FFFFFF");
-            searchBarHoverColor = themeService.IsLightTheme ? Color.Parse("#D0D1D2") : Color.Parse("#373737");
-            comboboxHoverColor = themeService.IsLightTheme ? Color.Parse("#C5C7C9") : Color.Parse("#202326");
-            comboboxBackgroundColor = themeService.IsLightTheme ? Color.Parse("#E3E5E8") : Color.Parse("#202225");
+            backgroundColor =  Color.Parse("#36393F");
+            searchBarBackground = Color.Parse("#2A2E33");
+            searchBarTextColor = Color.Parse("#FFFFFF");
+            searchBarHoverColor = Color.Parse("#373737");
+            comboboxHoverColor = Color.Parse("#202326");
+            comboboxBackgroundColor = Color.Parse("#202225");       
         }
+        
         private void AllCodesUpdated(object sender, EventArgs e) 
         {
-            AllCodes = database.AllCodes;
+            AllCodes = DataBase.AllCodes;
             VisChange();
         } 
 
@@ -70,18 +68,14 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             if(AllCodes.Count == 0)
             {
-                //labelVis = Visibility.Visible;
                 labelVis = true;
-                //codesVis = Visibility.Hidden;
                 codesVis = false;
                 emptyLabel = text;
             }
             else
             {
                 
-                //labelVis = Visibility.Hidden;
                 labelVis = false;
-                //codesVis = Visibility.Visible;
                 codesVis = true;
             }
         }
@@ -183,7 +177,7 @@ namespace CutCode.CrossPlatform.ViewModels
                 Dispatcher.UIThread.Post(() =>
                 { 
                     ComboBoxItemSelected(value);
-                    database.sortBy = value;
+                    DataBase.sortBy = value;
                 });
                 /*
                  Application.Current.Dispatcher.Invoke(new Action(() => 
@@ -209,7 +203,7 @@ namespace CutCode.CrossPlatform.ViewModels
 
         private async void ComboBoxItemSelected(string kind) 
         {
-            AllCodes = await database.OrderCode(kind);
+            AllCodes = await DataBase.OrderCode(kind);
             VisChange("Not found :(");
         } 
 
@@ -219,14 +213,14 @@ namespace CutCode.CrossPlatform.ViewModels
             if(text == "")
             {
 
-                AllCodes = database.AllCodes;
+                AllCodes = DataBase.AllCodes;
                 VisChange();
             }
             else
             {
                 if (AllCodes.Count > 0)
                 {
-                    AllCodes = await database.SearchCode(text, "Home");
+                    AllCodes = await DataBase.SearchCode(text, "Home");
                     VisChange("Not found :(");
                 }
             }
