@@ -7,8 +7,8 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              Background="{Binding backgroundColor}"
              x:Class="CutCode.CrossPlatform.Views.HomeView">
-    <Design.DataContext>
+    <UserControl.DataContext>
         <vm:HomeViewModel/>
-    </Design.DataContext>
+    </UserControl.DataContext>
     This is homeview page
 </UserControl>

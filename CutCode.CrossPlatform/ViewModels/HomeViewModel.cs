@@ -24,7 +24,6 @@ namespace CutCode.CrossPlatform.ViewModels
         
         public HomeViewModel()
         {
-        
             themeService = AvaloniaLocator.CurrentMutable.GetService<ThemeService>();
             themeService.ThemeChanged += ThemeChanged;
 
