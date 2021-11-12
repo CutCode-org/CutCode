@@ -14,6 +14,14 @@ namespace CutCode.CrossPlatform.Interfaces
 
     public class ThemeService : IThemeService
     {
+        private static readonly ThemeService _themeService = new();
+        public static ThemeService Current => _themeService;
+        
+        private ThemeService()
+        {
+            
+        }
+        
         private bool _isLightTheme;
         public bool IsLightTheme
         {

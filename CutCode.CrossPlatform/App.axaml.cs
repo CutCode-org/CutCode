@@ -1,11 +1,14 @@
+using System.Diagnostics;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using Avalonia.ReactiveUI;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.ViewModels;
 using CutCode.CrossPlatform.Views;
 using CutCode.DataBase;
+using ReactiveUI;
 using Splat;
 
 namespace CutCode.CrossPlatform
@@ -21,11 +24,14 @@ namespace CutCode.CrossPlatform
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                AvaloniaLocator.CurrentMutable.Bind<ThemeService>().ToConstant(new ThemeService());
-                AvaloniaLocator.CurrentMutable.Bind<DataBaseManager>().ToConstant(new DataBaseManager());
                 desktop.MainWindow = new MainWindow
                 {
                     DataContext = new MainWindowViewModel()
+                };
+                
+                desktop.Exit += (s,e)=>
+                {
+                    DataBaseManager.Current.ChangeTheme(ThemeService.Current.IsLightTheme);
                 };
             }
 

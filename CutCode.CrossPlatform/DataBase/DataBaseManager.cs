@@ -19,15 +19,18 @@ namespace CutCode.DataBase
 {
     public class DataBaseManager : IDataBase
     {
+        private static DataBaseManager _dataBase = new DataBaseManager();
+        public static DataBaseManager Current => _dataBase;
+        
         public ObservableCollection<CodeBoxModel> AllCodes { get; set; }
         public ObservableCollection<CodeBoxModel> FavCodes { get; set; }
         private SQLiteConnection _db;
-        private readonly IThemeService themeService;
+        private readonly IThemeService themeService = ThemeService.Current;
 
         private string prefpath { get; set; }
         private string dbpath { get; set; }
         #region Set region
-        public DataBaseManager()
+        private DataBaseManager()
         {
             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var path = Path.Combine(appDataPath, "CutCode");
@@ -50,7 +53,6 @@ namespace CutCode.DataBase
                 UpdatePref();
             }
 
-            themeService = AvaloniaLocator.CurrentMutable.GetService<ThemeService>();
             themeService.IsLightTheme = isLightTheme;
             OpenDB();
         }
