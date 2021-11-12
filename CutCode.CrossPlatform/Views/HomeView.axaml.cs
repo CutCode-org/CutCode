@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using CutCode.CrossPlatform.ViewModels;
 
 namespace CutCode.CrossPlatform.Views
 {
@@ -8,6 +9,7 @@ namespace CutCode.CrossPlatform.Views
     {
         public HomeView()
         {
+            DataContext = new HomeViewModel();
             InitializeComponent();
         }
 

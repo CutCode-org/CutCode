@@ -14,36 +14,33 @@ using ReactiveUI;
 
 namespace CutCode.CrossPlatform.ViewModels
 {
-    public class AddViewModel : ViewModelBase
+    public class AddViewModel : PageBaseViewModel
     {
-        private readonly IThemeService themeService;
-        private readonly IDataBase database;
+        private IDataBase database => DataBase;
         public AddViewModel()
         {
-            themeService = AvaloniaLocator.CurrentMutable.GetService<ThemeService>();
-            themeService.ThemeChanged += ThemeChanged;
-
-            database = AvaloniaLocator.CurrentMutable.GetService<DataBaseManager>();
-
             AllLangs = new ObservableCollection<string>()
             {
                 "Any language", "Python", "C++", "C#", "CSS", "Dart", "Golang", "Html", "Java",
                 "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
             };
             leftText = "";
-            SetAppearance();
-        }
-        private void ThemeChanged(System.Object sender, EventArgs e)
-        {
-            SetAppearance();
         }
 
-        private void SetAppearance()
+        protected override void OnLightThemeIsSet()
         {
-            textBoxBackground = themeService.IsLightTheme ? Color.Parse("#DADBDC") : Color.Parse("#2A2E33");
-            textBoxForeground = themeService.IsLightTheme ? Color.Parse("#1A1A1A") : Color.Parse("#F7F7F7");
-            richtextBoxBackground = themeService.IsLightTheme ? Color.Parse("#E3E5E8") : Color.Parse("#2C3036");
-            btnHoverColor = themeService.IsLightTheme ? Color.Parse("#D0D1D2") : Color.Parse("#373737");
+            textBoxBackground = Color.Parse("#DADBDC");
+            textBoxForeground = Color.Parse("#1A1A1A");
+            richtextBoxBackground = Color.Parse("#E3E5E8");
+            btnHoverColor = Color.Parse("#D0D1D2");
+        }
+
+        protected override void OnDarkThemeIsSet()
+        {
+            textBoxBackground = Color.Parse("#2A2E33");
+            textBoxForeground = Color.Parse("#F7F7F7");
+            richtextBoxBackground = Color.Parse("#2C3036");
+            btnHoverColor = Color.Parse("#373737");
         }
 
         public IList<string> AllLangs { get; set; }

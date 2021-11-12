@@ -14,19 +14,12 @@ using ReactiveUI;
 
 namespace CutCode.CrossPlatform.ViewModels
 {
-    public class CodeViewModel : ViewModelBase
+    public class CodeViewModel : PageBaseViewModel
     {
-        private readonly IThemeService themeService;
-        private readonly IDataBase database;
+        private IDataBase database => DataBase;
         public CodeBoxModel codeModel;
         public CodeViewModel(CodeBoxModel code)
         {
-            themeService = AvaloniaLocator.CurrentMutable.GetService<ThemeService>();
-
-            database = AvaloniaLocator.CurrentMutable.GetService<DataBaseManager>();
-
-            SetAppearance();
-
             codeModel = code;
 
             title = code.title;
@@ -39,25 +32,40 @@ namespace CutCode.CrossPlatform.ViewModels
             isEnabled = false;
             oppisEnabled = !isEnabled;
 
-            SetAppearance();
-        }
-        private void SetAppearance()
-        {
-            mainTextColor = themeService.IsLightTheme ? Color.Parse("#0B0B13") : Color.Parse("#94969A");
-            textBackground = themeService.IsLightTheme ? Color.Parse("#DADBDC") : Color.Parse("#2A2E33");
-            textForeground = themeService.IsLightTheme ? Color.Parse("#1A1A1A") : Color.Parse("#F7F7F7");
-            codeBackground = themeService.IsLightTheme ? Color.Parse("#E3E5E8") : Color.Parse("#2C3036");
-            ButtonsBackground = themeService.IsLightTheme ? Color.Parse("#F2F2F2") : Color.Parse("#2A2C30");
-
-            copyAddr = themeService.IsLightTheme ? "../Resources/Images/Icons/copy_black.png" : "../Resources/Images/Icons/copy_white.png";
-            favAddr = isFav ? "../Resources/Images/Icons/fav.png" : themeService.IsLightTheme ? "../Resources/Images/Icons/fav_black.png" : "../Resources/Images/Icons/fav_white.png";
-            backAddr = themeService.IsLightTheme ? "../Resources/Images/Icons/back_black.png" : "../Resources/Images/Icons/back_white.png";
-            editAddr = themeService.IsLightTheme ? "../Resources/Images/Icons/edit_black.png" : "../Resources/Images/Icons/edit_white.png";
-            saveAddr = themeService.IsLightTheme ? "../Resources/Images/Icons/save_black.png" : "../Resources/Images/Icons/save_white.png";
-            closeAddr = themeService.IsLightTheme ? "../Resources/Images/Icons/exit_black.png" : "../Resources/Images/Icons/exit_white.png";
-
             opacity1 = 1;
             opacity2 = 0.3;
+        }
+        
+        protected override void OnLightThemeIsSet()
+        {
+            mainTextColor = Color.Parse("#0B0B13");
+            textBackground = Color.Parse("#DADBDC");
+            textForeground = Color.Parse("#1A1A1A");
+            codeBackground = Color.Parse("#E3E5E8");
+            ButtonsBackground = Color.Parse("#F2F2F2");
+
+            copyAddr ="../Resources/Images/Icons/copy_black.png";
+            favAddr = isFav ? "../Resources/Images/Icons/fav.png" : "../Resources/Images/Icons/fav_black.png";
+            backAddr = "../Resources/Images/Icons/back_black.png";
+            editAddr = "../Resources/Images/Icons/edit_black.png";
+            saveAddr = "../Resources/Images/Icons/save_black.png";
+            closeAddr = "../Resources/Images/Icons/exit_black.png";
+        }
+
+        protected override void OnDarkThemeIsSet()
+        {
+            mainTextColor = Color.Parse("#94969A");
+            textBackground = Color.Parse("#2A2E33");
+            textForeground = Color.Parse("#F7F7F7");
+            codeBackground = Color.Parse("#2C3036");
+            ButtonsBackground = Color.Parse("#2A2C30");
+
+            copyAddr = "../Resources/Images/Icons/copy_white.png";
+            favAddr = isFav ? "../Resources/Images/Icons/fav.png" : "../Resources/Images/Icons/fav_white.png";
+            backAddr = "../Resources/Images/Icons/back_white.png";
+            editAddr = "../Resources/Images/Icons/edit_white.png";
+            saveAddr = "../Resources/Images/Icons/save_white.png";
+            closeAddr = "../Resources/Images/Icons/exit_white.png";
         }
 
         #region Code datas
@@ -248,7 +256,7 @@ namespace CutCode.CrossPlatform.ViewModels
             isFav = !isFav;
             codeModel.isFav = isFav;
             var isdone = database.FavModify(codeModel);
-            if(isdone) favAddr = isFav ? "../Resources/Images/Icons/fav.png" : themeService.IsLightTheme ? "../Resources/Images/Icons/fav_black.png" : "../Resources/Images/Icons/fav_white.png";
+            if(isdone) favAddr = isFav ? "../Resources/Images/Icons/fav.png" : ThemeService.IsLightTheme ? "../Resources/Images/Icons/fav_black.png" : "../Resources/Images/Icons/fav_white.png";
         }
 
         public void CopyCommand()
