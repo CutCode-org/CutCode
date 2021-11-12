@@ -1,12 +1,22 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+using Avalonia;
 using Avalonia.Media;
 using ReactiveUI;
 using Avalonia.Media.Imaging;
+using CutCode.CrossPlatform.Interfaces;
+using CutCode.DataBase;
 
 namespace CutCode.CrossPlatform.ViewModels
 {
     public class MainWindowViewModel : PageBaseViewModel
     {
+        protected override void OnLoad()
+        {
+
+        }
+
         protected override void OnLightThemeIsSet()
         {
             windowsBtnColor = Color.Parse("#090909");
@@ -28,7 +38,7 @@ namespace CutCode.CrossPlatform.ViewModels
 
             titlebarBtnsHoverColor = Color.Parse("#373737");
         }
-        
+
         #region Color
         private Color _windowsBtnColor;
         public Color windowsBtnColor

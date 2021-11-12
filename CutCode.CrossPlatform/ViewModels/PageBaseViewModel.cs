@@ -11,8 +11,8 @@ namespace CutCode.CrossPlatform.ViewModels
     {
         public PageBaseViewModel()
         {
-            ThemeService = AvaloniaLocator.CurrentMutable.GetService<ThemeService>();
-            DataBase = AvaloniaLocator.CurrentMutable.GetService<DataBaseManager>();
+            ThemeService = ThemeService.Current;
+            DataBase = DataBaseManager.Current;
             AssetLoader = AvaloniaLocator.CurrentMutable.GetService<IAssetLoader>();
 
             ThemeService.ThemeChanged += (s, e) =>
@@ -20,6 +20,11 @@ namespace CutCode.CrossPlatform.ViewModels
                 OnThemeChanged();
             };
             ThemeService.IsLightTheme = DataBase.isLightTheme;
+        }
+
+        protected virtual void OnLoad()
+        {
+            
         }
         
         protected virtual void OnThemeChanged()
@@ -50,7 +55,7 @@ namespace CutCode.CrossPlatform.ViewModels
             set;
         }
         
-        protected ThemeService ThemeService
+        public ThemeService ThemeService
         {
             get;
             set;
