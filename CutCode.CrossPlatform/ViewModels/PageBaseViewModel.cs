@@ -20,6 +20,7 @@ namespace CutCode.CrossPlatform.ViewModels
                 OnThemeChanged();
             };
             ThemeService.IsLightTheme = DataBase.isLightTheme;
+            OnLoad();
         }
 
         protected virtual void OnLoad()

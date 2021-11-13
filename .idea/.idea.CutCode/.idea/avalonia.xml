@@ -4,8 +4,10 @@
     <option name="projectPerEditor">
       <map>
         <entry key="CutCode.CrossPlatform/App.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
+        <entry key="CutCode.CrossPlatform/Controllers/DevCardView.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Controllers/WindowButtons.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Views/AddView.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
+        <entry key="CutCode.CrossPlatform/Views/DevCardView.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Views/FavoritesView.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Views/HomeView.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Views/MainWindow.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />

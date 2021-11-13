@@ -3,10 +3,67 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
+             xmlns:ext="using:CutCode.CrossPlatform.Helpers"
+             
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CutCode.CrossPlatform.Views.SettingsView">
     <UserControl.Background>
         <SolidColorBrush Color="{Binding backgroundColor}"/>
     </UserControl.Background>
-    This is setting view page
+    
+    <UserControl.Resources>
+        <ext:BitmapAssetValueConverter x:Key="VariableImage"/>
+    </UserControl.Resources>
+    
+    <UserControl.DataContext>
+        <vm:SettingsViewModel/>
+    </UserControl.DataContext> 
+    
+    <ScrollViewer>
+        <StackPanel>
+            <StackPanel Margin="5,0,5,0">
+                <StackPanel.Background>
+                    <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.cardColor}"/>
+                </StackPanel.Background>
+                
+                <ItemsControl Items="{Binding developers}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Width="350" Height="200" Margin="0,5,0,5">
+                                <Grid ColumnDefinitions="100,*">
+                                    <Image Grid.Column="0" Width="50" Height="50" Margin="0,10,0,8"
+                                           Source="{Binding ProfilePic, Converter={StaticResource VariableImage}}" HorizontalAlignment="Center">
+                                        <Image.Clip>
+                                            <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25"/>
+                                        </Image.Clip>
+                                    </Image>
+                                    
+                                    <StackPanel Grid.Column="1">
+                                        <Label Margin="-7,20,0,0"
+                                               Content="{Binding Name}" 
+                                               FontFamily="{DynamicResource poppins_semibold}"
+                                               FontSize="18" FontWeight="Bold">
+                                            <Label.Foreground>
+                                                <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.mainTextColor}"/>
+                                            </Label.Foreground>
+                                        </Label>
+                                        <Label Margin="-7,4,0,0"
+                                               Content="{Binding UserName}" 
+                                               FontFamily="{DynamicResource poppins_semibold}"
+                                               FontSize="14">
+                                            <Label.Foreground>
+                                                <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.mainTextColor}"/>
+                                            </Label.Foreground>
+                                        </Label>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                            
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+    
 </UserControl>

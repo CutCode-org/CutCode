@@ -6,7 +6,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="DataBase" />
-    <Folder Include="Helpers" />
     <Folder Include="Models\" />
     <Folder Include="Controllers\" />
     <AvaloniaResource Include="Assets\**" />
