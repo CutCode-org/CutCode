@@ -3,8 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
-             xmlns:ext="using:CutCode.CrossPlatform.Helpers"
-             
+             xmlns:h="using:CutCode.CrossPlatform.Helpers"
+             xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CutCode.CrossPlatform.Views.SettingsView">
     <UserControl.Background>
@@ -12,7 +12,7 @@
     </UserControl.Background>
     
     <UserControl.Resources>
-        <ext:BitmapAssetValueConverter x:Key="VariableImage"/>
+        <h:BitmapAssetValueConverter x:Key="VariableImage"/>
     </UserControl.Resources>
     
     <UserControl.DataContext>
@@ -21,26 +21,26 @@
     
     <ScrollViewer>
         <Grid RowDefinitions="Auto,Auto">
-            <Border Grid.Row="0"  CornerRadius="10" ClipToBounds="True" Height="250" Width="500" Margin="5,15,5,15">
+            <Border Grid.Row="0"  CornerRadius="10" ClipToBounds="True" Height="200" Width="500" Margin="5,15,5,15">
                 <StackPanel>
                     <StackPanel.Background>
                         <SolidColorBrush Color="{Binding cardColor}"/>
                     </StackPanel.Background>
                     <Label Content="Sync"
-                           FontWeight="Bold" FontFamily="{DynamicResource poppins_semibold}" FontSize="22" Margin="15,15,0,10">
+                           FontWeight="Bold" FontFamily="{DynamicResource poppins_semibold}" FontSize="22" Margin="25,18,0,10">
                         <Label.Foreground>
                             <SolidColorBrush Color="{Binding mainTextColor}"/>
                         </Label.Foreground>
                     </Label>
                 </StackPanel>
             </Border>
-            <Border CornerRadius="10" ClipToBounds="True" Grid.Row="1" Height="400" Width="500" Margin="5,0,5,15">
+            <Border CornerRadius="10" ClipToBounds="True" Grid.Row="1" Width="500" Margin="5,0,5,15">
                 <StackPanel>
                     <StackPanel.Background>
                         <SolidColorBrush Color="{Binding cardColor}"/>
                     </StackPanel.Background>
-                    <Label Content="About"
-                           FontWeight="Bold" FontFamily="{DynamicResource poppins_semibold}" FontSize="22" Margin="15,15,0,10">
+                    <Label Content="Authors"
+                           FontWeight="Bold" FontFamily="{DynamicResource poppins_semibold}" FontSize="22" Margin="25,18,0,10">
                         <Label.Foreground>
                             <SolidColorBrush Color="{Binding mainTextColor}"/>
                         </Label.Foreground>
@@ -49,9 +49,9 @@
                     <ItemsControl Items="{Binding developers}" HorizontalAlignment="Center">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Width="350" Height="200" Margin="0,0,0,0">
+                                <StackPanel Width="350" Margin="0,0,0,10">
                                     <Grid ColumnDefinitions="100,*">
-                                        <Image Grid.Column="0" Width="50" Height="50" Margin="0,10,0,8"
+                                        <Image Grid.Column="0" Width="50" Height="50" Margin="0,10,0,8" VerticalAlignment="Top"
                                                Source="{Binding ProfilePic, Converter={StaticResource VariableImage}}" HorizontalAlignment="Center">
                                             <Image.Clip>
                                                 <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25"/>
@@ -75,13 +75,17 @@
                                                     <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.mainTextColor}"/>
                                                 </Label.Foreground>
                                             </Label>
-                                            <TextBlock Margin="0,7,0,0" Text="{Binding Desc}" 
-                                                       FontFamily="{DynamicResource poppins_regular}" FontSize="16"
+                                            <TextBlock Margin="-3,7,0,0" Text="{Binding Desc}" 
+                                                       FontFamily="{DynamicResource poppins_regular}" FontSize="15"
                                                        TextWrapping="Wrap">
                                                 <TextBlock.Foreground>
                                                     <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.mainTextColor}"/>
                                                 </TextBlock.Foreground>
                                             </TextBlock>
+                                            <StackPanel Orientation="Horizontal" Margin="-7,7,0,0">
+                                                <Button i:Attached.Icon="fab fa-twitter" Margin="3,3,3,3" Background="Transparent"/>
+                                                <Button i:Attached.Icon="fab fa-github" Margin="3,3,3,3" Background="Transparent"/>
+                                            </StackPanel>
                                         </StackPanel>
                                     </Grid>
                                 </StackPanel>
