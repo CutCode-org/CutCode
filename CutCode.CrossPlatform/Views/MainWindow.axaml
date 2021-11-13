@@ -116,6 +116,27 @@
         <Style Selector="TabItem">
           <Setter Property="Height" Value="54"/>
           <Setter Property="Width" Value="54"/>
+          <!-- <Setter Property="Template"> -->
+          <!--   <ControlTemplate> -->
+          <!--     <Border Name="PART_LayoutRoot" -->
+          <!--             Background="{TemplateBinding Background}" -->
+          <!--             BorderBrush="{TemplateBinding BorderBrush}" -->
+          <!--             BorderThickness="{TemplateBinding BorderThickness}" -->
+          <!--             CornerRadius="{TemplateBinding CornerRadius}" -->
+          <!--             Padding="{TemplateBinding Padding}"> -->
+          <!--       <Panel> -->
+          <!--         <ContentPresenter Name="PART_ContentPresenter" -->
+          <!--                           ContentTemplate="{TemplateBinding HeaderTemplate}" -->
+          <!--                           Content="{TemplateBinding Header}" -->
+          <!--                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" -->
+          <!--                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}" -->
+          <!--                           TextBlock.FontFamily="{TemplateBinding FontFamily}" -->
+          <!--                           TextBlock.FontSize="{TemplateBinding FontSize}" -->
+          <!--                           TextBlock.FontWeight="{TemplateBinding FontWeight}" /> -->
+          <!--       </Panel> -->
+          <!--     </Border> -->
+          <!--   </ControlTemplate> -->
+          <!-- </Setter> -->
         </Style>
         <Style Selector="TabItem:selected">
           <Setter Property="Background">
