@@ -14,8 +14,8 @@
     <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aura.UI" Version="0.1.5-dev-02" />
-    <PackageReference Include="Aura.UI.FluentTheme" Version="0.1.5-dev-01" />
+    <PackageReference Include="Aura.UI" Version="0.1.5-dev-03" />
+    <PackageReference Include="Aura.UI.FluentTheme" Version="0.1.5-dev-03" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0-preview.1" />
     <PackageReference Include="Avalonia" Version="0.10.10" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.10" />
