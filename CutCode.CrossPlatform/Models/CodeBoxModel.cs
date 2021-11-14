@@ -1,63 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using CutCode.CrossPlatform.Interfaces;
-using CutCode.CrossPlatform.ViewModels;
-using ReactiveUI;
-
-namespace CutCode.CrossPlatform.Models
+﻿namespace CutCode.CrossPlatform.Models
 {
-    public class CodeBoxModel : ViewModelBase
+    public class CodeBoxModel
     {
-        public int id { get; set; }
-        private string _title;
-        public string title
+        public CodeBoxModel(int id, string title, string desc, string language, bool isFav, string code,long timestamp)
         {
-            get => _title;
-            set => this.RaiseAndSetIfChanged(ref _title, value);
+            Id = id;
+            Title = title;
+            Desc = desc;
+            Language = language;
+            IsFav = isFav;
+            Timestamp = timestamp;
+            Code = code;
         }
 
-        private string _desc;
-        public string desc
-        {
-            get => _desc;
-            set => this.RaiseAndSetIfChanged(ref _desc, value);
-        }
-
-        private bool _isFav;
-        public bool isFav
-        {
-            get => _isFav;
-            set => this.RaiseAndSetIfChanged(ref _isFav, value);
-        }
-
-        public string langType { get; set; }
-
-        private string _code;
-        public string code
-        {
-            get => _code;
-            set => this.RaiseAndSetIfChanged(ref _code, value);
-        }
-        public long timestamp { get; set; }
-        public IThemeService themeService { get; set; }
-
-
-        public CodeBoxModel(int _id, string _title, string _desc, bool _isFav, string _langType, string _code, long _timestamp, IThemeService _themeService)
-        {
-            id = _id;
-            title = _title;
-            desc = _desc;
-            isFav = _isFav;
-            langType = _langType;
-            code = _code;
-            timestamp = _timestamp;
-            themeService = _themeService;
-        }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Desc { get; set; }
+        public string Language { get; set; }
+        public bool IsFav { get; set; }
+        public long Timestamp { get; set; }
+        public string Code { get; set; }
     }
 }

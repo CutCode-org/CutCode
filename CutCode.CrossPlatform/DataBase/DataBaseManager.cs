@@ -66,13 +66,13 @@ namespace CutCode.DataBase
             var codes = _db.Query<CodeTable>("SELECT * From CodeTable");
             foreach (var c in codes)
             {
-                AllCodes.Add(new CodeBoxModel(c.Id, c.title, c.desc, c.isFav, c.lang, c.code, c.timestamp, themeService));
+                AllCodes.Add(new CodeBoxModel(c.Id, c.title, c.desc, c.lang, c.isFav, c.code, c.timestamp));
             }
 
             var lst = new ObservableCollection<CodeBoxModel>();
             foreach (var code in AllCodes)
             {
-                if (code.isFav) lst.Add(code);
+                if (code.IsFav) lst.Add(code);
             }
             FavCodes = lst;
 
@@ -110,7 +110,7 @@ namespace CutCode.DataBase
             int ind = 0;
             foreach (var c in AllCodes)
             {
-                if (c.id == code.id) break;
+                if (c.Id == code.Id) break;
                 ind++;
             }
             return ind;
@@ -123,7 +123,7 @@ namespace CutCode.DataBase
             var lst = new ObservableCollection<CodeBoxModel>();
             foreach (var code in AllCodes)
             {
-                if (code.isFav) lst.Add(code);
+                if (code.IsFav) lst.Add(code);
             }
             FavCodes = lst;
 
@@ -147,7 +147,7 @@ namespace CutCode.DataBase
             _db.Insert(dbCode);
 
             int id = (int)SQLite3.LastInsertRowid(_db.Handle);
-            var codeModel = new CodeBoxModel(id, title, desc, false, langType, code, time, themeService);
+            var codeModel = new CodeBoxModel(id, title, desc, langType, false, code, time);
             AllCodes.Add(codeModel);
             PropertyChanged();
 
@@ -158,12 +158,12 @@ namespace CutCode.DataBase
         {
             try
             {
-                var dbCode = _db.Query<CodeTable>("select * from CodeTable where Id = ?", code.id).FirstOrDefault();
+                var dbCode = _db.Query<CodeTable>("select * from CodeTable where Id = ?", code.Id).FirstOrDefault();
                 if (dbCode is not null)
                 {
-                    dbCode.title = code.title;
-                    dbCode.desc = code.desc;
-                    dbCode.code = code.code;
+                    dbCode.title = code.Title;
+                    dbCode.desc = code.Desc;
+                    dbCode.code = code.Code;
                     _db.RunInTransaction(() =>
                     {
                         _db.Update(dbCode);
@@ -183,7 +183,7 @@ namespace CutCode.DataBase
         {
             try
             {
-                _db.Delete<CodeTable>(code.id);
+                _db.Delete<CodeTable>(code.Id);
                 AllCodes.Remove(code);
                 PropertyChanged();
             }
@@ -212,13 +212,13 @@ namespace CutCode.DataBase
                 lst = new ObservableCollection<CodeBoxModel>();
                 foreach (var code in currentCodes)
                 {
-                    if (code.langType == order) lst.Add(code);
+                    if (code.Language == order) lst.Add(code);
                 }
             }
             else
             {
-                if (ind == 0) lst = new ObservableCollection<CodeBoxModel>(currentCodes.OrderBy(x => x.title).ToList());
-                else if (ind == 1) lst = new ObservableCollection<CodeBoxModel>(currentCodes.OrderBy(x => x.timestamp).ToList());
+                if (ind == 0) lst = new ObservableCollection<CodeBoxModel>(currentCodes.OrderBy(x => x.Title).ToList());
+                else if (ind == 1) lst = new ObservableCollection<CodeBoxModel>(currentCodes.OrderBy(x => x.Timestamp).ToList());
                 else lst = AllCodes;
 
                 if (ind == 0 || ind == 1) ChangeSort(AllOrderKind[ind]);
@@ -231,10 +231,10 @@ namespace CutCode.DataBase
         {
             try
             {
-                var dbCode = _db.Query<CodeTable>("select * from CodeTable where Id = ?", code.id).FirstOrDefault();
+                var dbCode = _db.Query<CodeTable>("select * from CodeTable where Id = ?", code.Id).FirstOrDefault();
                 if (dbCode is not null)
                 {
-                    dbCode.isFav = code.isFav;
+                    dbCode.isFav = code.IsFav;
                     _db.RunInTransaction(() =>
                     {
                         _db.Update(dbCode);
@@ -252,7 +252,7 @@ namespace CutCode.DataBase
         public async Task<ObservableCollection<CodeBoxModel>> SearchCode(string text, string from)
         {
             var currentCode = from == "Home" ? AllCodes : FavCodes;
-            var newCodesList = currentCode.Where(x => x.title.ToLower().Contains(text.ToLower())).ToList();
+            var newCodesList = currentCode.Where(x => x.Title.ToLower().Contains(text.ToLower())).ToList();
             var newCodes = new ObservableCollection<CodeBoxModel>();
             foreach (var code in newCodesList)
             {

@@ -22,11 +22,11 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             codeModel = code;
 
-            title = code.title;
-            desc = code.desc;
-            this.code = code.code;
-            isFav = code.isFav;
-            langType = code.langType;
+            title = code.Title;
+            desc = code.Desc;
+            this.code = code.Code;
+            isFav = code.IsFav;
+            langType = code.Language;
             createdDate = "Will be changed later";
 
             isEnabled = false;
@@ -254,7 +254,7 @@ namespace CutCode.CrossPlatform.ViewModels
         public void FavCommand()
         {
             isFav = !isFav;
-            codeModel.isFav = isFav;
+            codeModel.IsFav = isFav;
             var isdone = database.FavModify(codeModel);
             if(isdone) favAddr = isFav ? "../Resources/Images/Icons/fav.png" : ThemeService.IsLightTheme ? "../Resources/Images/Icons/fav_black.png" : "../Resources/Images/Icons/fav_white.png";
         }
@@ -283,9 +283,9 @@ namespace CutCode.CrossPlatform.ViewModels
 
         public void SaveCommand()
         {
-            codeModel.title = title;
-            codeModel.desc = desc;
-            codeModel.code = code;
+            codeModel.Title = title;
+            codeModel.Desc = desc;
+            codeModel.Code = code;
 
             var isdone = database.EditCode(codeModel);
 

@@ -11,6 +11,7 @@
     <sys:String x:Key="poppins_semibold">avares://CutCode.CrossPlaftorm/Assets/Fonts/Poppins-SemiBold.ttf</sys:String>
     <sys:String x:Key="poppins_regular">avares://CutCode.CrossPlatform/Assets/Fonts/Poppins-Regular.ttf</sys:String>
     <sys:String x:Key="firacode">avares://CutCode.CrossPlatform/Assets/Fonts/FiraCode-Regular.ttf</sys:String>
+    
   </Application.Resources>
   
   <Application.Styles>

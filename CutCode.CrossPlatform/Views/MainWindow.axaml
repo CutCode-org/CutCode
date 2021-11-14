@@ -21,9 +21,11 @@
         ExtendClientAreaToDecorationsHint="True" 
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="-1">
+  
   <Window.Background>
     <SolidColorBrush Color="{Binding backgroundColor}"/>
   </Window.Background>
+  
   <Design.DataContext>
     <vm:MainWindowViewModel/>
   </Design.DataContext>

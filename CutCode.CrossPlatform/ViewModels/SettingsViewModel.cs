@@ -39,6 +39,7 @@ namespace CutCode.CrossPlatform.ViewModels
             backgroundColor = Color.Parse("#FCFCFC");
             mainTextColor = Color.Parse("#0B0B13");
             cardColor = Color.Parse("#F2F3F5");
+            btnColor = Color.Parse("#E5E6E8");
         }
         
         protected override void OnDarkThemeIsSet()
@@ -46,6 +47,7 @@ namespace CutCode.CrossPlatform.ViewModels
             backgroundColor = Color.Parse("#36393F");
             mainTextColor = Color.Parse("#94969A");
             cardColor = Color.Parse("#2F3136");
+            btnColor = Color.Parse("#27282C");
         }
         
         private Color _backgroundColor;
@@ -67,6 +69,13 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             get => _cardColor;
             set => this.RaiseAndSetIfChanged(ref _cardColor, value);
+        }
+        
+        private Color _btnColor;
+        public Color btnColor
+        {
+            get => _btnColor;
+            set => this.RaiseAndSetIfChanged(ref _btnColor, value);
         }
 
         public ObservableCollection<DevAboutModel> developers { get; set; }
