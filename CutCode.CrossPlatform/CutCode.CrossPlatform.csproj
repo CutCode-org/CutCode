@@ -6,6 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="DataBase" />
+    <Folder Include="Helpers" />
     <Folder Include="Models\" />
     <Folder Include="Controllers\" />
     <AvaloniaResource Include="Assets\**" />
@@ -13,9 +14,8 @@
     <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aura.UI" Version="0.1.5-dev-01" />
-    <PackageReference Include="Aura.UI.FluentTheme" Version="0.1.5-dev-01" />
-    <PackageReference Include="AuraUtilities" Version="0.1.5.3" />
+    <PackageReference Include="Aura.UI" Version="0.1.5-dev-03" />
+    <PackageReference Include="Aura.UI.FluentTheme" Version="0.1.5-dev-03" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0-preview.1" />
     <PackageReference Include="Avalonia" Version="0.10.10" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.10" />
@@ -23,8 +23,6 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.10" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.10" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Projektanker.Icons.Avalonia" Version="3.5.0" />
-    <PackageReference Include="Projektanker.Icons.Avalonia.FontAwesome" Version="3.5.0" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
   </ItemGroup>
   <ItemGroup>
