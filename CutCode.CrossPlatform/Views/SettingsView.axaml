@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
              xmlns:h="using:CutCode.CrossPlatform.Helpers"
+             xmlns:exts="using:Aura.UI.ExtensionProperties"
              xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CutCode.CrossPlatform.Views.SettingsView">
@@ -84,8 +85,10 @@
                                             </TextBlock>
                                             <StackPanel Orientation="Horizontal" Margin="-7,7,0,0">
                                                 <Button
+                                                    exts:ButtonExts.Url="{Binding Twitter}"
                                                     i:Attached.Icon="fab fa-twitter" Margin="3,3,3,3" Background="Transparent"/>
                                                 <Button
+                                                    exts:ButtonExts.Url="{Binding Github}"
                                                     i:Attached.Icon="fab fa-github" Margin="3,3,3,3" Background="Transparent"/>
                                             </StackPanel>
                                         </StackPanel>
