@@ -111,6 +111,9 @@
     <TabControl Name="tabControl" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"
                 TabStripPlacement="Left"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+      <TabControl.Foreground>
+        <SolidColorBrush Color="{Binding  mainTextColor}"/>
+      </TabControl.Foreground>
       <TabControl.Background>
         <SolidColorBrush Color="{Binding  SideBarColor}"/>
       </TabControl.Background>
@@ -124,6 +127,12 @@
         </Style>
         <Style Selector="TabItem ToolTip">
           <Setter Property="Padding" Value="10 7 10 7"/>
+          <Setter Property="CornerRadius" Value="0,7,7,0"/>
+          <Setter Property="BorderThickness" Value="0"/>
+          <Setter Property="FontFamily" Value="{DynamicResource poppins_regular}"/>
+          <Setter Property="FontSize" Value="12"/>
+          <Setter Property="Foreground" Value="{Binding $parent[TabControl].Foreground}"/>
+          <Setter Property="Background" Value="{Binding $parent[TabControl].Background}"/>
         </Style>
         <Style Selector="TabItem:selected">
           <Setter Property="Background">
@@ -143,7 +152,7 @@
          </TabItem.Header>
         <views:HomeView/>
       </TabItem>
-      <TabItem ToolTip.Tip="Add">
+      <TabItem ToolTip.Tip="Add" Foreground="{Binding mainTextColor}">
          <TabItem.Header>
            <Viewbox>
              <Path Data="M14.5,13 L14.5,3.75378577 C14.5,3.33978577 14.164,3.00378577 13.75,3.00378577 C13.336,3.00378577 13,3.33978577 13,3.75378577 L13,13 L3.75387573,13 C3.33987573,13 3.00387573,13.336 3.00387573,13.75 C3.00387573,14.164 3.33987573,14.5 3.75387573,14.5 L13,14.5 L13,23.7523651 C13,24.1663651 13.336,24.5023651 13.75,24.5023651 C14.164,24.5023651 14.5,24.1663651 14.5,23.7523651 L14.5,14.5 L23.7498262,14.5030754 C24.1638262,14.5030754 24.4998262,14.1670754 24.4998262,13.7530754 C24.4998262,13.3390754 24.1638262,13.0030754 23.7498262,13.0030754 L14.5,13 Z">

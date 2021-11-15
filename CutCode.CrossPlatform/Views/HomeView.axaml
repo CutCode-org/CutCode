@@ -9,5 +9,6 @@
     <UserControl.Background>
         <SolidColorBrush Color="{Binding backgroundColor}"/>
     </UserControl.Background>
-    This is homeview page
+    <StackPanel>
+    </StackPanel>
 </UserControl>
