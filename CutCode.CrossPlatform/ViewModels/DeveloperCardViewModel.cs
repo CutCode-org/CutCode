@@ -2,11 +2,11 @@
 
 using System.Drawing;
 
-namespace CutCode.CrossPlatform.Models
+namespace CutCode.CrossPlatform.ViewModels
 {
-    public class DevAboutModel
+    public class DeveloperCardViewModel : ViewModelBase
     {
-        public DevAboutModel(string profilePic, string name, string desc,string userName, string github, string twitter)
+        public DeveloperCardViewModel(string profilePic, string name, string desc,string userName, string github, string twitter)
         {
             ProfilePic = profilePic;
             Name = name;

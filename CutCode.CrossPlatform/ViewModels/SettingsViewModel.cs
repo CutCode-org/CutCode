@@ -15,7 +15,7 @@ namespace CutCode.CrossPlatform.ViewModels
     {
         protected override void OnLoad()
         {
-            developers = new ObservableCollection<DevAboutModel>()
+            developers = new ObservableCollection<DeveloperCardViewModel>()
             {
               new (
                   "avares://CutCode.CrossPlatform/Assets/Images/Developers/abdesol.png", 
@@ -78,6 +78,6 @@ namespace CutCode.CrossPlatform.ViewModels
             set => this.RaiseAndSetIfChanged(ref _btnColor, value);
         }
 
-        public ObservableCollection<DevAboutModel> developers { get; set; }
+        public ObservableCollection<DeveloperCardViewModel> developers { get; set; }
     }
 }
