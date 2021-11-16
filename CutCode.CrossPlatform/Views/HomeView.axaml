@@ -4,10 +4,100 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
              xmlns:controls="using:CutCode.CrossPlatform.Controllers"
+             xmlns:vw="using:CutCode.CrossPlatform.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CutCode.CrossPlatform.Views.HomeView">
+    <UserControl.DataContext>
+        <vm:HomeViewModel/>
+    </UserControl.DataContext>
     <UserControl.Background>
         <SolidColorBrush Color="{Binding backgroundColor}"/>
     </UserControl.Background>
-    This is homeview page
+    <Grid RowDefinitions="Auto,Auto,*">
+        <Grid Grid.Row="0" ColumnDefinitions="9*,2*">
+
+        <controls:SearchBarControl  Grid.Column="0"
+                            Text="Search your code here" SearchCommand="{Binding SearchCommand}"
+                            IsSearched="{Binding IsSearched}"
+                            Margin="10,10,10,10">
+                            <!-- ButtonHoverColor="{Binding searchBarHoverColor}" -->
+            <controls:SearchBarControl.Background>
+                <SolidColorBrush Color="{Binding searchBarBackground}"/>
+            </controls:SearchBarControl.Background>
+            <controls:SearchBarControl.Foreground>
+                <SolidColorBrush Color="{Binding searchBarTextColor}"/>
+            </controls:SearchBarControl.Foreground>
+            <controls:SearchBarControl.OverlayBrush>
+                <SolidColorBrush Color="Gray"/>                
+            </controls:SearchBarControl.OverlayBrush>
+        </controls:SearchBarControl>
+        </Grid>
+        <Grid Grid.Row="1" Margin="25,0,0,0" ColumnDefinitions="Auto,Auto">
+            <Grid Grid.Column="0" RowDefinitions="Auto,*">
+                <Label Grid.Row="0" Content="Sort by" 
+                       FontSize="12">
+                    <Label.Foreground>
+                        <SolidColorBrush Color="{Binding searchBarTextColor}"/>
+                    </Label.Foreground>
+                </Label>
+                <!-- FontFamily="{StaticResource poppins_regular}"/> -->
+                <ComboBox x:Name="sortCombobox" Grid.Row="1" Height="30" Width="150" Margin="5,5,15,5" BorderThickness="0"
+                          Foreground="{Binding searchBarTextColor}" 
+                          Background="{Binding comboboxBackgroundColor}"  SelectedIndex="{Binding sortby}"
+                          IsDropDownOpen="false" 
+                          SelectedItem="{Binding CurrentSort1}" Items="{Binding Sorts}"
+                          BorderBrush="{Binding comboboxHoverColor}">
+                    <!-- Text="Sort by"  -->
+                    <ComboBox.Styles>
+                        <Style Selector="ComboBoxItem">
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                    </ComboBox.Styles>
+                </ComboBox>
+            </Grid>
+            <Grid Grid.Column="1" RowDefinitions="Auto,*">
+                <Label Grid.Row="0" Content="Language" Foreground="{Binding searchBarTextColor}" 
+                       FontSize="12"/>
+                <ComboBox Grid.Row="1" Height="30" Width="150" PlaceholderText="Languages" Margin="5,5,15,5" BorderThickness="0"
+                          Foreground="{Binding searchBarTextColor}" 
+                          Background="{Binding comboboxBackgroundColor}" SelectedIndex="0"
+                          IsDropDownOpen="false"
+                          SelectedItem="{Binding CurrentSort2}"
+                          BorderBrush="{Binding comboboxHoverColor}" Items="{Binding AllLangs}">
+                    <ComboBox.Styles>
+                        <Style Selector="ComboBoxItem">
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                    </ComboBox.Styles>
+                </ComboBox>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2" Margin="5,5,5,5" IsVisible="{Binding codesVis}">
+
+            <ScrollViewer BorderBrush="Transparent"
+                          BorderThickness="0">
+                <ItemsControl Items="{Binding AllCodes}" BorderThickness="0" Background="Transparent"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              HorizontalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <!-- <vw:CodeCardView Margin="5,5,5,5" Title="{Binding title}" Desc="{Binding desc}" -->
+                            <!--                  Command="{s:Action CodeSelectCommand}" CommandParameter="{Binding .}" -->
+                            <!--                  IsFavourite="{Binding isFav}" LangType="{Binding langType}" ThemeService="{Binding themeService}"/> -->
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="5,5,5,5" IsVisible="{Binding labelVis}">
+            <Label Content="{Binding emptyLabel}"
+                   FontSize="13" 
+                   VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label.Foreground>
+                    <SolidColorBrush Color="{Binding searchBarTextColor}"/>
+                </Label.Foreground>
+            </Label>
+        </Grid>
+    </Grid>
 </UserControl>

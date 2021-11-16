@@ -26,7 +26,8 @@
     <Border Name="searchBarFrame" 
             CornerRadius="10" 
             BorderThickness="0"
-            Height="38">
+            Height="38"
+            Background="{Binding Background}">
       <Grid ColumnDefinitions="*,auto"
             RowDefinitions="40">
         <TextBox Name="searchBox" 
@@ -35,10 +36,11 @@
                  Height="40"
                  FontSize="15" 
                  Background="Transparent" 
+                 Foreground="{Binding Foreground}"
                  BorderThickness="0" 
                  Margin="10,5,0,0"
                  BorderBrush="Transparent" 
-                 Watermark="Search your code"/>
+                 Watermark="{Binding Text}"/>
         <Button Name="exitBtn" Grid.Column="1" Grid.Row="0" Background="Transparent">
           <Image Name="exitBtnImage" Width="20" Height="20" Margin="0,0,8,5" VerticalAlignment="Center" HorizontalAlignment="Center"
                  RenderOptions.BitmapInterpolationMode="HighQuality"/>
