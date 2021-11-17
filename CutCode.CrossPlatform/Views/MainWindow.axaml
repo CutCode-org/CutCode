@@ -129,8 +129,7 @@
           <Setter Property="Padding" Value="10 7 10 7"/>
           <Setter Property="CornerRadius" Value="0,7,7,0"/>
           <Setter Property="BorderThickness" Value="0"/>
-          <Setter Property="FontFamily" Value="{DynamicResource poppins_regular}"/>
-          <Setter Property="FontSize" Value="12"/>
+          <Setter Property="FontSize" Value="14"/>
           <Setter Property="Foreground" Value="{Binding $parent[TabControl].Foreground}"/>
           <Setter Property="Background" Value="{Binding $parent[TabControl].Background}"/>
         </Style>
