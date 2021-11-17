@@ -52,5 +52,6 @@
         </Animation>
       </Style.Animations>
     </Style>
+    <StyleInclude Source="/Controllers/SearchBarControl.axaml"></StyleInclude>
   </Application.Styles>
 </Application>
