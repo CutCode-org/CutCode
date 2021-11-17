@@ -8,6 +8,7 @@ using System;
 using System.Reactive;
 using System.Windows.Input;
 using System.Linq;
+using Avalonia.Media;
 
 namespace CutCode.CrossPlatform.Controllers
 {
@@ -119,6 +120,15 @@ namespace CutCode.CrossPlatform.Controllers
                 }
             }
         }
+
+        public IBrush OverlayBrush
+        {
+            get => GetValue(OverlayBrushProperty);
+            set => SetValue(OverlayBrushProperty, value);
+        }
+
+        public static readonly StyledProperty<IBrush> OverlayBrushProperty =
+            AvaloniaProperty.Register<SearchBarControl, IBrush>(nameof(OverlayBrush));
 
         public string Text
         {
