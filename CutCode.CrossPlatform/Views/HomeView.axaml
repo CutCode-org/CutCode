@@ -15,7 +15,7 @@
     </UserControl.Background>
     <Grid RowDefinitions="Auto,*">
         <WrapPanel Grid.Row="0">
-            <controls:CustomSearchBar Width="650" Padding="25,10,20,15" 
+            <controls:CustomSearchBar Width="650" Padding="60,10,20,15" 
                                       IsSearchBusy="{Binding IsSearchBusy}"
                                       SearchCommand="{Binding SearchCommand}"
                                       PlaceHolderText="Search your code here">
@@ -92,7 +92,7 @@
                 </ItemsControl>
             </ScrollViewer>
         </Grid>
-        <Grid Grid.Row="2" Margin="5,5,5,5" IsVisible="{Binding labelVis}">
+        <Grid Grid.Row="1" Margin="5,5,5,5" IsVisible="{Binding labelVis}">
             <Label Content="{Binding emptyLabel}"
                    FontSize="13" 
                    VerticalAlignment="Center" HorizontalAlignment="Center">

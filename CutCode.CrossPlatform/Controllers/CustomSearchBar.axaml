@@ -5,14 +5,23 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CutCode.CrossPlatform.Controllers.CustomSearchBar">
     <StackPanel>
-        <TextBox x:Name="textBox" BorderThickness="0">
+        <TextBox x:Name="textBox" BorderThickness="0" Width="{Binding $parent[UserControl].Width}">
             <TextBox.Styles>
+                <Style Selector="Border">
+                    <Setter Property="Background" Value="{TemplateBinding Background}"/>
+                    <Setter Property="CornerRadius" Value="0.5"/>
+                </Style>
                 <Style Selector="Border:pointerover">
                     <Setter Property="Background" Value="{TemplateBinding BorderBrush}"/>
-                    <Setter Property="CornerRadius" Value="3"/>
+                    <Setter Property="CornerRadius" Value="0.5"/>
+                </Style>
+                <Style Selector="TextBox /template/ TextBlock#PART_Watermark">
+                    <Setter Property="Foreground" Value="#C7C7C7"/>
                 </Style>
             </TextBox.Styles>
         </TextBox>
         <ProgressBar x:Name="progressBar" Background="Transparent" IsIndeterminate="True"/>
+   
+    
     </StackPanel>
 </UserControl>
