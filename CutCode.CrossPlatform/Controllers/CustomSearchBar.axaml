@@ -1,0 +1,18 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="CutCode.CrossPlatform.Controllers.CustomSearchBar">
+    <StackPanel>
+        <TextBox x:Name="textBox" BorderThickness="0">
+            <TextBox.Styles>
+                <Style Selector="Border:pointerover">
+                    <Setter Property="Background" Value="{TemplateBinding BorderBrush}"/>
+                    <Setter Property="CornerRadius" Value="3"/>
+                </Style>
+            </TextBox.Styles>
+        </TextBox>
+        <ProgressBar x:Name="progressBar" Background="Transparent" IsIndeterminate="True"/>
+    </StackPanel>
+</UserControl>

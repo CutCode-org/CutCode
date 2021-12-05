@@ -1,6 +1,9 @@
-﻿using Avalonia;
+﻿using System;
+using Avalonia;
+using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
 using Avalonia.Platform;
+using Avalonia.Themes.Fluent;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.DataBase;
 using ReactiveUI;

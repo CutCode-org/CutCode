@@ -26,7 +26,7 @@ namespace CutCode.CrossPlatform.ViewModels
 
             sortby = DataBase.sortBy == "Date" ? 0 : 1;
 
-            IsSearched = false;
+            IsSearchBusy = false;
 
             AllLangs = new ObservableCollection<string>()
             {
@@ -41,9 +41,9 @@ namespace CutCode.CrossPlatform.ViewModels
         protected override void OnLightThemeIsSet()
         {
             backgroundColor =  Color.Parse("#FCFCFC");
-            searchBarBackground = Color.Parse("#DADBDC");
+            searchBarBackground = Color.Parse("#ECECEC");
+            SearchBarOnHoverColor = Color.Parse("#E2E2E2");
             searchBarTextColor = Color.Parse("#000000");
-            searchBarHoverColor = Color.Parse("#D0D1D2");
             comboboxHoverColor = Color.Parse("#C5C7C9");
             comboboxBackgroundColor = Color.Parse("#E3E5E8");
         }
@@ -52,8 +52,8 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             backgroundColor =  Color.Parse("#36393F");
             searchBarBackground = Color.Parse("#2A2E33");
+            SearchBarOnHoverColor = Color.Parse("#24272B");
             searchBarTextColor = Color.Parse("#FFFFFF");
-            searchBarHoverColor = Color.Parse("#373737");
             comboboxHoverColor = Color.Parse("#202326");
             comboboxBackgroundColor = Color.Parse("#202225");       
         }
@@ -97,13 +97,13 @@ namespace CutCode.CrossPlatform.ViewModels
             set =>this.RaiseAndSetIfChanged(ref _searchBarBackground, value);
             
         }
-
-        private Color _searchBarHoverColor;
-        public Color searchBarHoverColor
+        
+        private Color _searchBarOnHoverColor;
+        public Color SearchBarOnHoverColor
         {
-            get => _searchBarHoverColor;
-            set => this.RaiseAndSetIfChanged(ref _searchBarHoverColor, value);
-
+            get => _searchBarOnHoverColor;
+            set =>this.RaiseAndSetIfChanged(ref _searchBarOnHoverColor, value);
+            
         }
 
         private Color _searchBarTextColor;
@@ -152,21 +152,6 @@ namespace CutCode.CrossPlatform.ViewModels
             set => this.RaiseAndSetIfChanged(ref _emptyLabel, value);
         }
 
-        private bool _Theme;
-        public bool Theme
-        {
-            get => _Theme;
-            set => this.RaiseAndSetIfChanged(ref _Theme, value);
-        }
-
-        private bool _IsSearched;
-        public bool IsSearched
-        {
-            get => _IsSearched;
-            set => this.RaiseAndSetIfChanged(ref _IsSearched, value);
-
-        }
-
         private string _CurrentSort1;
         public string CurrentSort1
         {
@@ -205,10 +190,21 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             AllCodes = await DataBase.OrderCode(kind);
             VisChange("Not found :(");
-        } 
+        }
 
+        private bool _isSearchBusy;
+        public bool IsSearchBusy
+        {
+            get => _isSearchBusy;
+            set => this.RaiseAndSetIfChanged(ref _isSearchBusy, value);
+
+        }
         public async void SearchCommand(string text)
         {
+            IsSearchBusy = true;
+            await Task.Delay(TimeSpan.FromSeconds(3));
+            IsSearchBusy = false;
+            /*
             IsSearched = false;
             if(text == "")
             {
@@ -225,6 +221,7 @@ namespace CutCode.CrossPlatform.ViewModels
                 }
             }
             IsSearched = true;
+            */
         }
         
         private Color _backgroundColor;

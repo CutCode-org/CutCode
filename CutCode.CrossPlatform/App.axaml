@@ -14,7 +14,7 @@
   </Application.Resources>
   
   <Application.Styles>
-    <FluentTheme Mode="Light"/>
+    <FluentTheme Mode="Dark"/>
     <StyleInclude Source="avares://Aura.UI.FluentTheme/AuraUI.xaml"/>
     <Style Selector="Button.ImgButtonStyle">
       <Setter Property="Template">
@@ -52,6 +52,5 @@
         </Animation>
       </Style.Animations>
     </Style>
-    <StyleInclude Source="/Controllers/SearchBarControl.axaml"></StyleInclude>
   </Application.Styles>
 </Application>

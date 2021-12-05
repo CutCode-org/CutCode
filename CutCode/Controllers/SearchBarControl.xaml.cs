@@ -4,16 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Data;
+using Avalonia.Threading;
 
 namespace CutCode
 {
@@ -42,9 +36,8 @@ namespace CutCode
         }
 
         #region Text property
-        public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(SearchBarControl),
-                new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, TextPropertyChanged));
+        public static readonly StyledProperty<string> TextProperty = 
+            AvaloniaProperty.Register<TextBox, string>(nameof(Text));
 
         public string Text
         {
@@ -54,7 +47,7 @@ namespace CutCode
                 SetValue(TextProperty, value);
             } 
         }
-        private static void TextPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void TextPropertyChanged(DependencyObject d, StyledPropertyChangedEventArgs e)
         {
             if (d is not SearchBarControl ctrl || e.NewValue is not string) return;
             ctrl.searchBox.Text = (string)e.NewValue;
@@ -62,8 +55,8 @@ namespace CutCode
         #endregion
 
         #region Placeholder Text property
-        public static readonly DependencyProperty PlaceholderProperty =
-            DependencyProperty.Register("PlaceholderText", typeof(string), typeof(SearchBarControl),
+        public static readonly StyledProperty PlaceholderProperty =
+            StyledProperty.Register("PlaceholderText", typeof(string), typeof(SearchBarControl),
                 new PropertyMetadata("", PlaceholderPropertyChanged));
 
         public string PlaceholderText
@@ -71,7 +64,7 @@ namespace CutCode
             get => (string)GetValue(PlaceholderProperty);
             set => SetValue(PlaceholderProperty, value);
         }
-        private static void PlaceholderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void PlaceholderPropertyChanged(DependencyObject d, StyledPropertyChangedEventArgs e)
         {
             if (d is not SearchBarControl ctrl || e.NewValue is not string) return;
             ctrl.placeholder.Text = (string)e.NewValue;
@@ -79,8 +72,8 @@ namespace CutCode
         #endregion
 
         #region PlaceholderText color property
-        public static readonly DependencyProperty PlaceholderTextColorProperty =
-            DependencyProperty.Register("PlaceholderTextColor", typeof(SolidColorBrush), typeof(SearchBarControl),
+        public static readonly StyledProperty PlaceholderTextColorProperty =
+            StyledProperty.Register("PlaceholderTextColor", typeof(SolidColorBrush), typeof(SearchBarControl),
                 new PropertyMetadata(ColorCon.Convert("#FFFFFF"), PlaceholderTextColorPropertyChanged));
 
         public SolidColorBrush PlaceholderTextColor
@@ -88,7 +81,7 @@ namespace CutCode
             get => (SolidColorBrush)GetValue(PlaceholderTextColorProperty);
             set => SetValue(PlaceholderTextColorProperty, value);
         }
-        private static void PlaceholderTextColorPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void PlaceholderTextColorPropertyChanged(DependencyObject d, StyledPropertyChangedEventArgs e)
         {
             if (d is not SearchBarControl ctrl || e.NewValue is not SolidColorBrush) return;
             ctrl.placeholder.Foreground = (SolidColorBrush)e.NewValue;
@@ -96,8 +89,8 @@ namespace CutCode
         #endregion
 
         #region Background color property
-        public static readonly DependencyProperty BackgroundColorProperty =
-            DependencyProperty.Register("BackgroundColor", typeof(SolidColorBrush), typeof(SearchBarControl),
+        public static readonly StyledProperty BackgroundColorProperty =
+            StyledProperty.Register("BackgroundColor", typeof(SolidColorBrush), typeof(SearchBarControl),
                 new PropertyMetadata(ColorCon.Convert("#000000"), BackgroundColorPropertyChanged));
 
         public SolidColorBrush BackgroundColor
@@ -105,7 +98,7 @@ namespace CutCode
             get => (SolidColorBrush)GetValue(BackgroundColorProperty);
             set => SetValue(BackgroundColorProperty, value);
         }
-        private static void BackgroundColorPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void BackgroundColorPropertyChanged(DependencyObject d, StyledPropertyChangedEventArgs e)
         {
             if (d is not SearchBarControl ctrl || e.NewValue is not SolidColorBrush) return;
             ctrl.searchBarFrame.Background = (SolidColorBrush)e.NewValue;
@@ -113,8 +106,8 @@ namespace CutCode
         #endregion
 
         #region Text color property
-        public static readonly DependencyProperty TextColorProperty =
-            DependencyProperty.Register("TextColor", typeof(SolidColorBrush), typeof(SearchBarControl),
+        public static readonly StyledProperty TextColorProperty =
+            StyledProperty.Register("TextColor", typeof(SolidColorBrush), typeof(SearchBarControl),
                 new PropertyMetadata(ColorCon.Convert("#FFFFFF"), TextColorPropertyChanged));
 
         public SolidColorBrush TextColor
@@ -122,7 +115,7 @@ namespace CutCode
             get => (SolidColorBrush)GetValue(TextColorProperty);
             set => SetValue(TextColorProperty, value);
         }
-        private static void TextColorPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void TextColorPropertyChanged(DependencyObject d, StyledPropertyChangedEventArgs e)
         {
             if (d is not SearchBarControl ctrl || e.NewValue is not SolidColorBrush) return;
             ctrl.searchBox.Foreground = (SolidColorBrush)e.NewValue;
@@ -130,8 +123,8 @@ namespace CutCode
         #endregion
 
         #region ButtonHover color property
-        public static readonly DependencyProperty ButtonHoverColorProperty =
-            DependencyProperty.Register("ButtonHoverColor", typeof(SolidColorBrush), typeof(SearchBarControl),
+        public static readonly StyledProperty ButtonHoverColorProperty =
+            StyledProperty.Register("ButtonHoverColor", typeof(SolidColorBrush), typeof(SearchBarControl),
                 new PropertyMetadata(ColorCon.Convert("#000000"), ButtonHoverColorPropertyChanged));
 
         public SolidColorBrush ButtonHoverColor
@@ -139,7 +132,7 @@ namespace CutCode
             get => (SolidColorBrush)GetValue(ButtonHoverColorProperty);
             set => SetValue(ButtonHoverColorProperty, value);
         }
-        private static void ButtonHoverColorPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void ButtonHoverColorPropertyChanged(DependencyObject d, StyledPropertyChangedEventArgs e)
         {
             if (d is not SearchBarControl ctrl || e.NewValue is not SolidColorBrush) return;
             ctrl.exitBtn.BorderBrush = (SolidColorBrush)e.NewValue;
@@ -147,8 +140,8 @@ namespace CutCode
         #endregion
 
         #region Theme property
-        public static readonly DependencyProperty ThemeProperty =
-            DependencyProperty.Register("Theme", typeof(bool), typeof(SearchBarControl),
+        public static readonly StyledProperty ThemeProperty =
+            StyledProperty.Register("Theme", typeof(bool), typeof(SearchBarControl),
                 new PropertyMetadata(true, ThemePropertyChanged));
 
         public bool Theme
@@ -156,7 +149,7 @@ namespace CutCode
             get => (bool)GetValue(TextProperty);
             set => SetValue(TextProperty, value);
         }
-        private static void ThemePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void ThemePropertyChanged(DependencyObject d, StyledPropertyChangedEventArgs e)
         {
             if (d is not SearchBarControl ctrl || e.NewValue is not bool) return;
             ctrl.exitBtnImage.Source = new BitmapImage(new Uri((bool)e.NewValue ? @"../Resources/Images/Icons/exit_black.png" : @"../Resources/Images/Icons/exit_white.png", UriKind.Relative));
@@ -164,8 +157,8 @@ namespace CutCode
         #endregion
 
         #region IsSearched property
-        public static readonly DependencyProperty IsSearchedProperty =
-            DependencyProperty.Register("IsSearched", typeof(bool), typeof(SearchBarControl),
+        public static readonly StyledProperty IsSearchedProperty =
+            StyledProperty.Register("IsSearched", typeof(bool), typeof(SearchBarControl),
                 new PropertyMetadata(true, IsSearchedPropertyChanged));
 
         public bool IsSearched
@@ -173,7 +166,7 @@ namespace CutCode
             get => (bool)GetValue(IsSearchedProperty);
             set => SetValue(IsSearchedProperty, value);
         }
-        private static void IsSearchedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void IsSearchedPropertyChanged(DependencyObject d, StyledPropertyChangedEventArgs e)
         {
             if (d is not SearchBarControl ctrl || e.NewValue is not bool) return;
             if (!string.IsNullOrEmpty(ctrl.Text))
@@ -187,8 +180,8 @@ namespace CutCode
 
         #region Search Command property
 
-        public static readonly DependencyProperty SearchCommandProperty =
-            DependencyProperty.Register("SearchCommand", typeof(ICommand), typeof(SearchBarControl),
+        public static readonly StyledProperty<ICommand> SearchCommandProperty =
+            StyledProperty.Register("SearchCommand", typeof(ICommand), typeof(SearchBarControl),
                 new PropertyMetadata(null));
 
         public ICommand SearchCommand
