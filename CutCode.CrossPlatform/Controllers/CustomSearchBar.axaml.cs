@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -36,6 +37,8 @@ namespace CutCode.CrossPlatform.Controllers
             InitializeComponent();
             this.GetControl("textBox", out textBox);
             this.GetControl("progressBar", out progressBar);
+
+            textBox.DataContext = this;
             progressBar.IsVisible = false;
              
             ThemeService.Current.ThemeChanged += (sender, args) =>
@@ -54,7 +57,7 @@ namespace CutCode.CrossPlatform.Controllers
         {
             AvaloniaXamlLoader.Load(this);
         }
-
+        
         private string _oldText = "";
         private async void SearchActivate(string s)
         {

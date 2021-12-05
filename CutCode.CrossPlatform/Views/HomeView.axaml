@@ -15,7 +15,7 @@
     </UserControl.Background>
     <Grid RowDefinitions="Auto,*">
         <WrapPanel Grid.Row="0">
-            <controls:CustomSearchBar Width="650" Padding="60,10,20,15" 
+            <controls:CustomSearchBar Width="650" Padding="30,10,20,15" 
                                       IsSearchBusy="{Binding IsSearchBusy}"
                                       SearchCommand="{Binding SearchCommand}"
                                       PlaceHolderText="Search your code here">
@@ -31,28 +31,21 @@
             </controls:CustomSearchBar>
             
             <Grid Margin="25,10,0,0" ColumnDefinitions="Auto,Auto">
-                <Grid Grid.Column="0" ColumnDefinitions="Auto,*">
-                    <Label Grid.Column="0" Content="Sort by"  Padding="0,10,0,0"
-                           FontSize="12">
-                        <Label.Foreground>
-                            <SolidColorBrush Color="{Binding searchBarTextColor}"/>
-                        </Label.Foreground>
-                    </Label>
-                    <!-- FontFamily="{StaticResource poppins_regular}"/> -->
-                    <ComboBox  Grid.Column="1" Height="30" Width="150" Margin="5,5,15,5" BorderThickness="0"
-                              Foreground="{Binding searchBarTextColor}" 
-                              Background="{Binding comboboxBackgroundColor}"  SelectedIndex="{Binding sortby}"
-                              IsDropDownOpen="false"
-                              SelectedItem="{Binding CurrentSort1}" Items="{Binding Sorts}"
-                              BorderBrush="{Binding comboboxHoverColor}">
-                        <!-- Text="Sort by"  -->
-                        <ComboBox.Styles>
-                            <Style Selector="ComboBoxItem">
-                                <Setter Property="BorderThickness" Value="0"/>
-                            </Style>
-                        </ComboBox.Styles>
-                    </ComboBox>
-                </Grid>
+                <controls:CustomComboBox Grid.Column="0" Name="Sort by"
+                                         Items="{Binding Sorts}"
+                                         SelectedIndex="{Binding sortby}">
+                                        
+                    <controls:CustomComboBox.Foreground>
+                        <SolidColorBrush Color="{Binding searchBarTextColor}"/>
+                    </controls:CustomComboBox.Foreground>
+                    <controls:CustomComboBox.Background>
+                        <SolidColorBrush Color="{Binding searchBarBackground}"/>
+                    </controls:CustomComboBox.Background>
+                    <controls:CustomComboBox.OverlayBrush>
+                        <SolidColorBrush Color="{Binding comboboxHoverColor}"/>
+                    </controls:CustomComboBox.OverlayBrush>
+                    
+                </controls:CustomComboBox>
                 <Grid Grid.Column="1" ColumnDefinitions="Auto,*">
                     <Label Grid.Column="0" Content="Sort by"  Padding="0,10,0,0"
                            FontSize="12">

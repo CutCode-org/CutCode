@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CutCode.CrossPlatform.Controllers.CustomSearchBar">
-    <StackPanel>
-        <TextBox x:Name="textBox" BorderThickness="0" Width="{Binding $parent[UserControl].Width}">
+    <StackPanel HorizontalAlignment="Stretch">
+        <TextBox x:Name="textBox" BorderThickness="0">
             <TextBox.Styles>
                 <Style Selector="Border">
                     <Setter Property="Background" Value="{TemplateBinding Background}"/>
@@ -15,13 +15,18 @@
                     <Setter Property="Background" Value="{TemplateBinding BorderBrush}"/>
                     <Setter Property="CornerRadius" Value="0.5"/>
                 </Style>
-                <Style Selector="TextBox /template/ TextBlock#PART_Watermark">
-                    <Setter Property="Foreground" Value="#C7C7C7"/>
+                <Style Selector="TextBox /template/ TextBlock#PART_Watermark, TextBox /template/ TextBlock#PART_FloatingWatermark">
+                    <Setter Property="Foreground" Value="#A4A4A4"/>
+                    <Setter Property="Opacity" Value="0"/>
+                </Style>
+                <Style Selector="TextBox:focus /template/ TextBlock#PART_Watermark, TextBox:focus /template/ TextBlock#PART_FloatingWatermark,
+                                 TextBox:pointerover /template/ TextBlock#PART_Watermark, TextBox:pointerover /template/ TextBlock#PART_FloatingWatermark">
+                    <Setter Property="Foreground" Value="#A4A4A4"/>
+                    <Setter Property="Opacity" Value="0"/>
                 </Style>
             </TextBox.Styles>
         </TextBox>
-        <ProgressBar x:Name="progressBar" Background="Transparent" IsIndeterminate="True"/>
-   
-    
+        <ProgressBar x:Name="progressBar" Background="Transparent" IsIndeterminate="True" HorizontalAlignment="Stretch"/>
     </StackPanel>
+    <!-- #C7C7C7 -->
 </UserControl>

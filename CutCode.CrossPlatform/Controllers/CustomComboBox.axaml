@@ -1,0 +1,25 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="CutCode.CrossPlatform.Controllers.CustomComboBox">
+    <Grid
+        ColumnDefinitions="Auto,*">
+        <Label x:Name="nameLabel"
+               Grid.Column="0"  
+               Padding="0,10,0,0"
+               FontSize="12"/>
+        <ComboBox  x:Name="comboBox"
+                   Grid.Column="1" Height="30" 
+                   Width="150" Margin="5,5,15,5" 
+                   BorderThickness="0"
+                   IsDropDownOpen="false">
+            <ComboBox.Styles>
+                <Style Selector="ComboBoxItem">
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </ComboBox.Styles>
+        </ComboBox>
+    </Grid>
+</UserControl>
