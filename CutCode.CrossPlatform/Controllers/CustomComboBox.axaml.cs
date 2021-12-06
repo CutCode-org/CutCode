@@ -29,6 +29,12 @@ namespace CutCode.CrossPlatform.Controllers
             InitializeComponent();
             this.GetControl("nameLabel", out nameLabel);
             this.GetControl("comboBox", out comboBox);
+            
+            comboBox.SelectionChanged += (sender, args) =>
+            {
+                SelectedIndex = comboBox.SelectedIndex;
+                SelectedItem = comboBox.SelectedItem;
+            };
         }
 
         private void InitializeComponent()
@@ -105,16 +111,16 @@ namespace CutCode.CrossPlatform.Controllers
             }
         }
         
-        public new static readonly StyledProperty<IList<object>> ItemsProperty =
-            AvaloniaProperty.Register<ComboBox, IList<object>>(nameof(Items));
+        public new static readonly StyledProperty<IList<string>> ItemsProperty =
+            AvaloniaProperty.Register<ComboBox, IList<string>>(nameof(Items));
 
-        public IList<object> Items
+        public IList<string> Items
         {
             get => GetValue(ItemsProperty);
             set => SetValue(ItemsProperty, value);
         }
 
-        private static void ItemsPropertyChanged(AvaloniaPropertyChangedEventArgs<IList<object>> e)
+        private static void ItemsPropertyChanged(AvaloniaPropertyChangedEventArgs<IList<string>> e)
         {
             if (e.Sender is CustomComboBox ctrl)
             {

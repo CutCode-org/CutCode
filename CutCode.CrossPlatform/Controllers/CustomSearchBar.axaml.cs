@@ -7,6 +7,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Platform;
 using Avalonia.Data;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
@@ -23,6 +24,8 @@ namespace CutCode.CrossPlatform.Controllers
     {
         private TextBox textBox;
         private ProgressBar progressBar;
+        private Button CloseButton;
+        private Grid panel;
         static CustomSearchBar()
         {
             BackgroundProperty.Changed.Subscribe(BackgroundPropertyChanged);
@@ -37,6 +40,8 @@ namespace CutCode.CrossPlatform.Controllers
             InitializeComponent();
             this.GetControl("textBox", out textBox);
             this.GetControl("progressBar", out progressBar);
+            this.GetControl("CloseButton", out CloseButton);
+            this.GetControl("panel", out panel);
 
             textBox.DataContext = this;
             progressBar.IsVisible = false;
@@ -45,12 +50,22 @@ namespace CutCode.CrossPlatform.Controllers
             {
                 var service = (ThemeService)sender!;
                 textBox.CaretBrush = service.IsLightTheme == true ? Brushes.Black : Brushes.White;
+                CloseButton.Foreground = service.IsLightTheme == true ? Brushes.Black : Brushes.White;
             };
             
             this.WhenAnyValue(x => x.textBox.Text)
                 .Throttle(TimeSpan.FromMilliseconds(400))
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(SearchActivate!);
+            
+            CloseButton.Click += CloseButtonOnClick;
+        }
+
+        private void CloseButtonOnClick(object? sender, RoutedEventArgs e)
+        {
+            textBox.Clear();
+            Text = string.Empty;
+            CloseButton.IsVisible = false;
         }
 
         private void InitializeComponent()
@@ -64,10 +79,12 @@ namespace CutCode.CrossPlatform.Controllers
             if (string.IsNullOrWhiteSpace(s) || s == _oldText)
             {
                 IsSearchBusy = false;
+                CloseButton.IsVisible = false;
                 return;
             }
-            SearchCommand?.Execute(s);
+            CloseButton.IsVisible = true;
             _oldText = s;
+            SearchCommand?.Execute(s);
         }
         
         public new static readonly StyledProperty<Brush> BackgroundProperty =
@@ -84,6 +101,7 @@ namespace CutCode.CrossPlatform.Controllers
             if (e.Sender is CustomSearchBar ctrl)
             {
                 ctrl.textBox.Background = e.NewValue.Value;
+                ctrl.panel.Background = e.NewValue.Value;
             }
         }
         

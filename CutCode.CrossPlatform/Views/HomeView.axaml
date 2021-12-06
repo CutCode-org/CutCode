@@ -15,7 +15,7 @@
     </UserControl.Background>
     <Grid RowDefinitions="Auto,*">
         <WrapPanel Grid.Row="0">
-            <controls:CustomSearchBar Width="650" Padding="30,10,20,15" 
+            <controls:CustomSearchBar Width="650" Padding="25,10,20,15" 
                                       IsSearchBusy="{Binding IsSearchBusy}"
                                       SearchCommand="{Binding SearchCommand}"
                                       PlaceHolderText="Search your code here">
@@ -33,8 +33,8 @@
             <Grid Margin="25,10,0,0" ColumnDefinitions="Auto,Auto">
                 <controls:CustomComboBox Grid.Column="0" Name="Sort by"
                                          Items="{Binding Sorts}"
+                                         SelectedItem="{Binding CurrentSort1}"
                                          SelectedIndex="{Binding sortby}">
-                                        
                     <controls:CustomComboBox.Foreground>
                         <SolidColorBrush Color="{Binding searchBarTextColor}"/>
                     </controls:CustomComboBox.Foreground>
@@ -46,26 +46,22 @@
                     </controls:CustomComboBox.OverlayBrush>
                     
                 </controls:CustomComboBox>
-                <Grid Grid.Column="1" ColumnDefinitions="Auto,*">
-                    <Label Grid.Column="0" Content="Sort by"  Padding="0,10,0,0"
-                           FontSize="12">
-                        <Label.Foreground>
-                            <SolidColorBrush Color="{Binding searchBarTextColor}"/>
-                        </Label.Foreground>
-                    </Label>
-                    <ComboBox Grid.Column="1" Height="30" Width="150" PlaceholderText="Languages" Margin="5,5,15,5" BorderThickness="0"
-                              Foreground="{Binding searchBarTextColor}" 
-                              Background="{Binding comboboxBackgroundColor}" SelectedIndex="0"
-                              IsDropDownOpen="false"
-                              SelectedItem="{Binding CurrentSort2}"
-                              BorderBrush="{Binding comboboxHoverColor}" Items="{Binding AllLangs}">
-                        <ComboBox.Styles>
-                            <Style Selector="ComboBoxItem">
-                                <Setter Property="BorderThickness" Value="0"/>
-                            </Style>
-                        </ComboBox.Styles>
-                    </ComboBox>
-                </Grid>
+                
+                <controls:CustomComboBox Grid.Column="1" Name="Languages"
+                                         Items="{Binding AllLangs}"
+                                         SelectedItem="{Binding CurrentSort2}"
+                                         SelectedIndex="0">
+                    <controls:CustomComboBox.Foreground>
+                        <SolidColorBrush Color="{Binding searchBarTextColor}"/>
+                    </controls:CustomComboBox.Foreground>
+                    <controls:CustomComboBox.Background>
+                        <SolidColorBrush Color="{Binding searchBarBackground}"/>
+                    </controls:CustomComboBox.Background>
+                    <controls:CustomComboBox.OverlayBrush>
+                        <SolidColorBrush Color="{Binding comboboxHoverColor}"/>
+                    </controls:CustomComboBox.OverlayBrush>
+                    
+                </controls:CustomComboBox>
             </Grid>
         </WrapPanel>
         

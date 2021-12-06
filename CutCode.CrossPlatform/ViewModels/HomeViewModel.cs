@@ -55,7 +55,7 @@ namespace CutCode.CrossPlatform.ViewModels
             SearchBarOnHoverColor = Color.Parse("#24272B");
             searchBarTextColor = Color.Parse("#FFFFFF");
             comboboxHoverColor = Color.Parse("#202326");
-            comboboxBackgroundColor = Color.Parse("#202225");       
+            comboboxBackgroundColor = Color.Parse("#202225");    
         }
         
         private void AllCodesUpdated(object sender, EventArgs e) 
