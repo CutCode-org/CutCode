@@ -90,6 +90,14 @@ namespace CutCode.CrossPlatform.ViewModels
         public IList<string> Sorts { get; set; }
 
         #region Color
+        private Color _backgroundColor;
+
+        public Color backgroundColor
+        {
+            get => _backgroundColor;
+            set => this.RaiseAndSetIfChanged(ref _backgroundColor, value);
+        }
+        
         private Color _searchBarBackground;
         public Color searchBarBackground
         {
@@ -151,44 +159,9 @@ namespace CutCode.CrossPlatform.ViewModels
             get => _emptyLabel;
             set => this.RaiseAndSetIfChanged(ref _emptyLabel, value);
         }
-
-        private string _CurrentSort1;
-        public string CurrentSort1
+        public async void ComboBoxCommand(string SelectedItem)
         {
-            get => _CurrentSort1;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _CurrentSort1, value);
-                Dispatcher.UIThread.Post(() =>
-                { 
-                    ComboBoxItemSelected(value);
-                    DataBase.sortBy = value;
-                });
-                /*
-                 Application.Current.Dispatcher.Invoke(new Action(() => 
-                { 
-                    ComboBoxItemSelected(value);
-                    database.sortBy = value;
-                }));
-                */
-            }
-        }
-
-        private string _CurrentSort2;
-        public string CurrentSort2
-        {
-            get => _CurrentSort2;
-            set 
-            {
-                this.RaiseAndSetIfChanged(ref _CurrentSort2, value);
-                Dispatcher.UIThread.Post(() => { ComboBoxItemSelected(value); });
-                // Application.Current.Dispatcher.Invoke(new Action(() => { ComboBoxItemSelected(value); }));
-            } 
-        }
-
-        private async void ComboBoxItemSelected(string kind) 
-        {
-            AllCodes = await DataBase.OrderCode(kind);
+            AllCodes = await DataBase.OrderCode(SelectedItem);
             VisChange("Not found :(");
         }
 
@@ -222,14 +195,6 @@ namespace CutCode.CrossPlatform.ViewModels
             }
             IsSearched = true;
             */
-        }
-        
-        private Color _backgroundColor;
-
-        public Color backgroundColor
-        {
-            get => _backgroundColor;
-            set => this.RaiseAndSetIfChanged(ref _backgroundColor, value);
         }
     }
 }

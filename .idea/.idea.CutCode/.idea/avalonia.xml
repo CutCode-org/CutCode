@@ -5,6 +5,7 @@
       <map>
         <entry key="CutCode.CrossPlatform/App.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Controllers/CustomComboBox.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
+        <entry key="CutCode.CrossPlatform/Controllers/CustomComboBoxStyle.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Controllers/CustomSearchBar.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Controllers/SearchBarControl.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Controllers/WindowButtons.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />

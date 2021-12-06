@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
@@ -30,10 +31,10 @@ namespace CutCode.CrossPlatform.Controllers
             this.GetControl("nameLabel", out nameLabel);
             this.GetControl("comboBox", out comboBox);
             
-            comboBox.SelectionChanged += (sender, args) =>
+            comboBox.SelectionChanged += (sender, e) =>
             {
                 SelectedIndex = comboBox.SelectedIndex;
-                SelectedItem = comboBox.SelectedItem;
+                ItemSelected?.Execute((sender as ComboBox)?.SelectedItem as string);
             };
         }
 
@@ -128,13 +129,13 @@ namespace CutCode.CrossPlatform.Controllers
             }
         }
         
-        public new static readonly StyledProperty<object> SelectedItemProperty =
-            AvaloniaProperty.Register<ComboBox, object>(nameof(SelectedItem));
+        public new static readonly StyledProperty<ICommand> ItemSelectedProperty =
+            AvaloniaProperty.Register<ComboBox, ICommand>(nameof(ItemSelected));
 
-        public object SelectedItem
+        public ICommand ItemSelected
         {
-            get => GetValue(SelectedItemProperty);
-            set => SetValue(SelectedItemProperty, value);
+            get => GetValue(ItemSelectedProperty);
+            set => SetValue(ItemSelectedProperty, value);
         }
         
         public new static readonly StyledProperty<int> SelectedIndexProperty =
