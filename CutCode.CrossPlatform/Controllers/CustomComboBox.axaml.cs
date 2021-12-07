@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Data;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 
@@ -22,7 +24,7 @@ namespace CutCode.CrossPlatform.Controllers
             
             NameProperty.Changed.Subscribe(NamePropertyChanged);
             ItemsProperty.Changed.Subscribe(ItemsPropertyChanged);
-            SelectedIndexProperty.Changed.Subscribe(SelectedIndexPropertyChanged);
+            CurrentIndexProperty.Changed.Subscribe(CurrentIndexPropertyChanged);
         }
         
         public CustomComboBox()
@@ -33,7 +35,6 @@ namespace CutCode.CrossPlatform.Controllers
             
             comboBox.SelectionChanged += (sender, e) =>
             {
-                SelectedIndex = comboBox.SelectedIndex;
                 ItemSelected?.Execute((sender as ComboBox)?.SelectedItem as string);
             };
         }
@@ -44,7 +45,7 @@ namespace CutCode.CrossPlatform.Controllers
         }
         
         public new static readonly StyledProperty<Brush> BackgroundProperty =
-            AvaloniaProperty.Register<Border, Brush>(nameof(Background));
+            AvaloniaProperty.Register<CustomComboBox, Brush>(nameof(Background));
 
         public new Brush Background
         {
@@ -61,7 +62,7 @@ namespace CutCode.CrossPlatform.Controllers
         }
         
         public new static readonly StyledProperty<Brush> ForegroundProperty =
-            AvaloniaProperty.Register<Border, Brush>(nameof(Foreground));
+            AvaloniaProperty.Register<CustomComboBox, Brush>(nameof(Foreground));
 
         public new Brush Foreground
         {
@@ -79,7 +80,7 @@ namespace CutCode.CrossPlatform.Controllers
         }
         
         public new static readonly StyledProperty<Brush> OverlayBrushProperty =
-            AvaloniaProperty.Register<Border, Brush>(nameof(OverlayBrush));
+            AvaloniaProperty.Register<CustomComboBox, Brush>(nameof(OverlayBrush));
 
         public new Brush OverlayBrush
         {
@@ -95,8 +96,8 @@ namespace CutCode.CrossPlatform.Controllers
             }
         }
         
-        public new static readonly StyledProperty<string> NameProperty =
-            AvaloniaProperty.Register<ComboBox, string>(nameof(Name));
+        public static readonly StyledProperty<string> NameProperty =
+            AvaloniaProperty.Register<CustomComboBox, string>(nameof(Name), defaultValue:"Combo Box");
 
         public string Name
         {
@@ -113,7 +114,7 @@ namespace CutCode.CrossPlatform.Controllers
         }
         
         public new static readonly StyledProperty<IList<string>> ItemsProperty =
-            AvaloniaProperty.Register<ComboBox, IList<string>>(nameof(Items));
+            AvaloniaProperty.Register<CustomComboBox, IList<string>>(nameof(Items));
 
         public IList<string> Items
         {
@@ -130,7 +131,7 @@ namespace CutCode.CrossPlatform.Controllers
         }
         
         public new static readonly StyledProperty<ICommand> ItemSelectedProperty =
-            AvaloniaProperty.Register<ComboBox, ICommand>(nameof(ItemSelected));
+            AvaloniaProperty.Register<CustomComboBox, ICommand>(nameof(ItemSelected));
 
         public ICommand ItemSelected
         {
@@ -138,20 +139,20 @@ namespace CutCode.CrossPlatform.Controllers
             set => SetValue(ItemSelectedProperty, value);
         }
         
-        public new static readonly StyledProperty<int> SelectedIndexProperty =
-            AvaloniaProperty.Register<ComboBox, int>(nameof(SelectedIndex));
-
-        public int SelectedIndex
+        public static readonly StyledProperty<string> CurrentIndexProperty =
+            AvaloniaProperty.Register<CustomComboBox, string>(nameof(CurrentIndex), defaultBindingMode:BindingMode.TwoWay);
+            
+        public string CurrentIndex
         {
-            get => GetValue(SelectedIndexProperty);
-            set => SetValue(SelectedIndexProperty, value);
+            get => GetValue(CurrentIndexProperty);
+            set => SetValue(CurrentIndexProperty, value);
         }
         
-        private static void SelectedIndexPropertyChanged(AvaloniaPropertyChangedEventArgs<int> e)
+        private static void CurrentIndexPropertyChanged(AvaloniaPropertyChangedEventArgs<string> e)
         {
             if (e.Sender is CustomComboBox ctrl)
             {
-                ctrl.comboBox.SelectedIndex = e.NewValue.Value;
+                ctrl.comboBox.SelectedIndex = int.Parse(e.NewValue.Value);
             }
         }
     }

@@ -15,7 +15,7 @@
     </UserControl.Background>
     <Grid RowDefinitions="Auto,*">
         <WrapPanel Grid.Row="0">
-            <controls:CustomSearchBar Width="650" Padding="25,10,20,15" 
+            <controls:CustomSearchBar Width="700" Padding="25,10,20,15" 
                                       IsSearchBusy="{Binding IsSearchBusy}"
                                       SearchCommand="{Binding SearchCommand}"
                                       PlaceHolderText="Search your code here">
@@ -34,7 +34,7 @@
                 <controls:CustomComboBox Grid.Column="0" Name="Sort by"
                                          Items="{Binding Sorts}"
                                          ItemSelected="{Binding ComboBoxCommand}"
-                                         SelectedIndex="{Binding sortby}">
+                                         CurrentIndex="{Binding  Sortby}">
                     <controls:CustomComboBox.Foreground>
                         <SolidColorBrush Color="{Binding searchBarTextColor}"/>
                     </controls:CustomComboBox.Foreground>
@@ -50,7 +50,7 @@
                 <controls:CustomComboBox Grid.Column="1" Name="Languages"
                                          Items="{Binding AllLangs}"
                                          ItemSelected="{Binding ComboBoxCommand}"
-                                         SelectedIndex="0">
+                                         CurrentIndex="0">
                     <controls:CustomComboBox.Foreground>
                         <SolidColorBrush Color="{Binding searchBarTextColor}"/>
                     </controls:CustomComboBox.Foreground>

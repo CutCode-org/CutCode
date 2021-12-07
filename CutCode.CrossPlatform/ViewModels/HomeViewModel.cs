@@ -24,8 +24,6 @@ namespace CutCode.CrossPlatform.ViewModels
             AllCodes = DataBase.AllCodes;
             DataBase.AllCodesUpdated += AllCodesUpdated;
 
-            sortby = DataBase.sortBy == "Date" ? 0 : 1;
-
             IsSearchBusy = false;
 
             AllLangs = new ObservableCollection<string>()
@@ -34,6 +32,8 @@ namespace CutCode.CrossPlatform.ViewModels
             "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
             };
             Sorts = new ObservableCollection<string>() { "Date", "Alphabet" };
+
+            Sortby = DataBase.sortBy == "Date" ? "0" : "1";
 
             VisChange();
         }
@@ -151,7 +151,8 @@ namespace CutCode.CrossPlatform.ViewModels
             get => _codesVis;
             set => this.RaiseAndSetIfChanged(ref _codesVis, value);
         }
-        public int sortby { get; set; }
+
+        private string Sortby { get; set; }
 
         private string _emptyLabel;
         public string emptyLabel
