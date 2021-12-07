@@ -15,7 +15,7 @@
     </UserControl.Background>
     <Grid RowDefinitions="Auto,*">
         <WrapPanel Grid.Row="0">
-            <controls:CustomSearchBar Width="700" Padding="25,10,20,15" 
+            <controls:CustomSearchBar MinWidth="650" Margin="20,10,20,15" 
                                       IsSearchBusy="{Binding IsSearchBusy}"
                                       SearchCommand="{Binding SearchCommand}"
                                       PlaceHolderText="Search your code here">
