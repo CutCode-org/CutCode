@@ -11,7 +11,6 @@
     <Folder Include="Controllers\" />
     <AvaloniaResource Include="Assets\**" />
     <AvaloniaResource Include="Assets\Images\Icons\**" />
-    <Folder Include="Styles" />
     <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup>
