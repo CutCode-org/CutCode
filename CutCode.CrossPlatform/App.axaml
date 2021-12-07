@@ -18,8 +18,8 @@
   <Application.Styles>
     <FluentTheme Mode="Dark"/>
     <StyleInclude Source="avares://Aura.UI.FluentTheme/AuraUI.xaml"/>
-    <StyleInclude Source="avares://CutCode.CrossPlaftorm/Styles/CustomButtonStyles.xaml"/>
-    <StyleInclude Source="avares://CutCode.CrossPlaftorm/Styles/CustomScrollBarStyle.xaml"/>
+    <StyleInclude Source="avares://CutCode.CrossPlaftorm/Styles/CustomButtonStyles.axaml"/>
+    <StyleInclude Source="avares://CutCode.CrossPlaftorm/Styles/CustomScrollBarStyle.axaml"/>
   </Application.Styles>
   
 </Application>
