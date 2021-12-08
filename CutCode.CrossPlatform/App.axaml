@@ -24,7 +24,6 @@
     
     <StyleInclude Source="/Styles/CustomButtonStyles.axaml"/>
     <StyleInclude Source="/Styles/CustomScrollBarStyle.axaml"/>
-    <StyleInclude Source="/Styles/CustomScrollViewerStyle.axaml"/>
 
   </Application.Styles>
 </Application>
