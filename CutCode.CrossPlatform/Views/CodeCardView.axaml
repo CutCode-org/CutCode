@@ -16,7 +16,7 @@
         <StackPanel Grid.Column="1">
             <Label Margin="3,4,3,6"
                    Content="{Binding Title}" 
-                   FontFamily="{DynamicResource poppins_semibold}"
+                   FontFamily="{DynamicResource PoppinsSemibold}"
                    FontSize="14" FontWeight="Bold">
                 <Label.Foreground>
                     <SolidColorBrush Color="{Binding mainTextColor}"/>
@@ -24,7 +24,7 @@
             </Label>
             <Label Margin="3,0,3,0"
                    Content="{Binding Desc}" 
-                   FontFamily="{DynamicResource poppins_semibold}"
+                   FontFamily="{DynamicResource PoppinsSemibold}"
                    FontSize="13">
                 <Label.Foreground>
                     <SolidColorBrush Color="{Binding mainTextColor}"/>

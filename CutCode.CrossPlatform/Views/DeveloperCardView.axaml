@@ -23,7 +23,7 @@
             <StackPanel Grid.Column="1">
                 <Label Margin="-7,10,0,0"
                        Content="{Binding Name}" 
-                       FontFamily="{DynamicResource poppins_semibold}"
+                       FontFamily="{DynamicResource PoppinsSemibold}"
                        FontSize="18" FontWeight="Bold">
                     <Label.Foreground>
                         <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.mainTextColor}"/>
@@ -31,14 +31,14 @@
                 </Label>
                 <Label Margin="-7,0,0,0"
                        Content="{Binding UserName}" 
-                       FontFamily="{DynamicResource poppins_semibold}"
+                       FontFamily="{DynamicResource PoppinsSemibold}"
                        FontSize="14">
                     <Label.Foreground>
                         <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.mainTextColor}"/>
                     </Label.Foreground>
                 </Label>
                 <TextBlock Margin="-3,7,0,0" Text="{Binding Desc}" 
-                           FontFamily="{DynamicResource poppins_regular}" FontSize="15"
+                           FontFamily="{DynamicResource PoppinsRegular}" FontSize="15"
                            TextWrapping="Wrap">
                     <TextBlock.Foreground>
                         <SolidColorBrush Color="{Binding $parent[ItemsControl].DataContext.mainTextColor}"/>

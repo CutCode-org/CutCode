@@ -1,7 +1,9 @@
+using System;
 using System.Diagnostics;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
 using Avalonia.ReactiveUI;
 using CutCode.CrossPlatform.Interfaces;
@@ -28,13 +30,12 @@ namespace CutCode.CrossPlatform
                 {
                     DataContext = new MainWindowViewModel()
                 };
-                
-                desktop.Exit += (s,e)=>
+
+                desktop.Exit += (s, e) =>
                 {
                     DataBaseManager.Current.ChangeTheme(ThemeService.Current.IsLightTheme);
                 };
             }
-
             base.OnFrameworkInitializationCompleted();
         }
     }

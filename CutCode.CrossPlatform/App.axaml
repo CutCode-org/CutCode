@@ -11,16 +11,20 @@
   </Application.DataTemplates>
 
   <Application.Resources>
-    <FontFamily x:Key="poppins_semibold">/Assets/Fonts/Poppins-SemiBold.ttf</FontFamily>
-    <FontFamily x:Key="poppins_regular">/Assets/Fonts/Poppins-Regular.ttf</FontFamily>
-    <FontFamily x:Key="firacode">/Assets/Fonts/FiraCode-Regular.ttf</FontFamily>
+    <FontFamily x:Key="PoppinsSemibold">/Assets/Fonts/Poppins-SemiBold.ttf</FontFamily>
+    <FontFamily x:Key="PoppinsRegular">/Assets/Fonts/Poppins-Regular.ttf</FontFamily>
+    <FontFamily x:Key="Firacode">/Assets/Fonts/FiraCode-Regular.ttf</FontFamily>
   </Application.Resources>
+  
+  
   <Application.Styles>
     <FluentTheme Mode="Dark"/>
+    
     <StyleInclude Source="avares://Aura.UI.FluentTheme/AuraUI.xaml"/>
+    
     <StyleInclude Source="/Styles/CustomButtonStyles.axaml"/>
     <StyleInclude Source="/Styles/CustomScrollBarStyle.axaml"/>
+    <StyleInclude Source="/Styles/CustomScrollViewerStyle.axaml"/>
 
   </Application.Styles>
-  
 </Application>

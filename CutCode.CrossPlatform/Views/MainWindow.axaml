@@ -38,7 +38,7 @@
           <Border VerticalAlignment="Top" CornerRadius="0,10,10,0" BorderThickness="0" Background="{TemplateBinding Background}"  Margin="5,5,5,5">
               <Label Content="{TemplateBinding Content}" FontSize="12"
                      Foreground="{TemplateBinding BorderBrush}"
-                     FontFamily="{DynamicResource poppins_semibold}" FontWeight="SemiBold" Height="34" Margin="2,6,2,2"/>
+                     FontFamily="{DynamicResource PoppinsSemibold}" FontWeight="SemiBold" Height="34" Margin="2,6,2,2"/>
           </Border>
         </ControlTemplate>
       </Setter>

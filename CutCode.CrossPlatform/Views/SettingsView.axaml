@@ -29,7 +29,7 @@
                         <SolidColorBrush Color="{Binding cardColor}"/>
                     </StackPanel.Background>
                     <Label Content="Sync"
-                           FontWeight="Bold" FontFamily="{DynamicResource poppins_semibold}" FontSize="22" Margin="25,18,0,10">
+                           FontWeight="Bold" FontFamily="{DynamicResource PoppinsSemibold}" FontSize="22" Margin="25,18,0,10">
                         <Label.Foreground>
                             <SolidColorBrush Color="{Binding mainTextColor}"/>
                         </Label.Foreground>
@@ -48,7 +48,7 @@
                             </Viewbox>
                             <Label VerticalAlignment="Center" 
                                    Margin="20,0,0,0"
-                                Content="Import" FontFamily="{DynamicResource poppins_regular}" FontWeight="Bold" FontSize="16">
+                                Content="Import" FontFamily="{DynamicResource PoppinsRegular}" FontWeight="Bold" FontSize="16">
                                 <Label.Foreground>
                                     <SolidColorBrush Color="{Binding mainTextColor}"/>
                                 </Label.Foreground>
@@ -70,7 +70,7 @@
                             </Viewbox>
                             <Label VerticalAlignment="Center" 
                                    Margin="20,0,0,0"
-                                Content="Export" FontFamily="{DynamicResource poppins_regular}" FontWeight="Bold" FontSize="16">
+                                Content="Export" FontFamily="{DynamicResource PoppinsRegular}" FontWeight="Bold" FontSize="16">
                                 <Label.Foreground>
                                     <SolidColorBrush Color="{Binding mainTextColor}"/>
                                 </Label.Foreground>
@@ -87,7 +87,7 @@
                         <SolidColorBrush Color="{Binding cardColor}"/>
                     </StackPanel.Background>
                     <Label Content="Developers"
-                           FontWeight="Bold" FontFamily="{DynamicResource poppins_semibold}" FontSize="22" Margin="25,18,0,10">
+                           FontWeight="Bold" FontFamily="{DynamicResource PoppinsSemibold}" FontSize="22" Margin="25,18,0,10">
                         <Label.Foreground>
                             <SolidColorBrush Color="{Binding mainTextColor}"/>
                         </Label.Foreground>

@@ -35,7 +35,6 @@
             <RepeatButton Name="PART_LineDownButton" HorizontalAlignment="Center"
                           Classes="repeat"
                           Grid.Row="2"
-                          Grid.Column="2"
                           Focusable="False"
                           MinHeight="{DynamicResource ScrollBarThickness}">
               <Path Data="M 0 0 L 4 4 L 8 0 Z" />
@@ -60,8 +59,7 @@
                           MinWidth="{DynamicResource ScrollBarThickness}">
               <Path Data="M 4 0 L 4 8 L 0 4 Z" />
             </RepeatButton>
-            <Track Grid.Row="1"
-                   Grid.Column="1"
+            <Track Grid.Column="1"
                    Minimum="{TemplateBinding Minimum}"
                    Maximum="{TemplateBinding Maximum}"
                    Value="{TemplateBinding Value, Mode=TwoWay}"
@@ -81,7 +79,6 @@
             </Track>
             <RepeatButton Name="PART_LineDownButton" VerticalAlignment="Center"
                           Classes="repeat"
-                          Grid.Row="2"
                           Grid.Column="2"
                           Focusable="False"
                           MinWidth="{DynamicResource ScrollBarThickness}">
