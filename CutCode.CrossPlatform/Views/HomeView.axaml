@@ -34,7 +34,7 @@
                 <controls:CustomComboBox Grid.Column="0" Name="Sort by"
                                          Items="{Binding Sorts}"
                                          ItemSelected="{Binding ComboBoxCommand}"
-                                         CurrentIndex="{Binding  Sortby}">
+                                         SelectedIndex="{Binding  Sortby}">
                     <controls:CustomComboBox.Foreground>
                         <SolidColorBrush Color="{Binding searchBarTextColor}"/>
                     </controls:CustomComboBox.Foreground>
@@ -50,7 +50,7 @@
                 <controls:CustomComboBox Grid.Column="1" Name="Languages"
                                          Items="{Binding AllLangs}"
                                          ItemSelected="{Binding ComboBoxCommand}"
-                                         CurrentIndex="0">
+                                         SelectedIndex="0">
                     <controls:CustomComboBox.Foreground>
                         <SolidColorBrush Color="{Binding searchBarTextColor}"/>
                     </controls:CustomComboBox.Foreground>

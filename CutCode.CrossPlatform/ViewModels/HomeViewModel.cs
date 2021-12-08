@@ -33,7 +33,7 @@ namespace CutCode.CrossPlatform.ViewModels
             };
             Sorts = new ObservableCollection<string>() { "Date", "Alphabet" };
 
-            Sortby = DataBase.sortBy == "Date" ? "0" : "1";
+            Sortby = DataBase.sortBy == "Date" ? 0 : 1;
 
             VisChange();
         }
@@ -152,7 +152,7 @@ namespace CutCode.CrossPlatform.ViewModels
             set => this.RaiseAndSetIfChanged(ref _codesVis, value);
         }
 
-        private string Sortby { get; set; }
+        private int Sortby { get; set; }
 
         private string _emptyLabel;
         public string emptyLabel

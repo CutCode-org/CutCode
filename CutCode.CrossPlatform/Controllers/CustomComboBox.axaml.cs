@@ -24,7 +24,7 @@ namespace CutCode.CrossPlatform.Controllers
             
             NameProperty.Changed.Subscribe(NamePropertyChanged);
             ItemsProperty.Changed.Subscribe(ItemsPropertyChanged);
-            CurrentIndexProperty.Changed.Subscribe(CurrentIndexPropertyChanged);
+            SelectedIndexProperty.Changed.Subscribe(SelectedIndexPropertyChanged);
         }
         
         public CustomComboBox()
@@ -139,20 +139,20 @@ namespace CutCode.CrossPlatform.Controllers
             set => SetValue(ItemSelectedProperty, value);
         }
         
-        public static readonly StyledProperty<string> CurrentIndexProperty =
-            AvaloniaProperty.Register<CustomComboBox, string>(nameof(CurrentIndex), defaultBindingMode:BindingMode.TwoWay);
+        public static readonly StyledProperty<int> SelectedIndexProperty  =
+            AvaloniaProperty.Register<CustomComboBox, int>(nameof(SelectedIndex), defaultValue:-1, defaultBindingMode:BindingMode.TwoWay);
             
-        public string CurrentIndex
+        public int SelectedIndex
         {
-            get => GetValue(CurrentIndexProperty);
-            set => SetValue(CurrentIndexProperty, value);
+            get => GetValue(SelectedIndexProperty);
+            set => SetValue(SelectedIndexProperty, value);
         }
         
-        private static void CurrentIndexPropertyChanged(AvaloniaPropertyChangedEventArgs<string> e)
+        private static void SelectedIndexPropertyChanged(AvaloniaPropertyChangedEventArgs<int> e)
         {
             if (e.Sender is CustomComboBox ctrl)
             {
-                ctrl.comboBox.SelectedIndex = int.Parse(e.NewValue.Value);
+                ctrl.comboBox.SelectedIndex = e.NewValue.Value;
             }
         }
     }

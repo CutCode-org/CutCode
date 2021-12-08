@@ -10,6 +10,9 @@
         <entry key="CutCode.CrossPlatform/Controllers/SearchBarControl.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Controllers/WindowButtons.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Styles/ButtonsStyle.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
+        <entry key="CutCode.CrossPlatform/Styles/CustomButtonStyles.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
+        <entry key="CutCode.CrossPlatform/Styles/CustomScrollBarStyle.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
+        <entry key="CutCode.CrossPlatform/Styles/CustomScrollStyle.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Styles/SearchBarStyle.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Views/AddView.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Views/CodeCardView.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
