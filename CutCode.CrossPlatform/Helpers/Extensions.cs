@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CutCode.CrossPlatform
+namespace CutCode.CrossPlatform.Helpers
 {
     public static class Extensions
     {

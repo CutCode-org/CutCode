@@ -16,7 +16,6 @@
             <SolidColorBrush x:Key="ScrollBarButtonBorderBrush" Color="Transparent"></SolidColorBrush> 
             <SolidColorBrush x:Key="ScrollBarButtonBorderBrushPointerOver" Color="Transparent"></SolidColorBrush> 
             <SolidColorBrush x:Key="ScrollBarButtonBorderBrushPressed" Color="Transparent"></SolidColorBrush> 
-            
         </Style.Resources> 
     </Style> 
 </Styles>

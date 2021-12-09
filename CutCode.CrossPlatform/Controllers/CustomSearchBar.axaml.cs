@@ -13,6 +13,7 @@ using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
 using Avalonia.Rendering;
 using Avalonia.Styling;
+using CutCode.CrossPlatform.Helpers;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.ViewModels;
 using MathNet.Numerics.Optimization.LineSearch;

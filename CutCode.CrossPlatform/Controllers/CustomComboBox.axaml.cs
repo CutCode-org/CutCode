@@ -8,6 +8,7 @@ using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using CutCode.CrossPlatform.Helpers;
 
 namespace CutCode.CrossPlatform.Controllers
 {
