@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
              xmlns:controls="using:CutCode.CrossPlatform.Controllers"
-             xmlns:vw="using:CutCode.CrossPlatform.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CutCode.CrossPlatform.Views.HomeView">
     <UserControl.DataContext>
