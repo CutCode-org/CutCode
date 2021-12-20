@@ -64,4 +64,7 @@
     <UpToDateCheckInput Remove="Assets\Images\Icons\toggle_on_black.png" />
     <UpToDateCheckInput Remove="Assets\Images\Icons\toggle_on_white.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AvaloniaEdit\AvaloniaEdit.csproj" />
+  </ItemGroup>
 </Project>

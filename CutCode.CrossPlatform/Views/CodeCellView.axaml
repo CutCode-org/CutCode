@@ -1,0 +1,42 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:exts="using:Aura.UI.ExtensionProperties"
+      xmlns:avEdit="using:AvaloniaEdit"
+      xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
+      mc:Ignorable="d"
+      x:Class="CutCode.CrossPlatform.Views.CodeCellView"
+      BorderThickness="0" CornerRadius="5">
+    <UserControl.DataContext>
+        <vm:CodeCellViewModel/>
+    </UserControl.DataContext>
+    
+    <UserControl.Background>
+        <SolidColorBrush Color="{Binding Background}"/>
+    </UserControl.Background>
+    
+    <Grid ColumnDefinitions="*, Auto">
+        
+        <Grid Grid.Column="0" RowDefinitions="Auto, *">
+            
+            <TextBox Grid.Row="0" Height="30" 
+                     CornerRadius="5" BorderThickness="0"
+                     Background="Transparent" Foreground="Black"
+                     Text="{Binding Description}"
+                     Watermark="Description for your code"
+                     Margin="3">
+            
+            </TextBox>
+            
+            <avEdit:TextEditor Grid.Row="1" Margin="3" Text="{Binding Code}">
+            
+            </avEdit:TextEditor>
+        </Grid>
+    
+        <!-- Grid for Delete and other buttons --> 
+        <Grid Grid.Column="1">
+        
+        </Grid>
+    </Grid>
+</UserControl>

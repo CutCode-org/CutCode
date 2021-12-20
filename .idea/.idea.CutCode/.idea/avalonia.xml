@@ -3,6 +3,9 @@
   <component name="AvaloniaProject">
     <option name="projectPerEditor">
       <map>
+        <entry key="AvaloniaEdit/AvaloniaEdit.xaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
+        <entry key="AvaloniaEdit/Editing/TextArea.xaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
+        <entry key="AvaloniaEdit/TextEditor.xaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/App.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Controllers/CustomComboBox.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Controllers/CustomComboBoxStyle.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
@@ -17,6 +20,7 @@
         <entry key="CutCode.CrossPlatform/Styles/SearchBarStyle.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Views/AddView.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Views/CodeCardView.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
+        <entry key="CutCode.CrossPlatform/Views/CodeCellView.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Views/DeveloperCardView.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Views/FavoritesView.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Views/HomeView.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
