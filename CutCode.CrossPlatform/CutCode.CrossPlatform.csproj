@@ -16,11 +16,11 @@
     <PackageReference Include="Aura.UI" Version="0.1.5-dev-03" />
     <PackageReference Include="Aura.UI.FluentTheme" Version="0.1.5-dev-03" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0-preview.1" />
-    <PackageReference Include="Avalonia" Version="0.10.10" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.10" />
+    <PackageReference Include="Avalonia" Version="0.10.11" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.11" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.10" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.10" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.11" />
     <PackageReference Include="FluentAvaloniaUI" Version="1.1.6" />
     <PackageReference Include="Material.Avalonia" Version="2.5.0.33-nightly" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />

@@ -24,6 +24,10 @@
     
     <StyleInclude Source="/Styles/CustomButtonStyles.axaml"/>
     <StyleInclude Source="/Styles/CustomScrollBarStyle.axaml"/>
+    <StyleInclude Source="/Styles/CustomTextBoxStyle.axaml"/>
+    <StyleInclude Source="/Styles/CustomToolTip.axaml"/>
+    
+    <StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml" />
 
   </Application.Styles>
 </Application>

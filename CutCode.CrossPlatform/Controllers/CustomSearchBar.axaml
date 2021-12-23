@@ -7,25 +7,7 @@
     
     <Grid x:Name="panel" ColumnDefinitions="*,Auto" HorizontalAlignment="Stretch" Height="35">
         <StackPanel Grid.Column="0">
-            <TextBox x:Name="textBox" BorderThickness="0">
-                <TextBox.Styles>
-                    <Style Selector="Border">
-                        <Setter Property="Background" Value="{TemplateBinding Background}"/>
-                        <Setter Property="CornerRadius" Value="0.5"/>
-                    </Style>
-                    <Style Selector="Border:pointerover">
-                        <Setter Property="Background" Value="{TemplateBinding BorderBrush}"/>
-                        <Setter Property="CornerRadius" Value="0.5"/>
-                    </Style>
-                    <Style Selector="TextBox /template/ TextBlock#PART_Watermark, TextBox /template/ TextBlock#PART_FloatingWatermark">
-                        <Setter Property="Foreground" Value="{TemplateBinding Foreground}"/>
-                    </Style>
-                    <Style Selector="TextBox:focus /template/ TextBlock#PART_Watermark, TextBox:focus /template/ TextBlock#PART_FloatingWatermark,
-                             TextBox:pointerover /template/ TextBlock#PART_Watermark, TextBox:pointerover /template/ TextBlock#PART_FloatingWatermark">
-                        <Setter Property="Foreground" Value="{TemplateBinding Foreground}"/>
-                    </Style>
-                </TextBox.Styles>
-            </TextBox>
+            <TextBox x:Name="textBox" BorderThickness="0" CornerRadius="0.5"/>
             <ProgressBar x:Name="progressBar" Background="Transparent" IsIndeterminate="true" HorizontalAlignment="Stretch"/>
         </StackPanel>
         <Button Grid.Column="1" x:Name="CloseButton" Padding="4" Margin="0,0,4,0"

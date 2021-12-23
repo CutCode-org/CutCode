@@ -9,18 +9,23 @@
     <UserControl.DataContext>
         <vm:AddViewModel/>
     </UserControl.DataContext>
+    <UserControl.Background>
+        <SolidColorBrush Color="{Binding backgroundColor}"/>
+    </UserControl.Background>
     <Grid RowDefinitions="Auto,*"> 
         <Grid Grid.Row="0">
             
         </Grid>
         <Grid Grid.Row="1" RowDefinitions="*, Auto">
-            <ListBox Grid.Row="0" Items="{Binding Cells}">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-            </ListBox>
+            <ScrollViewer Grid.Row="0">
+                <ItemsControl Items="{Binding Cells}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
             <Grid Grid.Row="1">
                 
             </Grid>

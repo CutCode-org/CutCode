@@ -44,11 +44,13 @@ namespace CutCode.CrossPlatform.ViewModels
         protected override void OnLightThemeIsSet()
         {
             Background = Color.Parse("#E3E5E8");
+            TextColor = Color.Parse("#000000");
         }
 
         protected override void OnDarkThemeIsSet()
         {
-            Background = Color.Parse("#E3E5E8");
+            Background = Color.Parse("#202225");
+            TextColor = Color.Parse("#FFFFFF");
         }
         
         private Color _background;
@@ -56,6 +58,14 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             get => _background;
             set => this.RaiseAndSetIfChanged(ref _background, value);
+        }
+        
+        private Color _textColor;
+        public Color TextColor
+        {
+            get => _textColor;
+            set =>  this.RaiseAndSetIfChanged(ref _textColor, value);
+            
         }
     }
 }
