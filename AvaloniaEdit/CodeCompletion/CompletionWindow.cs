@@ -48,13 +48,13 @@ namespace AvaloniaEdit.CodeCompletion
             CompletionList = new CompletionList();
             // keep height automatic
             CloseAutomatically = true;
-            MaxHeight = 300;
+            MaxHeight = 225;
             Width = 175;
-            Content = CompletionList;
+            Child = CompletionList;
             // prevent user from resizing window to 0x0
             MinHeight = 15;
-            MinWidth = 30;
-            
+            MinWidth = 30;          
+
             _toolTipContent = new ContentControl();
             _toolTipContent.Classes.Add("ToolTip");
 
@@ -68,7 +68,7 @@ namespace AvaloniaEdit.CodeCompletion
 
             LogicalChildren.Add(_toolTip);
 
-            _toolTip.Closed += (o, e) => ((Popup)o).Child = null;
+            //_toolTip.Closed += (o, e) => ((Popup)o).Child = null;
 
             AttachEvents();
         }
@@ -104,12 +104,25 @@ namespace AvaloniaEdit.CodeCompletion
                     };
                 }
                 else
-                {
+                {                   
                     _toolTipContent.Content = description;
                 }
 
-                _toolTip.Position = this.PointToScreen(Bounds.TopRight.WithX(Bounds.Right + 10));
-                _toolTip.IsOpen = true;
+                _toolTip.IsOpen = false; //Popup needs to be closed to change position
+
+                //Calculate offset for tooltip
+                if (CompletionList.CurrentList != null)
+                {
+                    int index = CompletionList.CurrentList.IndexOf(item);
+                    int scrollIndex = (int)CompletionList.ListBox.Scroll.Offset.Y;
+                    int yoffset = index - scrollIndex;
+                    if (yoffset < 0) yoffset = 0;
+                    if ((yoffset+1) * 20 > MaxHeight) yoffset--;
+                    _toolTip.Offset = new PixelPoint(2, yoffset * 20); //Todo find way to measure item height
+                }
+
+                _toolTip.PlacementTarget = this.Host as PopupRoot;
+                _toolTip.IsOpen = true;                    
             }
             else
             {
@@ -167,8 +180,7 @@ namespace AvaloniaEdit.CodeCompletion
         private void TextArea_MouseWheel(object sender, PointerWheelEventArgs e)
         {
             e.Handled = RaiseEventPair(GetScrollEventTarget(),
-                                       null, PointerWheelChangedEvent,
-                                       new PointerWheelEventArgs { Device = e.Device, Delta = e.Delta, InputModifiers = e.InputModifiers });
+                                       null, PointerWheelChangedEvent, e);
         }
 
         private Control GetScrollEventTarget()
@@ -207,6 +219,9 @@ namespace AvaloniaEdit.CodeCompletion
                 else
                 {
                     CompletionList.SelectItem(string.Empty);
+
+                    if (CompletionList.ListBox.ItemCount == 0) IsVisible = false;
+                    else IsVisible = true;
                 }
                 return;
             }
@@ -223,6 +238,9 @@ namespace AvaloniaEdit.CodeCompletion
                 if (document != null)
                 {
                     CompletionList.SelectItem(document.GetText(StartOffset, offset - StartOffset));
+
+                    if (CompletionList.ListBox.ItemCount == 0) IsVisible = false;
+                    else IsVisible = true;
                 }
             }
         }

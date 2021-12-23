@@ -22,6 +22,7 @@ using AvaloniaEdit.Utils;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
+using Avalonia.Data;
 
 namespace AvaloniaEdit.Folding
 {
@@ -50,11 +51,17 @@ namespace AvaloniaEdit.Folding
         protected override void OnPointerPressed(PointerPressedEventArgs e)
         {
             base.OnPointerPressed(e);
-            if (!e.Handled && e.MouseButton == MouseButton.Left)
+            if (!e.Handled)
             {
                 IsExpanded = !IsExpanded;
                 e.Handled = true;
             }
+        }
+
+        protected override void OnPointerMoved(PointerEventArgs e)
+        {
+            base.OnPointerMoved(e);
+            Cursor = Cursor.Default;
         }
 
         private const double MarginSizeFactor = 0.7;
@@ -70,11 +77,9 @@ namespace AvaloniaEdit.Folding
         {
             var margin = (FoldingMargin)Parent;
             var activePen = new Pen(margin.SelectedFoldingMarkerBrush,
-                startLineCap: PenLineCap.Square,
-                endLineCap: PenLineCap.Square);
+                lineCap: PenLineCap.Square);
             var inactivePen = new Pen(margin.FoldingMarkerBrush,
-                startLineCap: PenLineCap.Square,
-                endLineCap: PenLineCap.Square);
+                lineCap: PenLineCap.Square);
             var pixelSize = PixelSnapHelpers.GetPixelSize(this);
             var rect = new Rect(pixelSize.Width / 2,
                                  pixelSize.Height / 2,
@@ -103,10 +108,12 @@ namespace AvaloniaEdit.Folding
             }
         }
 
-        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs e)
+
+        protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
         {
-            base.OnPropertyChanged(e);
-            if (e.Property == IsPointerOverProperty)
+            base.OnPropertyChanged(change);
+
+            if (change.Property == IsPointerOverProperty)
             {
                 InvalidateVisual();
             }

@@ -30,11 +30,11 @@ using AvaloniaEdit.Utils;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Shapes;
-using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml.Data;
 using Avalonia.Media;
+using Avalonia.Data;
+using AvaloniaEdit.Search;
 
 namespace AvaloniaEdit
 {
@@ -48,6 +48,8 @@ namespace AvaloniaEdit
         static TextEditor()
         {
             FocusableProperty.OverrideDefaultValue<TextEditor>(true);
+            HorizontalScrollBarVisibilityProperty.OverrideDefaultValue<TextEditor>(ScrollBarVisibility.Auto);
+            VerticalScrollBarVisibilityProperty.OverrideDefaultValue<TextEditor>(ScrollBarVisibility.Auto);
 
             TextProperty.Changed.Subscribe(TextPropertyChanged);
             OptionsProperty.Changed.Subscribe(OnOptionsChanged);
@@ -57,7 +59,6 @@ namespace AvaloniaEdit
             IsModifiedProperty.Changed.Subscribe(OnIsModifiedChanged);
             ShowLineNumbersProperty.Changed.Subscribe(OnShowLineNumbersChanged);
             LineNumbersForegroundProperty.Changed.Subscribe(OnLineNumbersForegroundChanged);
-
         }
 
         /// <summary>
@@ -71,14 +72,19 @@ namespace AvaloniaEdit
         /// <summary>
         /// Creates a new TextEditor instance.
         /// </summary>
-        protected TextEditor(TextArea textArea)
+        protected TextEditor(TextArea textArea) : this(textArea, new TextDocument())
+        {
+            
+        }
+
+        protected TextEditor(TextArea textArea, TextDocument document)
         {
             TextArea = textArea ?? throw new ArgumentNullException(nameof(textArea));
 
             textArea.TextView.Services.AddService(this);
 
             SetValue(OptionsProperty, textArea.Options);
-            SetValue(DocumentProperty, new TextDocument());
+            SetValue(DocumentProperty, document);
 
             textArea[!BackgroundProperty] = this[!BackgroundProperty];
         }
@@ -96,7 +102,7 @@ namespace AvaloniaEdit
         /// <summary>
         /// Document property.
         /// </summary>
-        public static readonly AvaloniaProperty<TextDocument> DocumentProperty
+        public static readonly StyledProperty<TextDocument> DocumentProperty
             = TextView.DocumentProperty.AddOwner<TextEditor>();
 
         /// <summary>
@@ -132,7 +138,7 @@ namespace AvaloniaEdit
             if (oldValue != null)
             {
                 TextDocumentWeakEventManager.TextChanged.RemoveHandler(oldValue, OnTextChanged);
-                PropertyChangedWeakEventManager.RemoveHandler(newValue.UndoStack, OnUndoStackPropertyChangedHandler);
+                PropertyChangedWeakEventManager.RemoveHandler(oldValue.UndoStack, OnUndoStackPropertyChangedHandler);
             }
             TextArea.Document = newValue;
             if (newValue != null)
@@ -150,7 +156,7 @@ namespace AvaloniaEdit
         /// <summary>
         /// Options property.
         /// </summary>
-        public static readonly AvaloniaProperty<TextEditorOptions> OptionsProperty
+        public static readonly StyledProperty<TextEditorOptions> OptionsProperty
             = TextView.OptionsProperty.AddOwner<TextEditor>();
 
         /// <summary>
@@ -217,9 +223,8 @@ namespace AvaloniaEdit
         #region Text property
         /// <summary>
         /// Gets/Sets the text of the current document.
-        /// </summary>
+        /// </
         ///
-        /// My new implementation of Text with binding property set
         public string Text
         {
             get => GetValue(TextProperty);
@@ -243,7 +248,6 @@ namespace AvaloniaEdit
                 document.UndoStack.ClearAll();
             }
         }
-
         /*
         public string Text
         {
@@ -288,11 +292,13 @@ namespace AvaloniaEdit
 
         #region TextArea / ScrollViewer properties
 
-        protected override void OnTemplateApplied(TemplateAppliedEventArgs e)
+        protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
-            base.OnTemplateApplied(e);
+            base.OnApplyTemplate(e);
             ScrollViewer = (ScrollViewer)e.NameScope.Find("PART_ScrollViewer");
             ScrollViewer.Content = TextArea;
+
+            SearchPanel.Install(this);
         }
 
         /// <summary>
@@ -312,7 +318,7 @@ namespace AvaloniaEdit
         /// <summary>
         /// The <see cref="SyntaxHighlighting"/> property.
         /// </summary>
-        public static readonly AvaloniaProperty<IHighlightingDefinition> SyntaxHighlightingProperty =
+        public static readonly StyledProperty<IHighlightingDefinition> SyntaxHighlightingProperty =
             AvaloniaProperty.Register<TextEditor, IHighlightingDefinition>("SyntaxHighlighting");
 
 
@@ -367,7 +373,7 @@ namespace AvaloniaEdit
         /// <summary>
         /// Word wrap dependency property.
         /// </summary>
-        public static readonly AvaloniaProperty<bool> WordWrapProperty =
+        public static readonly StyledProperty<bool> WordWrapProperty =
             AvaloniaProperty.Register<TextEditor, bool>("WordWrap");
 
         /// <summary>
@@ -388,7 +394,7 @@ namespace AvaloniaEdit
         /// <summary>
         /// IsReadOnly dependency property.
         /// </summary>
-        public static readonly AvaloniaProperty<bool> IsReadOnlyProperty =
+        public static readonly StyledProperty<bool> IsReadOnlyProperty =
             AvaloniaProperty.Register<TextEditor, bool>("IsReadOnly");
 
         /// <summary>
@@ -418,7 +424,7 @@ namespace AvaloniaEdit
         /// <summary>
         /// Dependency property for <see cref="IsModified"/>
         /// </summary>
-        public static readonly AvaloniaProperty<bool> IsModifiedProperty =
+        public static readonly StyledProperty<bool> IsModifiedProperty =
             AvaloniaProperty.Register<TextEditor, bool>("IsModified");
 
         /// <summary>
@@ -466,7 +472,7 @@ namespace AvaloniaEdit
         /// <summary>
         /// ShowLineNumbers dependency property.
         /// </summary>
-        public static readonly AvaloniaProperty<bool> ShowLineNumbersProperty =
+        public static readonly StyledProperty<bool> ShowLineNumbersProperty =
             AvaloniaProperty.Register<TextEditor, bool>("ShowLineNumbers");
 
         /// <summary>
@@ -516,7 +522,7 @@ namespace AvaloniaEdit
         /// <summary>
         /// LineNumbersForeground dependency property.
         /// </summary>
-        public static readonly AvaloniaProperty<IBrush> LineNumbersForegroundProperty =
+        public static readonly StyledProperty<IBrush> LineNumbersForegroundProperty =
             AvaloniaProperty.Register<TextEditor, IBrush>("LineNumbersForeground", Brushes.Gray);
 
         /// <summary>
@@ -560,7 +566,10 @@ namespace AvaloniaEdit
         /// </summary>
         public void Copy()
         {
-            //Execute(ApplicationCommands.Copy);
+            if (ApplicationCommands.Copy.CanExecute(null, TextArea))
+            {
+                ApplicationCommands.Copy.Execute(null, TextArea);
+            }
         }
 
         /// <summary>
@@ -568,7 +577,10 @@ namespace AvaloniaEdit
         /// </summary>
         public void Cut()
         {
-            //Execute(ApplicationCommands.Cut);
+            if (ApplicationCommands.Cut.CanExecute(null, TextArea))
+            {
+                ApplicationCommands.Cut.Execute(null, TextArea);
+            }
         }
 
         /// <summary>
@@ -585,7 +597,10 @@ namespace AvaloniaEdit
         /// </summary>
         public void Delete()
         {
-            //Execute(ApplicationCommands.Delete);
+            if(ApplicationCommands.Delete.CanExecute(null, TextArea))
+            {
+                ApplicationCommands.Delete.Execute(null, TextArea);
+            }
         }
 
         /// <summary>
@@ -673,7 +688,10 @@ namespace AvaloniaEdit
         /// </summary>
         public void Paste()
         {
-            //Execute(ApplicationCommands.Paste);
+            if (ApplicationCommands.Paste.CanExecute(null, TextArea))
+            {
+                ApplicationCommands.Paste.Execute(null, TextArea);
+            }
         }
 
         /// <summary>
@@ -682,11 +700,11 @@ namespace AvaloniaEdit
         /// <returns>True is the redo operation was successful, false is the redo stack is empty.</returns>
         public bool Redo()
         {
-            //if (CanExecute(ApplicationCommands.Redo))
-            //{
-            //    Execute(ApplicationCommands.Redo);
-            //    return true;
-            //}
+            if (CanRedo)
+            {
+                ApplicationCommands.Redo.Execute(null, TextArea);
+                return true;
+            }
             return false;
         }
 
@@ -696,8 +714,7 @@ namespace AvaloniaEdit
         public void ScrollToEnd()
         {
             ApplyTemplate(); // ensure scrollViewer is created
-            //if (scrollViewer != null)
-            //    scrollViewer.ScrollToEnd();
+            ScrollViewer?.ScrollToEnd();
         }
 
         /// <summary>
@@ -706,8 +723,7 @@ namespace AvaloniaEdit
         public void ScrollToHome()
         {
             ApplyTemplate(); // ensure scrollViewer is created
-            //if (scrollViewer != null)
-            //    scrollViewer.ScrollToHome();
+            ScrollViewer?.ScrollToHome();
         }
 
         /// <summary>
@@ -735,7 +751,10 @@ namespace AvaloniaEdit
         /// </summary>
         public void SelectAll()
         {
-            //Execute(ApplicationCommands.SelectAll);
+            if (ApplicationCommands.SelectAll.CanExecute(null, TextArea))
+            {
+                ApplicationCommands.SelectAll.Execute(null, TextArea);
+            }
         }
 
         /// <summary>
@@ -744,29 +763,29 @@ namespace AvaloniaEdit
         /// <returns>True is the undo operation was successful, false is the undo stack is empty.</returns>
         public bool Undo()
         {
-            //if (CanExecute(ApplicationCommands.Undo))
-            //{
-            //    Execute(ApplicationCommands.Undo);
-            //    return true;
-            //}
+            if (CanUndo)
+            {
+                ApplicationCommands.Undo.Execute(null, TextArea);
+                return true;
+            }
             return false;
         }
 
         /// <summary>
         /// Gets if the most recent undone command can be redone.
         /// </summary>
-        public bool CanRedo => false;
-        //{
-        //    get { return CanExecute(ApplicationCommands.Redo); }
-        //}
+        public bool CanRedo
+        {
+           get { return ApplicationCommands.Redo.CanExecute(null, TextArea); }
+        }
 
         /// <summary>
         /// Gets if the most recent command can be undone.
         /// </summary>
-        public bool CanUndo => false;
-        //{
-        //    get { return CanExecute(ApplicationCommands.Undo); }
-        //}
+        public bool CanUndo
+        {
+            get { return ApplicationCommands.Undo.CanExecute(null, TextArea); }
+        }
 
         /// <summary>
         /// Gets the vertical size of the document.
@@ -957,7 +976,7 @@ namespace AvaloniaEdit
         /// <summary>
         /// Encoding dependency property.
         /// </summary>
-        public static readonly AvaloniaProperty<Encoding> EncodingProperty =
+        public static readonly StyledProperty<Encoding> EncodingProperty =
             AvaloniaProperty.Register<TextEditor, Encoding>("Encoding");
 
         /// <summary>
@@ -1076,28 +1095,28 @@ namespace AvaloniaEdit
         /// <summary>
         /// Dependency property for <see cref="HorizontalScrollBarVisibility"/>
         /// </summary>
-        public static readonly AvaloniaProperty HorizontalScrollBarVisibilityProperty = ScrollViewer.HorizontalScrollBarVisibilityProperty.AddOwner<TextEditor>();
+        public static readonly AttachedProperty<ScrollBarVisibility> HorizontalScrollBarVisibilityProperty = ScrollViewer.HorizontalScrollBarVisibilityProperty.AddOwner<TextEditor>();
 
         /// <summary>
         /// Gets/Sets the horizontal scroll bar visibility.
         /// </summary>
         public ScrollBarVisibility HorizontalScrollBarVisibility
         {
-            get => (ScrollBarVisibility)GetValue(HorizontalScrollBarVisibilityProperty);
+            get => GetValue(HorizontalScrollBarVisibilityProperty);
             set => SetValue(HorizontalScrollBarVisibilityProperty, value);
         }
 
         /// <summary>
         /// Dependency property for <see cref="VerticalScrollBarVisibility"/>
         /// </summary>
-        public static readonly AvaloniaProperty VerticalScrollBarVisibilityProperty = ScrollViewer.VerticalScrollBarVisibilityProperty.AddOwner<TextEditor>();
+        public static readonly AttachedProperty<ScrollBarVisibility> VerticalScrollBarVisibilityProperty = ScrollViewer.VerticalScrollBarVisibilityProperty.AddOwner<TextEditor>();
 
         /// <summary>
         /// Gets/Sets the vertical scroll bar visibility.
         /// </summary>
         public ScrollBarVisibility VerticalScrollBarVisibility
         {
-            get => (ScrollBarVisibility)GetValue(VerticalScrollBarVisibilityProperty);
+            get => GetValue(VerticalScrollBarVisibilityProperty);
             set => SetValue(VerticalScrollBarVisibilityProperty, value);
         }
         #endregion
@@ -1118,7 +1137,8 @@ namespace AvaloniaEdit
             if (Document == null)
                 return null;
             var textView = TextArea.TextView;
-            return textView.GetPosition(this.TranslatePoint(point + new Point(textView.ScrollOffset.X, Math.Floor(textView.ScrollOffset.Y)), textView));
+            Point tpoint = (Point)this.TranslatePoint(point + new Point(textView.ScrollOffset.X, Math.Floor(textView.ScrollOffset.Y)), textView);
+            return textView.GetPosition(tpoint);
         }
 
         /// <summary>

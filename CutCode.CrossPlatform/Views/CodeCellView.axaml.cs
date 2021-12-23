@@ -2,11 +2,11 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace a
+namespace CutCode.CrossPlatform.Views
 {
-    public class CodeCellView_axaml : UserControl
+    public class CodeCellView : UserControl
     {
-        public CodeCellView_axaml()
+        public CodeCellView()
         {
             InitializeComponent();
         }

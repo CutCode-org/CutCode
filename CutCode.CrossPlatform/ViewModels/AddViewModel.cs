@@ -17,9 +17,12 @@ namespace CutCode.CrossPlatform.ViewModels
     public class AddViewModel : PageBaseViewModel
     {
         private IDataBase Database => DataBase;
+        public ObservableCollection<CodeCellViewModel?> Cells { get; }
         public AddViewModel()
         {
-            
+            Cells = new ObservableCollection<CodeCellViewModel?>();
+            Cells.Add(new CodeCellViewModel());
+            Cells.Add(new CodeCellViewModel());
         }
 
         protected override void OnLightThemeIsSet()
@@ -46,6 +49,16 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             get => _nameFieldForeground;
             set => this.RaiseAndSetIfChanged(ref _nameFieldForeground, value);
-        }        
+        }
+
+        public async void AddCell()
+        {
+            Cells.Add(new CodeCellViewModel());
+        }
+
+        public async void DeleteCell(object cell)
+        {
+            Cells.Remove(cell as CodeCellViewModel);
+        }
     }
 }

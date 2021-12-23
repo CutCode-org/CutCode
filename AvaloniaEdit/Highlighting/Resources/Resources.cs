@@ -58,8 +58,9 @@ namespace AvaloniaEdit.Highlighting
 			                                 ".booproj;.build;.xfrm;.targets;.xaml;.xpt;" +
 			                                 ".xft;.map;.wsdl;.disco;.ps1xml;.nuspec").Split(';'),
 			                         "XML-Mode.xshd");
-            hlm.RegisterHighlighting("XAML", new[] { ".xaml", ".paml" }, "XML-Mode.xshd");
+            hlm.RegisterHighlighting("XAML", new[] { ".xaml", ".paml", ".axaml" }, "XML-Mode.xshd");
 			hlm.RegisterHighlighting("MarkDown", new[] { ".md" }, "MarkDown-Mode.xshd");
+			hlm.RegisterHighlighting("MarkDownWithFontSize", new[] { ".md" }, "MarkDownWithFontSize-Mode.xshd");
 		}
 	}
 }

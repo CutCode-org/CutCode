@@ -5,14 +5,22 @@ namespace AvaloniaEdit.CodeCompletion
 {
     internal class PopupWithCustomPosition : Popup
     {
-        public static readonly AvaloniaProperty<Point> PositionProperty =
-            AvaloniaProperty.Register<PopupWithCustomPosition, Point>(nameof(Position));
+        public static readonly AvaloniaProperty<Point> OffsetProperty =
+            AvaloniaProperty.Register<PopupWithCustomPosition, Point>(nameof(Offset));
 
-        public Point Position { get; set; }
-
-        protected override Point GetPosition()
+        public PixelPoint Offset
         {
-            return Position;
-        }
+            get
+            {
+                return new PixelPoint((int)HorizontalOffset, (int)VerticalOffset);
+            }
+            set
+            {
+                HorizontalOffset = value.X;
+                VerticalOffset = value.Y;
+
+                //this.Revalidate(VerticalOffsetProperty);
+            }
+        }            
     }
 }

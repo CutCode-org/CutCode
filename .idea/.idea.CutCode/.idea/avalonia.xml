@@ -4,7 +4,9 @@
     <option name="projectPerEditor">
       <map>
         <entry key="AvaloniaEdit/AvaloniaEdit.xaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
+        <entry key="AvaloniaEdit/CodeCompletion/CompletionList.xaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="AvaloniaEdit/Editing/TextArea.xaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
+        <entry key="AvaloniaEdit/Search/SearchPanel.xaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="AvaloniaEdit/TextEditor.xaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/App.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />
         <entry key="CutCode.CrossPlatform/Controllers/CustomComboBox.axaml" value="CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" />

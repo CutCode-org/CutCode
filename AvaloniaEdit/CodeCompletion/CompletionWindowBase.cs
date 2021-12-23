@@ -29,7 +29,6 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
-using Avalonia.Media;
 using Avalonia.Styling;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -39,11 +38,11 @@ namespace AvaloniaEdit.CodeCompletion
     /// <summary>
     /// Base class for completion windows. Handles positioning the window at the caret.
     /// </summary>
-    public class CompletionWindowBase : PopupRoot, IStyleable
+    public class CompletionWindowBase : Popup, IStyleable
     {
         static CompletionWindowBase()
         {
-            BackgroundProperty.OverrideDefaultValue(typeof(CompletionWindowBase), Brushes.White);
+            //BackgroundProperty.OverrideDefaultValue(typeof(CompletionWindowBase), Brushes.White);           
         }
 
         Type IStyleable.StyleKey => typeof(PopupRoot);
@@ -76,21 +75,19 @@ namespace AvaloniaEdit.CodeCompletion
         /// <summary>
         /// Creates a new CompletionWindowBase.
         /// </summary>
-        public CompletionWindowBase(TextArea textArea)
-        {
+        public CompletionWindowBase(TextArea textArea) : base()
+        {     
             TextArea = textArea ?? throw new ArgumentNullException(nameof(textArea));
             _parentWindow = textArea.GetVisualRoot() as Window;
-            
-            // TODO: owner
-            //this.Owner = parentWindow;
 
+           
             AddHandler(PointerReleasedEvent, OnMouseUp, handledEventsToo: true);
 
             StartOffset = EndOffset = TextArea.Caret.Offset;
             
-            // TODO: these events do not fire on PopupRoot
-            Deactivated += OnDeactivated;
-            //Closed += (sender, args) => DetachEvents();
+            //Deactivated += OnDeactivated; //Not needed?
+
+            Closed += (sender, args) => DetachEvents();
 
             AttachEvents();
 
@@ -114,21 +111,18 @@ namespace AvaloniaEdit.CodeCompletion
             }
         }
 
-        public new void Show()
+        public void Show()
         {
-            using (BeginAutoSizing())
-            {
-                base.Show();
-            }
+            Open();
+            Height = double.NaN;
+            MinHeight = 0;
+
+            UpdatePosition();
         }
 
-        public new void Hide()
+        public void Hide()
         {
-            using (BeginAutoSizing())
-            {
-                base.Hide();
-            }
-
+            Close();
             OnClosed();
         }
 
@@ -254,7 +248,7 @@ namespace AvaloniaEdit.CodeCompletion
 
         private void TextAreaLostFocus(object sender, RoutedEventArgs e)
         {
-            Dispatcher.UIThread.InvokeAsync(CloseIfFocusLost, DispatcherPriority.Background);
+            Dispatcher.UIThread.Post(CloseIfFocusLost, DispatcherPriority.Background);
         }
 
         private void ParentWindow_Deactivated(object sender, EventArgs e)
@@ -270,7 +264,7 @@ namespace AvaloniaEdit.CodeCompletion
         /// <inheritdoc/>
         private void OnDeactivated(object sender, EventArgs e)
         {
-            Dispatcher.UIThread.InvokeAsync(CloseIfFocusLost, DispatcherPriority.Background);
+            Dispatcher.UIThread.Post(CloseIfFocusLost, DispatcherPriority.Background);
         }
 
         #endregion
@@ -318,8 +312,8 @@ namespace AvaloniaEdit.CodeCompletion
         {
             if (CloseOnFocusLost)
             {
-                Debug.WriteLine("CloseIfFocusLost: this.IsActive=" + IsActive + " IsTextAreaFocused=" + IsTextAreaFocused);
-                if (!IsActive && !IsTextAreaFocused)
+                Debug.WriteLine("CloseIfFocusLost: this.IsFocues=" + IsFocused + " IsTextAreaFocused=" + IsTextAreaFocused);
+                if (!IsFocused && !IsTextAreaFocused)
                 {
                     Hide();
                 }
@@ -375,9 +369,10 @@ namespace AvaloniaEdit.CodeCompletion
         protected void UpdatePosition()
         {
             var textView = TextArea.TextView;
-            var position = textView.PointToScreen(_visualLocation - textView.ScrollOffset);
 
-            Position = position;
+            var position = _visualLocation - textView.ScrollOffset;
+
+            Host?.ConfigurePosition(textView, PlacementMode.AnchorAndGravity, position, Avalonia.Controls.Primitives.PopupPositioning.PopupAnchor.TopLeft, Avalonia.Controls.Primitives.PopupPositioning.PopupGravity.BottomRight);
         }
 
         // TODO: check if needed

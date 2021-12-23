@@ -14,7 +14,7 @@
             
         </Grid>
         <Grid Grid.Row="1" RowDefinitions="*, Auto">
-            <ListBox Grid.Row="0">
+            <ListBox Grid.Row="0" Items="{Binding Cells}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel/>

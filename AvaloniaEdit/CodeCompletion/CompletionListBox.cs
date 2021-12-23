@@ -34,9 +34,9 @@ namespace AvaloniaEdit.CodeCompletion
 
         Type IStyleable.StyleKey => typeof(ListBox);
 
-        protected override void OnTemplateApplied(TemplateAppliedEventArgs e)
+        protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
-            base.OnTemplateApplied(e);
+            base.OnApplyTemplate(e);
             ScrollViewer = e.NameScope.Find("PART_ScrollViewer") as ScrollViewer;
         }
 
@@ -63,9 +63,6 @@ namespace AvaloniaEdit.CodeCompletion
                 }
             }
         }
-
-        // TODO: perf
-        internal int ItemCount => Items.Cast<object>().Count();
 
         /// <summary>
         /// Gets the number of visible items.

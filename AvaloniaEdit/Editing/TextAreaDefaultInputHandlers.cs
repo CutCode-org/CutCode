@@ -59,15 +59,11 @@ namespace AvaloniaEdit.Editing
         private void AddBinding(RoutedCommand command, EventHandler<ExecutedRoutedEventArgs> handler, EventHandler<CanExecuteRoutedEventArgs> canExecuteHandler = null)
         {
             CommandBindings.Add(new RoutedCommandBinding(command, handler, canExecuteHandler));
-            if (command.Gesture != null)
-            {
-                KeyBindings.Add(new KeyBinding { Command = command, Gesture = command.Gesture });
-            }
         }
 
-        internal static KeyBinding CreateKeyBinding(ICommand command, InputModifiers modifiers, Key key)
+        internal static KeyBinding CreateKeyBinding(ICommand command, KeyModifiers modifiers, Key key)
         {
-            return new KeyBinding { Command = command, Gesture = new KeyGesture { Key = key, Modifiers = modifiers } };
+            return new KeyBinding { Command = command, Gesture = new KeyGesture(key, modifiers) };
         }
 
         #region Undo / Redo

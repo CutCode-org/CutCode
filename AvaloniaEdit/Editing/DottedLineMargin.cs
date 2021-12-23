@@ -20,8 +20,8 @@ using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
-using Avalonia.Markup.Xaml.Data;
 using Avalonia.Media;
+using Avalonia.Data;
 
 namespace AvaloniaEdit.Editing
 {
@@ -45,7 +45,7 @@ namespace AvaloniaEdit.Editing
                 StrokeDashArray = new AvaloniaList<double> { 0, 2 },
                 Stretch = Stretch.Fill,
                 StrokeThickness = 1,
-                StrokeDashCap = PenLineCap.Round,
+                StrokeLineCap = PenLineCap.Round,
                 Margin = new Thickness(2, 0, 2, 0),
                 Tag = Tag
             };

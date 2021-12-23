@@ -20,16 +20,28 @@
         
         <Grid Grid.Column="0" RowDefinitions="Auto, *">
             
-            <TextBox Grid.Row="0" Height="30" 
+            <TextBox Grid.Row="0" Height="30" IsEnabled="{Binding IsEditable}"
                      CornerRadius="5" BorderThickness="0"
                      Background="Transparent" Foreground="Black"
                      Text="{Binding Description}"
                      Watermark="Description for your code"
                      Margin="3">
+                <TextBox.Styles>
+                    <Style Selector="Border">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="CornerRadius" Value="0.5"/>
+                    </Style>
+                    <Style Selector="Border:pointerover">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="CornerRadius" Value="0.5"/>
+                    </Style>
+                </TextBox.Styles>
             
             </TextBox>
             
-            <avEdit:TextEditor Grid.Row="1" Margin="3" Text="{Binding Code}">
+            <avEdit:TextEditor Grid.Row="1" Margin="3" 
+                               Text="{Binding Code}"
+                               IsEnabled="{Binding IsEditable}">
             
             </avEdit:TextEditor>
         </Grid>

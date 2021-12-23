@@ -7,6 +7,11 @@ namespace CutCode.CrossPlatform.ViewModels
 {
     public class CodeCardViewModel : PageBaseViewModel
     {
+        public CodeCardViewModel()
+        {
+            
+        }
+        
         public CodeCardViewModel(CodeBoxModel code)
         {
             Title = code.Title;

@@ -22,6 +22,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Markup;
+using Avalonia.Data.Converters;
 
 namespace AvaloniaEdit.CodeCompletion
 {
@@ -33,7 +34,7 @@ namespace AvaloniaEdit.CodeCompletion
         /// <summary>
         /// The text property.
         /// </summary>
-        public static readonly AvaloniaProperty<string> TextProperty =
+        public static readonly StyledProperty<string> TextProperty =
             AvaloniaProperty.Register<OverloadViewer, string>("Text");
 
         /// <summary>
@@ -45,9 +46,9 @@ namespace AvaloniaEdit.CodeCompletion
             set => SetValue(TextProperty, value);
         }
 
-        protected override void OnTemplateApplied(TemplateAppliedEventArgs args)
+        protected override void OnApplyTemplate(TemplateAppliedEventArgs args)
         {
-            base.OnTemplateApplied(args);
+            base.OnApplyTemplate(args);
 
             var upButton = args.NameScope.Find<Button>("PART_UP");
             if (upButton != null)
@@ -73,7 +74,7 @@ namespace AvaloniaEdit.CodeCompletion
         /// <summary>
         /// The ItemProvider property.
         /// </summary>
-        public static readonly AvaloniaProperty<IOverloadProvider> ProviderProperty =
+        public static readonly StyledProperty<IOverloadProvider> ProviderProperty =
             AvaloniaProperty.Register<OverloadViewer, IOverloadProvider>("Provider");
 
         /// <summary>

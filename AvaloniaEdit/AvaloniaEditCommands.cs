@@ -17,7 +17,9 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System.Diagnostics.CodeAnalysis;
+using Avalonia;
 using Avalonia.Input;
+using Avalonia.Platform;
 
 namespace AvaloniaEdit
 {
@@ -30,13 +32,13 @@ namespace AvaloniaEdit
         /// Toggles Overstrike mode
         /// The default shortcut is Ins.
         /// </summary>
-        public static RoutedCommand ToggleOverstrike { get; } = new RoutedCommand(nameof(ToggleOverstrike), new KeyGesture { Key = Key.Insert });
+        public static RoutedCommand ToggleOverstrike { get; } = new RoutedCommand(nameof(ToggleOverstrike), new KeyGesture(Key.Insert));
 
         /// <summary>
         /// Deletes the current line.
         /// The default shortcut is Ctrl+D.
         /// </summary>
-        public static RoutedCommand DeleteLine { get; } = new RoutedCommand(nameof(DeleteLine), new KeyGesture { Key = Key.D, Modifiers = InputModifiers.Control });
+        public static RoutedCommand DeleteLine { get; } = new RoutedCommand(nameof(DeleteLine), new KeyGesture(Key.D, KeyModifiers.Control));
 
         /// <summary>
         /// Removes leading whitespace from the selected lines (or the whole document if the selection is empty).
@@ -90,22 +92,55 @@ namespace AvaloniaEdit
         /// </summary>
         public static RoutedCommand ConvertLeadingSpacesToTabs { get; } = new RoutedCommand(nameof(ConvertLeadingSpacesToTabs));
 
-        /// <summary>
+        /// <summary>InputModifiers
         /// Runs the IIndentationStrategy on the selected lines (or the whole document if the selection is empty).
         /// </summary>
-        public static RoutedCommand IndentSelection { get; } = new RoutedCommand(nameof(IndentSelection), new KeyGesture { Key = Key.I, Modifiers = InputModifiers.Control });
+        public static RoutedCommand IndentSelection { get; } = new RoutedCommand(nameof(IndentSelection), new KeyGesture(Key.I, KeyModifiers.Control));
     }
 
 
     public static class ApplicationCommands
     {
-        public static RoutedCommand Delete { get; } = new RoutedCommand(nameof(Delete), new KeyGesture { Key = Key.Delete });
-        public static RoutedCommand Copy { get; } = new RoutedCommand(nameof(Copy), new KeyGesture { Modifiers = InputModifiers.Control, Key = Key.C });
-        public static RoutedCommand Cut { get; } = new RoutedCommand(nameof(Cut), new KeyGesture { Modifiers = InputModifiers.Control, Key = Key.X });
-        public static RoutedCommand Paste { get; } = new RoutedCommand(nameof(Paste), new KeyGesture { Modifiers = InputModifiers.Control, Key = Key.V });
-        public static RoutedCommand SelectAll { get; } = new RoutedCommand(nameof(SelectAll));
-        public static RoutedCommand Undo { get; } = new RoutedCommand(nameof(Undo), new KeyGesture { Modifiers = InputModifiers.Control, Key = Key.Z });
-        public static RoutedCommand Redo { get; } = new RoutedCommand(nameof(Redo), new KeyGesture { Modifiers = InputModifiers.Control, Key = Key.Y });
+        private static readonly KeyModifiers PlatformCommandKey = GetPlatformCommandKey();
+
+        public static RoutedCommand Delete { get; } = new RoutedCommand(nameof(Delete), new KeyGesture(Key.Delete));
+        public static RoutedCommand Copy { get; } = new RoutedCommand(nameof(Copy), new KeyGesture(Key.C, PlatformCommandKey));
+        public static RoutedCommand Cut { get; } = new RoutedCommand(nameof(Cut), new KeyGesture(Key.X, PlatformCommandKey));
+        public static RoutedCommand Paste { get; } = new RoutedCommand(nameof(Paste), new KeyGesture(Key.V, PlatformCommandKey));
+        public static RoutedCommand SelectAll { get; } = new RoutedCommand(nameof(SelectAll), new KeyGesture(Key.A, PlatformCommandKey));
+        public static RoutedCommand Undo { get; } = new RoutedCommand(nameof(Undo), new KeyGesture(Key.Z, PlatformCommandKey));
+        public static RoutedCommand Redo { get; } = new RoutedCommand(nameof(Redo), new KeyGesture(Key.Y, PlatformCommandKey));
+        public static RoutedCommand Find { get; } = new RoutedCommand(nameof(Find), new KeyGesture(Key.F, PlatformCommandKey));
+        public static RoutedCommand Replace { get; } = new RoutedCommand(nameof(Replace), GetReplaceKeyGesture());
+
+        private static OperatingSystemType GetOperatingSystemType()
+        {
+            return AvaloniaLocator.Current.GetService<IRuntimePlatform>().GetRuntimeInfo().OperatingSystem;
+        }
+        
+        private static KeyModifiers GetPlatformCommandKey()
+        {
+            var os = GetOperatingSystemType();
+            
+            if (os == OperatingSystemType.OSX)
+            {
+                return KeyModifiers.Meta;
+            }
+
+            return KeyModifiers.Control;
+        }
+
+        private static KeyGesture GetReplaceKeyGesture()
+        {
+            var os = GetOperatingSystemType();
+
+            if (os == OperatingSystemType.OSX)
+            {
+                return new KeyGesture(Key.F, KeyModifiers.Meta | KeyModifiers.Alt);
+            }
+
+            return new KeyGesture(Key.H, PlatformCommandKey);
+        }
     }
 
     public static class EditingCommands

@@ -173,10 +173,10 @@ namespace AvaloniaEdit.Editing
         /// <param name="modifiers">The modifiers of the keyboard shortcut.</param>
         /// <param name="key">The key of the keyboard shortcut.</param>
         /// <param name="handler">The event handler to run when the command is executed.</param>
-        public void AddBinding(RoutedCommand command, InputModifiers modifiers, Key key, EventHandler<ExecutedRoutedEventArgs> handler)
+        public void AddBinding(RoutedCommand command, KeyModifiers modifiers, Key key, EventHandler<ExecutedRoutedEventArgs> handler)
         {
             CommandBindings.Add(new RoutedCommandBinding(command, handler));
-            KeyBindings.Add(new KeyBinding { Command = command, Gesture = new KeyGesture { Key = key, Modifiers = modifiers } });
+            KeyBindings.Add(new KeyBinding { Command = command, Gesture = new KeyGesture (key, modifiers) });
         }
         #endregion
 
@@ -214,6 +214,16 @@ namespace AvaloniaEdit.Editing
                 }
 
                 keyBinding.TryHandle(keyEventArgs);
+            }
+
+            foreach (var commandBinding in CommandBindings)
+            {
+                if (commandBinding.Command.Gesture?.Matches(keyEventArgs) == true)
+                {
+                    commandBinding.Command.Execute(null, (IInputElement)sender);
+                    keyEventArgs.Handled = true;
+                    break;
+                }
             }
         }
 

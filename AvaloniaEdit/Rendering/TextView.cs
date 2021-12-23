@@ -28,10 +28,12 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using AvaloniaEdit.Document;
 using AvaloniaEdit.Editing;
 using AvaloniaEdit.Text;
@@ -48,8 +50,10 @@ namespace AvaloniaEdit.Rendering
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable",
                                                      Justification = "The user usually doesn't work with TextView but with TextEditor; and nulling the Document property is sufficient to dispose everything.")]
-    public class TextView : Control, ITextEditorComponent
+    public class TextView : Control, ITextEditorComponent, ILogicalScrollable
     {
+        private EventHandler _scrollInvalidated;
+
         #region Constructor
         static TextView()
         {
@@ -445,6 +449,7 @@ namespace AvaloniaEdit.Rendering
             if (!alreadyAdded)
             {
                 VisualChildren.Add(inlineObject.Element);
+                ((ISetLogicalParent)inlineObject.Element).SetParent(this);
             }
             inlineObject.Element.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             inlineObject.DesiredSize = inlineObject.Element.DesiredSize;
@@ -537,7 +542,7 @@ namespace AvaloniaEdit.Rendering
         /// <summary>
         /// NonPrintableCharacterBrush dependency property.
         /// </summary>
-        public static readonly AvaloniaProperty<IBrush> NonPrintableCharacterBrushProperty =
+        public static readonly StyledProperty<IBrush> NonPrintableCharacterBrushProperty =
             AvaloniaProperty.Register<TextView, IBrush>("NonPrintableCharacterBrush", Brushes.LightGray);
 
         /// <summary>
@@ -552,7 +557,7 @@ namespace AvaloniaEdit.Rendering
         /// <summary>
         /// LinkTextForegroundBrush dependency property.
         /// </summary>
-        public static readonly AvaloniaProperty<IBrush> LinkTextForegroundBrushProperty =
+        public static readonly StyledProperty<IBrush> LinkTextForegroundBrushProperty =
             AvaloniaProperty.Register<TextView, IBrush>("LinkTextForegroundBrush", Brushes.Blue);
 
         /// <summary>
@@ -567,7 +572,7 @@ namespace AvaloniaEdit.Rendering
         /// <summary>
         /// LinkTextBackgroundBrush dependency property.
         /// </summary>
-        public static readonly AvaloniaProperty<IBrush> LinkTextBackgroundBrushProperty =
+        public static readonly StyledProperty<IBrush> LinkTextBackgroundBrushProperty =
             AvaloniaProperty.Register<TextView, IBrush>("LinkTextBackgroundBrush", Brushes.Transparent);
 
         /// <summary>
@@ -583,7 +588,7 @@ namespace AvaloniaEdit.Rendering
         /// <summary>
         /// LinkTextUnderlinedBrush dependency property.
         /// </summary>
-        public static readonly AvaloniaProperty<bool> LinkTextUnderlineProperty =
+        public static readonly StyledProperty<bool> LinkTextUnderlineProperty =
             AvaloniaProperty.Register<TextView, bool>(nameof(LinkTextUnderline), true);
 
         /// <summary>
@@ -724,7 +729,7 @@ namespace AvaloniaEdit.Rendering
             {
                 throw new ArgumentException("Cannot dispose visual line because it is in construction!");
             }
-            
+
             visualLine.Dispose();
             RemoveInlineObjects(visualLine);
         }
@@ -919,7 +924,8 @@ namespace AvaloniaEdit.Rendering
             }
             MeasureInlineObjects();
 
-            InvalidateVisual(); // = InvalidateArrange+InvalidateRender
+            // TODO: is this needed?
+            //InvalidateVisual(); // = InvalidateArrange+InvalidateRender
 
             double maxWidth;
             if (_document == null)
@@ -934,7 +940,7 @@ namespace AvaloniaEdit.Rendering
                 _inMeasure = true;
                 try
                 {
-                    maxWidth = CreateAndMeasureVisualLines(_scrollViewport);
+                    maxWidth = CreateAndMeasureVisualLines(availableSize);
                 }
                 finally
                 {
@@ -963,6 +969,9 @@ namespace AvaloniaEdit.Rendering
             }
 
             TextLayer.SetVisualLines(_visibleVisualLines);
+
+            // Size of control (scorll viewport) might be changed during ArrageOverride. We only need document size for now.
+            _documentSize = new Size(maxWidth, heightTreeHeight);
 
             VisualLinesChanged?.Invoke(this, EventArgs.Empty);
 
@@ -1050,7 +1059,7 @@ namespace AvaloniaEdit.Rendering
             var properties = new TextRunProperties
             {
                 FontSize = FontSize,
-                Typeface = TextBlock.GetFontFamily(this),
+                Typeface = new Typeface(TextBlock.GetFontFamily(this), TextBlock.GetFontStyle(this), TextBlock.GetFontWeight(this)),
                 ForegroundBrush = TextBlock.GetForeground(this),
                 CultureInfo = CultureInfo.CurrentCulture
             };
@@ -1076,7 +1085,7 @@ namespace AvaloniaEdit.Rendering
         {
             if (_heightTree.GetIsCollapsed(documentLine.LineNumber))
                 throw new InvalidOperationException("Trying to build visual line from collapsed line");
-            
+
             var visualLine = new VisualLine(this, documentLine);
             var textSource = new VisualLineTextSource(visualLine)
             {
@@ -1192,16 +1201,17 @@ namespace AvaloniaEdit.Rendering
             // validate scroll position
             var newScrollOffsetX = _scrollOffset.X;
             var newScrollOffsetY = _scrollOffset.Y;
-            if (_scrollOffset.X + finalSize.Width > _scrollExtent.Width)
+            if (_scrollOffset.X + finalSize.Width > _documentSize.Width)
             {
-                newScrollOffsetX = Math.Max(0, _scrollExtent.Width - finalSize.Width);
+                newScrollOffsetX = Math.Max(0, _documentSize.Width - finalSize.Width);
             }
-            if (_scrollOffset.Y + finalSize.Height > _scrollExtent.Height)
+            if (_scrollOffset.Y + finalSize.Height > _documentSize.Height)
             {
-                newScrollOffsetY = Math.Max(0, _scrollExtent.Height - finalSize.Height);
+                newScrollOffsetY = Math.Max(0, _documentSize.Height - finalSize.Height);
             }
 
-           // Debug.WriteLine("Arrange finalSize=" + finalSize + ", scrollOffset=" + _scrollOffset);
+            // Apply final view port and offset
+            SetScrollData(finalSize, _documentSize, new Vector(newScrollOffsetX, newScrollOffsetY));
 
             if (_visibleVisualLines != null)
             {
@@ -1226,6 +1236,7 @@ namespace AvaloniaEdit.Rendering
                     }
                 }
             }
+
             InvalidateCursorIfPointerWithinTextView();
 
             return finalSize;
@@ -1256,7 +1267,7 @@ namespace AvaloniaEdit.Rendering
         /// <inheritdoc/>
         public override void Render(DrawingContext drawingContext)
         {
-            if(!VisualLinesValid)
+            if (!VisualLinesValid)
             {
                 return;
             }
@@ -1316,6 +1327,8 @@ namespace AvaloniaEdit.Rendering
 
         internal void RenderBackground(DrawingContext drawingContext, KnownLayer layer)
         {
+            // this is necessary so hit-testing works properly and events get tunneled to the TextView.
+            drawingContext.FillRectangle(Brushes.Transparent, Bounds);
             foreach (var bg in _backgroundRenderers)
             {
                 if (bg.Layer == layer)
@@ -1342,9 +1355,14 @@ namespace AvaloniaEdit.Rendering
 
         #region IScrollInfo implementation
         /// <summary>
-        /// Size of the document, in pixels.
+        /// Size of the scroll, in pixels.
         /// </summary>
         private Size _scrollExtent;
+
+        /// <summary>
+        /// Size of the document, in pixels.
+        /// </summary>
+        private Size _documentSize;
 
         /// <summary>
         /// Offset of the scroll position.
@@ -1358,25 +1376,33 @@ namespace AvaloniaEdit.Rendering
 
         private void ClearScrollData()
         {
-            SetScrollData(new Size(), new Size());
-            _scrollOffset = new Vector();
+            SetScrollData(new Size(), new Size(), new Vector());
         }
 
-        public bool SetScrollData(Size viewport, Size extent)
+        private bool SetScrollData(Size viewport, Size extent, Vector offset)
         {
             if (!(viewport.IsClose(_scrollViewport)
-                  && extent.IsClose(_scrollExtent)))
+                  && extent.IsClose(_scrollExtent)
+                  && offset.IsClose(_scrollOffset)))
             {
                 _scrollViewport = viewport;
                 _scrollExtent = extent;
+                SetScrollOffset(offset);
+                OnScrollChange();
                 return true;
             }
+
             return false;
+        }
+
+        private void OnScrollChange()
+        {
+            ((ILogicalScrollable)this).RaiseScrollInvalidated(EventArgs.Empty);
         }
 
         private bool _canVerticallyScroll = true;
 
-        private bool _canHorizontallyScroll;
+        private bool _canHorizontallyScroll = true;
 
         /// <summary>
         /// Gets the horizontal scroll offset.
@@ -1398,19 +1424,22 @@ namespace AvaloniaEdit.Rendering
         /// </summary>
         public event EventHandler ScrollOffsetChanged;
 
-        internal void SetScrollOffset(Vector vector)
+        private void SetScrollOffset(Vector vector)
         {
             if (!_canHorizontallyScroll)
+            {
                 vector = new Vector(0, vector.Y);
+            }
+
             if (!_canVerticallyScroll)
+            {
                 vector = new Vector(vector.X, 0);
+            }
 
             if (!_scrollOffset.IsClose(vector))
             {
                 _scrollOffset = vector;
                 ScrollOffsetChanged?.Invoke(this, EventArgs.Empty);
-
-                InvalidateMeasure();
             }
         }
 
@@ -1555,6 +1584,7 @@ namespace AvaloniaEdit.Rendering
             if (!_scrollOffset.IsClose(newScrollOffset))
             {
                 SetScrollOffset(newScrollOffset);
+                OnScrollChange();
                 InvalidateMeasure(DispatcherPriority.Normal);
             }
         }
@@ -1563,6 +1593,7 @@ namespace AvaloniaEdit.Rendering
         #region Visual element pointer handling
 
         [ThreadStatic] private static bool _invalidCursor;
+        private VisualLineElement _currentHoveredElement;
 
         /// <summary>
         /// Updates the pointe cursor, but with background priority.
@@ -1599,6 +1630,13 @@ namespace AvaloniaEdit.Rendering
             base.OnPointerMoved(e);
 
             var element = GetVisualLineElementFromPosition(e.GetPosition(this) + _scrollOffset);
+
+            // Change back to default if hover on a different element
+            if (_currentHoveredElement != element)
+            {
+                //Cursor = Cursor.Default; ISSUE : Cursor gets set to Default but not back to IBeam
+                _currentHoveredElement = element;
+            }
             element?.OnQueryCursor(e);
         }
 
@@ -1665,7 +1703,7 @@ namespace AvaloniaEdit.Rendering
             if (vl != null)
             {
                 var column = vl.GetVisualColumnFloor(visualPosition);
-                
+
                 foreach (var element in vl.Elements)
                 {
                     if (element.VisualColumn + element.VisualLength <= column)
@@ -1832,24 +1870,16 @@ namespace AvaloniaEdit.Rendering
             add => AddHandler(PointerHoverStoppedEvent, value);
             remove => RemoveHandler(PointerHoverStoppedEvent, value);
         }
+        
 
         private readonly PointerHoverLogic _hoverLogic;
 
         private void RaiseHoverEventPair(PointerEventArgs e, RoutedEvent tunnelingEvent, RoutedEvent bubblingEvent)
         {
-            var args1 = new PointerEventArgs(tunnelingEvent)
-            {
-                Device = e.Device,
-                Source = this
-            };
-            RaiseEvent(args1);
-            var args2 = new PointerEventArgs(bubblingEvent)
-            {
-                Source = this,
-                Device = e.Device,
-                Handled = args1.Handled
-            };
-            RaiseEvent(args2);
+            e.RoutedEvent = tunnelingEvent;
+            RaiseEvent(e);
+            e.RoutedEvent = bubblingEvent;
+            RaiseEvent(e);
         }
         #endregion
 
@@ -1894,24 +1924,24 @@ namespace AvaloniaEdit.Rendering
         }
 
         /// <inheritdoc/>
-        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs e)
+        protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
         {
-            base.OnPropertyChanged(e);
+            base.OnPropertyChanged(change);        
 
-            if (e.Property == TemplatedControl.ForegroundProperty
-                     || e.Property == NonPrintableCharacterBrushProperty
-                     || e.Property == LinkTextBackgroundBrushProperty
-                     || e.Property == LinkTextForegroundBrushProperty
-                     || e.Property == LinkTextUnderlineProperty)
+            if (change.Property == TemplatedControl.ForegroundProperty
+                     || change.Property == NonPrintableCharacterBrushProperty
+                     || change.Property == LinkTextBackgroundBrushProperty
+                     || change.Property == LinkTextForegroundBrushProperty
+                     || change.Property == LinkTextUnderlineProperty)
             {
                 // changing brushes requires recreating the cached elements
                 RecreateCachedElements();
                 Redraw();
             }
-            if (e.Property == TemplatedControl.FontFamilyProperty
-                || e.Property == TemplatedControl.FontSizeProperty
-                || e.Property == TemplatedControl.FontStyleProperty
-                || e.Property == TemplatedControl.FontWeightProperty)
+            if (change.Property == TemplatedControl.FontFamilyProperty
+                || change.Property == TemplatedControl.FontSizeProperty
+                || change.Property == TemplatedControl.FontStyleProperty
+                || change.Property == TemplatedControl.FontWeightProperty)
             {
                 // changing font properties requires recreating cached elements
                 RecreateCachedElements();
@@ -1919,15 +1949,15 @@ namespace AvaloniaEdit.Rendering
                 InvalidateDefaultTextMetrics();
                 Redraw();
             }
-            if (e.Property == ColumnRulerPenProperty)
+            if (change.Property == ColumnRulerPenProperty)
             {
                 _columnRulerRenderer.SetRuler(Options.ColumnRulerPosition, ColumnRulerPen);
             }
-            if (e.Property == CurrentLineBorderProperty)
+            if (change.Property == CurrentLineBorderProperty)
             {
                 _currentLineHighlighRenderer.BorderPen = CurrentLineBorder;
             }
-            if (e.Property == CurrentLineBackgroundProperty)
+            if (change.Property == CurrentLineBackgroundProperty)
             {
                 _currentLineHighlighRenderer.BackgroundBrush = CurrentLineBackground;
             }
@@ -1937,13 +1967,46 @@ namespace AvaloniaEdit.Rendering
         /// The pen used to draw the column ruler.
         /// <seealso cref="TextEditorOptions.ShowColumnRuler"/>
         /// </summary>
-        public static readonly AvaloniaProperty<Pen> ColumnRulerPenProperty =
+        public static readonly StyledProperty<Pen> ColumnRulerPenProperty =
             AvaloniaProperty.Register<TextView, Pen>("ColumnRulerBrush", CreateFrozenPen(Brushes.LightGray));
 
         private static Pen CreateFrozenPen(IBrush brush)
         {
             var pen = new Pen(brush);
             return pen;
+        }
+
+        bool ILogicalScrollable.BringIntoView(IControl target, Rect rectangle)
+        {
+            if (rectangle.IsEmpty || target == null || target == this || !this.IsVisualAncestorOf(target))
+            {
+                return false;
+            }
+
+            // TODO:
+            // Convert rectangle into our coordinate space.
+            //var childTransform = target.TransformToVisual(this);
+            //rectangle = childTransform.Value(rectangle);
+
+            MakeVisible(rectangle.WithX(rectangle.X + _scrollOffset.X).WithY(rectangle.Y + _scrollOffset.Y));
+
+            return true;
+        }
+
+        IControl ILogicalScrollable.GetControlInDirection(NavigationDirection direction, IControl from)
+        {
+            return null;
+        }
+
+        event EventHandler ILogicalScrollable.ScrollInvalidated
+        {
+            add => _scrollInvalidated += value;
+            remove => _scrollInvalidated -= value;
+        }
+
+        void ILogicalScrollable.RaiseScrollInvalidated(EventArgs e)
+        {
+            _scrollInvalidated?.Invoke(this, e);
         }
 
         /// <summary>
@@ -1959,7 +2022,7 @@ namespace AvaloniaEdit.Rendering
         /// <summary>
         /// The <see cref="CurrentLineBackground"/> property.
         /// </summary>
-        public static readonly AvaloniaProperty<IBrush> CurrentLineBackgroundProperty =
+        public static readonly StyledProperty<IBrush> CurrentLineBackgroundProperty =
             AvaloniaProperty.Register<TextView, IBrush>("CurrentLineBackground");
 
         /// <summary>
@@ -1974,7 +2037,7 @@ namespace AvaloniaEdit.Rendering
         /// <summary>
         /// The <see cref="CurrentLineBorder"/> property.
         /// </summary>
-        public static readonly AvaloniaProperty<Pen> CurrentLineBorderProperty =
+        public static readonly StyledProperty<Pen> CurrentLineBorderProperty =
             AvaloniaProperty.Register<TextView, Pen>("CurrentLineBorder");
 
         /// <summary>
@@ -1999,5 +2062,70 @@ namespace AvaloniaEdit.Rendering
         /// Empty line selection width.
         /// </summary>
         public virtual double EmptyLineSelectionWidth => 1;
+
+        bool ILogicalScrollable.CanHorizontallyScroll
+        {
+            get => _canHorizontallyScroll;
+            set
+            {
+                if (_canHorizontallyScroll != value)
+                {
+                    _canHorizontallyScroll = value;
+                    ClearVisualLines();
+                    InvalidateMeasure(DispatcherPriority.Normal);
+                }
+            }
+        }
+
+        bool ILogicalScrollable.CanVerticallyScroll
+        {
+            get => _canVerticallyScroll;
+            set
+            {
+                if (_canVerticallyScroll != value)
+                {
+                    _canVerticallyScroll = value;
+                    ClearVisualLines();
+                    InvalidateMeasure(DispatcherPriority.Normal);
+                }
+            }
+        }
+
+        bool ILogicalScrollable.IsLogicalScrollEnabled => true;        
+
+        Size ILogicalScrollable.ScrollSize => new Size(10, 50);
+
+        Size ILogicalScrollable.PageScrollSize => new Size(10, 100);
+
+        Size IScrollable.Extent => _scrollExtent;
+
+        Vector IScrollable.Offset
+        {
+            get => _scrollOffset;
+            set
+            {
+                value = new Vector(ValidateVisualOffset(value.X), ValidateVisualOffset(value.Y));
+                var isX = !_scrollOffset.X.IsClose(value.X);
+                var isY = !_scrollOffset.Y.IsClose(value.Y);
+                if (isX || isY)
+                {
+                    SetScrollOffset(value);
+
+                    if (isX)
+                    {
+                        InvalidateVisual();
+                        TextLayer.InvalidateVisual();
+                        InvalidateMeasure(DispatcherPriority.Normal);
+                    }
+
+                    if (isY)
+                    {
+                        InvalidateMeasure(DispatcherPriority.Normal);
+                    }
+                }
+            }
+        }
+
+        Size IScrollable.Viewport => _scrollViewport;
     }
 }

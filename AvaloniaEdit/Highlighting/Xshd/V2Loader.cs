@@ -320,16 +320,16 @@ namespace AvaloniaEdit.Highlighting.Xshd
             color.FontWeight = ParseFontWeight(reader.GetAttribute("fontWeight"));
             color.FontStyle = ParseFontStyle(reader.GetAttribute("fontStyle"));
             color.Underline = reader.GetBoolAttribute("underline");
+            color.FontFamily = ParseFontFamily(reader.GetAttribute("fontFamily"));
+            color.FontSize = ParseFontSize(reader.GetAttribute("fontSize"));
             return color;
-        }
-
-        internal static readonly ColorTypeConverter ColorConverter = new ColorTypeConverter();
+        }        
 
         private static HighlightingBrush ParseColor(string color)
         {
             if (string.IsNullOrEmpty(color))
                 return null;
-            return FixedColorHighlightingBrush((Color?)ColorConverter.ConvertFrom(null, null, color));
+            return FixedColorHighlightingBrush(Color.Parse(color));
         }
 
         private static HighlightingBrush FixedColorHighlightingBrush(Color? color)
@@ -337,6 +337,18 @@ namespace AvaloniaEdit.Highlighting.Xshd
             if (color == null)
                 return null;
             return new SimpleHighlightingBrush(color.Value);
+        }
+
+        private static FontFamily ParseFontFamily(string fontFamily)
+        {
+            if (string.IsNullOrEmpty(fontFamily))
+                return null;
+            return new FontFamily(fontFamily);
+        }
+
+        private static int? ParseFontSize(string size)
+        {
+            return int.TryParse(size, out int result) ? result : (int?)null;
         }
 
         private static FontWeight? ParseFontWeight(string fontWeight)
