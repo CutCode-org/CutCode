@@ -6,7 +6,7 @@ namespace CutCode.CrossPlatform.ViewModels
 {
     public class CodeCellViewModel : PageBaseViewModel
     {
-        
+        private readonly AddViewModel AddViewModelInstance;
         private string _description;
         public string Description
         {
@@ -30,27 +30,39 @@ namespace CutCode.CrossPlatform.ViewModels
         }
 
         public CodeCellViewModel()
-        { // Creating new one
+        {
+            // from data context
             IsEditable = true;
         }
         
-        public CodeCellViewModel(string description, string code)
+        public CodeCellViewModel(AddViewModel addViewModelInstance)
+        {
+            // Creating new one
+            AddViewModelInstance = addViewModelInstance;
+            IsEditable = true;
+        }
+        
+        public CodeCellViewModel(AddViewModel addViewModelInstance, string description, string code)
         { // if we are fetching from database
+            AddViewModelInstance = addViewModelInstance;
             IsEditable = false;
             Description = description;
             Code = code;
+            AddViewModelInstance = addViewModelInstance;
         }
         
         protected override void OnLightThemeIsSet()
         {
             Background = Color.Parse("#E3E5E8");
             TextColor = Color.Parse("#000000");
+            ButtonHoverBackground = Color.Parse("#D0D1D2");
         }
 
         protected override void OnDarkThemeIsSet()
         {
             Background = Color.Parse("#202225");
             TextColor = Color.Parse("#FFFFFF");
+            ButtonHoverBackground = Color.Parse("#373737");
         }
         
         private Color _background;
@@ -61,11 +73,23 @@ namespace CutCode.CrossPlatform.ViewModels
         }
         
         private Color _textColor;
+
         public Color TextColor
         {
             get => _textColor;
             set =>  this.RaiseAndSetIfChanged(ref _textColor, value);
-            
+        }
+        
+        private Color _buttonHoverBackground;
+        public Color ButtonHoverBackground
+        {
+            get => _buttonHoverBackground;
+            set => this.RaiseAndSetIfChanged(ref _buttonHoverBackground, value);
+        }
+        
+        public async void DeleteCell(CodeCellViewModel cell)
+        {
+            AddViewModel.DeleteCell(AddViewModelInstance, cell);
         }
     }
 }

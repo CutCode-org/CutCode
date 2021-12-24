@@ -21,8 +21,8 @@ namespace CutCode.CrossPlatform.ViewModels
         public AddViewModel()
         {
             Cells = new ObservableCollection<CodeCellViewModel?>();
-            Cells.Add(new CodeCellViewModel());
-            Cells.Add(new CodeCellViewModel());
+            Cells.Add(new CodeCellViewModel(this));
+            Cells.Add(new CodeCellViewModel(this));
         }
 
         protected override void OnLightThemeIsSet()
@@ -61,14 +61,14 @@ namespace CutCode.CrossPlatform.ViewModels
             set => this.RaiseAndSetIfChanged(ref _nameFieldForeground, value);
         }
 
-        public async void AddCell()
+        public void AddCell(AddViewModel vm)
         {
-            Cells.Add(new CodeCellViewModel());
+            vm.Cells.Add(new CodeCellViewModel(vm));
         }
 
-        public async void DeleteCell(object cell)
+        public static void DeleteCell(AddViewModel vm, CodeCellViewModel cell)
         {
-            Cells.Remove(cell as CodeCellViewModel);
+            vm.Cells.Remove(cell);
         }
     }
 }

@@ -7,6 +7,8 @@
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Foreground" Value="{Binding $parent[TabControl].Foreground}"/>
         <Setter Property="Background" Value="{Binding $parent[TabControl].Background}"/>
+        <Setter Property="HorizontalOffset" Value="5"/>
+        <Setter Property="VerticalOffset" Value="11.5"/>
         <Setter Property="Template">
             <ControlTemplate>
                 <StackPanel Orientation="Horizontal">
