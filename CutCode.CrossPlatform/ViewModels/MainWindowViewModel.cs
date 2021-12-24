@@ -33,7 +33,7 @@ namespace CutCode.CrossPlatform.ViewModels
             windowsBtnColor = Color.Parse("#F2F2F2");
             backgroundColor = Color.Parse("#36393F");
             titleBarColor = Color.Parse("#202225");
-            SideBarColor = Color.Parse("#2A2E33");
+            SideBarColor = Color.Parse("#32363C");
             mainTextColor = Color.Parse("#94969A");
 
             titlebarBtnsHoverColor = Color.Parse("#373737");

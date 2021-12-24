@@ -27,38 +27,88 @@ namespace CutCode.CrossPlatform.ViewModels
 
         protected override void OnLightThemeIsSet()
         {
-            backgroundColor =  Color.Parse("#FCFCFC");
-            NameFieldBackground = Color.Parse("#ECECEC");
-            NameFieldForeground = Color.Parse("#1A1A1A");
+            BackgroundColor =  Color.Parse("#FCFCFC");
+            TopBarBackground =  Color.Parse("#DBDBDB");
+            
+            TextAreaBackground = Color.Parse("#ECECEC");
+            TextAreaForeground = Color.Parse("#000000");
+            TextAreaOverlayBackground = Color.Parse("#E2E2E2");
+            
+            ComboBoxBackground = Color.Parse("#ECECEC");
+            ComboBoxBackgroundOnHover = Color.Parse("#E2E2E2");
         }
 
         protected override void OnDarkThemeIsSet()
         {
-            backgroundColor =  Color.Parse("#36393F");
-            NameFieldBackground = Color.Parse("#2A2E33");
-            NameFieldForeground = Color.Parse("#F7F7F7");
+            BackgroundColor =  Color.Parse("#36393F");
+            TopBarBackground =  Color.Parse("#2F3237");
+            
+            TextAreaBackground = Color.Parse("#2A2E33");
+            TextAreaForeground = Color.Parse("#FFFFFF");
+            TextAreaOverlayBackground = Color.Parse("#24272B");
+            
+            ComboBoxBackground = Color.Parse("#2A2E33");
+            ComboBoxBackgroundOnHover = Color.Parse("#24272B");
+        }
+        
+        private string _text;
+        public string Text
+        {
+            get => _text;
+            set => this.RaiseAndSetIfChanged(ref _text, value);
         }
         
         private Color _backgroundColor;
 
-        public Color backgroundColor
+        public Color BackgroundColor
         {
             get => _backgroundColor;
             set => this.RaiseAndSetIfChanged(ref _backgroundColor, value);
         }
-
-        private Color _nameFieldBackground;
-        public Color NameFieldBackground
+        
+        private Color _comboBoxBackground;
+        public Color ComboBoxBackground
         {
-            get => _nameFieldBackground;
-            set => this.RaiseAndSetIfChanged(ref _nameFieldBackground, value);
+            get => _comboBoxBackground;
+            set =>this.RaiseAndSetIfChanged(ref _comboBoxBackground, value);
+            
+        }
+        
+        private Color _comboBoxBackgroundOnHover;
+        public Color ComboBoxBackgroundOnHover
+        {
+            get => _comboBoxBackgroundOnHover;
+            set =>this.RaiseAndSetIfChanged(ref _comboBoxBackgroundOnHover, value);
+            
+        }
+        
+        private Color _topBarBackground;
+
+        public Color TopBarBackground
+        {
+            get => _topBarBackground;
+            set => this.RaiseAndSetIfChanged(ref _topBarBackground, value);
         }
 
-        private Color _nameFieldForeground;
-        public Color NameFieldForeground
+        private Color _textAreaBackground;
+        public Color TextAreaBackground
         {
-            get => _nameFieldForeground;
-            set => this.RaiseAndSetIfChanged(ref _nameFieldForeground, value);
+            get => _textAreaBackground;
+            set => this.RaiseAndSetIfChanged(ref _textAreaBackground, value);
+        }
+
+        private Color _textAreaForeground;
+        public Color TextAreaForeground
+        {
+            get => _textAreaForeground;
+            set => this.RaiseAndSetIfChanged(ref _textAreaForeground, value);
+        }
+        
+        private Color _textAreaOverlayBackground;
+        public Color TextAreaOverlayBackground
+        {
+            get => _textAreaOverlayBackground;
+            set => this.RaiseAndSetIfChanged(ref _textAreaOverlayBackground, value);
         }
 
         public async void AddCell(AddViewModel vm)

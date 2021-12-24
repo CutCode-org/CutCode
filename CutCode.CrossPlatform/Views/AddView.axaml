@@ -5,6 +5,7 @@
              xmlns:exts="using:Aura.UI.ExtensionProperties"
              xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
              xmlns:converters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
+             xmlns:controllers="clr-namespace:CutCode.CrossPlatform.Controllers"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CutCode.CrossPlatform.Views.AddView">
     <UserControl.Resources>
@@ -15,19 +16,39 @@
         <vm:AddViewModel/>
     </UserControl.DataContext>
     
+    <UserControl.Styles>
+        <Style Selector="Button:pressed  /template/ ContentPresenter, Button:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{TemplateBinding BorderBrush}"/>
+        </Style>
+    </UserControl.Styles>
+    
     <UserControl.Background>
-        <SolidColorBrush Color="{Binding backgroundColor}"/>
+        <SolidColorBrush Color="{Binding BackgroundColor}"/>
     </UserControl.Background>
     
-    <Grid RowDefinitions="Auto,*"> 
-        <Grid Grid.Row="0" RowDefinitions="Auto, *">
-            <TextBox Grid.Row="0"
-                     Foreground="{Binding NameFieldForeground, Converter={StaticResource ColorToBrushConverter}}"
-                     CaretBrush="{Binding NameFieldForeground, Converter={StaticResource ColorToBrushConverter}}"
-                     Background="{Binding backgroundColor, Converter={StaticResource ColorToBrushConverter}}"
-                     BorderBrush="{Binding backgroundColor, Converter={StaticResource ColorToBrushConverter}}">
+    <Grid RowDefinitions="Auto,*, Auto"> 
+        <Grid Grid.Row="0" Height="50" ColumnDefinitions="*, Auto"
+                    Background="{Binding TopBarBackground, Converter={StaticResource ColorToBrushConverter}}">
+            <TextBox Grid.Column="0"
+                     Text="{Binding Text}"
+                     Watermark="Name for your code"
+                     FontSize="14"
+                     Height="30" Margin="7,0,50,0"
+                     FontFamily="{StaticResource PoppinsRegular}"
+                     Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+                     CaretBrush="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+                     Background="{Binding TextAreaBackground, Converter={StaticResource ColorToBrushConverter}}"
+                     BorderBrush="{Binding TextAreaOverlayBackground, Converter={StaticResource ColorToBrushConverter}}" 
+                     BorderThickness="0">
             </TextBox>
+            <controllers:CustomComboBox Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                                        Name="Choose Language" Margin="0,0,12,0"
+                                        Background="{Binding ComboBoxBackground, Converter={StaticResource ColorToBrushConverter}}"
+                                        Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+                                        OverlayBrush="{Binding ComboBoxBackgroundOnHover, Converter={StaticResource ColorToBrushConverter}}"/>
+            
         </Grid>
+        
         <Grid Grid.Row="1" RowDefinitions="*, Auto">
             <ScrollViewer Grid.Row="0">
                 <ItemsControl Items="{Binding Cells}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -41,6 +62,56 @@
             <Grid Grid.Row="1">
                 
             </Grid>
+        </Grid>
+        
+        <Grid Grid.Row="2" Height="50" HorizontalAlignment="Stretch" ColumnDefinitions="*, Auto, Auto"
+              Background="{Binding TopBarBackground, Converter={StaticResource ColorToBrushConverter}}">
+            <Button Grid.Column="1" Background="Transparent"
+                    HorizontalAlignment="Right"
+                    Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+                    BorderBrush="{Binding TextAreaOverlayBackground, Converter={StaticResource ColorToBrushConverter}}"
+                    Margin="0,0,3,0"
+                    BorderThickness="0"
+                    Width="100" Height="30">
+                <StackPanel Orientation="Horizontal">
+                    <Viewbox Height="16">
+                        <Path Stretch="UniformToFill" Data="M64 388L196 256 64 124 96 92 228 224 360 92 392 124 260 256 392 388 360 420 228 288 96 420 64 388Z"/>
+                    </Viewbox>
+                    <Label Content="Cancel"
+                           Margin="10,-4,0,0"
+                           FontFamily="{StaticResource PoppinsRegular}"
+                           FontSize="15"
+                           Foreground="{Binding TextAreaForeground}"/>
+                </StackPanel>
+                <Button.Styles>
+                    <Style Selector="Button > StackPanel > Viewbox > Path">
+                        <Setter Property="Fill" Value="{Binding $parent[Button].Foreground}"/>
+                    </Style>
+                    
+                    <Style Selector="Button:pointerover > StackPanel  > Viewbox > Path">
+                        <Setter Property="Fill" Value="Red"/>
+                    </Style>
+                </Button.Styles>
+            </Button>
+            
+            <Button Grid.Column="2" Background="Transparent"
+                    Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+                    BorderBrush="{Binding TextAreaOverlayBackground, Converter={StaticResource ColorToBrushConverter}}"
+                    Margin="3,0,8,0"
+                    BorderThickness="0"
+                    Width="100" Height="30">
+                <StackPanel Orientation="Horizontal">
+                    <Viewbox Height="17">
+                        <Path Fill="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+                              Stretch="UniformToFill" Data="F1M384,-362.665985107422L384,-149.332992553711 640,-149.332992553711 640,-362.665985107422 384,-362.665985107422z M469.334014892578,-746.666015625L469.334014892578,-661.3330078125 554.6669921875,-661.3330078125 554.6669921875,-746.666015625 469.334014892578,-746.666015625z M213.332992553711,-746.6669921875L213.332992553711,-149.333999633789 298.665985107422,-149.333999633789 298.665985107422,-362.6669921875C298.665985107422,-409.795013427734,336.871002197266,-448,383.998992919922,-448L639.9990234375,-448C687.127014160156,-448,725.331970214844,-409.795013427734,725.331970214844,-362.6669921875L725.331970214844,-149.333999633789 810.664978027344,-149.333999633789 810.664978027344,-601.174011230469 665.171997070313,-746.6669921875 639.9990234375,-746.6669921875 639.9990234375,-576 298.665985107422,-576 298.665985107422,-746.6669921875 213.332992553711,-746.6669921875z M682.911987304688,-832C694.632995605469,-832,705.25,-827.273986816406,712.958984375,-819.6259765625L883.622985839844,-648.961975097656C891.273986816406,-641.2509765625 896,-630.633972167969 896,-618.913024902344 896,-618.825988769531 895.9990234375,-618.739013671875 895.9990234375,-618.666015625L895.9990234375,-149.332992553711C895.9990234375,-102.205001831055,857.794006347656,-64,810.666015625,-63.9999923706055L213.332992553711,-63.9999923706055 213.332000732422,-63.9999923706055C166.203994750977,-64,127.999000549316,-102.205001831055,127.999008178711,-149.332992553711L127.999008178711,-746.666015625C127.999000549316,-793.794006347656,166.203994750977,-831.9990234375,213.332000732422,-831.9990234375L682.651977539063,-831.9990234375C682.739013671875,-832,682.825012207031,-832,682.911987304688,-832z"/>
+                    </Viewbox>
+                    <Label Content="Save"
+                           Margin="10,-4,0,0"
+                           FontFamily="{StaticResource PoppinsRegular}"
+                           FontSize="15"
+                           Foreground="{Binding TextAreaForeground}"/>
+                </StackPanel>
+            </Button>
         </Grid>
     </Grid>
 </UserControl>
