@@ -4,29 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:exts="using:Aura.UI.ExtensionProperties"
              xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
+             xmlns:converters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CutCode.CrossPlatform.Views.AddView">
+    <UserControl.Resources>
+        <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+    </UserControl.Resources>
+    
     <UserControl.DataContext>
         <vm:AddViewModel/>
     </UserControl.DataContext>
+    
     <UserControl.Background>
         <SolidColorBrush Color="{Binding backgroundColor}"/>
     </UserControl.Background>
+    
     <Grid RowDefinitions="Auto,*"> 
         <Grid Grid.Row="0" RowDefinitions="Auto, *">
-            <TextBox Grid.Row="0">
-                <TextBox.Foreground>
-                    <SolidColorBrush Color="{Binding NameFieldForeground}"/>
-                </TextBox.Foreground>
-                <TextBox.CaretBrush>
-                    <SolidColorBrush Color="{Binding NameFieldForeground}"/>
-                </TextBox.CaretBrush>
-                <TextBox.Background>
-                    <SolidColorBrush Color="{Binding backgroundColor}"/>
-                </TextBox.Background>
-                <TextBox.BorderBrush>
-                    <SolidColorBrush Color="{Binding backgroundColor}"/>
-                </TextBox.BorderBrush>
+            <TextBox Grid.Row="0"
+                     Foreground="{Binding NameFieldForeground, Converter={StaticResource ColorToBrushConverter}}"
+                     CaretBrush="{Binding NameFieldForeground, Converter={StaticResource ColorToBrushConverter}}"
+                     Background="{Binding backgroundColor, Converter={StaticResource ColorToBrushConverter}}"
+                     BorderBrush="{Binding backgroundColor, Converter={StaticResource ColorToBrushConverter}}">
             </TextBox>
         </Grid>
         <Grid Grid.Row="1" RowDefinitions="*, Auto">

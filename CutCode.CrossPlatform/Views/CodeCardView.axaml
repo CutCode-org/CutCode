@@ -2,16 +2,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
              xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
              mc:Ignorable="d" CornerRadius="10" ClipToBounds="True"
              x:Class="CutCode.CrossPlatform.Views.CodeCardView">
+    
+    <Border.Resources>
+        <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+    </Border.Resources>
+    
     <Border.DataContext>
         <vm:CodeCardViewModel/>
     </Border.DataContext>
-    <Grid ColumnDefinitions="Auto, *">
-        <Grid.Background>
-            <SolidColorBrush Color="{Binding CardColor}"/>
-        </Grid.Background>
+    
+    <Grid ColumnDefinitions="Auto, *" 
+          Background="{Binding CardColor, Converter={StaticResource ColorToBrushConverter}}">
         <Image Grid.Column="0" Width="120" Stretch="Uniform" Source="{Binding Language}">
             <Image.Clip>
                 <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25"/>
@@ -20,20 +25,14 @@
         <StackPanel Grid.Column="1">
             <Label Margin="3,4,3,6"
                    Content="{Binding Title}" 
+                   Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"
                    FontFamily="{DynamicResource PoppinsSemibold}"
-                   FontSize="14" FontWeight="Bold">
-                <Label.Foreground>
-                    <SolidColorBrush Color="{Binding mainTextColor}"/>
-                </Label.Foreground>
-            </Label>
+                   FontSize="14" FontWeight="Bold"/>
             <Label Margin="3,0,3,0"
                    Content="{Binding Desc}" 
+                   Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"
                    FontFamily="{DynamicResource PoppinsSemibold}"
-                   FontSize="13">
-                <Label.Foreground>
-                    <SolidColorBrush Color="{Binding mainTextColor}"/>
-                </Label.Foreground>
-            </Label>
+                   FontSize="13"/>
         </StackPanel>
     </Grid>
 </Border>

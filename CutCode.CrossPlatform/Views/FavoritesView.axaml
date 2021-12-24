@@ -3,10 +3,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
+             xmlns:converters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CutCode.CrossPlatform.Views.FavoritesView">
+    
+    <UserControl.Resources>
+        <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+    </UserControl.Resources>
+    
     <UserControl.Background>
-        <SolidColorBrush Color="{Binding backgroundColor}"/>
+        <SolidColorBrush Color="{Binding backgroundColor, Converter={StaticResource ColorToBrushConverter}}"/>
     </UserControl.Background>
     This is favview page
 </UserControl>
