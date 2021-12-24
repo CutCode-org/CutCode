@@ -88,16 +88,16 @@ namespace CutCode.CrossPlatform.Controllers
             SearchCommand?.Execute(s);
         }
         
-        public new static readonly StyledProperty<Brush> BackgroundProperty =
-            AvaloniaProperty.Register<Border, Brush>(nameof(Background));
+        public new static readonly StyledProperty<IBrush> BackgroundProperty =
+            AvaloniaProperty.Register<Border, IBrush>(nameof(Background));
 
-        public new Brush Background
+        public new IBrush Background
         {
             get => GetValue(BackgroundProperty);
             set => SetValue(BackgroundProperty, value);
         }
 
-        private static void BackgroundPropertyChanged(AvaloniaPropertyChangedEventArgs<Brush> e)
+        private static void BackgroundPropertyChanged(AvaloniaPropertyChangedEventArgs<IBrush> e)
         {
             if (e.Sender is CustomSearchBar ctrl)
             {
@@ -106,16 +106,16 @@ namespace CutCode.CrossPlatform.Controllers
             }
         }
         
-        public new static readonly StyledProperty<Brush> ForegroundProperty =
-            AvaloniaProperty.Register<Border, Brush>(nameof(Foreground));
+        public new static readonly StyledProperty<IBrush> ForegroundProperty =
+            AvaloniaProperty.Register<Border, IBrush>(nameof(Foreground));
 
-        public new Brush Foreground
+        public new IBrush Foreground
         {
             get => GetValue(ForegroundProperty);
             set => SetValue(ForegroundProperty, value);
         }
 
-        private static void ForegroundPropertyChanged(AvaloniaPropertyChangedEventArgs<Brush> e)
+        private static void ForegroundPropertyChanged(AvaloniaPropertyChangedEventArgs<IBrush> e)
         {
             if (e.Sender is CustomSearchBar ctrl)
             {
@@ -123,16 +123,16 @@ namespace CutCode.CrossPlatform.Controllers
             }
         }
         
-        public new static readonly StyledProperty<Brush> OverlayBrushProperty =
-            AvaloniaProperty.Register<Border, Brush>(nameof(OverlayBrush));
+        public new static readonly StyledProperty<IBrush> OverlayBrushProperty =
+            AvaloniaProperty.Register<Border, IBrush>(nameof(OverlayBrush));
 
-        public new Brush OverlayBrush
+        public new IBrush OverlayBrush
         {
             get => GetValue(OverlayBrushProperty);
             set => SetValue(OverlayBrushProperty, value);
         }
 
-        private static void OverlayBrushPropertyChanged(AvaloniaPropertyChangedEventArgs<Brush> e)
+        private static void OverlayBrushPropertyChanged(AvaloniaPropertyChangedEventArgs<IBrush> e)
         {
             if (e.Sender is CustomSearchBar ctrl)
             {

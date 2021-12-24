@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:exts="using:Aura.UI.ExtensionProperties"
       xmlns:avEdit="using:AvaloniaEdit"
+      xmlns:cv="using:Avalonia.Markup.Xaml.Converters"
       xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
       mc:Ignorable="d"
       x:Class="CutCode.CrossPlatform.Views.CodeCellView"
@@ -14,6 +15,10 @@
             <Setter Property="Background" Value="{TemplateBinding BorderBrush}"/>
         </Style>
     </UserControl.Styles>
+    
+    <UserControl.Resources>
+        <cv:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+    </UserControl.Resources>
     
     <UserControl.Background>
         <SolidColorBrush Color="{Binding Background}"/>
@@ -106,21 +111,16 @@
                            VerticalAlignment="Stretch"
                            FontFamily="{StaticResource InconsolataRegular}"
                            FontSize="15"
+                           Foreground="{Binding TextColor, Converter={StaticResource ColorToBrushConverter}}"
+                           LineNumbersForeground="{Binding TextColor, Converter={StaticResource ColorToBrushConverter}}"
                            ScrollViewer.HorizontalScrollBarVisibility="Auto"
                            ScrollViewer.VerticalScrollBarVisibility="Auto"
-                           SyntaxHighlighting="Python"
                            ShowLineNumbers="True"
                            Height="250"
                            MaxHeight="420"
                            Text="print('Hello world')"
                             Padding="10,0,10,10"
                            IsEnabled="{Binding IsEditable}">
-            <avEdit:TextEditor.Foreground>
-                <SolidColorBrush Color="{Binding TextColor}"/>
-            </avEdit:TextEditor.Foreground>
-            <avEdit:TextEditor.LineNumbersForeground>
-                <SolidColorBrush Color="{Binding TextColor}"/>
-            </avEdit:TextEditor.LineNumbersForeground>
         </avEdit:TextEditor>
     </Grid>
 </UserControl>

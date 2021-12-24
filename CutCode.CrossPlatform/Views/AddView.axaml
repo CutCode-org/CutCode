@@ -13,8 +13,21 @@
         <SolidColorBrush Color="{Binding backgroundColor}"/>
     </UserControl.Background>
     <Grid RowDefinitions="Auto,*"> 
-        <Grid Grid.Row="0">
-            
+        <Grid Grid.Row="0" RowDefinitions="Auto, *">
+            <TextBox Grid.Row="0">
+                <TextBox.Foreground>
+                    <SolidColorBrush Color="{Binding NameFieldForeground}"/>
+                </TextBox.Foreground>
+                <TextBox.CaretBrush>
+                    <SolidColorBrush Color="{Binding NameFieldForeground}"/>
+                </TextBox.CaretBrush>
+                <TextBox.Background>
+                    <SolidColorBrush Color="{Binding backgroundColor}"/>
+                </TextBox.Background>
+                <TextBox.BorderBrush>
+                    <SolidColorBrush Color="{Binding backgroundColor}"/>
+                </TextBox.BorderBrush>
+            </TextBox>
         </Grid>
         <Grid Grid.Row="1" RowDefinitions="*, Auto">
             <ScrollViewer Grid.Row="0">

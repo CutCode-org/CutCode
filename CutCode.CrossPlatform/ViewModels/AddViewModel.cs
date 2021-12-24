@@ -28,7 +28,7 @@ namespace CutCode.CrossPlatform.ViewModels
         protected override void OnLightThemeIsSet()
         {
             backgroundColor =  Color.Parse("#FCFCFC");
-            NameFieldBackground = Color.Parse("#DADBDC");
+            NameFieldBackground = Color.Parse("#ECECEC");
             NameFieldForeground = Color.Parse("#1A1A1A");
         }
 
