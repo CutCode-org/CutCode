@@ -61,7 +61,7 @@ namespace CutCode.CrossPlatform.ViewModels
             set => this.RaiseAndSetIfChanged(ref _nameFieldForeground, value);
         }
 
-        public void AddCell(AddViewModel vm)
+        public async void AddCell(AddViewModel vm)
         {
             vm.Cells.Add(new CodeCellViewModel(vm));
         }

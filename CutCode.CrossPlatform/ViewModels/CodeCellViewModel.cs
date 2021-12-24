@@ -28,12 +28,6 @@ namespace CutCode.CrossPlatform.ViewModels
             get => _isEditable;
             set => this.RaiseAndSetIfChanged(ref _isEditable, value);
         }
-
-        public CodeCellViewModel()
-        {
-            // from data context
-            IsEditable = true;
-        }
         
         public CodeCellViewModel(AddViewModel addViewModelInstance)
         {
@@ -56,6 +50,7 @@ namespace CutCode.CrossPlatform.ViewModels
             Background = Color.Parse("#E3E5E8");
             TextColor = Color.Parse("#000000");
             ButtonHoverBackground = Color.Parse("#D0D1D2");
+            BtnColor = Color.Parse("#090909");
         }
 
         protected override void OnDarkThemeIsSet()
@@ -63,6 +58,7 @@ namespace CutCode.CrossPlatform.ViewModels
             Background = Color.Parse("#202225");
             TextColor = Color.Parse("#FFFFFF");
             ButtonHoverBackground = Color.Parse("#373737");
+            BtnColor = Color.Parse("#F2F2F2");
         }
         
         private Color _background;
@@ -78,6 +74,14 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             get => _textColor;
             set =>  this.RaiseAndSetIfChanged(ref _textColor, value);
+        }
+        
+        private Color _btnColor;
+
+        public Color BtnColor
+        {
+            get => _textColor;
+            set =>  this.RaiseAndSetIfChanged(ref _btnColor, value);
         }
         
         private Color _buttonHoverBackground;
