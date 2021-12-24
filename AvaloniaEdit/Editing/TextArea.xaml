@@ -15,6 +15,7 @@
                 <DockPanel Focusable="False" Background="{TemplateBinding Background}">
                     <ItemsControl DockPanel.Dock="Left"
                                   Focusable="False"
+                                  Padding="0,0,7,0"
                                   Items="{TemplateBinding LeftMargins}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
