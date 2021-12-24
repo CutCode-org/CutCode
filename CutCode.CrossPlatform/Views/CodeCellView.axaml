@@ -5,7 +5,7 @@
       xmlns:exts="using:Aura.UI.ExtensionProperties"
       xmlns:avEdit="using:AvaloniaEdit"
       xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
-      mc:Ignorable="d" MinHeight="210"
+      mc:Ignorable="d"
       x:Class="CutCode.CrossPlatform.Views.CodeCellView"
       BorderThickness="0" CornerRadius="5" Margin="20,5,20,5">
     <UserControl.DataContext>
@@ -17,15 +17,19 @@
     </UserControl.Background>
         
     <Grid RowDefinitions="Auto, *">
-        <TextBox Grid.Row="0" Height="30" IsEnabled="{Binding IsEditable}"
-                 CornerRadius="5" BorderThickness="0"
+        <TextBox Grid.Row="0" Height="45" IsEnabled="{Binding IsEditable}"
+                 CornerRadius="5" BorderThickness="0" Padding="20,12,0,5"
                  Text="{Binding Description}"
+                 FontSize="15"
+                 FontFamily="{StaticResource PoppinsRegular}"
                  Watermark="Description for your code"
-                 HorizontalAlignment="Stretch"
-                 Margin="3">
+                 HorizontalAlignment="Stretch">
             <TextBox.Foreground>
                 <SolidColorBrush Color="{Binding TextColor}"/>
             </TextBox.Foreground>
+            <TextBox.CaretBrush>
+                <SolidColorBrush Color="{Binding TextColor}"/>
+            </TextBox.CaretBrush>
             <TextBox.Background>
                 <SolidColorBrush Color="{Binding Background}"/>
             </TextBox.Background>
@@ -34,16 +38,20 @@
             </TextBox.BorderBrush>
         </TextBox>
         
-        <avEdit:TextEditor Grid.Row="1" Margin="3" 
+        <avEdit:TextEditor Grid.Row="1"
                            Background="Transparent"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Stretch"
+                           FontFamily="{StaticResource InconsolataRegular}"
+                           FontSize="15"
                            ScrollViewer.HorizontalScrollBarVisibility="Auto"
                            ScrollViewer.VerticalScrollBarVisibility="Auto"
-                           SyntaxHighlighting="XML"
+                           SyntaxHighlighting="Python"
                            ShowLineNumbers="True"
+                           Height="250"
+                           MaxHeight="420"
                            Text="print('Hello world')"
-                
+                            Padding="10,0,10,10"
                            IsEnabled="{Binding IsEditable}">
             <avEdit:TextEditor.Foreground>
                 <SolidColorBrush Color="{Binding TextColor}"/>

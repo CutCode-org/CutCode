@@ -11,9 +11,9 @@
   </Application.DataTemplates>
 
   <Application.Resources>
-    <FontFamily x:Key="PoppinsSemibold">/Assets/Fonts/Poppins-SemiBold.ttf</FontFamily>
-    <FontFamily x:Key="PoppinsRegular">/Assets/Fonts/Poppins-Regular.ttf</FontFamily>
-    <FontFamily x:Key="Firacode">/Assets/Fonts/FiraCode-Regular.ttf</FontFamily>
+    <FontFamily x:Key="PoppinsSemibold">avares://CutCode.CrossPlatform/Assets/Fonts/Poppins-SemiBold.ttf#Poppins</FontFamily>
+    <FontFamily x:Key="PoppinsRegular">avares://CutCode.CrossPlatform/Assets/Fonts/Poppins-Regular.ttf#Poppins</FontFamily>
+    <FontFamily x:Key="InconsolataRegular">avares://CutCode.CrossPlatform/Assets/Fonts/Inconsolata-Regular.ttf#Inconsolata</FontFamily>
   </Application.Resources>
   
   

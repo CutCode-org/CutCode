@@ -66,7 +66,7 @@ namespace AvaloniaEdit
         /// </summary>
         public TextEditor() : this(new TextArea())
         {
-            TextChanged += (sender, args) => Text = Document.Text;
+            
         }
 
         /// <summary>

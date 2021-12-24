@@ -84,8 +84,8 @@
       <Grid.Background> 
          <SolidColorBrush Color="{Binding titleBarColor}"/>
       </Grid.Background>
-      <Label Grid.Column="0" Content="CutCode" FontSize="20" FontWeight="Bold" 
-             Padding="15">
+      <Label Grid.Column="0" Content="CutCode" FontSize="20" FontWeight="Bold" FontFamily="{DynamicResource PoppinsSemibold}"
+             Padding="15,10,15,0">
         <Label.Foreground>
           <SolidColorBrush Color="{Binding mainTextColor}"/>
         </Label.Foreground>
