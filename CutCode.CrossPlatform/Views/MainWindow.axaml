@@ -104,7 +104,7 @@
     </controls:WindowButtons>
     
     <TabControl Name="tabControl" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"
-                TabStripPlacement="Left"
+                TabStripPlacement="Left" SelectedIndex="0"
                 Background="{Binding SideBarColor, Converter={StaticResource ColorToBrushConverter}}"
                 Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">

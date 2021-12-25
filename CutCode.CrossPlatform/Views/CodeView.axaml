@@ -2,19 +2,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:exts="using:Aura.UI.ExtensionProperties"
              xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
              xmlns:converters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
              xmlns:controllers="clr-namespace:CutCode.CrossPlatform.Controllers"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="CutCode.CrossPlatform.Views.AddView">
+             x:Class="CutCode.CrossPlatform.Views.CodeView">
+    
     <UserControl.Resources>
         <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
     </UserControl.Resources>
-    
-    <UserControl.DataContext>
-        <vm:AddViewModel/>
-    </UserControl.DataContext>
     
     <UserControl.Styles>
         <Style Selector="Button:pressed  /template/ ContentPresenter, Button:pointerover /template/ ContentPresenter">
@@ -27,29 +23,32 @@
     </UserControl.Background>
     
     <Grid RowDefinitions="Auto,*, Auto"> 
-        <Grid Grid.Row="0" Height="50" ColumnDefinitions="*, Auto"
+        <Grid Grid.Row="0" Height="50" RowDefinitions="Auto, Auto"
                     Background="{Binding BarBackground, Converter={StaticResource ColorToBrushConverter}}">
-            <TextBox Grid.Column="0"
-                     Text="{Binding Text}"
-                     Watermark="Title for your code"
-                     MaxLength="120"
-                     FontSize="14"
-                     Height="30" Margin="7,0,50,0"
-                     FontFamily="{StaticResource PoppinsRegular}"
-                     Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
-                     CaretBrush="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
-                     Background="{Binding TextAreaBackground, Converter={StaticResource ColorToBrushConverter}}"
-                     BorderBrush="{Binding TextAreaOverlayBackground, Converter={StaticResource ColorToBrushConverter}}" 
-                     BorderThickness="0">
-            </TextBox>
-            <controllers:CustomComboBox Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" 
-                                        Items="{Binding AllLangs}"
-                                        ItemSelected="{Binding LanguageChanged}"
-                                        SelectedIndex="0"
-                                        Name="Choose Language" Margin="0,0,12,0"
-                                        Background="{Binding ComboBoxBackground, Converter={StaticResource ColorToBrushConverter}}"
-                                        Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
-                                        OverlayBrush="{Binding ComboBoxBackgroundOnHover, Converter={StaticResource ColorToBrushConverter}}"/>
+            
+            <Grid Grid.Row="0" ColumnDefinitions="*, Auto">
+                <TextBox Grid.Column="0"
+                         Text="{Binding Text}"
+                         IsEnabled="False"
+                         FontSize="14"
+                         Height="30" Margin="7,0,50,0"
+                         FontFamily="{StaticResource PoppinsRegular}"
+                         Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+                         CaretBrush="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+                         Background="{Binding TextAreaBackground, Converter={StaticResource ColorToBrushConverter}}"
+                         BorderBrush="{Binding TextAreaOverlayBackground, Converter={StaticResource ColorToBrushConverter}}" 
+                         BorderThickness="0">
+                </TextBox>
+                <controllers:CustomComboBox Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                                IsEnabled="False"
+                                Name="Language" Margin="0,0,12,0"
+                                Background="{Binding ComboBoxBackground, Converter={StaticResource ColorToBrushConverter}}"
+                                Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+                                OverlayBrush="{Binding ComboBoxBackgroundOnHover, Converter={StaticResource ColorToBrushConverter}}"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                
+            </Grid>
             
         </Grid>
         
@@ -143,4 +142,5 @@
             </Button>
         </Grid>
     </Grid>
+    
 </UserControl>

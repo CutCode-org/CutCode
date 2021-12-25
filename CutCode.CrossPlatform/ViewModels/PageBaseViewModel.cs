@@ -16,11 +16,13 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             ThemeService = ThemeService.Current;
             DataBase = DataBaseManager.Current;
+            PageService = PageService.Current;
             AssetLoader = AvaloniaLocator.CurrentMutable.GetService<IAssetLoader>();
 
             ThemeService.ThemeChanged += (s, e) =>
             {
                 OnThemeChanged();
+                //DataBase.ChangeTheme(ThemeService.IsLightTheme);
             };
             ThemeService.IsLightTheme = DataBase.isLightTheme;
             OnLoad();
@@ -66,6 +68,12 @@ namespace CutCode.CrossPlatform.ViewModels
         }
         
         protected DataBaseManager DataBase
+        {
+            get;
+            set;
+        }
+
+        protected PageService PageService
         {
             get;
             set;

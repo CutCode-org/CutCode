@@ -32,9 +32,12 @@
         
     <Grid RowDefinitions="Auto, *">
         <Grid Grid.Row="0" ColumnDefinitions="*, Auto, Auto">
-            <TextBox Grid.Column="0" Height="45" IsEnabled="{Binding IsEditable}"
+            <TextBox Grid.Column="0" IsEnabled="{Binding IsEditable}"
                      CornerRadius="5" BorderThickness="0" Margin="20,10,0,3"
                      Text="{Binding Description}"
+                     AcceptsReturn="True"
+                     MaxLength="280"
+                     MinHeight="45" MaxHeight="160"
                      FontSize="15"
                      FontFamily="{StaticResource PoppinsRegular}"
                      Watermark="Description for your code"
@@ -46,8 +49,9 @@
             
             <Button Grid.Column="1"
                     Background="Transparent"
+                    VerticalAlignment="Top"
                     HorizontalAlignment="Right"
-                    Margin="0,0,6,4"
+                    Margin="0,7,6,4"
                     Width="30" Height="30"
                     BorderThickness="0"
                     Foreground="{Binding BtnColor, Converter={StaticResource ColorToBrushConverter}}"
@@ -72,9 +76,10 @@
             <Button Grid.Column="2"
                     Background="Transparent"
                     HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
                     Foreground="{Binding BtnColor, Converter={StaticResource ColorToBrushConverter}}"
                     BorderBrush="{Binding ButtonHoverBackground, Converter={StaticResource ColorToBrushConverter}}"
-                    Margin="0,0,3,4"
+                    Margin="0,7,3,4"
                     IsEnabled="{Binding IsMoreClickable}"
                     BorderThickness="0"
                     Width="30" Height="30">
@@ -96,8 +101,7 @@
                            ScrollViewer.HorizontalScrollBarVisibility="Auto"
                            ScrollViewer.VerticalScrollBarVisibility="Auto"
                            ShowLineNumbers="True"
-                           Height="250"
-                           MaxHeight="420"
+                           Height="300"
                            Text="{Binding Code}"
                            Padding="10,0,10,10"
                            IsEnabled="{Binding IsEditable}"/>

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.Collections.ObjectModel;
 using Avalonia;
 using Avalonia.Input.Platform;
 using Avalonia.Media;
@@ -16,301 +13,142 @@ namespace CutCode.CrossPlatform.ViewModels
 {
     public class CodeViewModel : PageBaseViewModel
     {
-        private IDataBase database => DataBase;
-        public CodeBoxModel codeModel;
+        private IDataBase Database => DataBase;
+        public CodeBoxModel Code;
+        
+        public ObservableCollection<CodeCellViewModel?> Cells { get; }
+        
         public CodeViewModel(CodeBoxModel code)
         {
-            codeModel = code;
-
-            title = code.Title;
-            desc = code.Desc;
-            this.code = code.Code;
-            isFav = code.IsFav;
-            langType = code.Language;
-            createdDate = "Will be changed later";
-
-            isEnabled = false;
-            oppisEnabled = !isEnabled;
-
-            opacity1 = 1;
-            opacity2 = 0.3;
+            Code = code;
+            Cells = new ObservableCollection<CodeCellViewModel?>();
+            IsCellEmpty = true;
+            Cells.CollectionChanged += (sender, args) =>
+            {
+                IsCellEmpty = Cells.Count == 0;
+            };
         }
         
+        
+        private bool _isCellEmpty;
+
+        public bool IsCellEmpty
+        {
+            get => _isCellEmpty;
+            set => this.RaiseAndSetIfChanged(ref _isCellEmpty, value);
+        }
+
         protected override void OnLightThemeIsSet()
         {
-            mainTextColor = Color.Parse("#0B0B13");
-            textBackground = Color.Parse("#DADBDC");
-            textForeground = Color.Parse("#1A1A1A");
-            codeBackground = Color.Parse("#E3E5E8");
-            ButtonsBackground = Color.Parse("#F2F2F2");
-
-            copyAddr ="../Resources/Images/Icons/copy_black.png";
-            favAddr = isFav ? "../Resources/Images/Icons/fav.png" : "../Resources/Images/Icons/fav_black.png";
-            backAddr = "../Resources/Images/Icons/back_black.png";
-            editAddr = "../Resources/Images/Icons/edit_black.png";
-            saveAddr = "../Resources/Images/Icons/save_black.png";
-            closeAddr = "../Resources/Images/Icons/exit_black.png";
+            BackgroundColor =  Color.Parse("#FCFCFC");
+            BarBackground =  Color.Parse("#F6F6F6");
+            
+            TextAreaBackground = Color.Parse("#ECECEC");
+            TextAreaForeground = Color.Parse("#000000");
+            TextAreaOverlayBackground = Color.Parse("#E2E2E2");
+            
+            ComboBoxBackground = Color.Parse("#ECECEC");
+            ComboBoxBackgroundOnHover = Color.Parse("#E2E2E2");
         }
 
         protected override void OnDarkThemeIsSet()
         {
-            mainTextColor = Color.Parse("#94969A");
-            textBackground = Color.Parse("#2A2E33");
-            textForeground = Color.Parse("#F7F7F7");
-            codeBackground = Color.Parse("#2C3036");
-            ButtonsBackground = Color.Parse("#2A2C30");
-
-            copyAddr = "../Resources/Images/Icons/copy_white.png";
-            favAddr = isFav ? "../Resources/Images/Icons/fav.png" : "../Resources/Images/Icons/fav_white.png";
-            backAddr = "../Resources/Images/Icons/back_white.png";
-            editAddr = "../Resources/Images/Icons/edit_white.png";
-            saveAddr = "../Resources/Images/Icons/save_white.png";
-            closeAddr = "../Resources/Images/Icons/exit_white.png";
+            BackgroundColor =  Color.Parse("#36393F");
+            BarBackground =  Color.Parse("#303338");
+            
+            TextAreaBackground = Color.Parse("#2A2E33");
+            TextAreaForeground = Color.Parse("#FFFFFF");
+            TextAreaOverlayBackground = Color.Parse("#24272B");
+            
+            ComboBoxBackground = Color.Parse("#2A2E33");
+            ComboBoxBackgroundOnHover = Color.Parse("#24272B");
         }
-
-        #region Code datas
-        private string _title;
-        public string title
+        
+        private string _text;
+        public string Text
         {
-            get => _title;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _title, value);
-            }
+            get => _text;
+            set => this.RaiseAndSetIfChanged(ref _text, value);
         }
+        
+        private Color _backgroundColor;
 
-        private string _desc;
-        public string desc
+        public Color BackgroundColor
         {
-            get => _desc;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _desc, value);
-            }
+            get => _backgroundColor;
+            set => this.RaiseAndSetIfChanged(ref _backgroundColor, value);
         }
-
-        private string _code;
-        public string code
+        
+        private Color _comboBoxBackground;
+        public Color ComboBoxBackground
         {
-            get => _code;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _code, value);
-            }
+            get => _comboBoxBackground;
+            set =>this.RaiseAndSetIfChanged(ref _comboBoxBackground, value);
+            
         }
-
-        private string _langType;
-        public string langType
+        
+        private Color _comboBoxBackgroundOnHover;
+        public Color ComboBoxBackgroundOnHover
         {
-            get => _langType;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _langType, value);
-            }
+            get => _comboBoxBackgroundOnHover;
+            set =>this.RaiseAndSetIfChanged(ref _comboBoxBackgroundOnHover, value);
+            
         }
+        
+        private Color _barBackground;
 
-        private bool _isFav;
-        public bool isFav
+        public Color BarBackground
         {
-            get => _isFav;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _isFav, value);
-            }
+            get => _barBackground;
+            set => this.RaiseAndSetIfChanged(ref _barBackground, value);
         }
 
-        private string _createdDate;
-        public string createdDate
+        private Color _textAreaBackground;
+        public Color TextAreaBackground
         {
-            get => _createdDate;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _createdDate, value);
-            }
+            get => _textAreaBackground;
+            set => this.RaiseAndSetIfChanged(ref _textAreaBackground, value);
         }
 
-        private bool _isEnabled;
-        public bool isEnabled
+        private Color _textAreaForeground;
+        public Color TextAreaForeground
         {
-            get => _isEnabled;
-            set => this.RaiseAndSetIfChanged(ref _isEnabled, value);
+            get => _textAreaForeground;
+            set => this.RaiseAndSetIfChanged(ref _textAreaForeground, value);
         }
-
-        private bool _oppisEnabled;
-        public bool oppisEnabled
+        
+        private Color _textAreaOverlayBackground;
+        public Color TextAreaOverlayBackground
         {
-            get => _oppisEnabled;
-            set => this.RaiseAndSetIfChanged(ref _oppisEnabled, value);
+            get => _textAreaOverlayBackground;
+            set => this.RaiseAndSetIfChanged(ref _textAreaOverlayBackground, value);
         }
 
-        private string _leftText;
-        public string leftText
+        public async void AddCell()
         {
-            get => _leftText;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _leftText, value);
-            }
+            Cells.Add(new CodeCellViewModel(AddViewModel.Current));
         }
 
-        private double _opacity1;
-        public double opacity1
+        public async void Cancel()
         {
-            get => _opacity1;
-            set => this.RaiseAndSetIfChanged(ref _opacity1, value);
+            PageService.Current.CurrentTabIndex = 0;
+            Text = "";
+            Cells.Clear();
         }
 
-        private double _opacity2;
-        public double opacity2
+        public async void Save()
         {
-            get => _opacity2;
-            set => this.RaiseAndSetIfChanged(ref _opacity2, value);
+            
         }
-        #endregion
 
-        #region Color
-        private Color _mainTextColor;
-        public Color mainTextColor
+        public async void Edit()
         {
-            get => _mainTextColor;
-            set => this.RaiseAndSetIfChanged(ref _mainTextColor, value);
+            
         }
 
-        private Color _ButtonsBackground;
-        public Color ButtonsBackground
+        public static void DeleteCell(AddViewModel vm, CodeCellViewModel cell)
         {
-            get => _ButtonsBackground;
-            set => this.RaiseAndSetIfChanged(ref _ButtonsBackground, value);
+            vm.Cells.Remove(cell);
         }
-
-        private Color _textForeground;
-        public Color textForeground
-        {
-            get => _textForeground;
-            set => this.RaiseAndSetIfChanged(ref _textForeground, value);
-        }
-
-        private Color _textBackground;
-        public Color textBackground
-        {
-            get => _textBackground;
-            set => this.RaiseAndSetIfChanged(ref _textBackground, value);
-        }
-
-        private Color _codeBackground;
-        public Color codeBackground
-        {
-            get => _codeBackground;
-            set => this.RaiseAndSetIfChanged(ref _codeBackground, value);
-        }
-        #endregion
-
-        #region Image Addrress
-        private string _copyAddr;
-        public string copyAddr 
-        {
-            get => _copyAddr;
-            set => this.RaiseAndSetIfChanged(ref _copyAddr, value);
-        }
-
-        private string _favAddr;
-        public string favAddr
-        {
-            get => _favAddr;
-            set => this.RaiseAndSetIfChanged(ref _favAddr, value);
-        }
-
-        private string _backAddr;
-        public string backAddr
-        {
-            get => _backAddr;
-            set => this.RaiseAndSetIfChanged(ref _backAddr, value);
-        }
-
-        private string _editAddr;
-        public string editAddr
-        {
-            get => _editAddr;
-            set => this.RaiseAndSetIfChanged(ref _editAddr, value);
-        }
-
-        private string _closeAddr;
-        public string closeAddr
-        {
-            get => _closeAddr;
-            set => this.RaiseAndSetIfChanged(ref _closeAddr, value);
-        }
-
-        private string _saveAddr;
-        public string saveAddr
-        {
-            get => _saveAddr;
-            set => this.RaiseAndSetIfChanged(ref _saveAddr, value);
-        }
-        #endregion
-
-        #region Commands
-
-        public void FavCommand()
-        {
-            isFav = !isFav;
-            codeModel.IsFav = isFav;
-            var isdone = database.FavModify(codeModel);
-            if(isdone) favAddr = isFav ? "../Resources/Images/Icons/fav.png" : ThemeService.IsLightTheme ? "../Resources/Images/Icons/fav_black.png" : "../Resources/Images/Icons/fav_white.png";
-        }
-
-        public void CopyCommand()
-        {
-            if (!string.IsNullOrEmpty(code)) Application.Current.Clipboard.SetTextAsync(code);
-        }
-
-        private string BeforeEditTitle;
-        private string BeforeEditDesc;
-        private string BeforeEditCode;
-
-        public void EditCommand()
-        {
-            BeforeEditCode = code;
-            BeforeEditTitle = title;
-            BeforeEditDesc = desc;
-
-            isEnabled = true;
-            oppisEnabled = !isEnabled;
-
-            opacity1 = 0.3;
-            opacity2 = 1;
-        }
-
-        public void SaveCommand()
-        {
-            codeModel.Title = title;
-            codeModel.Desc = desc;
-            codeModel.Code = code;
-
-            var isdone = database.EditCode(codeModel);
-
-            if (isdone)
-            {
-                isEnabled = false;
-                oppisEnabled = !isEnabled;
-
-                opacity1 = 1;
-                opacity2 = 0.3;
-            }
-        }
-
-        public void CancelCommand()
-        {
-            code = BeforeEditCode;
-            title = BeforeEditTitle;
-            desc = BeforeEditDesc;
-
-            isEnabled = false;
-            oppisEnabled = !isEnabled;
-
-            opacity1 = 1;
-            opacity2 = 0.3;
-        }
-        #endregion
     }
 }

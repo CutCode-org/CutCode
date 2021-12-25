@@ -1,4 +1,5 @@
-﻿using System.Dynamic;
+﻿using System.Diagnostics;
+using System.Dynamic;
 using Avalonia.Media;
 using ReactiveUI;
 
@@ -38,7 +39,6 @@ namespace CutCode.CrossPlatform.ViewModels
         public CodeCellViewModel(AddViewModel addViewModelInstance)
         {  // Creating new one
             AddViewModelInstance = addViewModelInstance;
-            
             IsEditable = true;
             IsMoreClickable = false;
         }

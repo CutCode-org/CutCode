@@ -8,16 +8,21 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Media;
 using CutCode.CrossPlatform.Interfaces;
+using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.ViewModels;
 using CutCode.DataBase;
+using FluentAvalonia.UI.Controls;
 using ReactiveUI;
 
 namespace CutCode.CrossPlatform.ViewModels
 {
     public class AddViewModel : PageBaseViewModel
     {
+        private static readonly AddViewModel _addViewModel = new();
+        public static AddViewModel Current => _addViewModel;
         private IDataBase Database => DataBase;
         public ObservableCollection<CodeCellViewModel?> Cells { get; }
+        public IList<string> AllLangs { get; set; }
         private bool _isCellEmpty;
 
         public bool IsCellEmpty
@@ -28,11 +33,18 @@ namespace CutCode.CrossPlatform.ViewModels
         
         public AddViewModel()
         {
+            AllLangs = new ObservableCollection<string>()
+            {
+                "All languages", "Python", "C++", "C#", "CSS", "Dart", "Golang", "Html", "Java",
+                "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
+            };
+            
             Cells = new ObservableCollection<CodeCellViewModel?>();
             IsCellEmpty = true;
             Cells.CollectionChanged += (sender, args) =>
             {
                 IsCellEmpty = Cells.Count == 0;
+                
             };
         }
 
@@ -125,11 +137,27 @@ namespace CutCode.CrossPlatform.ViewModels
         public async void AddCell()
         {
             Cells.Add(new CodeCellViewModel(this));
+            // the problem is after this async block ends.
+        }
+
+        public async void Cancel()
+        {
+            PageService.CurrentTabIndex = 0;
+            Text = "";
+            Cells.Clear();
+        }
+
+        public async void Save()
+        {
+            //var code  = new CodeBoxModel()
         }
 
         public static void DeleteCell(AddViewModel vm, CodeCellViewModel cell)
         {
             vm.Cells.Remove(cell);
         }
+
+        private string _selectedLanguage;
+        public async void LanguageChanged(string selectedLanguage) => _selectedLanguage = selectedLanguage;
     }
 }
