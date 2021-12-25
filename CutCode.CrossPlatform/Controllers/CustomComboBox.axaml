@@ -9,7 +9,7 @@
         <Label x:Name="nameLabel"
                Grid.Column="0"  
                
-               Padding="0,10,0,0"
+               Padding="0,10,13,0"
                FontSize="12"/>
         <ComboBox  x:Name="comboBox"
                    Grid.Column="1" Height="30" 

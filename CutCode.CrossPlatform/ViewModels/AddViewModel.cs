@@ -28,7 +28,7 @@ namespace CutCode.CrossPlatform.ViewModels
         protected override void OnLightThemeIsSet()
         {
             BackgroundColor =  Color.Parse("#FCFCFC");
-            TopBarBackground =  Color.Parse("#DBDBDB");
+            BarBackground =  Color.Parse("#F6F6F6");
             
             TextAreaBackground = Color.Parse("#ECECEC");
             TextAreaForeground = Color.Parse("#000000");
@@ -41,7 +41,7 @@ namespace CutCode.CrossPlatform.ViewModels
         protected override void OnDarkThemeIsSet()
         {
             BackgroundColor =  Color.Parse("#36393F");
-            TopBarBackground =  Color.Parse("#2F3237");
+            BarBackground =  Color.Parse("#303338");
             
             TextAreaBackground = Color.Parse("#2A2E33");
             TextAreaForeground = Color.Parse("#FFFFFF");
@@ -82,12 +82,12 @@ namespace CutCode.CrossPlatform.ViewModels
             
         }
         
-        private Color _topBarBackground;
+        private Color _barBackground;
 
-        public Color TopBarBackground
+        public Color BarBackground
         {
-            get => _topBarBackground;
-            set => this.RaiseAndSetIfChanged(ref _topBarBackground, value);
+            get => _barBackground;
+            set => this.RaiseAndSetIfChanged(ref _barBackground, value);
         }
 
         private Color _textAreaBackground;

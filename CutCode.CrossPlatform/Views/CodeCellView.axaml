@@ -79,7 +79,7 @@
                 <Button.Styles>
                     <Style Selector="Button:disabled">
                         <Setter Property="Opacity" Value="0.18"/>
-                        <Setter Property="Background" Value="{TemplateBinding Background}"/>
+                        <Setter Property="Background" Value="Transparent"/>
                         <Setter Property="BorderBrush" Value="Transparent"/>
                     </Style>
                 </Button.Styles>
