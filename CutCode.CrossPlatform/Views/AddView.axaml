@@ -49,20 +49,22 @@
             
         </Grid>
         
-        <Grid Grid.Row="1" RowDefinitions="*, Auto">
-            <ScrollViewer Grid.Row="0">
-                <ItemsControl Items="{Binding Cells}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </ScrollViewer>
-            <Grid Grid.Row="1">
-                
-            </Grid>
-        </Grid>
+        <ScrollViewer Grid.Row="1" IsVisible="{Binding !IsCellEmpty}">
+            <ItemsControl Items="{Binding Cells}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+        
+        <Label Grid.Row="1" IsVisible="{Binding IsCellEmpty}"
+               Content="You don't have any cells yet"
+               Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+               FontFamily="{StaticResource PoppinsRegular}" FontSize="14"
+               HorizontalAlignment="Center" VerticalAlignment="Center"
+               Height="30" Width="200"/>
         
         <Grid Grid.Row="2" Height="50" HorizontalAlignment="Stretch" ColumnDefinitions="*, Auto, Auto"
               Background="{Binding BarBackground, Converter={StaticResource ColorToBrushConverter}}">
@@ -72,7 +74,8 @@
                     BorderBrush="{Binding TextAreaOverlayBackground, Converter={StaticResource ColorToBrushConverter}}"
                     Margin="3,0,8,0"
                     BorderThickness="0"
-                    Width="100" Height="30">
+                    Width="100" Height="30"
+                    Command="{Binding AddCell}">
                 <StackPanel Orientation="Horizontal">
                     <Viewbox Height="16">
                         <Path Fill="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"

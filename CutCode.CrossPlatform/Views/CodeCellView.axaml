@@ -18,6 +18,12 @@
         <Style Selector="Button:pressed  /template/ ContentPresenter, Button:pointerover /template/ ContentPresenter">
             <Setter Property="Background" Value="{TemplateBinding BorderBrush}"/>
         </Style>
+        
+        <Style Selector="Button:disabled">
+            <Setter Property="Opacity" Value="0.18"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
     </UserControl.Styles>
     
     <UserControl.Background>
@@ -69,20 +75,13 @@
                     Foreground="{Binding BtnColor, Converter={StaticResource ColorToBrushConverter}}"
                     BorderBrush="{Binding ButtonHoverBackground, Converter={StaticResource ColorToBrushConverter}}"
                     Margin="0,0,3,4"
-                    IsEnabled="{Binding !IsEditable}"
+                    IsEnabled="{Binding IsMoreClickable}"
                     BorderThickness="0"
                     Width="30" Height="30">
                 <Viewbox>
                     <Path Fill="{Binding BtnColor, Converter={StaticResource ColorToBrushConverter}}"
                           Stretch="UniformToFill" Data="M10 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0-6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
                 </Viewbox>
-                <Button.Styles>
-                    <Style Selector="Button:disabled">
-                        <Setter Property="Opacity" Value="0.18"/>
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="BorderBrush" Value="Transparent"/>
-                    </Style>
-                </Button.Styles>
             </Button>
         </Grid>
         
@@ -99,8 +98,8 @@
                            ShowLineNumbers="True"
                            Height="250"
                            MaxHeight="420"
-                           Text="print('Hello world')"
-                            Padding="10,0,10,10"
+                           Text="{Binding Code}"
+                           Padding="10,0,10,10"
                            IsEnabled="{Binding IsEditable}"/>
     </Grid>
 </UserControl>

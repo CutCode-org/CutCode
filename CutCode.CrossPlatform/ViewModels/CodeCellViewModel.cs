@@ -22,27 +22,36 @@ namespace CutCode.CrossPlatform.ViewModels
         }
 
         private bool _isEditable;
-
         public bool IsEditable
         {
             get => _isEditable;
             set => this.RaiseAndSetIfChanged(ref _isEditable, value);
         }
         
-        public CodeCellViewModel(AddViewModel addViewModelInstance)
+        private bool _isMoreClickable;
+        public bool IsMoreClickable
         {
-            // Creating new one
+            get => _isMoreClickable;
+            set => this.RaiseAndSetIfChanged(ref _isMoreClickable, value);
+        }
+        
+        public CodeCellViewModel(AddViewModel addViewModelInstance)
+        {  // Creating new one
             AddViewModelInstance = addViewModelInstance;
+            
             IsEditable = true;
+            IsMoreClickable = false;
         }
         
         public CodeCellViewModel(AddViewModel addViewModelInstance, string description, string code)
         { // if we are fetching from database
             AddViewModelInstance = addViewModelInstance;
-            IsEditable = false;
             Description = description;
             Code = code;
             AddViewModelInstance = addViewModelInstance;
+            
+            IsEditable = false;
+            IsMoreClickable = true;
         }
         
         protected override void OnLightThemeIsSet()

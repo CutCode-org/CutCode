@@ -18,11 +18,22 @@ namespace CutCode.CrossPlatform.ViewModels
     {
         private IDataBase Database => DataBase;
         public ObservableCollection<CodeCellViewModel?> Cells { get; }
+        private bool _isCellEmpty;
+
+        public bool IsCellEmpty
+        {
+            get => _isCellEmpty;
+            set => this.RaiseAndSetIfChanged(ref _isCellEmpty, value);
+        }
+        
         public AddViewModel()
         {
             Cells = new ObservableCollection<CodeCellViewModel?>();
-            Cells.Add(new CodeCellViewModel(this));
-            Cells.Add(new CodeCellViewModel(this));
+            IsCellEmpty = true;
+            Cells.CollectionChanged += (sender, args) =>
+            {
+                IsCellEmpty = Cells.Count == 0;
+            };
         }
 
         protected override void OnLightThemeIsSet()
@@ -111,9 +122,9 @@ namespace CutCode.CrossPlatform.ViewModels
             set => this.RaiseAndSetIfChanged(ref _textAreaOverlayBackground, value);
         }
 
-        public async void AddCell(AddViewModel vm)
+        public async void AddCell()
         {
-            vm.Cells.Add(new CodeCellViewModel(vm));
+            Cells.Add(new CodeCellViewModel(this));
         }
 
         public static void DeleteCell(AddViewModel vm, CodeCellViewModel cell)
