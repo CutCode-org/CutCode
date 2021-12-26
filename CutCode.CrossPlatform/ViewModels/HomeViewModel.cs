@@ -80,8 +80,8 @@ namespace CutCode.CrossPlatform.ViewModels
             }
         }
 
-        private ObservableCollection<CodeBoxModel> _AllCodes;
-        public ObservableCollection<CodeBoxModel> AllCodes
+        private ObservableCollection<CodeModel> _AllCodes;
+        public ObservableCollection<CodeModel> AllCodes
         {
             get => _AllCodes;
             set => this.RaiseAndSetIfChanged(ref _AllCodes, value);

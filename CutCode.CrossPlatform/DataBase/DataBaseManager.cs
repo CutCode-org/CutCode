@@ -22,8 +22,8 @@ namespace CutCode.DataBase
         private static DataBaseManager _dataBase = new DataBaseManager();
         public static DataBaseManager Current => _dataBase;
         
-        public ObservableCollection<CodeBoxModel> AllCodes { get; set; }
-        public ObservableCollection<CodeBoxModel> FavCodes { get; set; }
+        public ObservableCollection<CodeModel> AllCodes { get; set; }
+        public ObservableCollection<CodeModel> FavCodes { get; set; }
         private SQLiteConnection _db;
         private readonly IThemeService themeService = ThemeService.Current;
 
@@ -61,18 +61,21 @@ namespace CutCode.DataBase
             _db = new SQLiteConnection(dbpath);
             _db.CreateTable<CodeTable>();
 
-            AllCodes = new ObservableCollection<CodeBoxModel>();
+            AllCodes = new ObservableCollection<CodeModel>();
 
             var codes = _db.Query<CodeTable>("SELECT * From CodeTable");
             foreach (var c in codes)
             {
-                AllCodes.Add(new CodeBoxModel(c.Id, c.title, c.desc, c.lang, c.isFav, c.code, c.timestamp));
+                var cells = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(c.Cells);
+                var code = new CodeModel(c.Title, cells, c.Language, c.LastModificationTime, c.IsFavourite);
+                code.SetId(c.Id);
+                AllCodes.Add(code);
             }
 
-            var lst = new ObservableCollection<CodeBoxModel>();
+            var lst = new ObservableCollection<CodeModel>();
             foreach (var code in AllCodes)
             {
-                if (code.IsFav) lst.Add(code);
+                if (code.IsFavourite) lst.Add(code);
             }
             FavCodes = lst;
 
@@ -105,25 +108,16 @@ namespace CutCode.DataBase
 
         #endregion
 
-        private int GetIndex(CodeBoxModel code)
-        {
-            int ind = 0;
-            foreach (var c in AllCodes)
-            {
-                if (c.Id == code.Id) break;
-                ind++;
-            }
-            return ind;
-        }
+        private int GetIndex(CodeModel code) => AllCodes.TakeWhile(c => c.Id != code.Id).Count();
 
         public event EventHandler AllCodesUpdated;
         public event EventHandler FavCodesUpdated;
         public void PropertyChanged()
         {
-            var lst = new ObservableCollection<CodeBoxModel>();
+            var lst = new ObservableCollection<CodeModel>();
             foreach (var code in AllCodes)
             {
-                if (code.IsFav) lst.Add(code);
+                if (code.IsFavourite) lst.Add(code);
             }
             FavCodes = lst;
 
@@ -131,39 +125,38 @@ namespace CutCode.DataBase
             FavCodesUpdated?.Invoke(this, EventArgs.Empty);
         }
 
-        public CodeBoxModel AddCode(string title, string desc, string code, string langType)
+        public CodeModel AddCode(string title, List<Dictionary<string, string>> cells, string language)
         {
-            var time = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
-
-            var dbCode = new CodeTable
+            var lastModificationTime = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+            var code = new CodeModel(title, cells, language, lastModificationTime, false);
+            var codeTable = new CodeTable
             {
-                title = title,
-                desc = desc,
-                code = code,
-                lang = langType,
-                isFav = false,
-                timestamp = time
+                Title = code.Title,
+                Cells = code.Cells,
+                Language = code.Language,
+                IsFavourite = code.IsFavourite,
+                LastModificationTime = code.LastModificationTime
             };
-            _db.Insert(dbCode);
+            _db.Insert(codeTable);
 
-            int id = (int)SQLite3.LastInsertRowid(_db.Handle);
-            var codeModel = new CodeBoxModel(id, title, desc, langType, false, code, time);
-            AllCodes.Add(codeModel);
+            var id = (int)SQLite3.LastInsertRowid(_db.Handle);
+            code.SetId(id);
+            
+            AllCodes.Add(code);
             PropertyChanged();
 
-            return codeModel;
+            return code;
         }
 
-        public bool EditCode(CodeBoxModel code)
+        public bool EditCode(CodeModel code)
         {
             try
             {
                 var dbCode = _db.Query<CodeTable>("select * from CodeTable where Id = ?", code.Id).FirstOrDefault();
                 if (dbCode is not null)
                 {
-                    dbCode.title = code.Title;
-                    dbCode.desc = code.Desc;
-                    dbCode.code = code.Code;
+                    dbCode.Title = code.Title;
+                    dbCode.Cells = code.Cells;
                     _db.RunInTransaction(() =>
                     {
                         _db.Update(dbCode);
@@ -179,7 +172,7 @@ namespace CutCode.DataBase
             return true;
         }
 
-        public bool DelCode(CodeBoxModel code)
+        public bool DelCode(CodeModel code)
         {
             try
             {
@@ -194,22 +187,22 @@ namespace CutCode.DataBase
             return true;
         }
 
-        private List<string> AllOrderKind = new List<string>()
+        private List<string> AllKindsOfOrder = new List<string>()
         {
             "Alphabet", "Date", "All languages", "Python", "C++", "C#", "CSS", "Dart", "Golang",
             "Html", "Java", "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
         };
 
-        public async Task<ObservableCollection<CodeBoxModel>> OrderCode(string order)
+        public async Task<ObservableCollection<CodeModel>> OrderCode(string order)
         {
-            int ind = AllOrderKind.IndexOf(order);
-            ObservableCollection<CodeBoxModel> lst;
+            int ind = AllKindsOfOrder.IndexOf(order);
+            ObservableCollection<CodeModel> lst;
 
             var currentCodes = AllCodes;
 
             if (ind > 2)
             {
-                lst = new ObservableCollection<CodeBoxModel>();
+                lst = new ObservableCollection<CodeModel>();
                 foreach (var code in currentCodes)
                 {
                     if (code.Language == order) lst.Add(code);
@@ -217,24 +210,24 @@ namespace CutCode.DataBase
             }
             else
             {
-                if (ind == 0) lst = new ObservableCollection<CodeBoxModel>(currentCodes.OrderBy(x => x.Title).ToList());
-                else if (ind == 1) lst = new ObservableCollection<CodeBoxModel>(currentCodes.OrderBy(x => x.Timestamp).ToList());
+                if (ind == 0) lst = new ObservableCollection<CodeModel>(currentCodes.OrderBy(x => x.Title).ToList());
+                else if (ind == 1) lst = new ObservableCollection<CodeModel>(currentCodes.OrderBy(x => x.LastModificationTime).ToList());
                 else lst = AllCodes;
 
-                if (ind == 0 || ind == 1) ChangeSort(AllOrderKind[ind]);
+                if (ind == 0 || ind == 1) ChangeSort(AllKindsOfOrder[ind]);
             }
 
             return lst;
         }
 
-        public bool FavModify(CodeBoxModel code)
+        public bool FavModify(CodeModel code)
         {
             try
             {
                 var dbCode = _db.Query<CodeTable>("select * from CodeTable where Id = ?", code.Id).FirstOrDefault();
                 if (dbCode is not null)
                 {
-                    dbCode.isFav = code.IsFav;
+                    dbCode.IsFavourite = code.IsFavourite;
                     _db.RunInTransaction(() =>
                     {
                         _db.Update(dbCode);
@@ -249,11 +242,11 @@ namespace CutCode.DataBase
             }
             return true;
         }
-        public async Task<ObservableCollection<CodeBoxModel>> SearchCode(string text, string from)
+        public async Task<ObservableCollection<CodeModel>> SearchCode(string text, string from)
         {
             var currentCode = from == "Home" ? AllCodes : FavCodes;
             var newCodesList = currentCode.Where(x => x.Title.ToLower().Contains(text.ToLower())).ToList();
-            var newCodes = new ObservableCollection<CodeBoxModel>();
+            var newCodes = new ObservableCollection<CodeModel>();
             foreach (var code in newCodesList)
             {
                 newCodes.Add(code);

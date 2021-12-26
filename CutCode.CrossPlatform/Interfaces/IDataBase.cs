@@ -10,16 +10,16 @@ namespace CutCode.CrossPlatform.Interfaces
 {
     public interface IDataBase
     {
-        ObservableCollection<CodeBoxModel> AllCodes { get; set; }
-        ObservableCollection<CodeBoxModel> FavCodes { get; set; }
+        ObservableCollection<CodeModel> AllCodes { get; set; }
+        ObservableCollection<CodeModel> FavCodes { get; set; }
         event EventHandler AllCodesUpdated;
         event EventHandler FavCodesUpdated;
-        CodeBoxModel AddCode(string title, string desc, string code, string langType);
-        bool EditCode(CodeBoxModel code);
-        bool DelCode(CodeBoxModel code);
-        Task<ObservableCollection<CodeBoxModel>> OrderCode(string order);
-        bool FavModify(CodeBoxModel code);
-        Task<ObservableCollection<CodeBoxModel>> SearchCode(string text, string from);
+        CodeModel AddCode(string title, List<Dictionary<string, string>> cells, string language);
+        bool EditCode(CodeModel code);
+        bool DelCode(CodeModel code);
+        Task<ObservableCollection<CodeModel>> OrderCode(string order);
+        bool FavModify(CodeModel code);
+        Task<ObservableCollection<CodeModel>> SearchCode(string text, string from);
 
         bool isLightTheme { get; set; }
         string sortBy { get; set; }

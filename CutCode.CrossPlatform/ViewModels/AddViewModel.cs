@@ -12,6 +12,7 @@ using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.ViewModels;
 using CutCode.DataBase;
 using FluentAvalonia.UI.Controls;
+using Newtonsoft.Json;
 using ReactiveUI;
 
 namespace CutCode.CrossPlatform.ViewModels
@@ -74,11 +75,11 @@ namespace CutCode.CrossPlatform.ViewModels
             ComboBoxBackgroundOnHover = Color.Parse("#24272B");
         }
         
-        private string _text;
-        public string Text
+        private string _title;
+        public string Title 
         {
-            get => _text;
-            set => this.RaiseAndSetIfChanged(ref _text, value);
+            get => _title;
+            set => this.RaiseAndSetIfChanged(ref _title, value);
         }
         
         private Color _backgroundColor;
@@ -143,13 +144,20 @@ namespace CutCode.CrossPlatform.ViewModels
         public async void Cancel()
         {
             PageService.CurrentTabIndex = 0;
-            Text = "";
+            Title = "";
             Cells.Clear();
         }
 
         public async void Save()
         {
-            //var code  = new CodeBoxModel()
+            var cellsList = Cells.Select(x => 
+                new Dictionary<string, string>()
+                {
+                    {"Description", x.Description},
+                    {"Code", x.Code}
+                }).ToList();
+            
+            var codeModel = DataBase.AddCode(Title, cellsList, _selectedLanguage);
         }
 
         public static void DeleteCell(AddViewModel vm, CodeCellViewModel cell)

@@ -30,7 +30,7 @@
         <Grid Grid.Row="0" Height="50" ColumnDefinitions="*, Auto"
                     Background="{Binding BarBackground, Converter={StaticResource ColorToBrushConverter}}">
             <TextBox Grid.Column="0"
-                     Text="{Binding Text}"
+                     Text="{Binding Title}"
                      Watermark="Title for your code"
                      MaxLength="120"
                      FontSize="14"

@@ -14,11 +14,11 @@ namespace CutCode.CrossPlatform.ViewModels
     public class CodeViewModel : PageBaseViewModel
     {
         private IDataBase Database => DataBase;
-        public CodeBoxModel Code;
+        public CodeModel Code;
         
         public ObservableCollection<CodeCellViewModel?> Cells { get; }
         
-        public CodeViewModel(CodeBoxModel code)
+        public CodeViewModel(CodeModel code)
         {
             Code = code;
             Cells = new ObservableCollection<CodeCellViewModel?>();

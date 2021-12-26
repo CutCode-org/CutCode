@@ -12,12 +12,11 @@ namespace CutCode.CrossPlatform.ViewModels
             
         }
         
-        public CodeCardViewModel(CodeBoxModel code)
+        public CodeCardViewModel(CodeModel code)
         {
             Title = code.Title;
-            Desc = code.Desc;
-            Code = code.Code;
-            Timestamp = code.Timestamp;
+            Code = code.Cells;
+            Timestamp = code.LastModificationTime;
             Language = code.Language;
         }
 
