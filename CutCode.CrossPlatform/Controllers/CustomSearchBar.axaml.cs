@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Reactive.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Avalonia;
@@ -55,7 +56,7 @@ namespace CutCode.CrossPlatform.Controllers
             };
             
             this.WhenAnyValue(x => x.textBox.Text)
-                .Throttle(TimeSpan.FromMilliseconds(400))
+                .Throttle(TimeSpan.FromMilliseconds(10))
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(SearchActivate!);
             
@@ -67,6 +68,7 @@ namespace CutCode.CrossPlatform.Controllers
             textBox.Clear();
             Text = string.Empty;
             CloseButton.IsVisible = false;
+            SearchCancelled?.Execute(null);
         }
 
         private void InitializeComponent()
@@ -180,6 +182,14 @@ namespace CutCode.CrossPlatform.Controllers
         {
             get => GetValue(SearchCommandProperty);
             set => SetValue(SearchCommandProperty, value);
+        }
+        
+        public new static readonly StyledProperty<ICommand> SearchCancelledProperty =
+            AvaloniaProperty.Register<TextBox, ICommand>(nameof(SearchCancelled));
+        public ICommand SearchCancelled
+        {
+            get => GetValue(SearchCancelledProperty);
+            set => SetValue(SearchCancelledProperty, value);
         }
         
         public new static readonly StyledProperty<bool> IsSearchBusyProperty =

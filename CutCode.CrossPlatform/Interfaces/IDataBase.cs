@@ -17,7 +17,7 @@ namespace CutCode.CrossPlatform.Interfaces
         CodeModel AddCode(string title, List<Dictionary<string, string>> cells, string language);
         bool EditCode(CodeModel code);
         bool DelCode(CodeModel code);
-        Task<List<CodeModel>> OrderCode(string order);
+        Task<List<CodeModel>> OrderCode(string order, List<CodeModel> codes = null);
         bool FavModify(CodeModel code);
         Task<List<CodeModel>> SearchCode(string text, string from);
 

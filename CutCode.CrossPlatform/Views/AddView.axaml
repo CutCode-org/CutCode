@@ -26,7 +26,7 @@
         <SolidColorBrush Color="{Binding BackgroundColor}"/>
     </UserControl.Background>
     
-    <Grid RowDefinitions="Auto,*, Auto"> 
+    <Grid RowDefinitions="Auto,*, Auto">
         <Grid Grid.Row="0" Height="50" ColumnDefinitions="*, Auto"
                     Background="{Binding BarBackground, Converter={StaticResource ColorToBrushConverter}}">
             <TextBox Grid.Column="0"

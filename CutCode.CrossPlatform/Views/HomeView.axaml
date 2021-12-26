@@ -17,15 +17,16 @@
     
     <Grid RowDefinitions="Auto,*">
         <WrapPanel Grid.Row="0">
-            <controls:CustomSearchBar MinWidth="650" Margin="20,10,20,15" 
+            <controls:CustomSearchBar MinWidth="650" Margin="12,10,20,0" 
                                       IsSearchBusy="{Binding IsSearchBusy}"
                                       SearchCommand="{Binding SearchCommand}"
+                                      SearchCancelled="{Binding SearchCancelled}"
                                       Background="{Binding SearchBarBackground, Converter={StaticResource ColorToBrushConverter}}"
                                       Foreground="{Binding SearchBarTextColor, Converter={StaticResource ColorToBrushConverter}}"
                                       OverlayBrush="{Binding SearchBarOnHoverColor, Converter={StaticResource ColorToBrushConverter}}"
                                       PlaceHolderText="Search your code here"/>
             
-            <Grid Margin="25,10,0,0" ColumnDefinitions="Auto,Auto">
+            <Grid Margin="15,10,0,0" ColumnDefinitions="Auto,Auto">
                 <controls:CustomComboBox Grid.Column="0" Name="Sort by"
                                          Items="{Binding Sorts}"
                                          ItemSelected="{Binding ComboBoxCommand}"
@@ -50,11 +51,11 @@
             <ItemsControl Items="{Binding AllCodes}" BorderThickness="0" Background="Transparent"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                           HorizontalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <WrapPanel/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
             </ItemsControl>
         </ScrollViewer>
         

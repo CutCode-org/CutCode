@@ -195,12 +195,12 @@ namespace CutCode.DataBase
             "Html", "Java", "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
         };
 
-        public async Task<List<CodeModel>> OrderCode(string order)
+        public async Task<List<CodeModel>> OrderCode(string order, List<CodeModel> codes = null)
         {
             int ind = AllKindsOfOrder.IndexOf(order);
             List<CodeModel> lst;
 
-            var currentCodes = AllCodes;
+            var currentCodes = codes == null ? AllCodes : codes;
 
             if (ind > 2)
             {

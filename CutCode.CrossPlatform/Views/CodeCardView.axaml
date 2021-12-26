@@ -1,39 +1,58 @@
-﻿<Border xmlns="https://github.com/avaloniaui"
+﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:converters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
              xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
-             mc:Ignorable="d" CornerRadius="5" ClipToBounds="True"
-             Height="180"
+             xmlns:h="using:CutCode.CrossPlatform.Helpers"
+             mc:Ignorable="d" ClipToBounds="True"
+             MinHeight="180" MaxHeight="250"  Margin="8,7,28,7"
              x:Class="CutCode.CrossPlatform.Views.CodeCardView">
     
-    <Border.Resources>
+    <UserControl.Resources>
         <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
-    </Border.Resources>
+        <h:StringToGeometryConverter x:Key="StringToGeometryConverter"/>
+    </UserControl.Resources>
     
-    <Border.DataContext>
-        <vm:CodeCardViewModel/>
-    </Border.DataContext>
-    
-    <Grid ColumnDefinitions="Auto, *" 
-          Background="{Binding CardColor, Converter={StaticResource ColorToBrushConverter}}">
-        <Image Grid.Column="0" Width="120" Stretch="Uniform" Source="{Binding Language}">
-            <Image.Clip>
-                <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25"/>
-            </Image.Clip>
-        </Image>
-        <StackPanel Grid.Column="1">
-            <Label Margin="3,4,3,6"
-                   Content="{Binding Title}" 
-                   Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"
-                   FontFamily="{DynamicResource PoppinsSemibold}"
-                   FontSize="14" FontWeight="Bold"/>
-            <Label Margin="3,0,3,0"
-                   Content="{Binding Desc}" 
-                   Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"
-                   FontFamily="{DynamicResource PoppinsSemibold}"
-                   FontSize="13"/>
-        </StackPanel>
-    </Grid>
-</Border>
+    <Border CornerRadius="5"
+            BorderThickness="0">
+        <Border.Styles>
+            <Style Selector="Border">
+                <Setter Property="Background" Value="{Binding $parent[UserControl].DataContext.CardColor, Converter={StaticResource ColorToBrushConverter}}"/>
+            </Style>
+            <Style Selector="Border:pointerover">
+                <Setter Property="Background" Value="{Binding $parent[UserControl].DataContext.CardColorHover, Converter={StaticResource ColorToBrushConverter}}"/>
+            </Style>
+        </Border.Styles>
+        
+        <Grid ColumnDefinitions="Auto, *" >
+            <Viewbox Grid.Column="0"
+                     Height="120"
+                     HorizontalAlignment="35" VerticalAlignment="Center"
+                     Margin="25,15,10,15"
+                     Padding="15">
+                <Path Stretch="UniformToFill"
+                      Data="{Binding Language, Converter={StaticResource StringToGeometryConverter}}"
+                      Fill="{Binding LanguageColor, Converter={StaticResource ColorToBrushConverter}}"/>
+            </Viewbox>
+            <Grid Grid.Column="1" RowDefinitions="Auto, *">
+                <Grid Grid.Row="0" ColumnDefinitions="*, Auto">
+                    <Label Grid.Column="0" HorizontalAlignment="Left" 
+                           Content="{Binding Title}"
+                           FontFamily="{StaticResource PoppinsRegular}"
+                           FontSize="17"
+                           Margin="20,20,0,8"
+                           Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"/>
+                </Grid>
+                <ScrollViewer Grid.Row="1" 
+                              HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                              Margin="20,10,12,7">
+                    <Label Content="{Binding Description}"
+                           FontFamily="{StaticResource PoppinsRegular}"
+                           FontSize="14"
+                           Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"/>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

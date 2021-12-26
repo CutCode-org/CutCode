@@ -36,6 +36,8 @@ namespace CutCode.CrossPlatform.ViewModels
             Sorts = new ObservableCollection<string>() { "Date", "Alphabet" };
 
             Sortby = DataBase.sortBy == "Date" ? 0 : 1;
+            _basicSort = DataBase.sortBy;
+            _languageSort = "All languages";
 
             VisChange();
         }
@@ -152,9 +154,22 @@ namespace CutCode.CrossPlatform.ViewModels
             get => _emptyLabel;
             set => this.RaiseAndSetIfChanged(ref _emptyLabel, value);
         }
-        public async void ComboBoxCommand(string SelectedItem)
+
+        private string _basicSort;
+        private string _languageSort;
+        public async void ComboBoxCommand(string sort)
         {
-            CodeModeToViewModel(DataBase.AllCodes);
+            if (sort is "Date" or "Alphabet")
+            {
+                _basicSort = sort;
+                CodeModeToViewModel(await  DataBase.OrderCode(_basicSort));
+            }
+            else
+            {
+                _languageSort = sort;
+                var codes = await DataBase.OrderCode(_languageSort);
+                CodeModeToViewModel(await  DataBase.OrderCode(_basicSort, codes));
+            }
             VisChange("Not found :(");
         }
 
@@ -185,6 +200,13 @@ namespace CutCode.CrossPlatform.ViewModels
             }
             
             IsSearchBusy = false;
+        }
+
+        public async void SearchCancelled()
+        {
+            var codes = await DataBase.OrderCode(_languageSort);
+            CodeModeToViewModel(await  DataBase.OrderCode(_basicSort, codes));
+            VisChange();
         }
     }
 }
