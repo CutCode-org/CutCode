@@ -44,7 +44,7 @@
             </Grid>
         </WrapPanel>
         
-        <ScrollViewer Grid.Row="1"  BorderBrush="Transparent"
+        <ScrollViewer Grid.Row="1"  BorderBrush="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                        Margin="5,5,5,5" IsVisible="{Binding !EmptyLabelVisibility}"
                        BorderThickness="0">
             <ItemsControl Items="{Binding AllCodes}" BorderThickness="0" Background="Transparent"

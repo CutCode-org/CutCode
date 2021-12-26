@@ -5,6 +5,7 @@
              xmlns:converters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
              xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
              mc:Ignorable="d" CornerRadius="5" ClipToBounds="True"
+             Height="180"
              x:Class="CutCode.CrossPlatform.Views.CodeCardView">
     
     <Border.Resources>
