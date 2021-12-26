@@ -58,7 +58,6 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             Background = Color.Parse("#E3E5E8");
             TextColor = Color.Parse("#000000");
-            ButtonHoverBackground = Color.Parse("#D0D1D2");
             BtnColor = Color.Parse("#090909");
         }
 
@@ -66,7 +65,6 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             Background = Color.Parse("#202225");
             TextColor = Color.Parse("#FFFFFF");
-            ButtonHoverBackground = Color.Parse("#373737");
             BtnColor = Color.Parse("#F2F2F2");
         }
         
@@ -91,13 +89,6 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             get => _textColor;
             set =>  this.RaiseAndSetIfChanged(ref _btnColor, value);
-        }
-        
-        private Color _buttonHoverBackground;
-        public Color ButtonHoverBackground
-        {
-            get => _buttonHoverBackground;
-            set => this.RaiseAndSetIfChanged(ref _buttonHoverBackground, value);
         }
         
         public async void DeleteCell(CodeCellViewModel cell)
