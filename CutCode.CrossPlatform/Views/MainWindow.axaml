@@ -90,7 +90,7 @@
              FontWeight="Bold" FontFamily="{DynamicResource PoppinsSemibold}"
              Padding="15,10,15,0">
       </Label>
-      <ToggleSwitch Grid.Column="1" 
+      <ToggleSwitch Grid.Column="1"
                     Margin="0 0 10 0"
                     OffContent="Light" OnContent="Dark"
                     Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"

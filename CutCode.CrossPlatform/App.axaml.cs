@@ -34,6 +34,8 @@ namespace CutCode.CrossPlatform
                     if(ThemeService.Current.IsLightTheme) SystemColorsConfig.LightThemeColors();
                     else SystemColorsConfig.DarkThemeColors();
                 };
+                ThemeService.Current.IsLightTheme = DataBaseManager.Current.isLightTheme;
+                
                 desktop.MainWindow = new MainWindow
                 {
                     DataContext = new MainWindowViewModel()
