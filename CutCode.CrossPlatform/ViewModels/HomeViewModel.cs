@@ -21,12 +21,14 @@ namespace CutCode.CrossPlatform.ViewModels
     {
         public HomeViewModel()
         {
-            AllCodes = DataBase.AllCodes;
+            AllCodes = new ObservableCollection<CodeCardViewModel>();
+            CodeModeToViewModel(DataBase.AllCodes);
+            
             DataBase.AllCodesUpdated += AllCodesUpdated;
 
             IsSearchBusy = false;
 
-            AllLangs = new ObservableCollection<string>()
+            Languages = new ObservableCollection<string>()
             {
             "All languages", "Python", "C++", "C#", "CSS", "Dart", "Golang", "Html", "Java",
             "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
@@ -40,66 +42,62 @@ namespace CutCode.CrossPlatform.ViewModels
 
         protected override void OnLightThemeIsSet()
         {
-            backgroundColor =  Color.Parse("#FCFCFC");
-            searchBarBackground = Color.Parse("#ECECEC");
+            BackgroundColor =  Color.Parse("#FCFCFC");
+            SearchBarBackground = Color.Parse("#ECECEC");
             SearchBarOnHoverColor = Color.Parse("#E2E2E2");
-            searchBarTextColor = Color.Parse("#000000");
-            comboboxHoverColor = Color.Parse("#C5C7C9");
-            comboboxBackgroundColor = Color.Parse("#E3E5E8");
+            SearchBarTextColor = Color.Parse("#000000");
+            ComboboxHoverColor = Color.Parse("#C5C7C9");
+            ComboboxBackgroundColor = Color.Parse("#E3E5E8");
         }
 
         protected override void OnDarkThemeIsSet()
         {
-            backgroundColor =  Color.Parse("#36393F");
-            searchBarBackground = Color.Parse("#2A2E33");
+            BackgroundColor =  Color.Parse("#36393F");
+            SearchBarBackground = Color.Parse("#2A2E33");
             SearchBarOnHoverColor = Color.Parse("#24272B");
-            searchBarTextColor = Color.Parse("#FFFFFF");
-            comboboxHoverColor = Color.Parse("#202326");
-            comboboxBackgroundColor = Color.Parse("#202225");    
+            SearchBarTextColor = Color.Parse("#FFFFFF");
+            ComboboxHoverColor = Color.Parse("#202326");
+            ComboboxBackgroundColor = Color.Parse("#202225");    
         }
         
         private void AllCodesUpdated(object sender, EventArgs e) 
         {
-            AllCodes = DataBase.AllCodes;
+            CodeModeToViewModel(DataBase.AllCodes);
             VisChange();
-        } 
+        }
+
+        private void CodeModeToViewModel(List<CodeModel> codes)
+        {
+            AllCodes.Clear();
+            foreach(var code in codes) AllCodes.Add(new CodeCardViewModel(code));
+        }
 
         private void VisChange(string text = "You don't have any notes :(")
         {
-            if(AllCodes.Count == 0)
-            {
-                labelVis = true;
-                codesVis = false;
-                emptyLabel = text;
-            }
-            else
-            {
-                
-                labelVis = false;
-                codesVis = true;
-            }
+            EmptyLabelVisibility = AllCodes.Count == 0;
+            EmptyLabel = text;
         }
 
-        private ObservableCollection<CodeModel> _AllCodes;
-        public ObservableCollection<CodeModel> AllCodes
+        private ObservableCollection<CodeCardViewModel> _AllCodes;
+        public ObservableCollection<CodeCardViewModel> AllCodes
         {
             get => _AllCodes;
             set => this.RaiseAndSetIfChanged(ref _AllCodes, value);
         }
-        public IList<string> AllLangs { get; set; }
+        public IList<string> Languages { get; set; }
         public IList<string> Sorts { get; set; }
 
         #region Color
         private Color _backgroundColor;
 
-        public Color backgroundColor
+        public Color BackgroundColor
         {
             get => _backgroundColor;
             set => this.RaiseAndSetIfChanged(ref _backgroundColor, value);
         }
         
         private Color _searchBarBackground;
-        public Color searchBarBackground
+        public Color SearchBarBackground
         {
             get => _searchBarBackground;
             set =>this.RaiseAndSetIfChanged(ref _searchBarBackground, value);
@@ -115,7 +113,7 @@ namespace CutCode.CrossPlatform.ViewModels
         }
 
         private Color _searchBarTextColor;
-        public Color searchBarTextColor
+        public Color SearchBarTextColor
         {
             get => _searchBarTextColor;
             set =>  this.RaiseAndSetIfChanged(ref _searchBarTextColor, value);
@@ -123,7 +121,7 @@ namespace CutCode.CrossPlatform.ViewModels
         }
 
         private Color _comboboxHoverColor;
-        public Color comboboxHoverColor
+        public Color ComboboxHoverColor
         {
             get => _comboboxHoverColor;
             set => this.RaiseAndSetIfChanged(ref _comboboxHoverColor, value);
@@ -131,7 +129,7 @@ namespace CutCode.CrossPlatform.ViewModels
         }
 
         private Color _comboboxBackgroundColor;
-        public Color comboboxBackgroundColor
+        public Color ComboboxBackgroundColor
         {
             get => _comboboxBackgroundColor;
             set => this.RaiseAndSetIfChanged(ref _comboboxBackgroundColor, value);
@@ -139,30 +137,24 @@ namespace CutCode.CrossPlatform.ViewModels
         }
         #endregion
 
-        private bool _labelVis;
-        public bool labelVis
+        private bool _emptyLabelVisibility;
+        public bool EmptyLabelVisibility
         {
-            get => _labelVis;
-            set => this.RaiseAndSetIfChanged(ref _labelVis, value);
-        }
-        private bool _codesVis;
-        public bool codesVis
-        {
-            get => _codesVis;
-            set => this.RaiseAndSetIfChanged(ref _codesVis, value);
+            get => _emptyLabelVisibility;
+            set => this.RaiseAndSetIfChanged(ref _emptyLabelVisibility, value);
         }
 
         private int Sortby { get; set; }
 
         private string _emptyLabel;
-        public string emptyLabel
+        public string EmptyLabel
         {
             get => _emptyLabel;
             set => this.RaiseAndSetIfChanged(ref _emptyLabel, value);
         }
         public async void ComboBoxCommand(string SelectedItem)
         {
-            AllCodes = await DataBase.OrderCode(SelectedItem);
+            CodeModeToViewModel(DataBase.AllCodes);
             VisChange("Not found :(");
         }
 
@@ -177,25 +169,22 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             IsSearchBusy = true;
             await Task.Delay(TimeSpan.FromSeconds(3));
-            IsSearchBusy = false;
-            /*
-            IsSearched = false;
             if(text == "")
             {
 
-                AllCodes = DataBase.AllCodes;
+                CodeModeToViewModel(DataBase.AllCodes);
                 VisChange();
             }
             else
             {
                 if (AllCodes.Count > 0)
                 {
-                    AllCodes = await DataBase.SearchCode(text, "Home");
+                    CodeModeToViewModel(await DataBase.SearchCode(text, "Home"));
                     VisChange("Not found :(");
                 }
             }
-            IsSearched = true;
-            */
+            
+            IsSearchBusy = false;
         }
     }
 }

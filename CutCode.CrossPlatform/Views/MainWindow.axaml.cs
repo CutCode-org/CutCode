@@ -13,6 +13,7 @@ namespace CutCode.CrossPlatform.Views
     public partial class MainWindow : Window
     {
         private TabControl _tabControl;
+        private TabItem _homeTab;
         public MainWindow()
         {
             InitializeComponent();
@@ -21,9 +22,16 @@ namespace CutCode.CrossPlatform.Views
 #endif
             
             this.GetControl("tabControl", out _tabControl);
+            this.GetControl("homeTab", out _homeTab);
             PageService.Current.TabChanged += (sender, args) =>
             {
                 _tabControl.SelectedIndex = PageService.Current.CurrentTabIndex;
+            };
+
+            PageService.Current.ExternalPageChange += (sender, args) =>
+            {
+                _homeTab.Content = PageService.Current.ExternalPage;
+                _tabControl.SelectedIndex = 0;
             };
         }
 

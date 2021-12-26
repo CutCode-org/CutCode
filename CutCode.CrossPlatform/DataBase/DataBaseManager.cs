@@ -14,6 +14,7 @@ using System.IO.Compression;
 using Avalonia;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
+using ReactiveUI;
 
 namespace CutCode.DataBase
 {
@@ -22,8 +23,8 @@ namespace CutCode.DataBase
         private static DataBaseManager _dataBase = new DataBaseManager();
         public static DataBaseManager Current => _dataBase;
         
-        public ObservableCollection<CodeModel> AllCodes { get; set; }
-        public ObservableCollection<CodeModel> FavCodes { get; set; }
+        public List<CodeModel> AllCodes { get; set; }
+        public List<CodeModel> FavCodes { get; set; }
         private SQLiteConnection _db;
         private readonly IThemeService themeService = ThemeService.Current;
 
@@ -59,20 +60,21 @@ namespace CutCode.DataBase
         private void OpenDB()
         {
             _db = new SQLiteConnection(dbpath);
-            _db.CreateTable<CodeTable>();
+            _db.CreateTable<CodesTable>();
 
-            AllCodes = new ObservableCollection<CodeModel>();
+            AllCodes = new List<CodeModel>();
 
-            var codes = _db.Query<CodeTable>("SELECT * From CodeTable");
+            var codes = _db.Query<CodesTable>("SELECT * From CodesTable");
             foreach (var c in codes)
             {
+                if (c.Cells == null) continue;
                 var cells = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(c.Cells);
                 var code = new CodeModel(c.Title, cells, c.Language, c.LastModificationTime, c.IsFavourite);
                 code.SetId(c.Id);
                 AllCodes.Add(code);
             }
 
-            var lst = new ObservableCollection<CodeModel>();
+            var lst = new List<CodeModel>();
             foreach (var code in AllCodes)
             {
                 if (code.IsFavourite) lst.Add(code);
@@ -114,7 +116,7 @@ namespace CutCode.DataBase
         public event EventHandler FavCodesUpdated;
         public void PropertyChanged()
         {
-            var lst = new ObservableCollection<CodeModel>();
+            var lst = new List<CodeModel>();
             foreach (var code in AllCodes)
             {
                 if (code.IsFavourite) lst.Add(code);
@@ -129,7 +131,7 @@ namespace CutCode.DataBase
         {
             var lastModificationTime = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
             var code = new CodeModel(title, cells, language, lastModificationTime, false);
-            var codeTable = new CodeTable
+            var codeTable = new CodesTable
             {
                 Title = code.Title,
                 Cells = code.Cells,
@@ -152,7 +154,7 @@ namespace CutCode.DataBase
         {
             try
             {
-                var dbCode = _db.Query<CodeTable>("select * from CodeTable where Id = ?", code.Id).FirstOrDefault();
+                var dbCode = _db.Query<CodesTable>("select * from CodesTable where Id = ?", code.Id).FirstOrDefault();
                 if (dbCode is not null)
                 {
                     dbCode.Title = code.Title;
@@ -176,7 +178,7 @@ namespace CutCode.DataBase
         {
             try
             {
-                _db.Delete<CodeTable>(code.Id);
+                _db.Delete<CodesTable>(code.Id);
                 AllCodes.Remove(code);
                 PropertyChanged();
             }
@@ -193,16 +195,16 @@ namespace CutCode.DataBase
             "Html", "Java", "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
         };
 
-        public async Task<ObservableCollection<CodeModel>> OrderCode(string order)
+        public async Task<List<CodeModel>> OrderCode(string order)
         {
             int ind = AllKindsOfOrder.IndexOf(order);
-            ObservableCollection<CodeModel> lst;
+            List<CodeModel> lst;
 
             var currentCodes = AllCodes;
 
             if (ind > 2)
             {
-                lst = new ObservableCollection<CodeModel>();
+                lst = new List<CodeModel>();
                 foreach (var code in currentCodes)
                 {
                     if (code.Language == order) lst.Add(code);
@@ -210,8 +212,8 @@ namespace CutCode.DataBase
             }
             else
             {
-                if (ind == 0) lst = new ObservableCollection<CodeModel>(currentCodes.OrderBy(x => x.Title).ToList());
-                else if (ind == 1) lst = new ObservableCollection<CodeModel>(currentCodes.OrderBy(x => x.LastModificationTime).ToList());
+                if (ind == 0) lst = new List<CodeModel>(currentCodes.OrderBy(x => x.Title).ToList());
+                else if (ind == 1) lst = new List<CodeModel>(currentCodes.OrderBy(x => x.LastModificationTime).ToList());
                 else lst = AllCodes;
 
                 if (ind == 0 || ind == 1) ChangeSort(AllKindsOfOrder[ind]);
@@ -224,7 +226,7 @@ namespace CutCode.DataBase
         {
             try
             {
-                var dbCode = _db.Query<CodeTable>("select * from CodeTable where Id = ?", code.Id).FirstOrDefault();
+                var dbCode = _db.Query<CodesTable>("select * from CodesTable where Id = ?", code.Id).FirstOrDefault();
                 if (dbCode is not null)
                 {
                     dbCode.IsFavourite = code.IsFavourite;
@@ -242,11 +244,11 @@ namespace CutCode.DataBase
             }
             return true;
         }
-        public async Task<ObservableCollection<CodeModel>> SearchCode(string text, string from)
+        public async Task<List<CodeModel>> SearchCode(string text, string from)
         {
             var currentCode = from == "Home" ? AllCodes : FavCodes;
             var newCodesList = currentCode.Where(x => x.Title.ToLower().Contains(text.ToLower())).ToList();
-            var newCodes = new ObservableCollection<CodeModel>();
+            var newCodes = new List<CodeModel>();
             foreach (var code in newCodesList)
             {
                 newCodes.Add(code);

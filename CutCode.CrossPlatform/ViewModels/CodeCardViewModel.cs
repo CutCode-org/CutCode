@@ -15,9 +15,9 @@ namespace CutCode.CrossPlatform.ViewModels
         public CodeCardViewModel(CodeModel code)
         {
             Title = code.Title;
-            Code = code.Cells;
-            Timestamp = code.LastModificationTime;
+            LastModificationTime = code.LastModificationTime;
             Language = code.Language;
+            IsFavourtie = code.IsFavourite;
         }
 
 
@@ -62,21 +62,14 @@ namespace CutCode.CrossPlatform.ViewModels
             set => this.RaiseAndSetIfChanged(ref _desc, value);
         }
 
-        private bool _isFav;
-        public bool IsFav
+        private bool _isFavourtie;
+        public bool IsFavourtie
         {
-            get => _isFav;
-            set => this.RaiseAndSetIfChanged(ref _isFav, value);
+            get => _isFavourtie;
+            set => this.RaiseAndSetIfChanged(ref _isFavourtie, value);
         }
 
         public string Language { get; set; }
-
-        private string _code;
-        public string Code
-        {
-            get => _code;
-            set => this.RaiseAndSetIfChanged(ref _code, value);
-        }
-        public long Timestamp { get; set; }
+        public long LastModificationTime { get; set; }
     }
 }

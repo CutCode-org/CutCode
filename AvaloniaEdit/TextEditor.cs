@@ -34,6 +34,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Data;
+using Avalonia.Metadata;
 using AvaloniaEdit.Search;
 
 namespace AvaloniaEdit
@@ -51,7 +52,6 @@ namespace AvaloniaEdit
             HorizontalScrollBarVisibilityProperty.OverrideDefaultValue<TextEditor>(ScrollBarVisibility.Auto);
             VerticalScrollBarVisibilityProperty.OverrideDefaultValue<TextEditor>(ScrollBarVisibility.Auto);
 
-            TextProperty.Changed.Subscribe(TextPropertyChanged);
             OptionsProperty.Changed.Subscribe(OnOptionsChanged);
             DocumentProperty.Changed.Subscribe(OnDocumentChanged);
             SyntaxHighlightingProperty.Changed.Subscribe(OnSyntaxHighlightingChanged);
@@ -221,6 +221,7 @@ namespace AvaloniaEdit
         #endregion
 
         #region Text property
+
         /// <summary>
         /// Gets/Sets the text of the current document.
         /// </
@@ -236,18 +237,6 @@ namespace AvaloniaEdit
                 defaultBindingMode: BindingMode.TwoWay, 
                 defaultValue: string.Empty);
         
-        private static void TextPropertyChanged(AvaloniaPropertyChangedEventArgs e)
-        {
-            if (e.Sender is TextEditor ctrl)
-            {
-                var document = ctrl.GetDocument();
-                document.Text = (string)e.NewValue ?? string.Empty;
-                // after replacing the full text, the caret is positioned at the end of the document
-                // - reset it to the beginning.
-                ctrl.CaretOffset = 0;
-                document.UndoStack.ClearAll();
-            }
-        }
         /*
         public string Text
         {
@@ -286,6 +275,7 @@ namespace AvaloniaEdit
         /// </summary>
         protected virtual void OnTextChanged(EventArgs e)
         {
+            Text = Document.Text;
             TextChanged?.Invoke(this, e);
         }
         #endregion

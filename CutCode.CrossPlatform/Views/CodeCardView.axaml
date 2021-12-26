@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:converters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
              xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
-             mc:Ignorable="d" CornerRadius="10" ClipToBounds="True"
+             mc:Ignorable="d" CornerRadius="5" ClipToBounds="True"
              x:Class="CutCode.CrossPlatform.Views.CodeCardView">
     
     <Border.Resources>

@@ -121,7 +121,7 @@
           <Setter Property="Background" Value="{Binding SideBarColor, Converter={StaticResource ColorToBrushConverter}}"/>
         </Style>
       </TabControl.Styles>
-      <TabItem ToolTip.Tip="Home">
+      <TabItem ToolTip.Tip="Home" x:Name="homeTab">
         <TabItem.Header>
           <Viewbox HorizontalAlignment="Center">
             <Path  Fill="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"

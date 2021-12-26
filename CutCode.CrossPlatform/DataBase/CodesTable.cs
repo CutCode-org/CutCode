@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace CutCode.DataBase
 {
-    [Table("CodeTable")]
-    public class CodeTable
+    [Table("CodesTable")]
+    public class CodesTable
     {
         [PrimaryKey, AutoIncrement]
         [SQLite.Column("Id")]

@@ -11,7 +11,10 @@ namespace CutCode.CrossPlatform.Interfaces
     {
         event EventHandler TabChanged;
         int CurrentTabIndex { get; set; }
-        
+
+        event EventHandler ExternalPageChange;
+        object ExternalPage { get; set; }
+
     }
 
     public class PageService : IPageService
@@ -29,6 +32,21 @@ namespace CutCode.CrossPlatform.Interfaces
             {
                 if (false && value == _currentTabIndex) return;
                 _currentTabIndex = value;
+                TabChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+        
+        public event EventHandler ExternalPageChange;
+
+        private object _externalPage;
+
+        public object ExternalPage
+        {
+            get => _externalPage;
+            set
+            {
+                if (false && value == _externalPage) return;
+                _externalPage = value;
                 TabChanged?.Invoke(this, EventArgs.Empty);
             }
         }

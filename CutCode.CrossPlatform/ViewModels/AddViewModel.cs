@@ -10,6 +10,7 @@ using Avalonia.Media;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.ViewModels;
+using CutCode.CrossPlatform.Views;
 using CutCode.DataBase;
 using FluentAvalonia.UI.Controls;
 using Newtonsoft.Json;
@@ -150,14 +151,26 @@ namespace CutCode.CrossPlatform.ViewModels
 
         public async void Save()
         {
-            var cellsList = Cells.Select(x => 
-                new Dictionary<string, string>()
-                {
-                    {"Description", x.Description},
-                    {"Code", x.Code}
-                }).ToList();
+            if (!string.IsNullOrEmpty(Title) &&
+                Cells.Count > 0  &&
+                !Cells.Select(x => x.Description).ToList().Any(string.IsNullOrEmpty) &&
+                !Cells.Select(x => x.Code).ToList().Any(string.IsNullOrEmpty))
+            {
+                var cellsList = Cells.Select(x => 
+                    new Dictionary<string, string>()
+                    {
+                        {"Description", x.Description},
+                        {"Code", x.Code}
+                    }).ToList();
             
-            var codeModel = DataBase.AddCode(Title, cellsList, _selectedLanguage);
+                var codeModel = DataBase.AddCode(Title, cellsList, _selectedLanguage);
+                PageService.Current.ExternalPage = new HomeView();
+            }
+            else
+            {
+                // do notification thing to fill empty fields
+            }
+            
         }
 
         public static void DeleteCell(AddViewModel vm, CodeCellViewModel cell)
