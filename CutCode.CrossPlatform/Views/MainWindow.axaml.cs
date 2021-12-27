@@ -3,10 +3,12 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 using CutCode.CrossPlatform.Controllers;
 using CutCode.CrossPlatform.Helpers;
 using CutCode.CrossPlatform.Interfaces;
+using CutCode.CrossPlatform.ViewModels;
 
 namespace CutCode.CrossPlatform.Views
 {
@@ -23,6 +25,9 @@ namespace CutCode.CrossPlatform.Views
             
             this.GetControl("tabControl", out _tabControl);
             this.GetControl("homeTab", out _homeTab);
+
+            _homeTab.Content = new HomeView();
+            
             PageService.Current.TabChanged += (sender, args) =>
             {
                 _tabControl.SelectedIndex = PageService.Current.CurrentTabIndex;
@@ -30,8 +35,7 @@ namespace CutCode.CrossPlatform.Views
 
             PageService.Current.ExternalPageChange += (sender, args) =>
             {
-                _homeTab.Content = PageService.Current.ExternalPage;
-                _tabControl.SelectedIndex = 0;
+                
             };
         }
 

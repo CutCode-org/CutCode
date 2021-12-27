@@ -164,7 +164,13 @@ namespace CutCode.CrossPlatform.ViewModels
                     }).ToList();
             
                 var codeModel = DataBase.AddCode(Title, cellsList, _selectedLanguage);
-                PageService.Current.ExternalPage = new HomeView();
+                var codeViewPage = new CodeView
+                {
+                    DataContext = new CodeViewModel(codeModel)
+                };
+                PageService.Current.ExternalPage = codeViewPage;
+                Title = "";
+                Cells.Clear();
             }
             else
             {

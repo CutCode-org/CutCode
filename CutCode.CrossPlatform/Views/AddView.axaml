@@ -40,8 +40,7 @@
                      CaretBrush="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
                      Background="{Binding TextAreaBackground, Converter={StaticResource ColorToBrushConverter}}"
                      BorderBrush="{Binding TextAreaOverlayBackground, Converter={StaticResource ColorToBrushConverter}}" 
-                     BorderThickness="0">
-            </TextBox>
+                     BorderThickness="0"/>
             <controllers:CustomComboBox Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" 
                                         Items="{Binding AllLangs}"
                                         ItemSelected="{Binding LanguageChanged}"

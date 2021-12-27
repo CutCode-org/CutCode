@@ -8,6 +8,25 @@ namespace CutCode.CrossPlatform.ViewModels
     public class CodeCellViewModel : PageBaseViewModel
     {
         private readonly AddViewModel AddViewModelInstance;
+        private readonly CodeViewModel CodeViewModelInstance;
+        
+        public CodeCellViewModel(AddViewModel viewModelInstance)
+        {  // Creating new one
+            AddViewModelInstance = viewModelInstance;
+            IsEditable = true;
+            IsMoreClickable = false;
+        }
+        
+        public CodeCellViewModel(CodeViewModel viewModelInstance, string description, string code)
+        { // if we are fetching from database
+            CodeViewModelInstance = viewModelInstance;
+            Description = description;
+            Code = code;
+            
+            IsEditable = false;
+            IsMoreClickable = true;
+        }
+        
         private string _description;
         public string Description
         {
@@ -34,24 +53,6 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             get => _isMoreClickable;
             set => this.RaiseAndSetIfChanged(ref _isMoreClickable, value);
-        }
-        
-        public CodeCellViewModel(AddViewModel addViewModelInstance)
-        {  // Creating new one
-            AddViewModelInstance = addViewModelInstance;
-            IsEditable = true;
-            IsMoreClickable = false;
-        }
-        
-        public CodeCellViewModel(AddViewModel addViewModelInstance, string description, string code)
-        { // if we are fetching from database
-            AddViewModelInstance = addViewModelInstance;
-            Description = description;
-            Code = code;
-            AddViewModelInstance = addViewModelInstance;
-            
-            IsEditable = false;
-            IsMoreClickable = true;
         }
         
         protected override void OnLightThemeIsSet()
@@ -87,13 +88,14 @@ namespace CutCode.CrossPlatform.ViewModels
 
         public Color BtnColor
         {
-            get => _textColor;
+            get => _btnColor;
             set =>  this.RaiseAndSetIfChanged(ref _btnColor, value);
         }
         
         public async void DeleteCell(CodeCellViewModel cell)
         {
-            AddViewModel.DeleteCell(AddViewModelInstance, cell);
+            if(AddViewModelInstance != null) AddViewModel.DeleteCell(AddViewModelInstance, cell);
+            else CodeViewModel.DeleteCell(CodeViewModelInstance, cell);
         }
     }
 }

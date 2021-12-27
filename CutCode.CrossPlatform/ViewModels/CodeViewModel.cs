@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Avalonia;
 using Avalonia.Input.Platform;
 using Avalonia.Media;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using CutCode.DataBase;
+using Newtonsoft.Json;
 using ReactiveUI;
 
 namespace CutCode.CrossPlatform.ViewModels
@@ -21,21 +23,31 @@ namespace CutCode.CrossPlatform.ViewModels
         public CodeViewModel(CodeModel code)
         {
             Code = code;
+            Title = Code.Title;
+            Language = code.Language;
+
+            IsEditEnabled = false;
+            
+            var cellsDict = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(code.Cells);
             Cells = new ObservableCollection<CodeCellViewModel?>();
-            IsCellEmpty = true;
+            CellsToViewModel(cellsDict);
+            
+            IsCellEmpty = Cells.Count == 0;
             Cells.CollectionChanged += (sender, args) =>
             {
                 IsCellEmpty = Cells.Count == 0;
+                IsEditEnabled = IsCellEmpty;
             };
         }
-        
-        
-        private bool _isCellEmpty;
 
-        public bool IsCellEmpty
+        private void CellsToViewModel(List<Dictionary<string, string>>? cells)
         {
-            get => _isCellEmpty;
-            set => this.RaiseAndSetIfChanged(ref _isCellEmpty, value);
+            Cells.Clear();
+            if (cells == null) return;
+            foreach (var cell in cells)
+            {
+                Cells.Add(new CodeCellViewModel(this,cell["Description"], cell["Code"]));
+            }
         }
 
         protected override void OnLightThemeIsSet()
@@ -49,6 +61,8 @@ namespace CutCode.CrossPlatform.ViewModels
             
             ComboBoxBackground = Color.Parse("#ECECEC");
             ComboBoxBackgroundOnHover = Color.Parse("#E2E2E2");
+            
+            BtnColor = Color.Parse("#090909");
         }
 
         protected override void OnDarkThemeIsSet()
@@ -62,13 +76,31 @@ namespace CutCode.CrossPlatform.ViewModels
             
             ComboBoxBackground = Color.Parse("#2A2E33");
             ComboBoxBackgroundOnHover = Color.Parse("#24272B");
+            
+            BtnColor = Color.Parse("#F2F2F2");
         }
         
-        private string _text;
-        public string Text
+        private string _title;
+        public string Title
         {
-            get => _text;
-            set => this.RaiseAndSetIfChanged(ref _text, value);
+            get => _title;
+            set => this.RaiseAndSetIfChanged(ref _title, value);
+        }
+        
+        private bool _isCellEmpty;
+
+        public bool IsCellEmpty
+        {
+            get => _isCellEmpty;
+            set => this.RaiseAndSetIfChanged(ref _isCellEmpty, value);
+        }
+
+        private bool _isEditEnabled;
+
+        public bool IsEditEnabled
+        {
+            get => _isEditEnabled;
+            set => this.RaiseAndSetIfChanged(ref _isEditEnabled, value);
         }
         
         private Color _backgroundColor;
@@ -77,6 +109,13 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             get => _backgroundColor;
             set => this.RaiseAndSetIfChanged(ref _backgroundColor, value);
+        }
+        
+        private Color _btnColor;
+        public Color BtnColor
+        {
+            get => _btnColor;
+            set =>  this.RaiseAndSetIfChanged(ref _btnColor, value);
         }
         
         private Color _comboBoxBackground;
@@ -123,6 +162,20 @@ namespace CutCode.CrossPlatform.ViewModels
             get => _textAreaOverlayBackground;
             set => this.RaiseAndSetIfChanged(ref _textAreaOverlayBackground, value);
         }
+        
+        private Color _isFavouriteColor;
+        public Color IsFavouriteColor
+        {
+            get => _isFavouriteColor;
+            set => this.RaiseAndSetIfChanged(ref _isFavouriteColor, value);
+        }
+        
+        private string _language;
+        public string Language
+        {
+            get => _language;
+            set => this.RaiseAndSetIfChanged(ref _language, value);
+        }
 
         public async void AddCell()
         {
@@ -131,9 +184,7 @@ namespace CutCode.CrossPlatform.ViewModels
 
         public async void Cancel()
         {
-            PageService.Current.CurrentTabIndex = 0;
-            Text = "";
-            Cells.Clear();
+            
         }
 
         public async void Save()
@@ -141,12 +192,27 @@ namespace CutCode.CrossPlatform.ViewModels
             
         }
 
-        public async void Edit()
+        public async void EditCommand()
         {
             
         }
 
-        public static void DeleteCell(AddViewModel vm, CodeCellViewModel cell)
+        public async void FavouriteCommand()
+        {
+            
+        }
+
+        public async void DeleteCode()
+        {
+            
+        }
+
+        public async void Share()
+        {
+            
+        }
+
+        public static void DeleteCell(CodeViewModel vm, CodeCellViewModel cell)
         {
             vm.Cells.Remove(cell);
         }

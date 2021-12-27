@@ -1,20 +1,45 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Media;
 using ReactiveUI;
 using Avalonia.Media.Imaging;
+using CutCode.CrossPlatform.Helpers;
 using CutCode.CrossPlatform.Interfaces;
+using CutCode.CrossPlatform.Views;
 using CutCode.DataBase;
 
 namespace CutCode.CrossPlatform.ViewModels
 {
     public class MainWindowViewModel : PageBaseViewModel
     {
+        public ObservableCollection<TabItem> Tabs { get; set;  }
         protected override void OnLoad()
         {
-
+            Tabs = new ObservableCollection<TabItem>();
+            Tabs.Add(new TabItem()
+            {
+                Header = IconPaths.Home,
+                Content = new HomeView()
+            });
+            Tabs.Add(new TabItem()
+            {
+                Header = IconPaths.Add,
+                Content = new AddView()
+            });
+            Tabs.Add(new TabItem()
+            {
+                Header = IconPaths.Favourite,
+                Content = new FavoritesView()
+            });
+            Tabs.Add(new TabItem()
+            {
+                Header = IconPaths.Setting,
+                Content = new SettingsView()
+            });
         }
 
         protected override void OnLightThemeIsSet()
