@@ -2,15 +2,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:h="using:CutCode.CrossPlatform.Helpers"
+             xmlns:converters="using:CutCode.CrossPlatform.Converters"
              xmlns:exts="using:Aura.UI.ExtensionProperties"
-             xmlns:converters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
+             xmlns:defconverters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CutCode.CrossPlatform.Views.DeveloperCardView">
     
     <UserControl.Resources>
-        <h:BitmapAssetValueConverter x:Key="VariableImage"/>
-        <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+        <converters:BitmapAssetValueConverter x:Key="VariableImage"/>
+        <defconverters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
     </UserControl.Resources>
     
     <StackPanel Width="350" Margin="0,0,0,10">

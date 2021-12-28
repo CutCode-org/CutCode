@@ -2,16 +2,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:converters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
+             xmlns:defconverters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
              xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
-             xmlns:h="using:CutCode.CrossPlatform.Helpers"
+             xmlns:converters="using:CutCode.CrossPlatform.Converters"
              mc:Ignorable="d" ClipToBounds="True"
-             MinHeight="180" MaxHeight="250"  Margin="8,7,28,7"
+             MinHeight="180" MaxHeight="250" Margin="8,5,19,5"
              x:Class="CutCode.CrossPlatform.Views.CodeCardView">
     
     <UserControl.Resources>
-        <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
-        <h:StringToGeometryConverter x:Key="StringToGeometryConverter"/>
+        <defconverters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+        <converters:StringToGeometryConverter x:Key="StringToGeometryConverter"/>
     </UserControl.Resources>
     
     <UserControl.Styles>
@@ -24,7 +24,7 @@
             </Setter>
         </Style>
         
-        <Style Selector="ToggleButton:checked  /template/ ContentPresenter">
+        <Style Selector="ToggleButton:checked /template/ ContentPresenter">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="RenderTransform">
                 <Setter.Value>
@@ -34,126 +34,144 @@
         </Style>
     </UserControl.Styles>
     
-    <Border CornerRadius="5"
-            BorderThickness="0">
-        <Border.Styles>
-            <Style Selector="Border">
-                <Setter Property="Background" Value="{Binding $parent[UserControl].DataContext.CardColor, Converter={StaticResource ColorToBrushConverter}}"/>
+    <Button Command="{Binding Clicked}" Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Button.Styles>
+            <Style Selector="Button">
+                <Setter Property="Padding" Value="0"/>
             </Style>
-            <Style Selector="Border:pointerover">
-                <Setter Property="Background" Value="{Binding $parent[UserControl].DataContext.CardColorHover, Converter={StaticResource ColorToBrushConverter}}"/>
+            <Style Selector="Button:pointerover">
+                <Setter Property="Background" Value="Transparent"/>
             </Style>
-        </Border.Styles>
-        
-        <Grid ColumnDefinitions="Auto, *" >
+            <Style Selector="Button:pressed">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="RenderTransform" Value="scale(0.995)" /> 
+            </Style>
+        </Button.Styles>
+        <Border CornerRadius="5"
+                BorderThickness="0">
+            <Border.Styles>
+                <Style Selector="Border">
+                    <Setter Property="Background" Value="{Binding $parent[UserControl].DataContext.CardColor, Converter={StaticResource ColorToBrushConverter}}"/>
+                </Style>
+                <Style Selector="Border:pointerover">
+                    <Setter Property="Background" Value="{Binding $parent[UserControl].DataContext.CardColorHover, Converter={StaticResource ColorToBrushConverter}}"/>
+                </Style>
+            </Border.Styles>
             
-            <Popup x:Name="MorePopup" 
-                   IsLightDismissEnabled="True"
-                   PlacementMode="Left"
-                   IsOpen="{Binding IsChecked, ElementName=MoreBtn, Mode=TwoWay}"
-                   PlacementTarget="{Binding ElementName=MoreBtn}">
-                <Border Background="{Binding PopupColor, Converter={StaticResource ColorToBrushConverter}}"
-                        CornerRadius="5">
-                    <StackPanel>
-                        <StackPanel.Styles>
-                            <Style Selector="Button:pressed  /template/ ContentPresenter, Button:pointerover /template/ ContentPresenter">
-                                <Setter Property="Background" Value="{TemplateBinding BorderBrush}"/>
-                            </Style>
-                        </StackPanel.Styles>
-                        <Button HorizontalAlignment="Center"
-                                Background="Transparent"
-                                Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"
-                                BorderBrush="{Binding CardColorHover, Converter={StaticResource ColorToBrushConverter}}"
-                                BorderThickness="1.3"
-                                Margin="4"
-                                Width="140" Height="40">
-                            <Label FontSize="14" FontFamily="{StaticResource PoppinsRegular}"
-                                   Content="Add to favourite" Foreground="{Binding $parent[Button].Foreground}"/>
-                        </Button>
+            <Grid ColumnDefinitions="Auto, *" >
+                
+                <Popup IsLightDismissEnabled="True"
+                       PlacementMode="Left"
+                       IsOpen="{Binding IsChecked, ElementName=MoreBtn, Mode=TwoWay}"
+                       PlacementTarget="{Binding ElementName=MoreBtn}">
+                    <Border Background="{Binding PopupColor, Converter={StaticResource ColorToBrushConverter}}"
+                            CornerRadius="5">
+                        <StackPanel>
+                            <StackPanel.Styles>
+                                <Style Selector="Button:pressed  /template/ ContentPresenter, Button:pointerover /template/ ContentPresenter">
+                                    <Setter Property="Background" Value="{TemplateBinding BorderBrush}"/>
+                                </Style>
+                            </StackPanel.Styles>
+                            <Button HorizontalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"
+                                    BorderBrush="{Binding CardColorHover, Converter={StaticResource ColorToBrushConverter}}"
+                                    BorderThickness="1.3"
+                                    Margin="4"
+                                    Command="{Binding Favourite}"
+                                    Width="175" Height="40">
+                                <Label FontSize="14" FontFamily="{StaticResource PoppinsRegular}" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       Content="{Binding FavouriteText}" Foreground="{Binding $parent[Button].Foreground}"/>
+                            </Button>
+                            
+                            <Button HorizontalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"
+                                    BorderBrush="{Binding CardColorHover, Converter={StaticResource ColorToBrushConverter}}"
+                                    BorderThickness="1.3"
+                                    Margin="4"
+                                    IsVisible="False"
+                                    Width="175" Height="40">
+                                <Label FontSize="14" FontFamily="{StaticResource PoppinsRegular}" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       Content="Share Code" Foreground="{Binding $parent[Button].Foreground}"/>
+                            </Button>
+                            
+                            <Button HorizontalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"
+                                    BorderBrush="#D82E2E"
+                                    BorderThickness="1.3"
+                                    Margin="4"
+                                    Command="{Binding Delete}"
+                                    Width="175" Height="40">
+                                <Label FontSize="14" FontFamily="{StaticResource PoppinsRegular}" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       Content="Delete Code" Foreground="{Binding $parent[Button].Foreground}"/>
+                            </Button>
+                        </StackPanel>
                         
-                        <Button HorizontalAlignment="Center"
-                                Background="Transparent"
-                                Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"
-                                BorderBrush="{Binding CardColorHover, Converter={StaticResource ColorToBrushConverter}}"
-                                BorderThickness="1.3"
-                                Margin="4"
-                                Width="140" Height="40">
-                            <Label FontSize="14" FontFamily="{StaticResource PoppinsRegular}"
-                                   Content="Share Code" Foreground="{Binding $parent[Button].Foreground}"/>
-                        </Button>
-                        
-                        <Button HorizontalAlignment="Center"
-                                Background="Transparent"
-                                Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"
-                                BorderBrush="#D82E2E"
-                                BorderThickness="1.3"
-                                Margin="4"
-                                Width="140" Height="40">
-                            <Label FontSize="14" FontFamily="{StaticResource PoppinsRegular}"
-                                   Content="Delete Code" Foreground="{Binding $parent[Button].Foreground}"/>
-                        </Button>
-                    </StackPanel>
-                    
-                </Border>
-            </Popup>
-            
-            <Viewbox Grid.Column="0"
-                     Height="120"
-                     HorizontalAlignment="Left" VerticalAlignment="Center"
-                     Margin="25,15,10,15"
-                     Padding="15">
-                <Path Stretch="UniformToFill"
-                      Data="{Binding Language, Converter={StaticResource StringToGeometryConverter}}"
-                      Fill="{Binding LanguageColor, Converter={StaticResource ColorToBrushConverter}}"/>
-            </Viewbox>
-            <Grid Grid.Column="1" RowDefinitions="Auto, *">
-                <Grid Grid.Row="0" ColumnDefinitions="*, Auto, Auto">
-                    <Label Grid.Column="0" HorizontalAlignment="Left" 
-                           Content="{Binding Title}"
-                           FontFamily="{StaticResource PoppinsRegular}"
-                           FontSize="17"
-                           Margin="20,20,0,8"
-                           Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"/>
-                    <Viewbox Grid.Column="1"
-                             Height="22"
-                             HorizontalAlignment="Right"
-                             Margin="0,-10,10,0">
-                        <Path Stretch="UniformToFill"
-                              Data="{Binding IsFavourite, Converter={StaticResource StringToGeometryConverter}}"
-                              Fill="{Binding IsFavouriteColor, Converter={StaticResource ColorToBrushConverter}}"/>
-                    </Viewbox>
-                    
-                    <Viewbox Grid.Column="2"
-                             Height="22"
-                             HorizontalAlignment="Right"
-                             Margin="0,-10,10,0">
-                        <Path Stretch="UniformToFill"
-                              Data=""
-                              Fill="{Binding LanguageColor, Converter={StaticResource ColorToBrushConverter}}"/>
-                    </Viewbox>
-                    
-                    <ToggleButton Grid.Column="2" x:Name="MoreBtn"
-                            Background="Transparent"
-                            HorizontalAlignment="Right"
-                            Margin="0,-10,8,0"
-                            BorderThickness="0"
-                            Height="30">
-                        <Viewbox>
-                            <Path Fill="{Binding LanguageColor, Converter={StaticResource ColorToBrushConverter}}"
-                                  Stretch="UniformToFill" 
-                                  Data="M10 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0-6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+                    </Border>
+                </Popup>
+                
+                <Viewbox Grid.Column="0"
+                         Height="120" Width="120"
+                         HorizontalAlignment="Left" VerticalAlignment="Center"
+                         Margin="25,15,10,15"
+                         Padding="15">
+                    <Path Stretch="UniformToFill"
+                          Data="{Binding Language, Converter={StaticResource StringToGeometryConverter}}"
+                          Fill="{Binding LanguageColor, Converter={StaticResource ColorToBrushConverter}}"/>
+                </Viewbox>
+                <Grid Grid.Column="1" RowDefinitions="Auto, *">
+                    <Grid Grid.Row="0" ColumnDefinitions="*, Auto, Auto">
+                        <Label Grid.Column="0" HorizontalAlignment="Left" 
+                               Content="{Binding Title}"
+                               FontFamily="{StaticResource PoppinsRegular}"
+                               FontSize="17"
+                               Margin="20,20,0,8"
+                               Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"/>
+                        <Viewbox Grid.Column="1"
+                                 Height="22"
+                                 HorizontalAlignment="Right"
+                                 Margin="0,-10,10,0">
+                            <Path Stretch="UniformToFill"
+                                  Data="{Binding IsFavouritePath, Converter={StaticResource StringToGeometryConverter}}"
+                                  Fill="{Binding IsFavouriteColor, Converter={StaticResource ColorToBrushConverter}}"/>
                         </Viewbox>
-                    </ToggleButton>
+                        
+                        <Viewbox Grid.Column="2"
+                                 Height="22"
+                                 HorizontalAlignment="Right"
+                                 Margin="0,-10,10,0">
+                            <Path Stretch="UniformToFill"
+                                  Data=""
+                                  Fill="{Binding LanguageColor, Converter={StaticResource ColorToBrushConverter}}"/>
+                        </Viewbox>
+                        
+                        <ToggleButton Grid.Column="2" x:Name="MoreBtn"
+                                Background="Transparent"
+                                HorizontalAlignment="Right"
+                                Margin="0,-10,8,0"
+                                BorderThickness="0"
+                                IsChecked="{Binding IsPopupOpen, Mode=TwoWay}"
+                                Height="30">
+                            <Viewbox>
+                                <Path Fill="{Binding LanguageColor, Converter={StaticResource ColorToBrushConverter}}"
+                                      Stretch="UniformToFill" 
+                                      Data="M10 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0-6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+                            </Viewbox>
+                        </ToggleButton>
+                    </Grid>
+                    <ScrollViewer Grid.Row="1" 
+                                  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                                  Margin="20,10,12,7">
+                        <Label Content="{Binding Description}"
+                               FontFamily="{StaticResource PoppinsRegular}"
+                               FontSize="14"
+                               Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"/>
+                    </ScrollViewer>
                 </Grid>
-                <ScrollViewer Grid.Row="1" 
-                              HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
-                              Margin="20,10,12,7">
-                    <Label Content="{Binding Description}"
-                           FontFamily="{StaticResource PoppinsRegular}"
-                           FontSize="14"
-                           Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"/>
-                </ScrollViewer>
             </Grid>
-        </Grid>
-    </Border>
+        </Border>
+    </Button>
+    
 </UserControl>

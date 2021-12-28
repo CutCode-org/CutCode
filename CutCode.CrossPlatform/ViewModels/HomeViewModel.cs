@@ -64,14 +64,14 @@ namespace CutCode.CrossPlatform.ViewModels
         
         private void AllCodesUpdated(object sender, EventArgs e) 
         {
-            CodeModeToViewModel(DataBase.AllCodes);
-            VisChange();
+            SearchCancelled();
         }
 
         private void CodeModeToViewModel(List<CodeModel> codes)
         {
-            AllCodes.Clear();
-            foreach(var code in codes) AllCodes.Add(new CodeCardViewModel(code));
+            var tempCodes = new ObservableCollection<CodeCardViewModel>();
+            foreach(var code in codes) tempCodes.Add(new CodeCardViewModel(code));
+            AllCodes = tempCodes;
         }
 
         private void VisChange(string text = "You don't have any notes :(")

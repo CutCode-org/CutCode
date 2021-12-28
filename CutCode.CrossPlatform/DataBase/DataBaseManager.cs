@@ -176,16 +176,17 @@ namespace CutCode.DataBase
 
         public bool DelCode(CodeModel code)
         {
+            _db.Delete<CodesTable>(code.Id);
+            AllCodes.Remove(code);
+            PropertyChanged();
+            /*
             try
             {
-                _db.Delete<CodesTable>(code.Id);
-                AllCodes.Remove(code);
-                PropertyChanged();
             }
             catch
             {
                 return false;
-            }
+            */
             return true;
         }
 

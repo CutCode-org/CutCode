@@ -39,7 +39,6 @@ namespace CutCode.CrossPlatform.Interfaces
         public event EventHandler ExternalPageChange;
 
         private object _externalPage;
-
         public object ExternalPage
         {
             get => _externalPage;
@@ -47,7 +46,7 @@ namespace CutCode.CrossPlatform.Interfaces
             {
                 if (false && value == _externalPage) return;
                 _externalPage = value;
-                TabChanged?.Invoke(this, EventArgs.Empty);
+                ExternalPageChange?.Invoke(this, EventArgs.Empty);
             }
         }
     }
