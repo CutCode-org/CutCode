@@ -48,6 +48,7 @@ namespace CutCode.CrossPlatform.Controllers
             textBox.DataContext = this;
             progressBar.IsVisible = false;
              
+            CloseButton.Foreground = ThemeService.Current.IsLightTheme == true ? Brushes.Black : Brushes.White;
             ThemeService.Current.ThemeChanged += (sender, args) =>
             {
                 var service = (ThemeService)sender!;
@@ -56,7 +57,7 @@ namespace CutCode.CrossPlatform.Controllers
             };
             
             this.WhenAnyValue(x => x.textBox.Text)
-                .Throttle(TimeSpan.FromMilliseconds(10))
+                .Throttle(TimeSpan.FromMilliseconds(700))
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(SearchActivate!);
             
@@ -83,6 +84,7 @@ namespace CutCode.CrossPlatform.Controllers
             {
                 IsSearchBusy = false;
                 CloseButton.IsVisible = false;
+                SearchCancelled?.Execute(s);
                 return;
             }
             CloseButton.IsVisible = true;

@@ -182,21 +182,12 @@ namespace CutCode.CrossPlatform.ViewModels
         }
         public async void SearchCommand(string text)
         {
+            if (string.IsNullOrEmpty(text)) return;
             IsSearchBusy = true;
-            await Task.Delay(TimeSpan.FromSeconds(3));
-            if(text == "")
+            if(text != "" && AllCodes.Count > 0)
             {
-
-                CodeModeToViewModel(DataBase.AllCodes);
-                VisChange();
-            }
-            else
-            {
-                if (AllCodes.Count > 0)
-                {
-                    CodeModeToViewModel(await DataBase.SearchCode(text, "Home"));
-                    VisChange("Not found :(");
-                }
+                CodeModeToViewModel(await DataBase.SearchCode(text, "Home"));
+                VisChange("Not found :(");
             }
             
             IsSearchBusy = false;

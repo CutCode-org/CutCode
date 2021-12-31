@@ -157,21 +157,21 @@ namespace CutCode.DataBase
                 var dbCode = _db.Query<CodesTable>("select * from CodesTable where Id = ?", code.Id).FirstOrDefault();
                 if (dbCode is not null)
                 {
-                    dbCode.Title = code.Title;
                     dbCode.Cells = code.Cells;
                     _db.RunInTransaction(() =>
                     {
                         _db.Update(dbCode);
                     });
-                    AllCodes[GetIndex(code)] = code;
+                    AllCodes[AllCodes.FindIndex(c => c.Id == dbCode.Id)] = code;
                     PropertyChanged();
+                    return true;
                 }
+                else return false;
             }
             catch
             {
                 return false;
             }
-            return true;
         }
 
         public bool DelCode(CodeModel code)

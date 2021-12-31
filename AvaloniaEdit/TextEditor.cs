@@ -52,6 +52,7 @@ namespace AvaloniaEdit
             HorizontalScrollBarVisibilityProperty.OverrideDefaultValue<TextEditor>(ScrollBarVisibility.Auto);
             VerticalScrollBarVisibilityProperty.OverrideDefaultValue<TextEditor>(ScrollBarVisibility.Auto);
 
+            TextProperty.Changed.Subscribe(OnTextPropertyChanged);
             OptionsProperty.Changed.Subscribe(OnOptionsChanged);
             DocumentProperty.Changed.Subscribe(OnDocumentChanged);
             SyntaxHighlightingProperty.Changed.Subscribe(OnSyntaxHighlightingChanged);
@@ -237,6 +238,18 @@ namespace AvaloniaEdit
                 defaultBindingMode: BindingMode.TwoWay, 
                 defaultValue: string.Empty);
         
+        private static void OnTextPropertyChanged(AvaloniaPropertyChangedEventArgs e)
+        {
+            if (e.Sender is TextEditor ctrl)
+            {
+                var caretOffset = ctrl.TextArea.Caret.Offset;
+                ctrl.Document.Text = ctrl.Text;
+                ctrl.CaretOffset = caretOffset;
+                
+                double vertOffset = (ctrl.TextArea.TextView.DefaultLineHeight) * ctrl.Document.LineCount;
+                ctrl.ScrollToVerticalOffset(vertOffset);
+            }
+        }
         /*
         public string Text
         {

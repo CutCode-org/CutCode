@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using Avalonia;
 using Avalonia.Input.Platform;
 using Avalonia.Media;
+using CutCode.CrossPlatform.Helpers;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
+using CutCode.CrossPlatform.Views;
 using CutCode.DataBase;
 using Newtonsoft.Json;
 using ReactiveUI;
@@ -31,13 +34,36 @@ namespace CutCode.CrossPlatform.ViewModels
             var cellsDict = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(code.Cells);
             Cells = new ObservableCollection<CodeCellViewModel?>();
             CellsToViewModel(cellsDict);
+            for(int i = 0; i < Cells.Count; i++)
+            {
+                Cells[i].IsEditable = false;
+            }
             
             IsCellEmpty = Cells.Count == 0;
             Cells.CollectionChanged += (sender, args) =>
             {
                 IsCellEmpty = Cells.Count == 0;
-                IsEditEnabled = IsCellEmpty;
+                if (IsCellEmpty && !IsEditEnabled)
+                {
+                    IsEditEnabled = IsCellEmpty;
+                    for(int i = 0; i < Cells.Count; i++)
+                    {
+                        Cells[i].IsEditable = IsEditEnabled;
+                    }
+                }
+                    
             };
+            
+            if(ThemeService.IsLightTheme) OnLightThemeIsSet();
+            else OnDarkThemeIsSet();
+            
+            ThemeService.Current.ThemeChanged += (sender, args) =>
+            {
+                if(ThemeService.IsLightTheme) OnLightThemeIsSet();
+                else OnDarkThemeIsSet();
+            };
+            
+            IsFavouritePath = code.IsFavourite ? IconPaths.StarFull : IconPaths.Star;
         }
 
         private void CellsToViewModel(List<Dictionary<string, string>>? cells)
@@ -50,7 +76,7 @@ namespace CutCode.CrossPlatform.ViewModels
             }
         }
 
-        protected override void OnLightThemeIsSet()
+        private void OnLightThemeIsSet()
         {
             BackgroundColor =  Color.Parse("#FCFCFC");
             BarBackground =  Color.Parse("#F6F6F6");
@@ -63,9 +89,10 @@ namespace CutCode.CrossPlatform.ViewModels
             ComboBoxBackgroundOnHover = Color.Parse("#E2E2E2");
             
             BtnColor = Color.Parse("#090909");
+            IsFavouriteColor = Code.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#4D4D4D");
         }
 
-        protected override void OnDarkThemeIsSet()
+        private void OnDarkThemeIsSet()
         {
             BackgroundColor =  Color.Parse("#36393F");
             BarBackground =  Color.Parse("#303338");
@@ -78,6 +105,7 @@ namespace CutCode.CrossPlatform.ViewModels
             ComboBoxBackgroundOnHover = Color.Parse("#24272B");
             
             BtnColor = Color.Parse("#F2F2F2");
+            IsFavouriteColor = Code.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#94969A");
         }
         
         private string _title;
@@ -170,6 +198,13 @@ namespace CutCode.CrossPlatform.ViewModels
             set => this.RaiseAndSetIfChanged(ref _isFavouriteColor, value);
         }
         
+        private string _isFavouritePath;
+        public string IsFavouritePath
+        {
+            get => _isFavouritePath;
+            set => this.RaiseAndSetIfChanged(ref _isFavouritePath, value);
+        }
+        
         private string _language;
         public string Language
         {
@@ -184,32 +219,81 @@ namespace CutCode.CrossPlatform.ViewModels
 
         public async void Cancel()
         {
-            
+            PageService.Current.ExternalPage = new HomeView();
         }
 
         public async void Save()
         {
+            if (Cells.Count > 0 &&
+                !Cells.Select(x => x.Description).ToList().Any(string.IsNullOrEmpty) &&
+                !Cells.Select(x => x.Code).ToList().Any(string.IsNullOrEmpty))
+            {
+                var cellsList = Cells.Select(x => 
+                    new Dictionary<string, string>()
+                    {
+                        {"Description", x.Description},
+                        {"Code", x.Code}
+                    }).ToList();
             
+                var editedCode = new CodeModel(Title, cellsList, Language,
+                    new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds(), Code.IsFavourite);
+                editedCode.SetId(Code.Id);
+
+                if (Database.EditCode(editedCode))
+                {
+                    IsEditEnabled = false;
+                    for(int i = 0; i < Cells.Count; i++)
+                    {
+                        Cells[i].IsEditable = false;
+                    }
+                }
+                else
+                {
+                    // do notification
+                }
+            }
+            else
+            {
+                // do notification
+            }
         }
 
         public async void EditCommand()
         {
-            
+            IsEditEnabled = true;
+            for(int i = 0; i < Cells.Count; i++)
+            {
+                Cells[i].IsEditable = true;
+            }
         }
 
         public async void FavouriteCommand()
         {
+            Code.IsFavourite = !Code.IsFavourite;
+            IsFavouritePath = Code.IsFavourite ? IconPaths.StarFull : IconPaths.Star;
+            
+            if(ThemeService.IsLightTheme) IsFavouriteColor = Code.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#4D4D4D");
+            else IsFavouriteColor = Code.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#94969A");
             
         }
 
         public async void DeleteCode()
         {
-            
+            var delete = DataBaseManager.Current.DelCode(Code);
+            if (delete)
+            {
+                PageService.Current.ExternalPage = new HomeView();
+            }
+            else
+            {
+                // do notification
+            }
+            // if it wasn't deleted, we will show notificaiton
         }
 
         public async void Share()
         {
-            
+            // will be implemented later
         }
 
         public static void DeleteCell(CodeViewModel vm, CodeCellViewModel cell)

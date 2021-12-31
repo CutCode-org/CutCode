@@ -15,6 +15,7 @@ namespace CutCode.CrossPlatform.ViewModels
             AddViewModelInstance = viewModelInstance;
             IsEditable = true;
             IsMoreClickable = false;
+            Code = "";
         }
         
         public CodeCellViewModel(CodeViewModel viewModelInstance, string description, string code)
