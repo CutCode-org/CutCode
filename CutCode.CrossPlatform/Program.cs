@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
@@ -12,9 +13,10 @@ namespace CutCode.CrossPlatform
         [STAThread]
         public static void Main(string[] args)
         {
-
-            BuildAvaloniaApp()
-                .StartWithClassicDesktopLifetime(args);
+            var isRunningInAnotherInstance = Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Length > 1;
+            if(!isRunningInAnotherInstance)
+                BuildAvaloniaApp()
+                    .StartWithClassicDesktopLifetime(args);
         }
         
         // Avalonia configuration, don't remove; also used by visual designer.
