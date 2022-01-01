@@ -1,0 +1,102 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="CutCode.CrossPlatform.Controllers.CustomComboBox">
+    <Grid
+        ColumnDefinitions="Auto,*">
+        <Label x:Name="nameLabel"
+               Grid.Column="0"  
+               
+               Padding="0,10,13,0"
+               FontSize="12"/>
+        <ComboBox  x:Name="comboBox"
+                   Grid.Column="1" Height="30" 
+                   Width="150" Margin="5,5,15,5" 
+                   MaxDropDownHeight="200"
+                   BorderThickness="0"
+                   IsDropDownOpen="false">
+            <ComboBox.Styles>
+                <Style Selector="ComboBox">
+                    <Setter Property="Template">
+                      <ControlTemplate>
+                        <Border Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}">
+                          <Border.Styles>
+                            <Style Selector="Border:pointerover">
+                              <Setter Property="Background" Value="{TemplateBinding BorderBrush}"/>
+                            </Style>
+                          </Border.Styles>
+                          <Grid ColumnDefinitions="*,Auto">
+                            <TextBlock Name="PlaceholderTextBlock"
+                                       Grid.Column="0"
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                       Margin="{TemplateBinding Padding}"
+                                       Text="{TemplateBinding PlaceholderText}"
+                                       Foreground="{TemplateBinding PlaceholderForeground}"
+                                       IsVisible="{TemplateBinding SelectionBoxItem, Converter={x:Static ObjectConverters.IsNull}}" />
+                            <ContentControl Content="{TemplateBinding SelectionBoxItem}"
+                                            ContentTemplate="{TemplateBinding ItemTemplate}"
+                                            Margin="{TemplateBinding Padding}"
+                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" />
+                            <ToggleButton Name="toggle"
+                                          Padding="4"
+                                          BorderThickness="0"
+                                          Background="Transparent"
+                                          ClickMode="Press"
+                                          Focusable="False"
+                                          VerticalAlignment="Stretch"
+                                          IsChecked="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                                          Grid.Column="1">
+                              <Path Fill="{Binding $parent[ComboBox].Foreground}"
+                                    Width="8"
+                                    Height="4"
+                                    Stretch="Uniform"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Data="F1 M 301.14,-189.041L 311.57,-189.041L 306.355,-182.942L 301.14,-189.041 Z" />
+                            </ToggleButton>
+                            <Popup Name="PART_Popup"
+                                   IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                                   MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                                   MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                   PlacementTarget="{TemplateBinding}"
+                                   IsLightDismissEnabled="True">
+                              <Border Background="{Binding $parent[ComboBox].Background}"   
+                                      CornerRadius="0,0,5,5"
+                                      BorderThickness="0">
+                                <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                              VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                                  <ItemsPresenter Name="PART_ItemsPresenter"
+                                                  Items="{TemplateBinding Items}"
+                                                  ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                  ItemTemplate="{TemplateBinding ItemTemplate}"
+                                                  VirtualizationMode="{TemplateBinding VirtualizationMode}" />
+                                </ScrollViewer>
+                              </Border>
+                            </Popup>
+                          </Grid>
+                        </Border>
+                      </ControlTemplate>
+                    </Setter>
+              </Style>
+              <Style Selector="ComboBoxItem">
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Foreground" Value="{Binding $parent[ComboBox].Foreground}"/>
+              </Style>
+              <Style Selector="ComboBoxItem:pointerover /template/ ContentPresenter, ComboBoxItem:selected /template/ ContentPresenter">
+                <Setter Property="Background" Value="{Binding $parent[ComboBox].BorderBrush}"/>
+              </Style>
+              <Style Selector="ToggleButton:checked /template/ ContentPresenter">
+                <Setter Property="Background" Value="Transparent"/>
+              </Style>
+            </ComboBox.Styles>
+        </ComboBox>
+    </Grid>
+</UserControl>

@@ -1,0 +1,64 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="using:CutCode.CrossPlatform.Converters"
+             xmlns:exts="using:Aura.UI.ExtensionProperties"
+             xmlns:defconverters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="CutCode.CrossPlatform.Views.DeveloperCardView">
+    
+    <UserControl.Resources>
+        <converters:BitmapAssetValueConverter x:Key="VariableImage"/>
+        <defconverters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+    </UserControl.Resources>
+    
+    <StackPanel Width="350" Margin="0,0,0,10">
+        <Grid ColumnDefinitions="100,*">
+            <Image Grid.Column="0" Width="50" Height="50" Margin="0,10,0,8" VerticalAlignment="Top"
+                   Source="{Binding ProfilePic, Converter={StaticResource VariableImage}}" HorizontalAlignment="Center">
+                <Image.Clip>
+                    <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25"/>
+                </Image.Clip>
+            </Image>
+            
+            <StackPanel Grid.Column="1">
+                <Label Margin="-7,10,0,0"
+                       Content="{Binding Name}" 
+                       Foreground="{Binding $parent[ItemsControl].DataContext.mainTextColor, Converter={StaticResource ColorToBrushConverter}}"
+                       FontFamily="{DynamicResource PoppinsSemibold}"
+                       FontSize="18" FontWeight="Bold">
+                </Label>
+                <Label Margin="-7,0,0,0"
+                       Content="{Binding UserName}" 
+                       Foreground="{Binding $parent[ItemsControl].DataContext.mainTextColor, Converter={StaticResource ColorToBrushConverter}}"
+                       FontFamily="{DynamicResource PoppinsSemibold}"
+                       FontSize="14"/>
+                <TextBlock Margin="-3,7,0,0" Text="{Binding Desc}" 
+                           FontFamily="{DynamicResource PoppinsRegular}" FontSize="15"
+                           Foreground="{Binding $parent[ItemsControl].DataContext.mainTextColor, Converter={StaticResource ColorToBrushConverter}}"
+                           TextWrapping="Wrap"/>
+                <StackPanel Orientation="Horizontal" Margin="-7,7,0,0">
+                    <Button
+                        exts:ButtonExts.Url="{Binding Twitter}"
+                        Background="Transparent"
+                        Width="30" Height="30">
+                        <Viewbox>
+                            <Path Fill="{Binding $parent[ItemsControl].DataContext.mainTextColor, Converter={StaticResource ColorToBrushConverter}}" 
+                                  Stretch="UniformToFill" Data="F1M207.776336669922,-262.514892578125C224.338912963867,-262.479156494141 240.659423828125,-255.771636962891 252.581253051758,-243.074996948242 266.381530761719,-245.749252319336 279.618530273438,-250.778915405273 291.712493896484,-257.943756103516 287.094787597656,-243.675582885742 277.453735351563,-231.569274902344 264.581237792969,-223.875 276.8017578125,-225.3486328125 288.737152099609,-228.621551513672 300,-233.587493896484 291.732360839844,-221.209671020508 281.326110839844,-210.403411865234 269.268737792969,-201.675003051758 269.381256103516,-199.050003051758 269.381256103516,-196.387496948242 269.381256103516,-193.762496948242 269.381256103516,-112.556251525879 207.449996948242,-18.75 94.2375030517578,-18.7499980926514 60.8493385314941,-18.7397041320801 28.1533966064453,-28.270055770874 0,-46.21875 4.85295248031616,-45.6361541748047 9.73724555969238,-45.3543663024902 14.6249990463257,-45.375 42.3637733459473,-45.3298835754395 69.3104095458984,-54.6225090026855 91.125,-71.7562484741211 64.7978744506836,-72.2233200073242 41.683219909668,-89.3840713500977 33.6187515258789,-114.449996948242 37.413387298584,-113.727409362793 41.2684478759766,-113.369529724121 45.1312484741211,-113.381248474121 50.6105499267578,-113.35676574707 56.0674285888672,-114.082244873047 61.3499984741211,-115.537498474121 32.6589889526367,-121.379165649414 12.0346870422363,-146.595367431641 12.0000019073486,-175.875L12.0000019073486,-176.71875C20.5597610473633,-172.020767211914 30.1038780212402,-169.400299072266 39.8624992370605,-169.068756103516 12.8359479904175,-187.142471313477 4.48385953903198,-223.094207763672 20.7750015258789,-251.231246948242 52.0461616516113,-212.787353515625 98.1622085571289,-189.419250488281 147.65625,-186.9375C141.341018676758,-214.078872680664,154.029357910156,-242.08024597168,178.600067138672,-255.226181030273C187.814086914063,-260.155914306641,197.838790893555,-262.536315917969,207.776336669922,-262.514892578125z"/>
+                        </Viewbox>
+                    </Button>
+                    <Button
+                        exts:ButtonExts.Url="{Binding Github}"
+                        Background="Transparent"
+                        Width="30" Height="30">
+                        <Viewbox>
+                            <Path Fill="{Binding $parent[ItemsControl].DataContext.mainTextColor, Converter={StaticResource ColorToBrushConverter}}" 
+                                  Stretch="UniformToFill" Data="F1M150,-300C232.875,-300 300,-232.875 300,-150 299.989288330078,-85.554313659668 258.874481201172,-28.295316696167 197.8125,-7.68750143051147 190.3125,-6.1875 187.5,-10.875 187.5,-14.8124990463257 187.5,-19.875 187.6875,-36 187.6875,-56.0625 187.6875,-70.125 183,-79.125 177.5625,-83.8125 210.9375,-87.5625 246,-100.3125 246,-157.875 246,-174.375 240.1875,-187.6875 230.625,-198.1875 232.125,-201.9375 237.375,-217.3125 229.125,-237.9375 229.125,-237.9375 216.5625,-242.0625 187.875,-222.5625 175.875,-225.9375 163.125,-227.625 150.375,-227.625 137.625,-227.625 124.875,-225.9375 112.875,-222.5625 84.1875,-241.875 71.625,-237.9375 71.625,-237.9375 63.375,-217.3125 68.625,-201.9375 70.125,-198.1875 60.5625,-187.6875 54.75,-174.1875 54.75,-157.875 54.75,-100.5 89.625,-87.5625 123,-83.8125 118.6875,-80.0625 114.75,-73.5 113.4375,-63.75 104.8125,-59.8125 83.25,-53.4375 69.75,-76.125 66.9375,-80.625 58.5,-91.6875 46.6875,-91.5 34.125,-91.3125 41.625,-84.375 46.875,-81.5625 53.25,-78 60.5625,-64.6875 62.25,-60.375 65.25,-51.9375 75,-35.8125 112.6875,-42.75 112.6875,-30.1875 112.875,-18.375 112.875,-14.8124990463257 112.875,-10.875 110.0625,-6.375 102.5625,-7.68750143051147 42.9375,-27.5625 0,-83.625 0,-150 0,-232.875 67.125,-300 150,-300z"/>
+                        </Viewbox>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</UserControl>

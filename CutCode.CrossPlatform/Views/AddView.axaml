@@ -1,0 +1,151 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:exts="using:Aura.UI.ExtensionProperties"
+             xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
+             xmlns:converters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
+             xmlns:controllers="clr-namespace:CutCode.CrossPlatform.Controllers"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="CutCode.CrossPlatform.Views.AddView">
+    <UserControl.Resources>
+        <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+    </UserControl.Resources>
+    
+    <UserControl.DataContext>
+        <vm:AddViewModel/>
+    </UserControl.DataContext>
+    
+    <UserControl.Styles>
+        <Style Selector="Button:pressed  /template/ ContentPresenter, Button:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{TemplateBinding BorderBrush}"/>
+        </Style>
+        
+        <Style Selector="Button:disabled /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Opacity" Value="0.35"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+    </UserControl.Styles>
+    
+    <UserControl.Background>
+        <SolidColorBrush Color="{Binding BackgroundColor}"/>
+    </UserControl.Background>
+    
+    <Grid RowDefinitions="Auto,*, Auto">
+        <Grid Grid.Row="0" Height="50" ColumnDefinitions="*, Auto"
+                    Background="{Binding BarBackground, Converter={StaticResource ColorToBrushConverter}}">
+            <TextBox Grid.Column="0"
+                     Text="{Binding Title}"
+                     Watermark="Title for your code"
+                     MaxLength="120"
+                     FontSize="14"
+                     Height="30" Margin="7,0,50,0"
+                     FontFamily="{StaticResource PoppinsRegular}"
+                     Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+                     CaretBrush="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+                     Background="{Binding TextAreaBackground, Converter={StaticResource ColorToBrushConverter}}"
+                     BorderBrush="{Binding TextAreaOverlayBackground, Converter={StaticResource ColorToBrushConverter}}" 
+                     BorderThickness="0"/>
+            <controllers:CustomComboBox Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                                        Items="{Binding AllLangs}"
+                                        ItemSelected="{Binding LanguageChanged}"
+                                        SelectedIndex="0"
+                                        Name="Choose Language" Margin="0,0,12,0"
+                                        Background="{Binding ComboBoxBackground, Converter={StaticResource ColorToBrushConverter}}"
+                                        Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+                                        OverlayBrush="{Binding ComboBoxBackgroundOnHover, Converter={StaticResource ColorToBrushConverter}}"/>
+            
+        </Grid>
+        
+        <ScrollViewer Grid.Row="1" IsVisible="{Binding !IsCellEmpty}">
+            <ItemsControl Items="{Binding Cells}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+        
+        <Label Grid.Row="1" IsVisible="{Binding IsCellEmpty}"
+               Content="You don't have any cells yet"
+               Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+               FontFamily="{StaticResource PoppinsRegular}" FontSize="14"
+               HorizontalAlignment="Center" VerticalAlignment="Center"
+               Height="30" Width="200"/>
+        
+        <Grid Grid.Row="2" Height="50" HorizontalAlignment="Stretch" ColumnDefinitions="*, Auto, Auto"
+              Background="{Binding BarBackground, Converter={StaticResource ColorToBrushConverter}}">
+            
+            <Button Grid.Column="0" Background="Transparent" HorizontalAlignment="Center"
+                    Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+                    BorderBrush="{Binding TextAreaOverlayBackground, Converter={StaticResource ColorToBrushConverter}}"
+                    Margin="3,0,8,0"
+                    BorderThickness="0"
+                    Width="100" Height="30"
+                    Command="{Binding AddCell}">
+                <StackPanel Orientation="Horizontal">
+                    <Viewbox Height="16">
+                        <Path Fill="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+                              Stretch="UniformToFill" Data="M14.5,13 L14.5,3.75378577 C14.5,3.33978577 14.164,3.00378577 13.75,3.00378577 C13.336,3.00378577 13,3.33978577 13,3.75378577 L13,13 L3.75387573,13 C3.33987573,13 3.00387573,13.336 3.00387573,13.75 C3.00387573,14.164 3.33987573,14.5 3.75387573,14.5 L13,14.5 L13,23.7523651 C13,24.1663651 13.336,24.5023651 13.75,24.5023651 C14.164,24.5023651 14.5,24.1663651 14.5,23.7523651 L14.5,14.5 L23.7498262,14.5030754 C24.1638262,14.5030754 24.4998262,14.1670754 24.4998262,13.7530754 C24.4998262,13.3390754 24.1638262,13.0030754 23.7498262,13.0030754 L14.5,13 Z"/>
+                    </Viewbox>
+                    <Label Content="Add cell"
+                           Margin="10,-4,0,0"
+                           FontFamily="{StaticResource PoppinsRegular}"
+                           FontSize="15"
+                           Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"/>
+                </StackPanel>
+            </Button>
+            
+            <Button Grid.Column="1" Background="Transparent"
+                    HorizontalAlignment="Right"
+                    Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+                    BorderBrush="{Binding TextAreaOverlayBackground, Converter={StaticResource ColorToBrushConverter}}"
+                    Margin="0,0,3,0"
+                    Command="{Binding Cancel}"
+                    BorderThickness="0"
+                    Width="100" Height="30">
+                <StackPanel Orientation="Horizontal">
+                    <Viewbox Height="14">
+                        <Path Stretch="UniformToFill" Data="M64 388L196 256 64 124 96 92 228 224 360 92 392 124 260 256 392 388 360 420 228 288 96 420 64 388Z"/>
+                    </Viewbox>
+                    <Label Content="Cancel"
+                           Margin="10,-4,0,0"
+                           FontFamily="{StaticResource PoppinsRegular}"
+                           FontSize="15"
+                           Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"/>
+                </StackPanel>
+                <Button.Styles>
+                    <Style Selector="Button > StackPanel > Viewbox > Path">
+                        <Setter Property="Fill" Value="{Binding $parent[Button].Foreground}"/>
+                    </Style>
+                    
+                    <Style Selector="Button:pointerover > StackPanel  > Viewbox > Path">
+                        <Setter Property="Fill" Value="Red"/>
+                    </Style>
+                </Button.Styles>
+            </Button>
+            
+            <Button Grid.Column="2" Background="Transparent"
+                    Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+                    BorderBrush="{Binding TextAreaOverlayBackground, Converter={StaticResource ColorToBrushConverter}}"
+                    Margin="3,0,8,0"
+                    IsEnabled="{Binding !IsCellEmpty}"
+                    Command="{Binding Save}"
+                    BorderThickness="0"
+                    Width="100" Height="30">
+                <StackPanel Orientation="Horizontal">
+                    <Viewbox Height="15">
+                        <Path Fill="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+                              Stretch="UniformToFill" Data="F1M384,-362.665985107422L384,-149.332992553711 640,-149.332992553711 640,-362.665985107422 384,-362.665985107422z M469.334014892578,-746.666015625L469.334014892578,-661.3330078125 554.6669921875,-661.3330078125 554.6669921875,-746.666015625 469.334014892578,-746.666015625z M213.332992553711,-746.6669921875L213.332992553711,-149.333999633789 298.665985107422,-149.333999633789 298.665985107422,-362.6669921875C298.665985107422,-409.795013427734,336.871002197266,-448,383.998992919922,-448L639.9990234375,-448C687.127014160156,-448,725.331970214844,-409.795013427734,725.331970214844,-362.6669921875L725.331970214844,-149.333999633789 810.664978027344,-149.333999633789 810.664978027344,-601.174011230469 665.171997070313,-746.6669921875 639.9990234375,-746.6669921875 639.9990234375,-576 298.665985107422,-576 298.665985107422,-746.6669921875 213.332992553711,-746.6669921875z M682.911987304688,-832C694.632995605469,-832,705.25,-827.273986816406,712.958984375,-819.6259765625L883.622985839844,-648.961975097656C891.273986816406,-641.2509765625 896,-630.633972167969 896,-618.913024902344 896,-618.825988769531 895.9990234375,-618.739013671875 895.9990234375,-618.666015625L895.9990234375,-149.332992553711C895.9990234375,-102.205001831055,857.794006347656,-64,810.666015625,-63.9999923706055L213.332992553711,-63.9999923706055 213.332000732422,-63.9999923706055C166.203994750977,-64,127.999000549316,-102.205001831055,127.999008178711,-149.332992553711L127.999008178711,-746.666015625C127.999000549316,-793.794006347656,166.203994750977,-831.9990234375,213.332000732422,-831.9990234375L682.651977539063,-831.9990234375C682.739013671875,-832,682.825012207031,-832,682.911987304688,-832z"/>
+                    </Viewbox>
+                    <Label Content="Save"
+                           Margin="10,-4,0,0"
+                           FontFamily="{StaticResource PoppinsRegular}"
+                           FontSize="15"
+                           Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>

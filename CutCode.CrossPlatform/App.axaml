@@ -1,0 +1,27 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:CutCode.CrossPlatform"
+             xmlns:sys="using:System"
+             x:Class="CutCode.CrossPlatform.App">
+  <Application.DataTemplates>
+    <local:ViewLocator/>
+  </Application.DataTemplates>
+
+  <Application.Resources>
+    <FontFamily x:Key="PoppinsSemibold">avares://CutCode.CrossPlatform/Assets/Fonts/Poppins-SemiBold.ttf#Poppins</FontFamily>
+    <FontFamily x:Key="PoppinsRegular">avares://CutCode.CrossPlatform/Assets/Fonts/Poppins-Regular.ttf#Poppins</FontFamily>
+    <FontFamily x:Key="InconsolataRegular">avares://CutCode.CrossPlatform/Assets/Fonts/Inconsolata-Regular.ttf#Inconsolata</FontFamily>
+  </Application.Resources>
+  
+  
+  <Application.Styles>
+    <FluentTheme Mode="Dark"/>
+    
+    <StyleInclude Source="/Styles/ButtonStyles.axaml"/>
+    <StyleInclude Source="/Styles/ScrollBarStyles.axaml"/>
+    <StyleInclude Source="/Styles/TextBoxStyles.axaml"/>
+    
+    <StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml" />
+
+  </Application.Styles>
+</Application>

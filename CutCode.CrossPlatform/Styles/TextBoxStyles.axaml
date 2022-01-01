@@ -1,0 +1,18 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style Selector="TextBox /template/ Border">
+        <Setter Property="Background" Value="{TemplateBinding Background}"/>
+        <Setter Property="CornerRadius" Value="{TemplateBinding CornerRadius}"/>
+    </Style>
+    <Style Selector="TextBox /template/ Border:pointerover">
+        <Setter Property="Background" Value="{TemplateBinding BorderBrush}"/>
+        <Setter Property="CornerRadius" Value="{TemplateBinding CornerRadius}"/>
+    </Style>
+    <Style Selector="TextBox /template/ TextBlock#PART_Watermark, TextBox /template/ TextBlock#PART_FloatingWatermark">
+        <Setter Property="Foreground" Value="{TemplateBinding Foreground}"/>
+    </Style>
+    <Style Selector="TextBox:focus /template/ TextBlock#PART_Watermark, TextBox:focus /template/ TextBlock#PART_FloatingWatermark,
+                             TextBox:pointerover /template/ TextBlock#PART_Watermark, TextBox:pointerover /template/ TextBlock#PART_FloatingWatermark">
+        <Setter Property="Foreground" Value="{TemplateBinding Foreground}"/>
+    </Style>
+</Styles>
