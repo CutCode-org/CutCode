@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -111,8 +112,11 @@ namespace CutCode.CrossPlatform.ViewModels
                     
                     if (!string.IsNullOrEmpty(dialogResult?[0]))
                     {
-                        NotificationManager.CreateNotification("Notification", "Processing...", 10);
+                        var processing = NotificationManager.CreateNotification("Notification", "Processing...", 100);
                         message = await DataBase.ImportData(dialogResult[0]);
+                        NotificationManager.CreateNotification("Notification", message, 4);
+                        NotificationManager.CloseNotification(processing);
+                        return;
                     }
                 }
             }

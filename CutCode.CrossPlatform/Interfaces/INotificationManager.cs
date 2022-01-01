@@ -6,7 +6,7 @@ namespace CutCode.CrossPlatform.Interfaces
     public interface INotificationManager
     {
         event EventHandler ShowNotification;
-        void CreateNotification(string notificationType, string message, int delay);
+        NotifyObject CreateNotification(string notificationType, string message, int delay);
         void CloseNotification(NotifyObject notification);
         event EventHandler OnCloseNotification;
     }
@@ -17,10 +17,11 @@ namespace CutCode.CrossPlatform.Interfaces
         public static NotificationManager Current => _notificationManager;
         
         public event EventHandler ShowNotification;
-        public void CreateNotification(string notificationType, string message, int delay)
+        public NotifyObject CreateNotification(string notificationType, string message, int delay)
         {
             var notify = new NotifyObject(){NotificationType = notificationType,  Message = message, Delay= delay};
             ShowNotification?.Invoke(notify, EventArgs.Empty);
+            return notify;
         }
 
         public event EventHandler OnCloseNotification;

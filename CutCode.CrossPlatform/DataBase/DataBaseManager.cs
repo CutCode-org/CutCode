@@ -61,14 +61,7 @@ namespace CutCode.DataBase
         }
         private void OpenDB()
         {
-            _db = new SQLiteConnection(dbpath);
-            _db.CreateTable<CodesTable>();
-            
-            _db.Close();
-
-            var r = File.ReadAllBytes(dbpath);
-            
-            _db = new SQLiteConnection(dbpath);
+            _db = new SQLiteConnection(dbpath , SQLiteOpenFlags.Create | SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.FullMutex);
             _db.CreateTable<CodesTable>();
 
             AllCodes = new List<CodeModel>();
@@ -287,39 +280,34 @@ namespace CutCode.DataBase
 
         public async Task<string> ImportData(string path)
         {
-            _db.Close();
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            
-            for (int i = 0; i < 5; i++)
+            try
             {
-                try
+                var currentDb = new SQLiteConnection(path);
+                currentDb.CreateTable<CodesTable>();
+                var codes = currentDb.Query<CodesTable>("SELECT * From CodesTable");
+                if (codes.Count > 0)
                 {
-                    await Task.Delay(TimeSpan.FromSeconds(1.5));
-                    
-                    var currentData = await File.ReadAllBytesAsync(dbpath);
-                    var importingData = await File.ReadAllBytesAsync(path);
-                    await File.WriteAllBytesAsync(dbpath, importingData);
-                    
-                    try
-                    {
-                        OpenDB();
-                    }
-                    catch
-                    {
-                        _db.Close();
-                        File.WriteAllBytes(dbpath, currentData);
-                        OpenDB();
-                        return "Your syncing file is corrupted! We are unable to sync your codes!";
-                    }
+                    var currentCodes = _db.Query<CodesTable>("SELECT * From CodesTable");
+                    foreach (var codeDb in currentCodes) _db.Delete<CodesTable>(codeDb.Id);
+                    foreach (var newcode in codes) _db.Insert(newcode);
+                    AllCodes = codes.Select(c => new CodeModel(c.Title,
+                                                            JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(c.Cells)!, 
+                                                            c.Language,
+                                                            c.LastModificationTime, 
+                                                            c.IsFavourite)).ToList();
+                    PropertyChanged();
+                    currentDb.Close();
                     return "Successfully imported your codes!";
-                    
                 }
-                catch (IOException e)   // update only throws this on locking
-                { }
+                else
+                {
+                    return "Your syncing file is corrupted! We are unable to sync your codes!";
+                }
             }
-            
-            return "Unable to read your internal database";
+            catch
+            {
+                return "Your syncing file is corrupted! We are unable to sync your codes!";
+            }
         }
     }
 }
