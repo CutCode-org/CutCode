@@ -195,7 +195,7 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             IsPopupOpen = false;
             var delete = DataBaseManager.Current.DelCode(Code);
-            // if it wasn't deleted, we will show notificaiton
+            if(!delete)  NotificationManager.Current.CreateNotification("Error", "Error, Unable to delete the code!", 3);
         }
     }
 }

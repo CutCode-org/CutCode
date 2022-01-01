@@ -15,7 +15,6 @@ using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Views;
 using CutCode.DataBase;
-using Material.Styles.Themes;
 
 namespace CutCode.CrossPlatform.ViewModels
 {

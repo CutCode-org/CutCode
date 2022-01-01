@@ -13,7 +13,6 @@ using Avalonia.Media.Imaging;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using CutCode.DataBase;
-using Material.Dialog;
 
 namespace CutCode.CrossPlatform.ViewModels
 {

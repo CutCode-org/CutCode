@@ -2,9 +2,6 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
-using Projektanker.Icons.Avalonia;
-using Projektanker.Icons.Avalonia.FontAwesome;
-
 namespace CutCode.CrossPlatform
 {
     class Program
@@ -15,7 +12,6 @@ namespace CutCode.CrossPlatform
         [STAThread]
         public static void Main(string[] args)
         {
-            IconProvider.Register<FontAwesomeIconProvider>();
 
             BuildAvaloniaApp()
                 .StartWithClassicDesktopLifetime(args);

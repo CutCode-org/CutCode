@@ -2,9 +2,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="using:CutCode.CrossPlatform"
              xmlns:sys="using:System"
-             xmlns:sty="using:FluentAvalonia.Styling"
-             xmlns:ui="using:FluentAvalonia.UI.Controls"
-             xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
              x:Class="CutCode.CrossPlatform.App">
   <Application.DataTemplates>
     <local:ViewLocator/>
@@ -19,8 +16,6 @@
   
   <Application.Styles>
     <FluentTheme Mode="Dark"/>
-    
-    <StyleInclude Source="avares://Aura.UI.FluentTheme/AuraUI.xaml"/>
     
     <StyleInclude Source="/Styles/ButtonStyles.axaml"/>
     <StyleInclude Source="/Styles/ScrollBarStyles.axaml"/>

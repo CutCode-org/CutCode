@@ -12,7 +12,6 @@ using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.ViewModels;
 using CutCode.CrossPlatform.Views;
 using CutCode.DataBase;
-using FluentAvalonia.UI.Controls;
 using Newtonsoft.Json;
 using ReactiveUI;
 
@@ -170,10 +169,11 @@ namespace CutCode.CrossPlatform.ViewModels
                 PageService.Current.ExternalPage = codeViewPage;
                 Title = "";
                 Cells.Clear();
+                NotificationManager.CreateNotification("Notification", "New code is successfully created", 3);
             }
             else
             {
-                // do notification thing to fill empty fields
+                NotificationManager.CreateNotification("Warning", "Please Fill the Empty fields", 2);
             }
             
         }
