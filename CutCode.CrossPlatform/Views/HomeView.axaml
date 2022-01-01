@@ -15,6 +15,10 @@
         <SolidColorBrush Color="{Binding BackgroundColor}"/>
     </UserControl.Background>
     
+    <UserControl.DataContext>
+        <vm:HomeViewModel/>
+    </UserControl.DataContext>
+    
     <Grid RowDefinitions="Auto,*">
         <WrapPanel Grid.Row="0">
             <controls:CustomSearchBar MinWidth="650" Margin="12,10,20,0" 

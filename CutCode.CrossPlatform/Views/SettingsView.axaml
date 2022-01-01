@@ -11,13 +11,13 @@
         <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
     </UserControl.Resources>
     
+    <UserControl.DataContext>
+        <vm:SettingsViewModel/>
+    </UserControl.DataContext>
+    
     <UserControl.Background>
         <SolidColorBrush Color="{Binding backgroundColor, Converter={StaticResource ColorToBrushConverter}}"/>
     </UserControl.Background>
-    
-    <UserControl.DataContext>
-        <vm:SettingsViewModel/>
-    </UserControl.DataContext> 
     
     <ScrollViewer>
         <Grid RowDefinitions="Auto,Auto" Margin="25,0,25,0">

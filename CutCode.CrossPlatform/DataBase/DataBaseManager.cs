@@ -116,12 +116,11 @@ namespace CutCode.DataBase
         public event EventHandler FavCodesUpdated;
         public void PropertyChanged()
         {
-            var lst = new List<CodeModel>();
+            FavCodes.Clear();
             foreach (var code in AllCodes)
             {
-                if (code.IsFavourite) lst.Add(code);
+                if (code.IsFavourite) FavCodes.Add(code);
             }
-            FavCodes = lst;
 
             AllCodesUpdated?.Invoke(this, EventArgs.Empty);
             FavCodesUpdated?.Invoke(this, EventArgs.Empty);
@@ -176,17 +175,18 @@ namespace CutCode.DataBase
 
         public bool DelCode(CodeModel code)
         {
-            _db.Delete<CodesTable>(code.Id);
-            AllCodes.Remove(code);
-            PropertyChanged();
-            /*
+            
             try
             {
+                _db.Delete<CodesTable>(code.Id);
+                AllCodes.Remove(code);
+                PropertyChanged();
             }
             catch
             {
                 return false;
-            */
+            }
+
             return true;
         }
 
@@ -196,26 +196,29 @@ namespace CutCode.DataBase
             "Html", "Java", "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
         };
 
-        public async Task<List<CodeModel>> OrderCode(string order, List<CodeModel> codes = null)
+        public async Task<List<CodeModel>> OrderCode(string order, List<CodeModel> codes, string page="Home")
         {
             int ind = AllKindsOfOrder.IndexOf(order);
             List<CodeModel> lst;
 
-            var currentCodes = codes == null ? AllCodes : codes;
+            if (codes == null)
+            {
+                throw new NullReferenceException();
+            }
 
             if (ind > 2)
             {
                 lst = new List<CodeModel>();
-                foreach (var code in currentCodes)
+                foreach (var code in codes)
                 {
                     if (code.Language == order) lst.Add(code);
                 }
             }
             else
             {
-                if (ind == 0) lst = new List<CodeModel>(currentCodes.OrderBy(x => x.Title).ToList());
-                else if (ind == 1) lst = new List<CodeModel>(currentCodes.OrderBy(x => x.LastModificationTime).ToList());
-                else lst = AllCodes;
+                if (ind == 0) lst = new List<CodeModel>(codes.OrderBy(x => x.Title).ToList());
+                else if (ind == 1) lst = new List<CodeModel>(codes.OrderBy(x => x.LastModificationTime).ToList());
+                else lst = page=="Home" ? AllCodes : FavCodes;
 
                 if (ind == 0 || ind == 1) ChangeSort(AllKindsOfOrder[ind]);
             }

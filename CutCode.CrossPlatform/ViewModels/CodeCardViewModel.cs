@@ -14,7 +14,7 @@ namespace CutCode.CrossPlatform.ViewModels
 {
     public class CodeCardViewModel : ViewModelBase
     {
-        private CodeModel Code;
+        public CodeModel Code;
         public CodeCardViewModel(CodeModel code)
         {
             Code = code;

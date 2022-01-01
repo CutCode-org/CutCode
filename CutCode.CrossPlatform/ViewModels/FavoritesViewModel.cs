@@ -17,28 +17,28 @@ using ReactiveUI;
 
 namespace CutCode.CrossPlatform.ViewModels
 {
-    public class HomeViewModel : PageBaseViewModel
+    public class FavoritesViewModel : PageBaseViewModel
     {
-        public HomeViewModel()
+        public FavoritesViewModel()
         {
-            AllCodes = new ObservableCollection<CodeCardViewModel>();
-            CodeModeToViewModel(DataBase.AllCodes);
-            
-            DataBase.AllCodesUpdated += AllCodesUpdated;
+            AllFavouriteCodes = new ObservableCollection<CodeCardViewModel>();
+            CodeModeToViewModel(DataBase.FavCodes);
+
+            DataBase.FavCodesUpdated += FavCodesUpdated;
 
             IsSearchBusy = false;
 
             Languages = new ObservableCollection<string>()
             {
-            "All languages", "Python", "C++", "C#", "CSS", "Dart", "Golang", "Html", "Java",
-            "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
+                "All languages", "Python", "C++", "C#", "CSS", "Dart", "Golang", "Html", "Java",
+                "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust", "Sql", "Swift"
             };
             Sorts = new ObservableCollection<string>() { "Date", "Alphabet" };
 
             Sortby = DataBase.sortBy == "Date" ? 0 : 1;
             _basicSort = DataBase.sortBy;
             _languageSort = "All languages";
-
+            
             VisChange();
         }
 
@@ -62,29 +62,29 @@ namespace CutCode.CrossPlatform.ViewModels
             ComboboxBackgroundColor = Color.Parse("#202225");    
         }
         
-        private void AllCodesUpdated(object sender, EventArgs e) 
+        private void FavCodesUpdated(object sender, EventArgs e) 
         {
+            CodeModeToViewModel(DataBase.FavCodes);
             SearchCancelled();
         }
 
         private void CodeModeToViewModel(List<CodeModel> codes)
         {
-            var tempCodes = new ObservableCollection<CodeCardViewModel>();
-            foreach(var code in codes) tempCodes.Add(new CodeCardViewModel(code));
-            AllCodes = tempCodes;
+            AllFavouriteCodes.Clear();
+            foreach(var code in codes) AllFavouriteCodes.Add(new CodeCardViewModel(code));
         }
 
         private void VisChange(string text = "You don't have any notes :(")
         {
-            EmptyLabelVisibility = AllCodes.Count == 0;
+            EmptyLabelVisibility = AllFavouriteCodes.Count == 0;
             EmptyLabel = text;
         }
 
-        private ObservableCollection<CodeCardViewModel> _AllCodes;
-        public ObservableCollection<CodeCardViewModel> AllCodes
+        private ObservableCollection<CodeCardViewModel> _allFavouriteCodes;
+        public ObservableCollection<CodeCardViewModel> AllFavouriteCodes
         {
-            get => _AllCodes;
-            set => this.RaiseAndSetIfChanged(ref _AllCodes, value);
+            get => _allFavouriteCodes;
+            set => this.RaiseAndSetIfChanged(ref _allFavouriteCodes, value);
         }
         public IList<string> Languages { get; set; }
         public IList<string> Sorts { get; set; }
@@ -159,17 +159,17 @@ namespace CutCode.CrossPlatform.ViewModels
         private string _languageSort;
         public async void ComboBoxCommand(string sort)
         {
-            var allcodes = AllCodes.Select(c => c.Code).ToList();
+            var favcodes = AllFavouriteCodes.Select(c => c.Code).ToList();
             if (sort is "Date" or "Alphabet")
             {
                 _basicSort = sort;
-                CodeModeToViewModel(await  DataBase.OrderCode(_basicSort, allcodes));
+                CodeModeToViewModel(await  DataBase.OrderCode(_basicSort, favcodes, "Favourite"));
             }
             else
             {
                 _languageSort = sort;
-                var codes = await DataBase.OrderCode(_languageSort, allcodes);
-                CodeModeToViewModel(await  DataBase.OrderCode(_basicSort, codes));
+                var codes = await DataBase.OrderCode(_languageSort, favcodes, "Favourite");
+                CodeModeToViewModel(await  DataBase.OrderCode(_basicSort, codes, "Favourite"));
             }
             VisChange("Not found :(");
         }
@@ -185,9 +185,9 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             if (string.IsNullOrEmpty(text)) return;
             IsSearchBusy = true;
-            if(text != "" && AllCodes.Count > 0)
+            if(text != "" && AllFavouriteCodes.Count > 0)
             {
-                CodeModeToViewModel(await DataBase.SearchCode(text, "Home"));
+                CodeModeToViewModel(await DataBase.SearchCode(text, "Favourite"));
                 VisChange("Not found :(");
             }
             
@@ -196,8 +196,9 @@ namespace CutCode.CrossPlatform.ViewModels
 
         public async void SearchCancelled()
         {
-            var codes = await DataBase.OrderCode(_languageSort, AllCodes.Select(c => c.Code).ToList());
-            CodeModeToViewModel(await  DataBase.OrderCode(_basicSort, codes));
+            var allCodes = AllFavouriteCodes.Select(c => c.Code).ToList();
+            allCodes = await DataBase.OrderCode(_languageSort, allCodes, "Favourite");
+            CodeModeToViewModel(allCodes);
             VisChange();
         }
     }
