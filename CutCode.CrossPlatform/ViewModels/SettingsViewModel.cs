@@ -1,13 +1,18 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media;
 using ReactiveUI;
 using Avalonia.Media.Imaging;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using CutCode.DataBase;
+using Material.Dialog;
 
 namespace CutCode.CrossPlatform.ViewModels
 {
@@ -17,23 +22,24 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             developers = new ObservableCollection<DeveloperCardViewModel>()
             {
-              new (
-                  "avares://CutCode.CrossPlatform/Assets/Images/Developers/abdesol.png", 
-                  "Abdella Solomon", 
-                  "C# and Python Programmer. Currently into AI/ML",
-                  "@abdesol", 
-                  "https://github.com/Abdesol",
-                  "https://twitter.com/AbdellaSolomon"),
-              
-              new (
-                  "avares://CutCode.CrossPlatform/Assets/Images/Developers/piero.png", 
-                  "Piero Castillo", 
-                  "Student and C# programmer who lives in Lima, Peru",
-                  $"@sharped_net", 
-                  "https://github.com/PieroCastillo",
-                  "https://twitter.com/sharped_net")
+                new(
+                    "avares://CutCode.CrossPlatform/Assets/Images/Developers/abdesol.png",
+                    "Abdella Solomon",
+                    "C# and Python Programmer. Currently into AI/ML",
+                    "@abdesol",
+                    "https://github.com/Abdesol",
+                    "https://twitter.com/AbdellaSolomon"),
+
+                new(
+                    "avares://CutCode.CrossPlatform/Assets/Images/Developers/piero.png",
+                    "Piero Castillo",
+                    "Student and C# programmer who lives in Lima, Peru",
+                    $"@sharped_net",
+                    "https://github.com/PieroCastillo",
+                    "https://twitter.com/sharped_net")
             };
         }
+
         protected override void OnLightThemeIsSet()
         {
             backgroundColor = Color.Parse("#FCFCFC");
@@ -41,7 +47,7 @@ namespace CutCode.CrossPlatform.ViewModels
             cardColor = Color.Parse("#F2F3F5");
             btnColor = Color.Parse("#E5E6E8");
         }
-        
+
         protected override void OnDarkThemeIsSet()
         {
             backgroundColor = Color.Parse("#36393F");
@@ -49,29 +55,33 @@ namespace CutCode.CrossPlatform.ViewModels
             cardColor = Color.Parse("#2F3136");
             btnColor = Color.Parse("#27282C");
         }
-        
+
         private Color _backgroundColor;
+
         public Color backgroundColor
         {
             get => _backgroundColor;
             set => this.RaiseAndSetIfChanged(ref _backgroundColor, value);
         }
-        
+
         private Color _mainTextColor;
+
         public Color mainTextColor
         {
             get => _mainTextColor;
             set => this.RaiseAndSetIfChanged(ref _mainTextColor, value);
         }
-        
+
         private Color _cardColor;
+
         public Color cardColor
         {
             get => _cardColor;
             set => this.RaiseAndSetIfChanged(ref _cardColor, value);
         }
-        
+
         private Color _btnColor;
+
         public Color btnColor
         {
             get => _btnColor;
@@ -79,5 +89,54 @@ namespace CutCode.CrossPlatform.ViewModels
         }
 
         public ObservableCollection<DeveloperCardViewModel> developers { get; set; }
+
+        public async void SyncCommand(string sync)
+        {
+            var message = "";
+            if (sync == "Import")
+            {
+                var fileDialog = new OpenFileDialog();
+                fileDialog.AllowMultiple = false;
+                fileDialog.Directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                var fileExt = new List<FileDialogFilter>()
+                {
+                    new FileDialogFilter()
+                };
+                fileExt[0].Extensions = new List<string>() { "whl" };
+
+                fileDialog.Filters = fileExt;
+                if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktopLifetime)
+                {
+                    var dialogResult = await fileDialog.ShowAsync(desktopLifetime.MainWindow);
+                    
+                    if (!string.IsNullOrEmpty(dialogResult?[0]))
+                    {
+                        NotificationManager.CreateNotification("Notification", "Processing...", 10);
+                        message = await DataBase.ImportData(dialogResult[0]);
+                    }
+                }
+            }
+            else
+            {
+                var fileDialog = new SaveFileDialog();
+                fileDialog.Directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                var fileExt = new List<FileDialogFilter>()
+                {
+                    new FileDialogFilter()
+                };
+                fileExt[0].Extensions = new List<string>() { "whl" };
+                fileDialog.InitialFileName = $"Export_CutCode_{DateTime.Now.ToString("yyyyMMddhhmmss")}.whl";
+                fileDialog.Filters = fileExt;
+                if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktopLifetime)
+                {
+                    var dialogResult = await fileDialog.ShowAsync(desktopLifetime.MainWindow);
+                    if (!string.IsNullOrEmpty(dialogResult))
+                    {
+                        message = DataBase.ExportData(dialogResult);
+                    }
+                }
+            }
+            if(!string.IsNullOrEmpty(message)) NotificationManager.CreateNotification("Notification", message, 4);
+        }
     }
 }

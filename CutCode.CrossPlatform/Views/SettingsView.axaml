@@ -19,16 +19,30 @@
         <SolidColorBrush Color="{Binding backgroundColor, Converter={StaticResource ColorToBrushConverter}}"/>
     </UserControl.Background>
     
+    <UserControl.Styles>
+        <Style Selector="Button:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{TemplateBinding Background}"/>
+        </Style>
+    </UserControl.Styles>
+    
     <ScrollViewer>
         <Grid RowDefinitions="Auto,Auto" Margin="25,0,25,0">
             <!-- Sync Area -->
             <Border Grid.Row="0"  CornerRadius="10" Height="220" ClipToBounds="True" Margin="5,15,5,20">
                 <StackPanel Margin="0,0,0,0"
                             Background="{Binding cardColor, Converter={StaticResource ColorToBrushConverter}}">
+                    <StackPanel.Styles>
+                        <Style Selector="Button:pressed /template/ ContentPresenter">
+                            <Setter Property="Background" Value="{TemplateBinding Background}"/>
+                            <Setter Property="RenderTransform" Value="scale(0.999)" /> 
+                        </Style>
+                    </StackPanel.Styles>
                     <Label Content="Sync"
                            FontWeight="Bold" FontFamily="{DynamicResource PoppinsSemibold}" FontSize="22" Margin="25,18,0,10"
                            Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"/>
                     <Button Margin="25,10,25,0" HorizontalAlignment="Stretch"
+                            Command="{Binding SyncCommand}"
+                            CommandParameter="Import"
                             Background="{Binding btnColor, Converter={StaticResource ColorToBrushConverter}}">
                         <StackPanel Orientation="Horizontal" Margin="10,8,0,8">
                             <Viewbox VerticalAlignment="Center">
@@ -43,6 +57,8 @@
                     </Button>
                     
                     <Button Margin="25,15,25,0" HorizontalAlignment="Stretch"
+                            Command="{Binding SyncCommand}"
+                            CommandParameter="Export"
                             Background="{Binding btnColor, Converter={StaticResource ColorToBrushConverter}}">
                         <StackPanel Orientation="Horizontal" Margin="10,8,0,8">
                             <Viewbox VerticalAlignment="Center">
@@ -63,6 +79,12 @@
             <Border CornerRadius="10" ClipToBounds="True" Grid.Row="1" Margin="5,0,5,15">
                 <StackPanel 
                     Background="{Binding cardColor, Converter={StaticResource ColorToBrushConverter}}">
+                    <StackPanel.Styles>
+                        <Style Selector="Button:pressed /template/ ContentPresenter">
+                            <Setter Property="Background" Value="{TemplateBinding Background}"/>
+                            <Setter Property="RenderTransform" Value="scale(0.85)" /> 
+                        </Style>
+                    </StackPanel.Styles>
                     <Label Content="Developers"
                            Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"
                            FontWeight="Bold" FontFamily="{DynamicResource PoppinsSemibold}" FontSize="22" Margin="25,18,0,10"/>

@@ -13,12 +13,16 @@
     </UserControl.Resources>
     
     <UserControl.Styles>
-        <Style Selector="Button, Button:pointerover, Button:pressed">
-            <Setter Property="Background" Value="Transparent"/>
+        <Style Selector="Button:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{TemplateBinding Background}"/>
+        </Style>
+        <Style Selector="Button:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="{TemplateBinding Background}"/>
+            <Setter Property="RenderTransform" Value="scale(0.85)" /> 
         </Style>
     </UserControl.Styles>
     
-    <Border CornerRadius="5" BorderThickness="0" MinHeight="100" Width="300"
+    <Border CornerRadius="5" BorderThickness="0" MinHeight="70" Width="300"
             Background="{Binding Background, Converter={StaticResource ColorToBrushConverter}}">
         <Grid RowDefinitions="Auto, *">
             <Grid Grid.Row="0">
@@ -30,6 +34,7 @@
                     <Button Grid.Column="1"
                             HorizontalAlignment="Right" VerticalAlignment="Center"
                             Width="27" Height="26"
+                            Background="Transparent"
                             Foreground="{Binding TextColor, Converter={StaticResource ColorToBrushConverter}}"
                             Command="{Binding CloseNotification}"
                             BorderThickness="0">

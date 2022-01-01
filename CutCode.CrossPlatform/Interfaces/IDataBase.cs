@@ -28,6 +28,6 @@ namespace CutCode.CrossPlatform.Interfaces
         void ChangeTheme(bool IsLightTheme);
 
         string ExportData(string path);
-        string ImportData(string path);
+        Task<string> ImportData(string path);
     }
 }

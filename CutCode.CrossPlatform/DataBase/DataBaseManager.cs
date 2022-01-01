@@ -11,7 +11,9 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Security.AccessControl;
 using System.IO.Compression;
+using System.Xml.Linq;
 using Avalonia;
+using Avalonia.Threading;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using ReactiveUI;
@@ -59,6 +61,13 @@ namespace CutCode.DataBase
         }
         private void OpenDB()
         {
+            _db = new SQLiteConnection(dbpath);
+            _db.CreateTable<CodesTable>();
+            
+            _db.Close();
+
+            var r = File.ReadAllBytes(dbpath);
+            
             _db = new SQLiteConnection(dbpath);
             _db.CreateTable<CodesTable>();
 
@@ -262,34 +271,55 @@ namespace CutCode.DataBase
 
         public string ExportData(string path)
         {
-            if (Path.GetExtension(path) != ".whl") return "This type of file are not supported!";
+            if (Path.GetExtension(path) != ".whl") return "This type of file is not supported!";
             _db.Close();
-            var bytes = File.ReadAllBytes(dbpath);
-            File.WriteAllBytes(path, bytes);
-            OpenDB();
+            try
+            {
+                File.Copy(dbpath, path);
+            }
+            catch
+            {
+                return "Unexpected error occurred!";
+            }
 
             return "Successfully exported your codes!";
         }
 
-        public string ImportData(string path)
+        public async Task<string> ImportData(string path)
         {
             _db.Close();
-            var currentData = File.ReadAllBytes(dbpath);
-
-            var importingData = File.ReadAllBytes(path);
-            File.WriteAllBytes(dbpath, importingData);
-            try
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            
+            for (int i = 0; i < 5; i++)
             {
-                OpenDB();
+                try
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(1.5));
+                    
+                    var currentData = await File.ReadAllBytesAsync(dbpath);
+                    var importingData = await File.ReadAllBytesAsync(path);
+                    await File.WriteAllBytesAsync(dbpath, importingData);
+                    
+                    try
+                    {
+                        OpenDB();
+                    }
+                    catch
+                    {
+                        _db.Close();
+                        File.WriteAllBytes(dbpath, currentData);
+                        OpenDB();
+                        return "Your syncing file is corrupted! We are unable to sync your codes!";
+                    }
+                    return "Successfully imported your codes!";
+                    
+                }
+                catch (IOException e)   // update only throws this on locking
+                { }
             }
-            catch
-            {
-                _db.Close();
-                File.WriteAllBytes(dbpath, currentData);
-                OpenDB();
-                return "Your syncing file is corrupted! We are unable to sync your codes!";
-            }
-            return "Successfully imported your codes!";
+            
+            return "Unable to read your internal database";
         }
     }
 }
