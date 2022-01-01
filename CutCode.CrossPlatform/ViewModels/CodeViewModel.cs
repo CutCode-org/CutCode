@@ -269,11 +269,19 @@ namespace CutCode.CrossPlatform.ViewModels
 
         public async void FavouriteCommand()
         {
-            Code.IsFavourite = !Code.IsFavourite;
-            IsFavouritePath = Code.IsFavourite ? IconPaths.StarFull : IconPaths.Star;
+            var favUpdate = Database.FavModify(Code);
+            if (favUpdate)
+            {
+                Code.IsFavourite = !Code.IsFavourite;
+                IsFavouritePath = Code.IsFavourite ? IconPaths.StarFull : IconPaths.Star;
             
-            if(ThemeService.IsLightTheme) IsFavouriteColor = Code.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#4D4D4D");
-            else IsFavouriteColor = Code.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#94969A");
+                if(ThemeService.IsLightTheme) IsFavouriteColor = Code.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#4D4D4D");
+                else IsFavouriteColor = Code.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#94969A");
+            }
+            else
+            {
+                // do notification
+            }
             
         }
 
@@ -298,7 +306,7 @@ namespace CutCode.CrossPlatform.ViewModels
 
         public static void DeleteCell(CodeViewModel vm, CodeCellViewModel cell)
         {
-            vm.Cells.Remove(cell);
+            if(vm.IsEditEnabled) vm.Cells.Remove(cell);
         }
     }
 }

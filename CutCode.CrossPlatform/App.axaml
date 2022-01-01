@@ -22,10 +22,9 @@
     
     <StyleInclude Source="avares://Aura.UI.FluentTheme/AuraUI.xaml"/>
     
-    <StyleInclude Source="/Styles/CustomButtonStyles.axaml"/>
-    <StyleInclude Source="/Styles/CustomScrollBarStyle.axaml"/>
-    <StyleInclude Source="/Styles/CustomTextBoxStyle.axaml"/>
-    <StyleInclude Source="/Styles/CustomToolTip.axaml"/>
+    <StyleInclude Source="/Styles/ButtonStyles.axaml"/>
+    <StyleInclude Source="/Styles/ScrollBarStyles.axaml"/>
+    <StyleInclude Source="/Styles/TextBoxStyles.axaml"/>
     
     <StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml" />
 
