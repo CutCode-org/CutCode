@@ -46,7 +46,6 @@ namespace CutCode.CrossPlatform.ViewModels
             Cells.CollectionChanged += (sender, args) =>
             {
                 IsCellEmpty = Cells.Count == 0;
-                
             };
         }
 

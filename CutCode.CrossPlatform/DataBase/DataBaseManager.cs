@@ -265,7 +265,6 @@ namespace CutCode.DataBase
         public string ExportData(string path)
         {
             if (Path.GetExtension(path) != ".whl") return "This type of file is not supported!";
-            _db.Close();
             try
             {
                 File.Copy(dbpath, path);

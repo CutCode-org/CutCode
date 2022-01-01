@@ -20,6 +20,11 @@
         <Style Selector="Button:pressed  /template/ ContentPresenter, Button:pointerover /template/ ContentPresenter">
             <Setter Property="Background" Value="{TemplateBinding BorderBrush}"/>
         </Style>
+        
+        <Style Selector="Button:disabled /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Opacity" Value="0.35"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
     </UserControl.Styles>
     
     <UserControl.Background>
@@ -125,6 +130,7 @@
                     Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
                     BorderBrush="{Binding TextAreaOverlayBackground, Converter={StaticResource ColorToBrushConverter}}"
                     Margin="3,0,8,0"
+                    IsEnabled="{Binding !IsCellEmpty}"
                     Command="{Binding Save}"
                     BorderThickness="0"
                     Width="100" Height="30">
