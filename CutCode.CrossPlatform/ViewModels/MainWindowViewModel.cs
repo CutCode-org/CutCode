@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
@@ -7,11 +8,14 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using ReactiveUI;
 using Avalonia.Media.Imaging;
+using Avalonia.Styling;
+using Avalonia.Threading;
 using CutCode.CrossPlatform.Helpers;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Views;
 using CutCode.DataBase;
+using Material.Styles.Themes;
 
 namespace CutCode.CrossPlatform.ViewModels
 {
@@ -58,6 +62,11 @@ namespace CutCode.CrossPlatform.ViewModels
                 Tabs[0].Content = PageService.Current.ExternalPage;
                 CurrentTabItem = 0;
             };
+            
+            
+            NotificationManager.ShowNotification += showNotification;
+            NotificationManager.OnCloseNotification += exitNotification;
+            Notifications = new ObservableCollection<NotifyObject>();
         }
 
         protected override void OnLightThemeIsSet()
@@ -137,6 +146,97 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             get => _titlebarBtnsHoverColor;
             set => this.RaiseAndSetIfChanged(ref _titlebarBtnsHoverColor, value);
+        }
+        #endregion
+        
+        #region NotificationDialogView
+        private ObservableCollection<NotifyObject> _notifications;
+        public ObservableCollection<NotifyObject> Notifications
+        {
+            get => _notifications;
+            set => this.RaiseAndSetIfChanged(ref _notifications, value);
+        }
+
+        private List<NotifyObject> WaitingNotifications = new();
+        private List<LiveNotification> liveNotifications = new();
+        private void showNotification(object sender, EventArgs e)
+        {
+            var notification = sender as NotifyObject;
+
+            var notifcationView = new NotificationView()
+            {
+                DataContext = new NotificationViewModel(notification)
+            };
+            notification.View = notifcationView;
+
+            if(Notifications.Count > 2)
+            {
+                WaitingNotifications.Add(notification);
+            }
+            else
+            {
+                Notifications.Add(notification);
+
+                var closeTimer = new DispatcherTimer
+                {
+                    Interval = TimeSpan.FromSeconds(notification.Delay),
+                    IsEnabled = true
+                };
+                liveNotifications.Add(new LiveNotification() { Timer = closeTimer, Notification = notification});
+                closeTimer.Tick += CloseNotification;
+            }
+        }
+
+        private void exitNotification(object sender, EventArgs e)
+        {
+            var notification = sender as NotifyObject;
+            var liveNotification = new LiveNotification();
+            foreach (var _liveNotification in liveNotifications)
+            {
+                if (_liveNotification.Notification == notification)
+                {
+                    liveNotification = _liveNotification;
+                    break;
+                }
+            }
+            Notifications.Remove(notification);
+            UpdateNotification();
+            liveNotification.Timer.Stop();
+            liveNotifications.Remove(liveNotification);
+        }
+
+        private void CloseNotification(object sender, EventArgs e)
+        {
+            var timer = sender as DispatcherTimer;
+            var liveNotification = new LiveNotification();
+            foreach(var _liveNotification in liveNotifications)
+            {
+                if(_liveNotification.Timer == timer)
+                {
+                    liveNotification = _liveNotification;
+                    break;
+                } 
+            }
+
+            Notifications.Remove(liveNotification.Notification);
+            liveNotifications.Remove(liveNotification);
+            UpdateNotification();
+            timer.Stop();
+        }
+
+        private void UpdateNotification()
+        {
+            if (WaitingNotifications.Count > 0)
+            {
+                for (int i = 0; i < (3 - Notifications.Count); i++)
+                {
+                    if (WaitingNotifications.Count == 0) break;
+
+                    var notification = WaitingNotifications[i];
+                    WaitingNotifications.RemoveAt(i);
+                    NotificationManager.CreateNotification(notification.NotificationType, notification.Message, notification.Delay);
+                }
+            }
         }
         #endregion
 

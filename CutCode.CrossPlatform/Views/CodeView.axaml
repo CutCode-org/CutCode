@@ -22,7 +22,7 @@
         <Style Selector="Button:disabled /template/ ContentPresenter#PART_ContentPresenter">
             <Setter Property="Opacity" Value="0.35"/>
             <Setter Property="Background" Value="Transparent"/>
-          </Style>
+        </Style>
     </UserControl.Styles>
     
     <UserControl.Background>
@@ -74,15 +74,6 @@
                         <Setter Property="RenderTransform">
                             <Setter.Value>
                                 <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-        
-                    <Style Selector="Button:checked">
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="RenderTransform">
-                            <Setter.Value>
-                                <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
                             </Setter.Value>
                         </Setter>
                     </Style>

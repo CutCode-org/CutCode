@@ -154,5 +154,16 @@
         </TabControl.ContentTemplate>
      </TabControl>
     
+    <Grid  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
+      <ItemsControl Margin="0,0,10,10"
+                    Items="{Binding Notifications}"
+                    HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <ContentPresenter Margin="0,5,0,5" Content="{Binding View}"/>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </Grid>
   </Grid>
 </Window>

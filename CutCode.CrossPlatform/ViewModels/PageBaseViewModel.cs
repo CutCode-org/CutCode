@@ -18,6 +18,7 @@ namespace CutCode.CrossPlatform.ViewModels
             DataBase = DataBaseManager.Current;
             PageService = PageService.Current;
             AssetLoader = AvaloniaLocator.CurrentMutable.GetService<IAssetLoader>();
+            NotificationManager = NotificationManager.Current;
 
             ThemeService.ThemeChanged += (s, e) =>
             {
@@ -73,6 +74,12 @@ namespace CutCode.CrossPlatform.ViewModels
         }
 
         protected PageService PageService
+        {
+            get;
+            set;
+        }
+
+        protected NotificationManager NotificationManager
         {
             get;
             set;
