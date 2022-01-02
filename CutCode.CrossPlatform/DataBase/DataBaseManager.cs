@@ -1,24 +1,14 @@
 ﻿using SQLite;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
-using System.Security.AccessControl;
-using System.IO.Compression;
-using System.Xml.Linq;
-using Avalonia;
-using Avalonia.Threading;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
-using ReactiveUI;
 
-namespace CutCode.DataBase
+namespace CutCode.CrossPlatform.DataBase
 {
     public class DataBaseManager : IDataBase
     {

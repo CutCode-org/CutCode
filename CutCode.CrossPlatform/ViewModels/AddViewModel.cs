@@ -11,7 +11,7 @@ using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.ViewModels;
 using CutCode.CrossPlatform.Views;
-using CutCode.DataBase;
+using CutCode.CrossPlatform.DataBase;
 using Newtonsoft.Json;
 using ReactiveUI;
 

@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Linq;
 using System.Reactive.Disposables;
-using System.Runtime.InteropServices;
-using Aura.UI.Extensions;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
-using Avalonia.Controls.Shapes;
-using Avalonia.Data;
-using Avalonia.Input;
-using Avalonia.Media;
-using Avalonia.VisualTree;
 
 namespace CutCode.CrossPlatform.Controllers
 {

@@ -1,23 +1,14 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Reactive.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Platform;
 using Avalonia.Data;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
-using Avalonia.Rendering;
-using Avalonia.Styling;
 using CutCode.CrossPlatform.Helpers;
 using CutCode.CrossPlatform.Interfaces;
-using CutCode.CrossPlatform.ViewModels;
-using MathNet.Numerics.Optimization.LineSearch;
 using ReactiveUI;
 
 namespace CutCode.CrossPlatform.Controllers

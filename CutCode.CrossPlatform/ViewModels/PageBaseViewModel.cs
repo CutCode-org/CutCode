@@ -5,7 +5,7 @@ using Avalonia.Media;
 using Avalonia.Platform;
 using Avalonia.Themes.Fluent;
 using CutCode.CrossPlatform.Interfaces;
-using CutCode.DataBase;
+using CutCode.CrossPlatform.DataBase;
 using ReactiveUI;
 
 namespace CutCode.CrossPlatform.ViewModels

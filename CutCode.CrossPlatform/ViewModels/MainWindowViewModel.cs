@@ -14,7 +14,7 @@ using CutCode.CrossPlatform.Helpers;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Views;
-using CutCode.DataBase;
+using CutCode.CrossPlatform.DataBase;
 
 namespace CutCode.CrossPlatform.ViewModels
 {
@@ -96,11 +96,15 @@ namespace CutCode.CrossPlatform.ViewModels
             get => _currentTabItem;
             set
             {
-                this.RaiseAndSetIfChanged(ref _currentTabItem, value);
-                if (_currentTabItem != 0 && Tabs[0].Content is not HomeView)
+                if (value != 0 && Tabs[0].Content is not HomeView)
                 {
                     Tabs[0].Content = new HomeView();
                 }
+                else if (_currentTabItem == 1)
+                {
+                    Tabs[1].Content = new AddView();
+                }
+                this.RaiseAndSetIfChanged(ref _currentTabItem, value);
             }
         }
 

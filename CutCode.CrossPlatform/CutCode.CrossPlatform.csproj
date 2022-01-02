@@ -3,6 +3,14 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <PublishTrimmed>True</PublishTrimmed>
+    <PublishReadyToRun>True</PublishReadyToRun>
+    <Company>CutCode</Company>
+    <Product>CutCode</Product>
+    <AssemblyVersion>3.0.0</AssemblyVersion>
+    <FileVersion>3.0.0</FileVersion>
+    <NeutralLanguage>en-001</NeutralLanguage>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="DataBase" />

@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Runtime.Serialization;
-using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media;
 using ReactiveUI;
-using Avalonia.Media.Imaging;
-using CutCode.CrossPlatform.Interfaces;
-using CutCode.CrossPlatform.Models;
-using CutCode.DataBase;
 
 namespace CutCode.CrossPlatform.ViewModels
 {

@@ -11,7 +11,7 @@ using CutCode.CrossPlatform.Helpers;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.ViewModels;
 using CutCode.CrossPlatform.Views;
-using CutCode.DataBase;
+using CutCode.CrossPlatform.DataBase;
 using ReactiveUI;
 using Splat;
 using Color = Avalonia.Media.Color;

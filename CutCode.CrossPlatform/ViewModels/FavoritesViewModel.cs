@@ -12,7 +12,7 @@ using Avalonia.Threading;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.ViewModels;
-using CutCode.DataBase;
+using CutCode.CrossPlatform.DataBase;
 using ReactiveUI;
 
 namespace CutCode.CrossPlatform.ViewModels
