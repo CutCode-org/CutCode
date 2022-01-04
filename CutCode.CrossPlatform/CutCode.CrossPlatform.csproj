@@ -11,6 +11,9 @@
     <AssemblyVersion>3.0.0</AssemblyVersion>
     <FileVersion>3.0.0</FileVersion>
     <NeutralLanguage>en-001</NeutralLanguage>
+    <StartupObject>CutCode.CrossPlatform.Program</StartupObject>
+    <AssemblyName></AssemblyName>
+    <ApplicationIcon>Assets\Images\logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="DataBase" />
@@ -19,6 +22,9 @@
     <AvaloniaResource Include="Assets\**" />
     <AvaloniaResource Include="Assets\Images\Icons\**" />
     <None Remove=".gitignore" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Images\logo.ico" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aura.UI" Version="0.1.5-dev-03" />
