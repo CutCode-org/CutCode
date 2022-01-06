@@ -4,10 +4,13 @@
     <projectFile profileName="CutCode.CrossPlatform">CutCode.CrossPlatform/CutCode.CrossPlatform.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a842a16-bc99-4f0d-a444-b756d47f6164" name="Changes" comment="">
+    <list default="true" id="2a842a16-bc99-4f0d-a444-b756d47f6164" name="Changes" comment=" added avalonia-all feed to nuget.config">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/avalonia.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/avalonia.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CutCode.CrossPlatform/nuget.config" beforeDir="false" afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/nuget.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AvaloniaEdit/AvaloniaEdit.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AvaloniaEdit/AvaloniaEdit.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CutCode.CrossPlatform/ViewModels/HomeViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/ViewModels/HomeViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CutCode.CrossPlatform/Views/AddView.axaml" beforeDir="false" afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/Views/AddView.axaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +69,7 @@
       <updated>1641090213704</updated>
       <workItem from="1641090234575" duration="1263000" />
       <workItem from="1641091602744" duration="7572000" />
-      <workItem from="1641483276913" duration="1639000" />
+      <workItem from="1641483276913" duration="3806000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed minor bugs">
       <created>1641096278885</created>
@@ -82,7 +85,21 @@
       <option name="project" value="LOCAL" />
       <updated>1641097660751</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fixed nuget.config">
+      <created>1641490973101</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1641490973101</updated>
+    </task>
+    <task id="LOCAL-00004" summary=" added avalonia-all feed to nuget.config">
+      <created>1641491144636</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1641491144636</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -107,6 +124,8 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Fixed minor bugs" />
     <MESSAGE value="Updated readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated readme" />
+    <MESSAGE value="fixed nuget.config" />
+    <MESSAGE value=" added avalonia-all feed to nuget.config" />
+    <option name="LAST_COMMIT_MESSAGE" value=" added avalonia-all feed to nuget.config" />
   </component>
 </project>

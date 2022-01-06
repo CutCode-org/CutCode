@@ -168,8 +168,17 @@ namespace CutCode.CrossPlatform.ViewModels
             else
             {
                 _languageSort = sort;
-                var codes = await DataBase.OrderCode(_languageSort, allcodes);
-                CodeModeToViewModel(await  DataBase.OrderCode(_basicSort, codes));
+                if(_isSearchCancelled)
+                {
+                    var codes = await DataBase.OrderCode(_languageSort, DataBase.AllCodes);
+                    CodeModeToViewModel(await  DataBase.OrderCode(_basicSort, codes));
+                }
+                else
+                {
+                    var codes = await DataBase.SearchCode(_searchText, "Home");
+                    codes = await DataBase.OrderCode(_languageSort, codes);
+                    CodeModeToViewModel(await  DataBase.OrderCode(_basicSort, codes));
+                }
             }
             VisChange("Not found :(");
         }
@@ -181,8 +190,12 @@ namespace CutCode.CrossPlatform.ViewModels
             set => this.RaiseAndSetIfChanged(ref _isSearchBusy, value);
 
         }
+
+        private string _searchText;
         public async void SearchCommand(string text)
         {
+            _searchText = text;
+            _isSearchCancelled = false;
             if (string.IsNullOrEmpty(text)) return;
             IsSearchBusy = true;
             if(text != "" && AllCodes.Count > 0)
@@ -194,11 +207,13 @@ namespace CutCode.CrossPlatform.ViewModels
             IsSearchBusy = false;
         }
 
+        private bool _isSearchCancelled = true;
         public async void SearchCancelled()
         {
             var codes = await DataBase.OrderCode(_languageSort, AllCodes.Select(c => c.Code).ToList());
             CodeModeToViewModel(await  DataBase.OrderCode(_basicSort, codes));
             VisChange();
+            _isSearchCancelled = true;
         }
     }
 }
