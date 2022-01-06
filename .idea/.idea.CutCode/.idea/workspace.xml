@@ -4,7 +4,11 @@
     <projectFile profileName="CutCode.CrossPlatform">CutCode.CrossPlatform/CutCode.CrossPlatform.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a842a16-bc99-4f0d-a444-b756d47f6164" name="Changes" comment="" />
+    <list default="true" id="2a842a16-bc99-4f0d-a444-b756d47f6164" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/avalonia.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/avalonia.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CutCode.CrossPlatform/nuget.config" beforeDir="false" afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/nuget.config" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,13 +18,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/ViewModels/AddViewModel.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/ViewModels/AddViewModel.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/371c3df78a504a94985d28299595a30a11600/2/AvaloniaUriTypeConverter.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/ViewModels/FavoritesViewModel.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3682c629fbf3474bb00552e4e75f9c92dea00/57/Grid.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/Views/MainWindow.axaml" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/45ec52e842f74507bf7545099a266b061c600/11/4f7eaeba/ButtonExts.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8a87e622de9446e7985832698aa7d24b73e00/C/OleContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1b4598f81d14b43a38e7036c1edbfd54800/2f/9fc61967/UrlUtils.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="237fcVB3lrt06GKgCjJMoYYc6Sd" />
   <component name="ProjectViewState">
@@ -64,6 +66,7 @@
       <updated>1641090213704</updated>
       <workItem from="1641090234575" duration="1263000" />
       <workItem from="1641091602744" duration="7572000" />
+      <workItem from="1641483276913" duration="1639000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed minor bugs">
       <created>1641096278885</created>
