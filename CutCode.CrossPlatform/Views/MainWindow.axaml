@@ -115,36 +115,10 @@
           <Setter Property="Width" Value="45"/>
           <Setter Property="Margin" Value="5,0,0,0"/>
         </Style>
-        <Style Selector="TabItem ToolTip">
-            <Setter Property="Padding" Value="10 7 10 7"/>
-            <Setter Property="CornerRadius" Value="5,5,5,5"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Foreground" Value="{Binding $parent[TabControl].Foreground}"/>
-            <Setter Property="Background" Value="{Binding $parent[TabControl].Background}"/>
-            <Setter Property="Template">
-              <ControlTemplate>
-                <StackPanel Orientation="Horizontal" Spacing="0">
-                  <Viewbox VerticalAlignment="Center" Height="15">
-                    <Path Stretch="UniformToFill" Fill="{TemplateBinding Background}" Data="F1M130.5,-175L137.5,-169.837493896484 137.5,-29.9124984741211 130.75,-25.0000019073486 62.5,-95.3375015258789 62.5,-105.675003051758 130.5,-175z"/>
-                  </Viewbox>
-                  <ContentPresenter Name="PART_ContentPresenter"
-                                    Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="{TemplateBinding CornerRadius}"
-                                    ContentTemplate="{TemplateBinding ContentTemplate}"
-                                    Content="{TemplateBinding Content}" 
-                                    Padding="{TemplateBinding Padding}"/>
-                </StackPanel>
-              </ControlTemplate>
-            </Setter>
-          </Style>
         </TabControl.Styles>
         <TabControl.ItemTemplate>
           <DataTemplate>
-              <Viewbox Height="25" Width="25" Margin="3,0,0,0"
-                       ToolTip.Tip="{Binding ToolTip}" ToolTip.HorizontalOffset="28" ToolTip.VerticalOffset="0">
+              <Viewbox Height="25" Width="25" Margin="3,0,0,0">
                 <Path  Fill="{Binding PathColor, Converter={StaticResource ColorToBrushConverter}}"
                        Data="{Binding Path, Converter={StaticResource StringToGeometryConverter}}"/>
               </Viewbox> 
