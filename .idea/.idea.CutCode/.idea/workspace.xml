@@ -4,13 +4,9 @@
     <projectFile profileName="CutCode.CrossPlatform">CutCode.CrossPlatform/CutCode.CrossPlatform.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a842a16-bc99-4f0d-a444-b756d47f6164" name="Changes" comment=" added avalonia-all feed to nuget.config">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/avalonia.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/avalonia.xml" afterDir="false" />
+    <list default="true" id="2a842a16-bc99-4f0d-a444-b756d47f6164" name="Changes" comment="added the beta version of avalonia">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AvaloniaEdit/AvaloniaEdit.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AvaloniaEdit/AvaloniaEdit.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CutCode.CrossPlatform/ViewModels/HomeViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/ViewModels/HomeViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CutCode.CrossPlatform/Views/AddView.axaml" beforeDir="false" afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/Views/AddView.axaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CutCode.CrossPlatform/ViewModels/FavoritesViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/ViewModels/FavoritesViewModel.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +65,7 @@
       <updated>1641090213704</updated>
       <workItem from="1641090234575" duration="1263000" />
       <workItem from="1641091602744" duration="7572000" />
-      <workItem from="1641483276913" duration="3806000" />
+      <workItem from="1641483276913" duration="4757000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed minor bugs">
       <created>1641096278885</created>
@@ -99,7 +95,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641491144636</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="added the beta version of avalonia">
+      <created>1641493450437</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1641493450437</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -126,6 +129,7 @@
     <MESSAGE value="Updated readme" />
     <MESSAGE value="fixed nuget.config" />
     <MESSAGE value=" added avalonia-all feed to nuget.config" />
-    <option name="LAST_COMMIT_MESSAGE" value=" added avalonia-all feed to nuget.config" />
+    <MESSAGE value="added the beta version of avalonia" />
+    <option name="LAST_COMMIT_MESSAGE" value="added the beta version of avalonia" />
   </component>
 </project>
