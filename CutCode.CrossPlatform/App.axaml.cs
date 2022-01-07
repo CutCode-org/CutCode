@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Threading;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -45,6 +46,8 @@ namespace CutCode.CrossPlatform
                 {
                     DataBaseManager.Current.ChangeTheme(ThemeService.Current.IsLightTheme);
                 };
+                var updateThread = new Thread(UpdateChecker.Run);
+                updateThread.Start();
             }
             base.OnFrameworkInitializationCompleted();
         }

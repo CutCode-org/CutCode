@@ -24,7 +24,7 @@ namespace CutCode.CrossPlatform
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
-                .LogToTrace(level: LogEventLevel.Information)
+                .LogToTrace()
                 .UseReactiveUI();
     }
 }
