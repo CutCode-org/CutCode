@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using Avalonia;
+using Avalonia.Logging;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
 namespace CutCode.CrossPlatform
@@ -23,7 +24,7 @@ namespace CutCode.CrossPlatform
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
-                .LogToTrace()
+                .LogToTrace(level: LogEventLevel.Information)
                 .UseReactiveUI();
     }
 }
