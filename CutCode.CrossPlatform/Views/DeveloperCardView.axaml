@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:converters="using:CutCode.CrossPlatform.Converters"
              xmlns:defconverters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
-             xmlns:helpers="clr-namespace:CutCode.CrossPlatfrom.Helpers"
+             xmlns:helpers="clr-namespace:CutCode.CrossPlatform.Helpers"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CutCode.CrossPlatform.Views.DeveloperCardView">
     

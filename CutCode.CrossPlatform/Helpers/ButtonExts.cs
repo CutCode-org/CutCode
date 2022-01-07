@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using Aura.UI.ExtensionProperties;
-using AuraUtilities;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Interactivity;
 
-namespace CutCode.CrossPlatfrom.Helpers
+namespace CutCode.CrossPlatform.Helpers
 {
     public static class UrlUtils
     {
