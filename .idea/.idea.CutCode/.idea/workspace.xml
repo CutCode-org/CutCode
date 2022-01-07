@@ -4,9 +4,9 @@
     <projectFile profileName="CutCode.CrossPlatform">CutCode.CrossPlatform/CutCode.CrossPlatform.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a842a16-bc99-4f0d-a444-b756d47f6164" name="Changes" comment="removed CUtCodeAPI dir">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="2a842a16-bc99-4f0d-a444-b756d47f6164" name="Changes" comment="fixed update checker">
       <change beforePath="$PROJECT_DIR$/CutCode.CrossPlatform/Helpers/UpdateChecker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/Helpers/UpdateChecker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CutCode.CrossPlatform/Views/NotificationView.axaml" beforeDir="false" afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/Views/NotificationView.axaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,10 +27,12 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/Views/DeveloperCardView.axaml" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/217fff9641fb43488b09409c5aa0dff01ce00/1f/fd65e587/ButtonExts.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/Helpers/UpdateChecker.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/371c3df78a504a94985d28299595a30a11600/2/AvaloniaUriTypeConverter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/IL/45ec52e842f74507bf7545099a266b061c600/e9/eda774c8/0200001E.il" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/Helpers/ButtonExts.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7fc51722eecf49cc9c99780ec01f3d954800/36/a5955f4d/UrlUtils.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/Helpers/UpdateChecker.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/Helpers/ButtonExts.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/Helpers/UpdateChecker.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/Helpers/ButtonExts.cs" root0="SKIP_HIGHLIGHTING" />
@@ -38,6 +40,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3682c629fbf3474bb00552e4e75f9c92dea00/57/Grid.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/45ec52e842f74507bf7545099a266b061c600/11/4f7eaeba/ButtonExts.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2e5a78beee0f4abd8ed7ef3636048cf1a20268/205/TaskContinuation.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/ViewModels/FavoritesViewModel.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8a87e622de9446e7985832698aa7d24b73e00/C/OleContext.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1b4598f81d14b43a38e7036c1edbfd54800/2f/9fc61967/UrlUtils.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -214,24 +217,5 @@
     <MESSAGE value="Added update checker" />
     <MESSAGE value="removed CUtCodeAPI dir" />
     <option name="LAST_COMMIT_MESSAGE" value="removed CUtCodeAPI dir" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/CutCode.CrossPlatform/Helpers/UpdateChecker.cs</url>
-          <line>22</line>
-          <properties documentPath="D:\Projects\CutCode\CutCode.CrossPlatform\Helpers\UpdateChecker.cs" initialLine="22" containingFunctionPresentation="method 'Run'">
-            <startOffsets>
-              <option value="668" />
-            </startOffsets>
-            <endOffsets>
-              <option value="669" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
