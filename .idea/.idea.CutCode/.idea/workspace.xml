@@ -4,12 +4,8 @@
     <projectFile profileName="CutCode.CrossPlatform">CutCode.CrossPlatform/CutCode.CrossPlatform.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a842a16-bc99-4f0d-a444-b756d47f6164" name="Changes" comment="removed the aura.ui extensions">
-      <change afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/Helpers/UpdateChecker.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CutCodeAPI/update_API.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CutCode.CrossPlatform/App.axaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/App.axaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CutCode.CrossPlatform/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/Program.cs" afterDir="false" />
+    <list default="true" id="2a842a16-bc99-4f0d-a444-b756d47f6164" name="Changes" comment="Added update checker">
+      <change beforePath="$PROJECT_DIR$/CutCode.CrossPlatform/Helpers/UpdateChecker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/Helpers/UpdateChecker.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +161,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641559514349</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Added update checker">
+      <created>1641566713265</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1641566713265</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,6 +202,7 @@
     <MESSAGE value="fixed namespace path" />
     <MESSAGE value="added UseShellExecute" />
     <MESSAGE value="removed the aura.ui extensions" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed the aura.ui extensions" />
+    <MESSAGE value="Added update checker" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added update checker" />
   </component>
 </project>
