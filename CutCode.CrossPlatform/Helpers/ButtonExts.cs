@@ -31,7 +31,7 @@ namespace CutCode.CrossPlatfrom.Helpers
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 startInfo.FileName = "xdg-open";
-                startInfo.Arguments = " " + url;
+                startInfo.Arguments = url;
                 Process.Start(startInfo);
             }
             else
