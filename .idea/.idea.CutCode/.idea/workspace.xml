@@ -4,7 +4,8 @@
     <projectFile profileName="CutCode.CrossPlatform">CutCode.CrossPlatform/CutCode.CrossPlatform.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a842a16-bc99-4f0d-a444-b756d47f6164" name="Changes" comment="Added update checker">
+    <list default="true" id="2a842a16-bc99-4f0d-a444-b756d47f6164" name="Changes" comment="removed CUtCodeAPI dir">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CutCode.CrossPlatform/Helpers/UpdateChecker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/Helpers/UpdateChecker.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,6 +32,7 @@
     <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/Helpers/ButtonExts.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7fc51722eecf49cc9c99780ec01f3d954800/36/a5955f4d/UrlUtils.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/Helpers/ButtonExts.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/Helpers/UpdateChecker.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/Helpers/ButtonExts.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1aed850c702b413d89fd9cb7fbc1472049a00/95/Dispatcher.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3682c629fbf3474bb00552e4e75f9c92dea00/57/Grid.cs" root0="SKIP_HIGHLIGHTING" />
@@ -168,7 +170,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641566713265</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="removed CUtCodeAPI dir">
+      <created>1641571733217</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1641571733217</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,6 +212,26 @@
     <MESSAGE value="added UseShellExecute" />
     <MESSAGE value="removed the aura.ui extensions" />
     <MESSAGE value="Added update checker" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added update checker" />
+    <MESSAGE value="removed CUtCodeAPI dir" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed CUtCodeAPI dir" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/CutCode.CrossPlatform/Helpers/UpdateChecker.cs</url>
+          <line>22</line>
+          <properties documentPath="D:\Projects\CutCode\CutCode.CrossPlatform\Helpers\UpdateChecker.cs" initialLine="22" containingFunctionPresentation="method 'Run'">
+            <startOffsets>
+              <option value="668" />
+            </startOffsets>
+            <endOffsets>
+              <option value="669" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

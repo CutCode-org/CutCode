@@ -16,7 +16,7 @@ namespace CutCode.CrossPlatform.Helpers
     }
     public static class UpdateChecker
     {
-        private static string _updateUrl = "http://127.0.0.1:7676";
+        private static string _updateUrl = "https://cutcodeupdater.herokuapp.com";
         private static HttpClient client = new HttpClient();
         private static string _currentVersion = "v3.0.0";
         public static async void Run()
@@ -26,8 +26,7 @@ namespace CutCode.CrossPlatform.Helpers
             if (!internetAvailable) return;
             try
             {
-                var response = await client.GetAsync($"{_updateUrl}/check_update/{_currentVersion}");
-                if (!response.IsSuccessStatusCode) return;
+                var response = await client.GetAsync($"{_updateUrl}/check_update/{_currentVersion}"); if (!response.IsSuccessStatusCode) return;
                 string responseString = await response.Content.ReadAsStringAsync();
                 var responseJson = JsonConvert.DeserializeObject<UpdateReqModel>(responseString);
                 if (responseJson is { NewUpdate: true })
