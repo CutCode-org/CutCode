@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Avalonia;
@@ -28,9 +28,9 @@ namespace CutCode.CrossPlatform.Helpers
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                startInfo.FileName = "xdg-open";
-                startInfo.UseShellExecute = true;
-                startInfo.Arguments = url;
+                startInfo.FileName = ("xdg-open");
+                startInfo.UseShellExecute = false;
+                startInfo.Arguments = (url);
                 Process.Start(startInfo);
             }
             else
