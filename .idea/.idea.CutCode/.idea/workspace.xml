@@ -4,8 +4,9 @@
     <projectFile profileName="CutCode.CrossPlatform">CutCode.CrossPlatform/CutCode.CrossPlatform.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a842a16-bc99-4f0d-a444-b756d47f6164" name="Changes" comment="fixed sorting">
+    <list default="true" id="2a842a16-bc99-4f0d-a444-b756d47f6164" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/CutCode.CrossPlatform.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,9 +17,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/ViewModels/FavoritesViewModel.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/ViewModels/FavoritesViewModel.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/217fff9641fb43488b09409c5aa0dff01ce00/1f/fd65e587/ButtonExts.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/371c3df78a504a94985d28299595a30a11600/2/AvaloniaUriTypeConverter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/IL/45ec52e842f74507bf7545099a266b061c600/e9/eda774c8/0200001E.il" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3682c629fbf3474bb00552e4e75f9c92dea00/57/Grid.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/45ec52e842f74507bf7545099a266b061c600/11/4f7eaeba/ButtonExts.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8a87e622de9446e7985832698aa7d24b73e00/C/OleContext.cs" root0="SKIP_HIGHLIGHTING" />
@@ -66,7 +67,8 @@
       <updated>1641090213704</updated>
       <workItem from="1641090234575" duration="1263000" />
       <workItem from="1641091602744" duration="7572000" />
-      <workItem from="1641483276913" duration="5480000" />
+      <workItem from="1641483276913" duration="5570000" />
+      <workItem from="1641529174310" duration="1251000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed minor bugs">
       <created>1641096278885</created>
@@ -110,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641494193657</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="removed tooltip">
+      <created>1641494981695</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1641494981707</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -139,6 +148,7 @@
     <MESSAGE value=" added avalonia-all feed to nuget.config" />
     <MESSAGE value="added the beta version of avalonia" />
     <MESSAGE value="fixed sorting" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed sorting" />
+    <MESSAGE value="removed tooltip" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed tooltip" />
   </component>
 </project>
