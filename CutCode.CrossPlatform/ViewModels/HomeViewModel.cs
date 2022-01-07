@@ -24,7 +24,7 @@ namespace CutCode.CrossPlatform.ViewModels
             AllCodes = new ObservableCollection<CodeCardViewModel>();
             CodeModeToViewModel(DataBase.AllCodes);
             
-            DataBase.AllCodesUpdated += AllCodesUpdated;
+            DataBaseManager.Current.AllCodesUpdated += AllCodesUpdated;
 
             IsSearchBusy = false;
 
