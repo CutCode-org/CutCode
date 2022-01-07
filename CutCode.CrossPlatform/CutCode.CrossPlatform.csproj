@@ -27,11 +27,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aura.UI" Version="0.1.5-dev-04" />
-    <PackageReference Include="Avalonia" Version="0.10.999-cibuild0017742-beta" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0017742-beta" />
+    <PackageReference Include="Avalonia" Version="0.10.999-cibuild0017745-beta" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0017745-beta" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0017742-beta" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0017742-beta" />
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0017745-beta" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0017745-beta" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
   </ItemGroup>
