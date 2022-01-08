@@ -7,28 +7,8 @@ As a developer, we often search on <strong>Google</strong> / <strong>StackOverFl
 
 <b>CutCode</b> is an open source tool made for developers to boost their productivity and save time by helping them save essential code as code snippets in safe place. These code snippets can be searched and accessed at anytime. It is a very helpful tool as you no longer need to remember your solutions and where you originally found them. Here is a video showcasing how <strong>CutCode</strong> works:
 
-![Example](https://github.com/KortaPo/CutCode/blob/master/imgs/cutcode.gif)
 # Appearance 🎨
-
-<div> 
-    <img src="./imgs/main_page.png" width=450px height=300px>
-    <img src="./imgs/main_page_light.png" width=450px height=300px>
-</div>
-
-<div>
-    <img src="./imgs/add_page_dark.png" width=450px height=300px>
-    <img src="./imgs/setting_light.png" width=450px height=300px>
-</div>
-
-<div>
-    <img src="./imgs/setting_dark.png" width=450px height=300px>
-    <img src="./imgs/code_view_page.png" width=450px height=300px>
-</div>
-
-<div> 
-    <img src="./imgs/main_page_search.png" width=450px height=300px>
-    <img src="./imgs/fav_page.png" width=450px height=300px>
-</div>
+![Example](https://github.com/KortaPo/CutCode/blob/master/imgs/cutcode.gif)
 
 # Features ✨
 
@@ -42,9 +22,8 @@ As a developer, we often search on <strong>Google</strong> / <strong>StackOverFl
 8. You can import and export your code from your system and save them as snippets.
 
 # Release 🚀
-### [Windows](https://www.google.com) <br>
-### [Linux](https://www.google.com) <br>
-### [MacOS](https://www.google.com)
+### [Windows](https://github.com/Abdesol/CutCode/releases/download/v3.0.0/CutCode.v3.0.0.Win.x64.exe) <br>
+### [Linux](https://github.com/Abdesol/CutCode/releases/download/v3.0.0/CutCode_linux_x64_installer.sh)
 
 # Contributors
 
