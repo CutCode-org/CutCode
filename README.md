@@ -27,9 +27,23 @@ As a developer, we often search on <strong>Google</strong> / <strong>StackOverFl
 
 # Contributors
 
-Main Contributors - [Abdella Solomon](https://github.com/Abdesol), [Piero Castillo](https://github.com/PieroCastillo/)
-<br>
-Logo Designer - [Sap](https://github.com/imsaptarshi)
+**Main Contributors**
+- [Abdella Solomon](https://github.com/Abdesol)
+
+**Other Contributors**
+- [Piero Castillo](https://github.com/PieroCastillo)
+- [KortaPo](https://github.com/KortaPo)
+
+### All Contributors
+<a href="https://github.com/Abdesol/CutCode/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Abdesol/CutCode"/>
+</a>
+
+<br/>
+
+Made with [contrib.rocks](https://contrib.rocks).
+
+<br/>
 
 # Credits
 This project is entirely open-source and hence, it is completely free to use. However, if you are inspired from this project and have used it in your own project, please consider giving a credits to us.
