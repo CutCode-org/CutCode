@@ -7,7 +7,7 @@ As a developer, we often search on <strong>Google</strong> / <strong>StackOverFl
 
 <b>CutCode</b> is an open source tool made for developers to boost their productivity and save time by helping them save essential code as code snippets in safe place. These code snippets can be searched and accessed at anytime. It is a very helpful tool as you no longer need to remember your solutions and where you originally found them. Here is a video showcasing how <strong>CutCode</strong> works:
 
-![Example](https://raw.githubusercontent.com/KortaPo/CutCode/blob/master/imgs/cutcode.gif)
+![Example](https://github.com/KortaPo/CutCode/blob/master/imgs/cutcode.gif)
 # Appearance 🎨
 
 <div> 
