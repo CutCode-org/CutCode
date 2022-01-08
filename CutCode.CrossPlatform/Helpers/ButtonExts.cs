@@ -1,14 +1,12 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using Aura.UI.ExtensionProperties;
-using AuraUtilities;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Interactivity;
 
-namespace CutCode.CrossPlatfrom.Helpers
+namespace CutCode.CrossPlatform.Helpers
 {
     public static class UrlUtils
     {
@@ -30,8 +28,9 @@ namespace CutCode.CrossPlatfrom.Helpers
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                startInfo.FileName = "xdg-open";
-                startInfo.Arguments = url;
+                startInfo.FileName = ("xdg-open");
+                startInfo.UseShellExecute = false;
+                startInfo.Arguments = (url);
                 Process.Start(startInfo);
             }
             else
@@ -47,22 +46,22 @@ namespace CutCode.CrossPlatfrom.Helpers
     
     public class ButtonExts : AvaloniaObject
     {
-        public static readonly AttachedProperty<string> UrlProperty = AvaloniaProperty.RegisterAttached<Aura.UI.ExtensionProperties.ButtonExts, Button, string>("Url");
+        public static readonly AttachedProperty<string> UrlProperty = AvaloniaProperty.RegisterAttached<ButtonExts, Button, string>("Url");
 
-        public static string GetUrl(Button button) => button.GetValue<string>((StyledPropertyBase<string>) Aura.UI.ExtensionProperties.ButtonExts.UrlProperty);
+        public static string GetUrl(Button button) => button.GetValue<string>((StyledPropertyBase<string>) UrlProperty);
 
-        public static void SetUrl(Button button, string url) => button.SetValue<string>((StyledPropertyBase<string>) Aura.UI.ExtensionProperties.ButtonExts.UrlProperty, url, BindingPriority.LocalValue);
+        public static void SetUrl(Button button, string url) => button.SetValue<string>((StyledPropertyBase<string>) UrlProperty, url, BindingPriority.LocalValue);
 
-        static ButtonExts() => Aura.UI.ExtensionProperties.ButtonExts.UrlProperty.Changed.Subscribe<AvaloniaPropertyChangedEventArgs<string>>((Action<AvaloniaPropertyChangedEventArgs<string>>) (e1 =>
+        static ButtonExts() => UrlProperty.Changed.Subscribe<AvaloniaPropertyChangedEventArgs<string>>((Action<AvaloniaPropertyChangedEventArgs<string>>) (e1 =>
         {
             Button btn = e1.Sender as Button;
             if (btn == null)
                 return;
             btn.Click += (EventHandler<RoutedEventArgs>) ((s, e2) =>
             {
-                if (string.IsNullOrEmpty(Aura.UI.ExtensionProperties.ButtonExts.GetUrl(btn)))
+                if (string.IsNullOrEmpty(GetUrl(btn)))
                     return;
-                UrlUtils.OpenUrl(Aura.UI.ExtensionProperties.ButtonExts.GetUrl(btn));
+                UrlUtils.OpenUrl(GetUrl(btn));
             });
         }));
     }

@@ -55,7 +55,7 @@ namespace CutCode.CrossPlatform.ViewModels
             
         }
 
-        protected IAssetLoader AssetLoader
+        protected IAssetLoader? AssetLoader
         {
             get;
             set;

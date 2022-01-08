@@ -269,7 +269,7 @@ namespace CutCode.CrossPlatform.ViewModels
 
         public async void FavouriteCommand()
         {
-            var favUpdate = Database.FavModify(Code);
+            var favUpdate = DataBaseManager.Current.FavModify(Code);
             if (favUpdate)
             {
                 Code.IsFavourite = !Code.IsFavourite;

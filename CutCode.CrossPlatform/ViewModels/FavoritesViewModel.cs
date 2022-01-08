@@ -24,7 +24,7 @@ namespace CutCode.CrossPlatform.ViewModels
             AllFavouriteCodes = new ObservableCollection<CodeCardViewModel>();
             CodeModeToViewModel(DataBase.FavCodes);
 
-            DataBase.FavCodesUpdated += FavCodesUpdated;
+            DataBaseManager.Current.FavCodesUpdated += FavCodesUpdated;
 
             IsSearchBusy = false;
 

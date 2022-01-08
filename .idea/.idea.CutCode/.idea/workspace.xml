@@ -4,9 +4,9 @@
     <projectFile profileName="CutCode.CrossPlatform">CutCode.CrossPlatform/CutCode.CrossPlatform.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a842a16-bc99-4f0d-a444-b756d47f6164" name="Changes" comment="created custom button exts">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CutCode/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CutCode.CrossPlatform/Helpers/ButtonExts.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/Helpers/ButtonExts.cs" afterDir="false" />
+    <list default="true" id="2a842a16-bc99-4f0d-a444-b756d47f6164" name="Changes" comment="fixed update checker">
+      <change beforePath="$PROJECT_DIR$/CutCode.CrossPlatform/Helpers/UpdateChecker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/Helpers/UpdateChecker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CutCode.CrossPlatform/Views/NotificationView.axaml" beforeDir="false" afterPath="$PROJECT_DIR$/CutCode.CrossPlatform/Views/NotificationView.axaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,13 +16,31 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/Views/DeveloperCardView.axaml" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/217fff9641fb43488b09409c5aa0dff01ce00/1f/fd65e587/ButtonExts.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/Helpers/UpdateChecker.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/371c3df78a504a94985d28299595a30a11600/2/AvaloniaUriTypeConverter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/IL/45ec52e842f74507bf7545099a266b061c600/e9/eda774c8/0200001E.il" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/Helpers/ButtonExts.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7fc51722eecf49cc9c99780ec01f3d954800/36/a5955f4d/UrlUtils.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/Helpers/UpdateChecker.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/Helpers/ButtonExts.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/Helpers/UpdateChecker.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/Helpers/ButtonExts.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1aed850c702b413d89fd9cb7fbc1472049a00/95/Dispatcher.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3682c629fbf3474bb00552e4e75f9c92dea00/57/Grid.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/45ec52e842f74507bf7545099a266b061c600/11/4f7eaeba/ButtonExts.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7fc51722eecf49cc9c99780ec01f3d954800/36/a5955f4d/UrlUtils.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2e5a78beee0f4abd8ed7ef3636048cf1a20268/205/TaskContinuation.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Projects/CutCode/CutCode.CrossPlatform/ViewModels/FavoritesViewModel.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8a87e622de9446e7985832698aa7d24b73e00/C/OleContext.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1b4598f81d14b43a38e7036c1edbfd54800/2f/9fc61967/UrlUtils.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -127,7 +145,42 @@
       <option name="project" value="LOCAL" />
       <updated>1641531002351</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fixed namespace path">
+      <created>1641546391010</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1641546391010</updated>
+    </task>
+    <task id="LOCAL-00010" summary="added UseShellExecute">
+      <created>1641553987201</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1641553987228</updated>
+    </task>
+    <task id="LOCAL-00011" summary="removed the aura.ui extensions">
+      <created>1641559514348</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1641559514349</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Added update checker">
+      <created>1641566713265</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1641566713265</updated>
+    </task>
+    <task id="LOCAL-00013" summary="removed CUtCodeAPI dir">
+      <created>1641571733217</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1641571733217</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -158,6 +211,11 @@
     <MESSAGE value="fixed sorting" />
     <MESSAGE value="removed tooltip" />
     <MESSAGE value="created custom button exts" />
-    <option name="LAST_COMMIT_MESSAGE" value="created custom button exts" />
+    <MESSAGE value="fixed namespace path" />
+    <MESSAGE value="added UseShellExecute" />
+    <MESSAGE value="removed the aura.ui extensions" />
+    <MESSAGE value="Added update checker" />
+    <MESSAGE value="removed CUtCodeAPI dir" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed CUtCodeAPI dir" />
   </component>
 </project>
