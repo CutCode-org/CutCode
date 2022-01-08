@@ -3,18 +3,20 @@
 
 # CutCode
 
-As a developer, we often search on <strong>Google</strong> / <strong>StackOverFlow</strong> for doubts, issues related to our code and our projects, when programming. As a result, we visit a lot of different posts, even different websites to find the right solution to our problem, but many times when we see a proper solution to your problem, we tend to forget where we found it. Hence, we decided to create a tool to help us remember and save our solutions, so that we never forget about it and access it whenever we need it.
+As a developer, we often search on <strong>Google</strong> / <strong>StackOverFlow</strong> for doubts, issues related to our code and our projects, when programming. As a result, we visit a lot of different posts, even different websites to find the right solution to our problem, but many times when we see a proper solution to your problem, we tend to forget where we found it or even the solution. Hence, we decided to create a tool to helps us remember and save our solutions as small snippets, so that we never forget about it and access it whenever we need it.
 
-<b>CutCode</b> is an open source tool made for developers to boost their productivity and save time by helping them save essential code as code snippets in safe place. These code snippets can be searched and accessed at anytime. It is a very helpful tool as you no longer need to remember your solutions and where you originally found them. Here is a video showcasing how <strong>CutCode</strong> works:
+<b>CutCode</b> is an open source tool made for developers to boost their productivity and save time by helping them save essential code as code snippets in safe place. These code snippets can be searched and accessed at anytime. It is a very helpful tool as you no longer need to remember your solutions and where you originally found them. 
 
-# Appearance 🎨
-![Example](https://github.com/KortaPo/CutCode/blob/master/imgs/cutcode.gif)
+
+# CutCode in Action 🎨
+![Example](https://github.com/Abdesol/CutCode/blob/master/imgs/cutcode.gif)
+
 
 # Features ✨
 
 1. Dark and Light mode support. Just use Dark mode to get a more comfortable experience.
 2. Your code snippets are saved in a database, in your system.
-3. You can give your code snippets title, description, and also you can add them to your favourite codes list.
+3. You can give your code snippets title, description, and also you can add them to your favourite snippet list.
 4. You can add cells into your code so that you can manage your code snippets easily.
 5. You can search through your snippets.
 6. Very easy to use and Minimalistic UI and design, which is very user-friendly.
@@ -23,7 +25,7 @@ As a developer, we often search on <strong>Google</strong> / <strong>StackOverFl
 
 # Release 🚀
 ### [Windows](https://github.com/Abdesol/CutCode/releases/download/v3.0.0/CutCode.v3.0.0.Win.x64.exe) 
-<br>
+
 ### [Linux](https://github.com/Abdesol/CutCode/releases/download/v3.0.0/CutCode_linux_x64_installer.sh)
 
 # Contributors
@@ -45,7 +47,6 @@ As a developer, we often search on <strong>Google</strong> / <strong>StackOverFl
 Made with [contrib.rocks](https://contrib.rocks).
 
 <br/>
-
 # Credits
 This project is entirely open-source and hence, it is completely free to use. However, if you are inspired from this project and have used it in your own project, please consider giving a credits to us.
 Thank you, for using CutCode!
