@@ -22,7 +22,8 @@ As a developer, we often search on <strong>Google</strong> / <strong>StackOverFl
 8. You can import and export your code from your system and save them as snippets.
 
 # Release 🚀
-### [Windows](https://github.com/Abdesol/CutCode/releases/download/v3.0.0/CutCode.v3.0.0.Win.x64.exe) <br>
+### [Windows](https://github.com/Abdesol/CutCode/releases/download/v3.0.0/CutCode.v3.0.0.Win.x64.exe) 
+<br>
 ### [Linux](https://github.com/Abdesol/CutCode/releases/download/v3.0.0/CutCode_linux_x64_installer.sh)
 
 # Contributors
