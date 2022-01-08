@@ -3,7 +3,7 @@
 
 # CutCode
 
-As a developer, we often search on <strong>Google</strong> / <strong>StackOverFlow</strong> for doubts, issues related to our code and our projects, when programming. As a result, we visit a lot of different posts, even different websites to find the right solution to our problem, but many times when we see a proper solution to your problem, we tend to forget where we found it or even the solution. Hence, we decided to create a tool to helps us remember and save our solutions as small snippets, so that we never forget about it and access it whenever we need it.
+As a developer, we often search on <strong>Google</strong> / <strong>StackOverFlow</strong> for doubts, issues related to our code and our projects, when programming. As a result, we visit a lot of different posts, even different websites to find the right solution to our problem, but many times when we see a proper solution to your problem, we tend to forget where we found it or even the solution. Hence, we decided to create a tool that helps us remember and save our solutions as small snippets, so that we never forget about it and access it whenever we need it.
 
 <b>CutCode</b> is an open source tool made for developers to boost their productivity and save time by helping them save essential code as code snippets in safe place. These code snippets can be searched and accessed at anytime. It is a very helpful tool as you no longer need to remember your solutions and where you originally found them. 
 
