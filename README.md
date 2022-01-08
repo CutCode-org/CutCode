@@ -1,11 +1,13 @@
 ![Banner](https://user-images.githubusercontent.com/63385587/135706502-35fee274-a8d2-48da-b9a9-50213ae3104a.png)
 
 
-## CutCode
+# CutCode
 
-As a developer, we often search on<strong>Google</strong> / <strong>StackOverFlow</strong> for doubts, issues related to our code/project, when we are programming. As a result, we visit a lot of different posts, even different websites to find the right solution to our problem, but many times when we see a proper solution to your problem, we tend to forget where we found it. Hence, we decided to create a tool to help us remember and save our solutions, so that we never forget about it and access it whenever we need it. <b>CutCode</b> is an open source tool made for developers to boost their productivity and save time by helping them save essential code as code snippets in safe place. These code snippets can be searched and accessed at anytime. It is a very helpful tool as you no longer need to remember your solutions and where you originally found them. Here is a video showcasing how CutCode works:
-![CutCode in Action!](https://cdn.discordapp.com/attachments/536199577284509696/929300585155551252/intro_video_1.gif)
+As a developer, we often search on <strong>Google</strong> / <strong>StackOverFlow</strong> for doubts, issues related to our code and our projects, when programming. As a result, we visit a lot of different posts, even different websites to find the right solution to our problem, but many times when we see a proper solution to your problem, we tend to forget where we found it. Hence, we decided to create a tool to help us remember and save our solutions, so that we never forget about it and access it whenever we need it.
 
+<b>CutCode</b> is an open source tool made for developers to boost their productivity and save time by helping them save essential code as code snippets in safe place. These code snippets can be searched and accessed at anytime. It is a very helpful tool as you no longer need to remember your solutions and where you originally found them. Here is a video showcasing how <strong>CutCode</strong> works:
+
+![Example](https://raw.githubusercontent.com/KortaPo/CutCode/imgs/cutcode.gif)
 # Appearance 🎨
 
 <div> 
@@ -59,6 +61,6 @@ Have a nice day!
 
 Connect with me on [GitHub](https://github.com/Abdesol) and [Twitter](https://twitter.com/AbdellaSolomon).
 <br>
-Star and share the project with your programmer friends.
+Star and share this project with your programmer friends.
 <br>
 And make sure to follow me on GitHub to get updated quick :)
