@@ -33,7 +33,7 @@ jobs:
           cd CutCode.CrossPlatform/bin/Release/net6.0/win7-x64
           powershell Compress-Archive -Path .\publish -DestinationPath WindowsZip.zip
       - name: Upload Archive
-        if: ${{ github.event_name == 'workflow_dispatch' }}
+        if: ${{ github.event_name == 'workflow_call' }}
         id: upload-release-asset
         uses: svenstaro/upload-release-action@v2
         env:

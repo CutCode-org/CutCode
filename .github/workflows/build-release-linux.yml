@@ -15,8 +15,8 @@ on:
         type: string
 
 jobs:
-  build_windows:
-    runs-on: windows-latest
+  build_linux:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
@@ -24,22 +24,22 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
-      - name: Build Windows App
+      - name: Build Linux App
         run: |
           cd CutCode.CrossPlatform
-          dotnet publish -c Release -f net6.0 -r win7-x64
+          dotnet publish -c Release -f net6.0 -r linux-x64
       - name: Archive Artifact
         run: |
-          cd CutCode.CrossPlatform/bin/Release/net6.0/win7-x64
-          powershell Compress-Archive -Path .\publish -DestinationPath WindowsZip.zip
+          cd CutCode.CrossPlatform/bin/Release/net6.0/linux-x64
+           tar -czvf CutCodeLinux.tar.gz publish
       - name: Upload Archive
-        if: ${{ github.event_name == 'workflow_dispatch' }}
+        if: ${{ github.event_name == 'workflow_call' }}
         id: upload-release-asset
         uses: svenstaro/upload-release-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./CutCode.CrossPlatform/bin/Release/net6.0/win7-x64/WindowsZip.zip
-          asset_name: WindowsBuild.zip
+          file: ./CutCode.CrossPlatform/bin/Release/net6.0/linux-x64/CutCodeLinux.tar.gz
+          asset_name: LinuxBuild.zip
           tag: ${{ github.events.inputs.version }}
