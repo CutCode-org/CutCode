@@ -1,0 +1,19 @@
+﻿name: 'build All'
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The version for the manual flow'
+        required: true
+        default: '1.2.3'
+
+jobs: 
+  build-windows:
+    uses: ./.github/workflows/build-release-windows.yml
+    with: 
+      version: ${{ inputs.version }}
+  build-linux:
+    uses: ./.github/workflows/build-release-linux.yml
+    with:
+      version: ${{ inputs.version }}

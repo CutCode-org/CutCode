@@ -1,4 +1,4 @@
-﻿name: 'build windows'
+﻿name: 'build Linux'
 
 on:
   workflow_dispatch:
@@ -7,6 +7,12 @@ on:
         description: 'The version for the manual flow'
         required: true
         default: '1.2.3'
+  workflow_call:
+    inputs:
+      version:
+        description: 'The version for the manual flow'
+        required: true
+        type: string
 
 jobs:
   build_windows:
@@ -37,3 +43,14 @@ jobs:
           file: ./CutCode.CrossPlatform/bin/Release/net6.0/linux-x64/Linux.tar.gz
           asset_name: LinuxBuild.tar.gz
           tag: ${{ github.events.inputs.version }}
+    - name: Upload Archive
+      if: ${{ github.event_name == 'workflow_call' }}
+      id: upload-release-asset
+      uses: svenstaro/upload-release-action@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ./CutCode.CrossPlatform/bin/Release/net6.0/linux-x64/Linux.tar.gz
+        asset_name: LinuxBuild.tar.gz
+        tag: ${{ inputs.version }}
