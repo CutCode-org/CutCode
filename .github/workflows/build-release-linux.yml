@@ -7,12 +7,12 @@ on:
         description: 'The version for the manual flow'
         required: true
         default: '1.2.3'
-  workflow_call:
-    inputs:
-      version:
-        description: 'The version for the manual flow'
-        required: true
-        type: string
+    workflow_call:
+      inputs:
+        version:
+          description: 'The version for the manual flow'
+          required: true
+          type: string
 
 jobs:
   build_linux:
