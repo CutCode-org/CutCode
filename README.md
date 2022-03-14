@@ -18,7 +18,7 @@ As a developer, we often search on <strong>Google</strong> / <strong>StackOverFl
 2. **Your code snippets are saved safely in a database, in your system.**
 3. **You can give your code snippets title, description, and also you can add them to your favourite snippets list.**
 4. **You can add cells into your code so that you can manage your code snippets easily.**
-5. **The code snippets are stored in orderly fashion, so you can search your snippets based on its name, programming language, creation date.**
+5. **The code snippets are stored in orderly fashion, so you can search your snippets based on its name, programming language, and creation date.**
 6. **CutCode has minimalistic UI design and it is user-friendly.**
 7. **You can import and export your code from your system and save them as snippets.**
 8. **CutCode is supported on both Windows and Linux.**
