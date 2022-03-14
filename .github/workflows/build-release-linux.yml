@@ -5,13 +5,13 @@ on:
     inputs:
       version:
         description: 'The version for the manual flow'
-        required: true
+        required: false
         default: '1.2.3'
   workflow_call:
     inputs:
       version:
         description: 'The version for the manual flow'
-        required: true
+        required: false
         type: string
 
 jobs:
@@ -41,4 +41,4 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./CutCode.CrossPlatform/bin/Release/net6.0/linux-x64/CutCodeLinux.tar.gz
           asset_name: LinuxBuild.zip
-          tag: ${{ github.events.inputs.version }}
+          tag: ${{ inputs.version }}
