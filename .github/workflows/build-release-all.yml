@@ -7,10 +7,35 @@ on:
 
 jobs:
   build-windows:
+    name: Build and release Windows Version
     uses: ./.github/workflows/build-release-windows.yml
     with: 
       version: ${{ github.ref }}
   build-linux:
+    name: Build and release Linux Version
     uses: ./.github/workflows/build-release-linux.yml
     with:
       version: ${{ github.ref }}
+  update-linux-installer:
+    name: Update linux installer file
+    needs:
+      - build-windows
+      - build-linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Version
+        id: get_version
+        uses: battila7/get-version-action@v2.2.1
+      - run:  sed -i "s/__VERSION__/${{ steps.get_version.outputs.version}}/g" CutCode_linux_x64_installer.sh
+      - name: Upload linux installer file
+        id: upload-release-asset
+        uses: svenstaro/upload-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./CutCode_linux_x64_installer.sh
+          asset_name: CutCode_linux_x64_installer.sh
+          tag: ${{ github.ref }}
+
+          
