@@ -41,4 +41,4 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./CutCode.CrossPlatform/bin/Release/net6.0/linux-x64/CutCodeLinux.tar.gz
           asset_name: LinuxBuild.zip
-          tag: ${{ inputs.version }}
+          tag: ${{ github.events.inputs.version }}

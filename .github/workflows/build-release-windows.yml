@@ -41,4 +41,4 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./CutCode.CrossPlatform/bin/Release/net6.0/win7-x64/WindowsZip.zip
           asset_name: WindowsBuild.zip
-          tag: ${{ inputs.version }}
+          tag: ${{ github.events.inputs.version }}
