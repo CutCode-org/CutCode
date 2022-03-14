@@ -33,7 +33,6 @@ jobs:
           cd CutCode.CrossPlatform/bin/Release/net6.0/linux-x64
            tar -czvf CutCodeLinux.tar.gz publish
       - name: Upload Archive
-        if: ${{ github.event_name == 'workflow_call' }}
         id: upload-release-asset
         uses: svenstaro/upload-release-action@v2
         env:
