@@ -55,8 +55,10 @@ Made with [contrib.rocks](https://contrib.rocks).
 
 # Credits
 This project is **MIT licensed** and entirely open source, hence, it is completely free to use. However, if you are inspired from this project and have used the source code of this project in your own projects, please consider giving credits to us.
-Thank you for using CutCode!
-Have a nice day!
+
+**Thank you for using CutCode!**
+
+**Have a nice day!**
 
 # Additional Information
 
