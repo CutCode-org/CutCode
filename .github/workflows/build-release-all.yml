@@ -1,18 +1,15 @@
 ﻿name: 'build All'
 
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'The version for the manual flow'
-        required: true
-        default: '1.2.3'
+  push:
+    tags:
+      - 'v*'
 
 jobs: 
   echo-input:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ github.events.inputs.version }}
+      - run: echo ${{ github.ref }}
   build-windows:
     uses: ./.github/workflows/build-release-windows.yml
     with: 
@@ -20,4 +17,4 @@ jobs:
   build-linux:
     uses: ./.github/workflows/build-release-linux.yml
     with:
-      version: ${{ github.events.inputs.version }}
+      version: ${{ github.ref }}
