@@ -1,0 +1,35 @@
+﻿name: 'build windows'
+
+on:
+  workflow_dispatch: 
+    inputs: 
+      reason:
+        description: 'The reason for running the workflow'
+        required: true
+        default: 'Manual Run'
+        
+jobs: 
+  build_windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: setup .Net 6
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+      - name: Build Windows App
+        run: |
+          cd CutCode.CrossPlatform
+          dotnet publish -c Release -f net6.0 -r win7-x64
+      - name: Archive Artifact
+        run: |
+          cd CutCode.CrossPlatform/bin/Release/net6.0/win7-x64
+          powershell Compress-Archive -Path .\publish -DestinationPath WindowsZip.zip
+      - name: Upload Archive
+        id: upload-release-asset
+        uses: svenstaro/upload-release-action@v2
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          file: ./CutCode.CrossPlatform/bin/Release/net6.0/win7-x64/WindowsZip.zip
+          asset_name: WindowsBuild.zip
