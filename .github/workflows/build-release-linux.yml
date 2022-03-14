@@ -15,7 +15,7 @@ on:
         type: string
 
 jobs:
-  build_windows:
+  build_linux:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
