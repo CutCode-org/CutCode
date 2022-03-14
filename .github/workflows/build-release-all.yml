@@ -12,8 +12,8 @@ jobs:
   build-windows:
     uses: ./.github/workflows/build-release-windows.yml
     with: 
-      version: ${{ inputs.version }}
+      version: ${{ github.events.inputs.version }}
   build-linux:
     uses: ./.github/workflows/build-release-linux.yml
     with:
-      version: ${{ inputs.version }}
+      version: ${{ github.events.inputs.version }}
