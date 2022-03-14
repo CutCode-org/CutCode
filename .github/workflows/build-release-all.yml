@@ -9,6 +9,10 @@ on:
         default: '1.2.3'
 
 jobs: 
+  echo-input:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ github.events.inputs.version }}
   build-windows:
     uses: ./.github/workflows/build-release-windows.yml
     with: 
