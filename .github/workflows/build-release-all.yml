@@ -5,15 +5,11 @@ on:
     tags:
       - 'v*'
 
-jobs: 
-  echo-input:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo ${{ github.ref }}
+jobs:
   build-windows:
     uses: ./.github/workflows/build-release-windows.yml
     with: 
-      version: ${{ github.events.inputs.version }}
+      version: ${{ github.ref }}
   build-linux:
     uses: ./.github/workflows/build-release-linux.yml
     with:
