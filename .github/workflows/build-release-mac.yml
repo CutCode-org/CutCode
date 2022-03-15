@@ -26,7 +26,7 @@ jobs:
           dotnet restore -r osx-x64
           dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release
           mkdir Assets/logo.iconset
-          cp Assets/Images/logo.png Assets/logo.iconset/icon_512x512.png
+          sips -z 512 512 Assets/Images/logo.png --out Assets/logo.iconset/icon_512x512.png
           ls Assets/logo.iconset
           iconutil --convert icns Assets/logo.iconset
           cp Assets/logo.icns bin/Release/net6/osx-x64/publish/CutCode.app/Contents/Resources/logo.icns
