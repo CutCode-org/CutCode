@@ -17,11 +17,17 @@ jobs:
     uses: ./.github/workflows/build-release-linux.yml
     with:
       version: ${{ github.ref }}
+  build-mac:
+    name: Build and release Linux Version
+    uses: ./.github/workflows/build-release-mac.yml
+    with:
+      version: ${{ github.ref }}
   update-linux-installer:
     name: Update linux installer file
     needs:
       - build-windows
       - build-linux
+      - build_mac
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
