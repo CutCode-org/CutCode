@@ -7,7 +7,6 @@ on:
         description: 'The version for the manual flow'
         required: true
         type: string
-  workflow_dispatch: 
     
 
 jobs:
