@@ -29,6 +29,8 @@ jobs:
           sips -z 512 512 Assets/Images/logo.png --out Assets/logo.iconset/icon_512x512.png
           ls Assets/logo.iconset
           iconutil --convert icns Assets/logo.iconset
+          ls Assets
+          ls bin/Release/net6/osx-64/publish
           cp Assets/logo.icns bin/Release/net6/osx-x64/publish/CutCode.app/Contents/Resources/logo.icns
           rm Assets/logo.icns
           rm -rf Assets/logo.iconset
