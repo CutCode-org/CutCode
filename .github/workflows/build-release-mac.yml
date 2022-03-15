@@ -30,8 +30,8 @@ jobs:
           ls Assets/logo.iconset
           iconutil --convert icns Assets/logo.iconset
           ls Assets
-          ls bin/Release/net6.0/osx-64/publish
-          ls bin/Release/net6.0/osx-64/publish/CutCode.app
+          ls bin/Release/net6.0/osx-x64/publish
+          ls bin/Release/net6.0/osx-x64/publish/CutCode.app
           ls bin/Release/net6.0/osx-x64/publish/CutCode.app/Contents/Resources
           cp Assets/logo.icns bin/Release/net6.0/osx-x64/publish/CutCode.app/Contents/Resources/logo.icns
           rm Assets/logo.icns
