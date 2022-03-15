@@ -12,7 +12,6 @@ jobs:
   build_linux:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ inputs.version }}
       - uses: actions/checkout@v2
 
       - name: setup .Net 6
