@@ -3,26 +3,25 @@
 on:
   push:
     tags:
-      - 'v*'
-  workflow_dispatch: 
+      - 'v*' 
     
 
 jobs:
-#  build-windows:
-#    name: Build and release Windows Version
-#    uses: ./.github/workflows/build-release-windows.yml
-#    with: 
-#      version: ${{ github.ref }}
-#  build-linux:
-#    name: Build and release Linux Version
-#    uses: ./.github/workflows/build-release-linux.yml
-#    with:
-#      version: ${{ github.ref }}
+  build-windows:
+    name: Build and release Windows Version
+    uses: ./.github/workflows/build-release-windows.yml
+    with: 
+      version: ${{ github.ref }}
+  build-linux:
+    name: Build and release Linux Version
+    uses: ./.github/workflows/build-release-linux.yml
+    with:
+      version: ${{ github.ref }}
   update-linux-installer:
     name: Update linux installer file
-#    needs:
-#      - build-windows
-#      - build-linux
+    needs:
+      - build-windows
+      - build-linux
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
