@@ -1,0 +1,45 @@
+﻿name: 'build windows'
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        description: 'The version for the manual flow'
+        required: true
+        type: string
+
+jobs:
+  build_linux:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: setup .Net 6
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+      - name: Build Linux App
+        run: |
+          cd CutCode.CrossPlatform
+          dotnet restore -r osx-x64
+          dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release
+          mkdir Assets/logo.iconset
+          cp Assets/Images/logo.png Assets/logo.iconset/icon_512x512.png
+          iconutil -c icns Assets/logo.iconset
+          cp Assets/logo.icns bin/Release/net6/osx-x64/publish/CutCode.app/Contents/Resources/logo.icns
+          rm Assets/logo.icns
+          rm -rf Assets/logo.iconset
+      - name: Archive Artifact
+        run: |
+          cd CutCode.CrossPlatform/bin/Release/net6.0/osx-x64/publish
+          zip -r CutCodeMac.zip CutCode.app
+      - name: Upload Archive
+        id: upload-release-asset
+        uses: svenstaro/upload-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./CutCode.CrossPlatform/bin/Release/net6.0/osx-x64/publish/CutCodeMac.zip
+          asset_name: LinuxBuild.zip
+          tag: ${{ inputs.version }}
