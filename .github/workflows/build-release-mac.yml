@@ -1,4 +1,4 @@
-﻿name: 'build windows'
+﻿name: 'build mac'
 
 on:
   workflow_call:
@@ -9,7 +9,8 @@ on:
         type: string
 
 jobs:
-  build_linux:
+  build_mac:
+    name: Build Mac App
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,7 +19,7 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
-      - name: Build Linux App
+      - name: Build Mac App
         run: |
           cd CutCode.CrossPlatform
           dotnet restore -r osx-x64
@@ -41,5 +42,5 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./CutCode.CrossPlatform/bin/Release/net6.0/osx-x64/publish/CutCodeMac.zip
-          asset_name: LinuxBuild.zip
+          asset_name: MacBuild.zip
           tag: ${{ inputs.version }}
