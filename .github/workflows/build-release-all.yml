@@ -25,10 +25,10 @@ jobs:
 #      - build-linux
     runs-on: ubuntu-latest
     steps:
+      - run: pwd && ls -la
       - name: Get Version
         id: get_version
         uses: battila7/get-version-action@v2.2.1
-      - run: pwd
       - run:  sed -i "s/__VERSION__/${{ steps.get_version.outputs.version}}/g" ./CutCode_linux_x64_installer.sh
       - name: Upload linux installer file
         id: upload-release-asset
