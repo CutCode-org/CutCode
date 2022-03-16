@@ -54,4 +54,11 @@ jobs:
         uses: actions/download-artifact@v3
         with: 
           path: ./Artifacts
-      - run: ls -la
+      - name: create release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file_glob: true
+          file: ./Artifacts/*
+          tag: ${{ github.ref }}
+          prerelease: true
