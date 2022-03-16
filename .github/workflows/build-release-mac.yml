@@ -42,5 +42,4 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: MacBuild
           path: ./CutCode.CrossPlatform/bin/Release/net6.0/osx-x64/publish/CutCodeMac.zip

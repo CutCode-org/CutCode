@@ -30,5 +30,4 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: LinuxBuild
           path: ./CutCode.CrossPlatform/bin/Release/net6.0/linux-x64/CutCodeLinux.tar.gz
