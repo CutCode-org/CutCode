@@ -80,7 +80,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: /home/runner/work/CutCode/CutCode/Artifacts/MacBuild.zip/WindowsZip.zip
+          file: /home/runner/work/CutCode/CutCode/Artifacts/MacBuild.zip/CutCodeMac.zip
           asset_name: MacBuild.zip
           tag: ${{ github.ref }}
           prerelease: true
@@ -90,7 +90,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: /home/runner/work/CutCode/CutCode/Artifacts/WindowsBuild.zip/WindowsBuild.zip
+          file: /home/runner/work/CutCode/CutCode/Artifacts/WindowsBuild.zip/CutCodeWindows.zip
           asset_name: WindowsBuild.zip
           tag: ${{ github.ref }}
           prerelease: true

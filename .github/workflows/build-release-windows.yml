@@ -26,9 +26,9 @@ jobs:
       - name: Archive Artifact
         run: |
           cd CutCode.CrossPlatform/bin/Release/net6.0/win7-x64
-          powershell Compress-Archive -Path .\publish -DestinationPath WindowsZip.zip
+          powershell Compress-Archive -Path .\publish -DestinationPath CutCodeWindows.zip
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: WindowsBuild.zip
-          path: ./CutCode.CrossPlatform/bin/Release/net6.0/win7-x64/WindowsZip.zip
+          path: ./CutCode.CrossPlatform/bin/Release/net6.0/win7-x64/CutCodeWindows.zip
