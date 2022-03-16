@@ -27,13 +27,8 @@ jobs:
         run: |
           cd CutCode.CrossPlatform/bin/Release/net6.0/win7-x64
           powershell Compress-Archive -Path .\publish -DestinationPath WindowsZip.zip
-      - name: Upload Archive
-        id: upload-release-asset
-        uses: svenstaro/upload-release-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./CutCode.CrossPlatform/bin/Release/net6.0/win7-x64/WindowsZip.zip
-          asset_name: WindowsBuild.zip
-          tag: ${{ inputs.version }}
+          name: WindowsBuild.zip
+          path: ./CutCode.CrossPlatform/bin/Release/net6.0/win7-x64/WindowsZip.zip
