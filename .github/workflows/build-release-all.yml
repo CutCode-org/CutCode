@@ -18,7 +18,7 @@ jobs:
     with:
       version: ${{ github.ref }}
   build-mac:
-    name: Build and release Linux Version
+    name: Build and release Mac Version
     uses: ./.github/workflows/build-release-mac.yml
     with:
       version: ${{ github.ref }}
@@ -52,4 +52,6 @@ jobs:
         uses: battila7/get-version-action@v2.2.1
       - name: Download artifacts
         uses: actions/download-artifact@v3
+        with: 
+          path: ./Artifacts
       - run: ls -la
