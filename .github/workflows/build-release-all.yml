@@ -53,7 +53,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           path: ./Artifacts
-      - run: ls -la ./Artifacts/artifact
+      - run: ls -R ./Artifacts
       - name: linux installer
         uses: svenstaro/upload-release-action@v2
         env:
