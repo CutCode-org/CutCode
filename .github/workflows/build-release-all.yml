@@ -60,7 +60,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: /home/runner/work/CutCode/CutCode/Artifacts/CutCode_linux_x64_installer.sh/CutCode_linux_x64_installer.sh
+          file: /home/runner/work/CutCode/CutCode/Artifacts/artifact/CutCode_linux_x64_installer.sh
           asset_name: CutCode_linux_x64_installer.sh
           tag: ${{ github.ref }}
           prerelease: true
@@ -70,7 +70,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: /home/runner/work/CutCode/CutCode/Artifacts/LinuxBuild.tar.gz/LinuxBuild.tar.gz
+          file: /home/runner/work/CutCode/CutCode/Artifacts/LinuxBuild.tar.gz/CutCodeLinux.tar.gz
           asset_name: LinuxBuild.tar.gz
           tag: ${{ github.ref }}
           prerelease: true
@@ -80,7 +80,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: /home/runner/work/CutCode/CutCode/Artifacts/MacBuild.zip/MacBuild.zip
+          file: /home/runner/work/CutCode/CutCode/Artifacts/MacBuild.zip/WindowsZip.zip
           asset_name: MacBuild.zip
           tag: ${{ github.ref }}
           prerelease: true
