@@ -54,6 +54,8 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           path: ./Artifacts
+      - run: ls -la ./Artifacts
+      - run: ls -la ./Artifacts/CutCode_linux_x64_installer.sh
       - name: linux installer
         uses: svenstaro/upload-release-action@v2
         env:
