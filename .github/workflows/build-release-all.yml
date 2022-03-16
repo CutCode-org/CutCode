@@ -56,29 +56,41 @@ jobs:
           path: ./Artifacts
       - name: linux installer
         uses: svenstaro/upload-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: /home/runner/work/CutCode/CutCode/Artifacts/CutCode_linux_x64_installer.sh
+          asset_name: CutCode_linux_x64_installer.sh
           tag: ${{ github.ref }}
           prerelease: true
       - name: linux build
         uses: svenstaro/upload-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: /home/runner/work/CutCode/CutCode/Artifacts/LinuxBuild.tar.gz
+          asset_name: LinuxBuild.tar.gz
           tag: ${{ github.ref }}
           prerelease: true
       - name: Mac build
         uses: svenstaro/upload-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: /home/runner/work/CutCode/CutCode/Artifacts/MacBuild.zip
+          asset_name: MacBuild.zip
           tag: ${{ github.ref }}
           prerelease: true
       - name: Windows build
         uses: svenstaro/upload-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: /home/runner/work/CutCode/CutCode/Artifacts/WindowsBuild.zip
+          asset_name: WindowsBuild.zip
           tag: ${{ github.ref }}
           prerelease: true
