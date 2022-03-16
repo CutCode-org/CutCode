@@ -58,27 +58,27 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./Artifacts/CutCode_linux_x64_installer.sh
+          file: /home/runner/work/CutCode/CutCode/Artifacts/CutCode_linux_x64_installer.sh
           tag: ${{ github.ref }}
           prerelease: true
       - name: linux build
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./Artifacts/LinuxBuild.tar.gz
+          file: /home/runner/work/CutCode/CutCode/Artifacts/LinuxBuild.tar.gz
           tag: ${{ github.ref }}
           prerelease: true
       - name: Mac build
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./Artifacts/MacBuild.zip
+          file: /home/runner/work/CutCode/CutCode/Artifacts/MacBuild.zip
           tag: ${{ github.ref }}
           prerelease: true
       - name: Windows build
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./Artifacts/WindowsBuild.zip
+          file: /home/runner/work/CutCode/CutCode/Artifacts/WindowsBuild.zip
           tag: ${{ github.ref }}
           prerelease: true
