@@ -1,6 +1,6 @@
 BASE_URL="https://github.com/Abdesol/CutCode/releases/download/"
 VERSION="__VERSION__"
-FILE="CutCode.__VERSION__.linux.x64.zip"
+FILE="CutCodeLinux.tar.gz"
 FOLDER="CutCode __VERSION__ linux x64"
 
 
@@ -16,7 +16,7 @@ cd cutcode-tmp
 dialog --infobox "installing CutCode..." 20 60
 #Get built files and unzip them
 curl -LO $BASE_URL/$VERSION/$FILE
-unzip $FILE
+tar -xf $FILE
 
 #make directory to put built files into and put the files
 rm -rf /opt/CutCode/
