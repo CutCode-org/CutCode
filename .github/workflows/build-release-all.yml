@@ -54,7 +54,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           path: ./Artifacts
-      - run: ls ./Artifacts
+      - run: ls ./Artifacts && ls ./Artifacts/LinuxBuild
       - name: linux installer
         uses: svenstaro/upload-release-action@v2
         env:
