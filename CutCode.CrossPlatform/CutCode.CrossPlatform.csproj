@@ -20,7 +20,7 @@
     <CFBundleIdentifier>com.cutcode</CFBundleIdentifier>
     <CFBundleVersion>3.0.0</CFBundleVersion>
     <CFBundleShortVersionString>3.0.0</CFBundleShortVersionString>
-    <CFBundlePackageType>APPL</CFBundlePackageType>
+    <CFBundlePackageType>AAPL</CFBundlePackageType>
     <CFBundleSignature>????</CFBundleSignature>
     <CFBundleExecutable>CutCode.CrossPlatform</CFBundleExecutable>
     <CFBundleIconFile>/Assets/logo.icns</CFBundleIconFile> <!-- Will be copied from output directory -->
