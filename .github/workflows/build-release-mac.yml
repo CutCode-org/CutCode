@@ -1,0 +1,46 @@
+﻿name: 'build mac'
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        description: 'The version for the manual flow'
+        required: true
+        type: string
+    
+
+jobs:
+  build_mac:
+    name: Build Mac App
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup .Net 6
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+      - name: Build Mac App
+        run: |
+          cd CutCode.CrossPlatform
+          dotnet restore -r osx-x64
+          dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release -p:UseAppHost=true
+          mkdir Assets/logo.iconset
+          sips -z 512 512 Assets/Images/logo.png --out Assets/logo.iconset/icon_512x512.png
+          ls Assets/logo.iconset
+          iconutil --convert icns Assets/logo.iconset
+          ls Assets
+          ls bin/Release/net6.0/osx-x64/publish
+          ls bin/Release/net6.0/osx-x64/publish/CutCode.app
+          ls bin/Release/net6.0/osx-x64/publish/CutCode.app/Contents/Resources
+          cp Assets/logo.icns bin/Release/net6.0/osx-x64/publish/CutCode.app/Contents/Resources/logo.icns
+          rm Assets/logo.icns
+          rm -rf Assets/logo.iconset
+      - name: Archive Artifact
+        run: |
+          cd CutCode.CrossPlatform/bin/Release/net6.0/osx-x64/publish
+          zip -r CutCodeMac.zip CutCode.app
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: MacBuild.zip
+          path: ./CutCode.CrossPlatform/bin/Release/net6.0/osx-x64/publish/CutCodeMac.zip

@@ -1,0 +1,96 @@
+﻿name: 'build All'
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+
+jobs:
+  build-windows:
+    name: Build and release Windows Version
+    uses: ./.github/workflows/build-release-windows.yml
+    with:
+      version: ${{ github.ref }}
+  build-linux:
+    name: Build and release Linux Version
+    uses: ./.github/workflows/build-release-linux.yml
+    with:
+      version: ${{ github.ref }}
+  build-mac:
+    name: Build and release Mac Version
+    uses: ./.github/workflows/build-release-mac.yml
+    with:
+      version: ${{ github.ref }}
+  update-linux-installer:
+    name: Update linux installer file
+    needs:
+      - build-windows
+      - build-linux
+      - build-mac
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get Version
+        id: get_version
+        uses: battila7/get-version-action@v2.2.1
+      - run: sed -i "s/__VERSION__/${{ steps.get_version.outputs.version}}/g" ./CutCode_linux_x64_installer.sh
+      - name: Upload installer file
+        uses: actions/upload-artifact@v3
+        with:
+          path: ./CutCode_linux_x64_installer.sh
+  create-release:
+    name: Create Release
+    needs:
+      - update-linux-installer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get Version
+        id: get_version
+        uses: battila7/get-version-action@v2.2.1
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: ./Artifacts
+      - run: ls -R ./Artifacts
+      - name: linux installer
+        uses: svenstaro/upload-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: /home/runner/work/CutCode/CutCode/Artifacts/artifact/CutCode_linux_x64_installer.sh
+          asset_name: CutCode_linux_x64_installer.sh
+          tag: ${{ github.ref }}
+          prerelease: true
+      - name: linux build
+        uses: svenstaro/upload-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: /home/runner/work/CutCode/CutCode/Artifacts/LinuxBuild.tar.gz/CutCodeLinux.tar.gz
+          asset_name: LinuxBuild.tar.gz
+          tag: ${{ github.ref }}
+          prerelease: true
+      - name: Mac build
+        uses: svenstaro/upload-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: /home/runner/work/CutCode/CutCode/Artifacts/MacBuild.zip/CutCodeMac.zip
+          asset_name: MacBuild.zip
+          tag: ${{ github.ref }}
+          prerelease: true
+      - name: Windows build
+        uses: svenstaro/upload-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: /home/runner/work/CutCode/CutCode/Artifacts/WindowsBuild.zip/CutCodeWindows.zip
+          asset_name: WindowsBuild.zip
+          tag: ${{ github.ref }}
+          prerelease: true

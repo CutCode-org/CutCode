@@ -1,0 +1,34 @@
+﻿name: 'build linux'
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        description: 'The version for the manual flow'
+        required: true
+        type: string
+
+jobs:
+  build_linux:
+    name: Build Linux App
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: setup .Net 6
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+      - name: Build Linux App
+        run: |
+          cd CutCode.CrossPlatform
+          dotnet publish -c Release -f net6.0 -r linux-x64
+      - name: Archive Artifact
+        run: |
+          cd CutCode.CrossPlatform/bin/Release/net6.0/linux-x64
+           tar -czvf CutCodeLinux.tar.gz publish
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: LinuxBuild.tar.gz
+          path: ./CutCode.CrossPlatform/bin/Release/net6.0/linux-x64/CutCodeLinux.tar.gz

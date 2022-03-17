@@ -14,6 +14,19 @@
     <StartupObject>CutCode.CrossPlatform.Program</StartupObject>
     <ApplicationIcon>Assets\Images\logo.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <CFBundleName>CutCode</CFBundleName> <!-- Also defines .app file name -->
+    <CFBundleDisplayName>CutCode</CFBundleDisplayName>
+    <CFBundleIdentifier>com.cutcode</CFBundleIdentifier>
+    <CFBundleVersion>3.0.0</CFBundleVersion>
+    <CFBundleShortVersionString>3.0.0</CFBundleShortVersionString>
+    <CFBundlePackageType>AAPL</CFBundlePackageType>
+    <CFBundleSignature>????</CFBundleSignature>
+    <CFBundleExecutable>CutCode.CrossPlatform</CFBundleExecutable>
+    <CFBundleIconFile>/Assets/logo.icns</CFBundleIconFile> <!-- Will be copied from output directory -->
+    <NSPrincipalClass>NSApplication</NSPrincipalClass>
+    <NSHighResolutionCapable>true</NSHighResolutionCapable>
+  </PropertyGroup>
   <ItemGroup>
     <Folder Include="DataBase" />
     <Folder Include="Models\" />
@@ -32,6 +45,7 @@
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0017745-beta" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0017745-beta" />
+    <PackageReference Include="DotNet.Bundle" Version="0.9.13" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
   </ItemGroup>
