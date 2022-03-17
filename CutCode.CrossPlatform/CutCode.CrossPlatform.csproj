@@ -22,7 +22,7 @@
     <CFBundleShortVersionString>3.0.0</CFBundleShortVersionString>
     <CFBundlePackageType>APPL</CFBundlePackageType>
     <CFBundleSignature>????</CFBundleSignature>
-    <CFBundleExecutable>CutCode</CFBundleExecutable>
+    <CFBundleExecutable>CutCode.CrossPlatform</CFBundleExecutable>
     <CFBundleIconFile>/Assets/logo.icns</CFBundleIconFile> <!-- Will be copied from output directory -->
     <NSPrincipalClass>NSApplication</NSPrincipalClass>
     <NSHighResolutionCapable>true</NSHighResolutionCapable>
