@@ -2,12 +2,13 @@
 using System.Linq;
 using Avalonia.Media;
 using CutCode.CrossPlatform.Helpers;
-using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Views;
-using CutCode.CrossPlatform.DataBase;
+using CutCode.CrossPlatform.Services;
 using Newtonsoft.Json;
 using ReactiveUI;
+using PageService = CutCode.CrossPlatform.Services.PageService;
+using ThemeService = CutCode.CrossPlatform.Services.ThemeService;
 
 
 namespace CutCode.CrossPlatform.ViewModels
@@ -24,27 +25,27 @@ namespace CutCode.CrossPlatform.ViewModels
             IsFavouritePath = code.IsFavourite ? IconPaths.StarFull : IconPaths.Star;
             FavouriteText = Code.IsFavourite ? "Remove from favourite" : "Add to favourite";
             
-            if(ThemeService.Current.IsLightTheme) OnLightThemeIsSet();
+            if(ThemeService.Current.Theme == ThemeType.Light) OnLightThemeIsSet();
             else OnDarkThemeIsSet();
             
             ThemeService.Current.ThemeChanged += (sender, args) =>
             {
-                if(ThemeService.Current.IsLightTheme) OnLightThemeIsSet();
+                if(ThemeService.Current.Theme == ThemeType.Light) OnLightThemeIsSet();
                 else OnDarkThemeIsSet();
             };
             
             SetDescription(code.Cells);
             IsPopupOpen = false;
             
-            DataBaseManager.Current.AllCodesUpdated += (sender, args) =>
+            DatabaseService.Current.AllCodesUpdated += (sender, args) =>
             {
-                if (DataBaseManager.Current.AllCodes.Count > 0)
+                if (DatabaseService.Current.AllCodes.Count > 0)
                 {
-                    var currentCode = DataBaseManager.Current.AllCodes.Find(c => c.Id == Code.Id);
+                    var currentCode = DatabaseService.Current.AllCodes.Find(c => c.Id == Code.Id);
                     if (currentCode is not null)
                     {
                         FavouriteText = currentCode.IsFavourite ? "Remove from favourite" : "Add to favourite";
-                        if (ThemeService.Current.IsLightTheme) IsFavouriteColor = currentCode.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#4D4D4D");
+                        if (ThemeService.Current.Theme == ThemeType.Light) IsFavouriteColor = currentCode.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#4D4D4D");
                         else IsFavouriteColor = currentCode.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#94969A");
                         IsFavouritePath = currentCode.IsFavourite ? IconPaths.StarFull : IconPaths.Star;
                         Code = currentCode;
@@ -183,7 +184,7 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             IsPopupOpen = false;
             Code.IsFavourite = !Code.IsFavourite;
-            DataBaseManager.Current.FavModify(Code);
+            DatabaseService.Current.FavModify(Code);
         }
 
         public async void Share()
@@ -194,8 +195,8 @@ namespace CutCode.CrossPlatform.ViewModels
         public async void Delete()
         {
             IsPopupOpen = false;
-            var delete = DataBaseManager.Current.DelCode(Code);
-            if(!delete)  NotificationManager.Current.CreateNotification("Error", "Error, Unable to delete the code!", 3);
+            var delete = DatabaseService.Current.DelCode(Code);
+            if(!delete)  NotificationService.Current.CreateNotification("Error", "Error, Unable to delete the code!", 3);
         }
     }
 }

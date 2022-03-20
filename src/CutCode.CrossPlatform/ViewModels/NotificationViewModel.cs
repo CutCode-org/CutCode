@@ -1,5 +1,4 @@
 ﻿using Avalonia.Media;
-using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using ReactiveUI;
 
@@ -7,8 +6,8 @@ namespace CutCode.CrossPlatform.ViewModels
 {
     public class NotificationViewModel : PageBaseViewModel
     {
-        private NotifyObject Notification;
-        public NotificationViewModel(NotifyObject notification)
+        private Notification Notification;
+        public NotificationViewModel(Notification notification)
         {
             Notification = notification;
             NotificationType = Notification.NotificationType;
@@ -55,6 +54,6 @@ namespace CutCode.CrossPlatform.ViewModels
             set => this.RaiseAndSetIfChanged(ref _message, value);
         }
 
-        public void CloseNotification() => NotificationManager.CloseNotification(Notification);
+        public void CloseNotification() => NotificationService.CloseNotification(Notification);
     }
 }

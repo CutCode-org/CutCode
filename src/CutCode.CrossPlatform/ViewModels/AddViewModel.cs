@@ -7,11 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Media;
-using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.ViewModels;
 using CutCode.CrossPlatform.Views;
-using CutCode.CrossPlatform.DataBase;
 using Newtonsoft.Json;
 using ReactiveUI;
 
@@ -21,7 +19,6 @@ namespace CutCode.CrossPlatform.ViewModels
     {
         private static readonly AddViewModel _addViewModel = new();
         public static AddViewModel Current => _addViewModel;
-        private IDataBase Database => DataBase;
         public ObservableCollection<CodeCellViewModel?> Cells { get; }
         public IList<string> AllLangs { get; set; }
         private bool _isCellEmpty;
@@ -166,14 +163,14 @@ namespace CutCode.CrossPlatform.ViewModels
                 {
                     DataContext = new CodeViewModel(codeModel)
                 };
-                PageService.Current.ExternalPage = codeViewPage;
+                PageService.ExternalPage = codeViewPage;
                 Title = "";
                 Cells.Clear();
-                NotificationManager.CreateNotification("Notification", "New code is successfully created", 3);
+                NotificationService.CreateNotification("Notification", "New code is successfully created", 3);
             }
             else
             {
-                NotificationManager.CreateNotification("Warning", "Please Fill the Empty fields", 2);
+                NotificationService.CreateNotification("Warning", "Please Fill the Empty fields", 2);
             }
             
         }

@@ -9,10 +9,9 @@ using System.Windows;
 using Avalonia;
 using Avalonia.Media;
 using Avalonia.Threading;
-using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
+using CutCode.CrossPlatform.Services;
 using CutCode.CrossPlatform.ViewModels;
-using CutCode.CrossPlatform.DataBase;
 using ReactiveUI;
 
 namespace CutCode.CrossPlatform.ViewModels
@@ -24,7 +23,7 @@ namespace CutCode.CrossPlatform.ViewModels
             AllCodes = new ObservableCollection<CodeCardViewModel>();
             CodeModeToViewModel(DataBase.AllCodes);
             
-            DataBaseManager.Current.AllCodesUpdated += AllCodesUpdated;
+            DatabaseService.Current.AllCodesUpdated += AllCodesUpdated;
 
             IsSearchBusy = false;
 

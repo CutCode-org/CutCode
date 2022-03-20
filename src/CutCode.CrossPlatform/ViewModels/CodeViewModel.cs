@@ -7,10 +7,9 @@ using Avalonia;
 using Avalonia.Input.Platform;
 using Avalonia.Media;
 using CutCode.CrossPlatform.Helpers;
-using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Views;
-using CutCode.CrossPlatform.DataBase;
+using CutCode.CrossPlatform.Services;
 using Newtonsoft.Json;
 using ReactiveUI;
 
@@ -18,7 +17,6 @@ namespace CutCode.CrossPlatform.ViewModels
 {
     public class CodeViewModel : PageBaseViewModel
     {
-        private IDataBase Database => DataBase;
         public CodeModel Code;
         
         public ObservableCollection<CodeCellViewModel?> Cells { get; }
@@ -54,12 +52,12 @@ namespace CutCode.CrossPlatform.ViewModels
                     
             };
             
-            if(ThemeService.IsLightTheme) OnLightThemeIsSet();
+            if(ThemeService.Theme == ThemeType.Light) OnLightThemeIsSet();
             else OnDarkThemeIsSet();
             
-            ThemeService.Current.ThemeChanged += (sender, args) =>
+            ThemeService.ThemeChanged += (sender, args) =>
             {
-                if(ThemeService.IsLightTheme) OnLightThemeIsSet();
+                if(ThemeService.Theme == ThemeType.Light) OnLightThemeIsSet();
                 else OnDarkThemeIsSet();
             };
             
@@ -219,7 +217,7 @@ namespace CutCode.CrossPlatform.ViewModels
 
         public async void Cancel()
         {
-            PageService.Current.ExternalPage = new HomeView();
+            PageService.ExternalPage = new HomeView();
         }
 
         public async void Save()
@@ -239,7 +237,7 @@ namespace CutCode.CrossPlatform.ViewModels
                     new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds(), Code.IsFavourite);
                 editedCode.SetId(Code.Id);
 
-                if (Database.EditCode(editedCode))
+                if (DataBase.EditCode(editedCode))
                 {
                     IsEditEnabled = false;
                     for(int i = 0; i < Cells.Count; i++)
@@ -249,12 +247,12 @@ namespace CutCode.CrossPlatform.ViewModels
                 }
                 else
                 {
-                    NotificationManager.CreateNotification("Error", "Error, Unable to save the changes", 5);
+                    NotificationService.CreateNotification("Error", "Error, Unable to save the changes", 5);
                 }
             }
             else
             {
-                NotificationManager.CreateNotification("Warning", "Please Fill the Empty fields", 2);
+                NotificationService.CreateNotification("Warning", "Please Fill the Empty fields", 2);
             }
         }
 
@@ -269,28 +267,28 @@ namespace CutCode.CrossPlatform.ViewModels
 
         public async void FavouriteCommand()
         {
-            var favUpdate = DataBaseManager.Current.FavModify(Code);
+            var favUpdate = DatabaseService.Current.FavModify(Code);
             if (favUpdate)
             {
                 Code.IsFavourite = !Code.IsFavourite;
                 IsFavouritePath = Code.IsFavourite ? IconPaths.StarFull : IconPaths.Star;
             
-                if(ThemeService.IsLightTheme) IsFavouriteColor = Code.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#4D4D4D");
+                if(ThemeService.Current.Theme == ThemeType.Light) IsFavouriteColor = Code.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#4D4D4D");
                 else IsFavouriteColor = Code.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#94969A");
             }
             else
             {
-                NotificationManager.Current.CreateNotification("Error", "Error, Unable to save the changes!", 3);
+                NotificationService.CreateNotification("Error", "Error, Unable to save the changes!", 3);
             }
             
         }
 
         public async void DeleteCode()
         {
-            var delete = DataBaseManager.Current.DelCode(Code);
+            var delete = DatabaseService.Current.DelCode(Code);
             if (delete)
             {
-                PageService.Current.ExternalPage = new HomeView();
+                PageService.ExternalPage = new HomeView();
             }
             else
             {

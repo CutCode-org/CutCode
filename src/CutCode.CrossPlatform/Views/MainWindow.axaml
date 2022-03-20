@@ -96,7 +96,7 @@
                     Margin="0 0 10 0"
                     OffContent="Light" OnContent="Dark"
                     Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"
-                    IsChecked="{Binding !ThemeService.IsLightTheme}">
+                    IsChecked="{Binding IsDarkTheme}">
       </ToggleSwitch>
     </Grid>
     <controls:WindowButtons Grid.Column="2" Grid.Row="0" 

@@ -1,29 +1,40 @@
-﻿using SQLite;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using System.IO;
-using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
+using Newtonsoft.Json;
+using SQLite;
 
-namespace CutCode.CrossPlatform.DataBase
+namespace CutCode.CrossPlatform.Services
 {
-    public class DataBaseManager : IDataBase
+    /// <summary>
+    /// A service class for database service.
+    /// </summary>
+    public class DatabaseService
     {
-        private static DataBaseManager _dataBase = new DataBaseManager();
-        public static DataBaseManager Current => _dataBase;
-        
+        /// <summary>
+        /// Defines a static class for using the same DatabaseService object everywhere.
+        /// </summary>
+        public static DatabaseService Current { get; } = new();
+
+        /// <summary>
+        /// All Codes list.
+        /// </summary>
         public List<CodeModel> AllCodes { get; set; }
+        
+        /// <summary>
+        /// All favourite codes list
+        /// </summary>
         public List<CodeModel> FavCodes { get; set; }
         private SQLiteConnection _db;
-        private readonly IThemeService themeService = ThemeService.Current;
+        private readonly ThemeService ThemeService = ThemeService.Current;
 
         private string prefpath { get; set; }
         private string dbpath { get; set; }
         #region Set region
-        private DataBaseManager()
+        private DatabaseService()
         {
             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var path = Path.Combine(appDataPath, "CutCode");
@@ -34,19 +45,19 @@ namespace CutCode.CrossPlatform.DataBase
             if (File.Exists(prefpath))
             {
                 string pref = File.ReadAllText(prefpath);
-                prefModel = JsonConvert.DeserializeObject<PrefModel>(pref);
-                isLightTheme = prefModel.IsLightTheme;
+                prefModel = JsonConvert.DeserializeObject<PrefModel>(pref)!;
+                Theme = prefModel.Theme;
                 sortBy = prefModel.SortBy;
             }
             else
             {
-                isLightTheme = true;
+                Theme = ThemeType.Light;
                 sortBy = "Date";
-                prefModel = new PrefModel() { IsLightTheme = isLightTheme, SortBy = sortBy };
+                prefModel = new PrefModel() { Theme = Theme, SortBy = sortBy };
                 UpdatePref();
             }
 
-            themeService.IsLightTheme = isLightTheme;
+            ThemeService.Theme = Theme;
             OpenDB();
         }
         private void OpenDB()
@@ -80,18 +91,31 @@ namespace CutCode.CrossPlatform.DataBase
         #region Preference region
 
         private PrefModel prefModel = new PrefModel();
-        public bool isLightTheme { get; set; }
+        public ThemeType Theme;
         public string sortBy { get; set; }
-
+        
+        /// <summary>
+        /// For changing the sort type.
+        /// </summary>
+        /// <param name="sort">
+        /// The sort type.
+        /// </param>
         public void ChangeSort(string sort)
         {
             prefModel.SortBy = sort;
             UpdatePref();
         }
-        public void ChangeTheme(bool IsLightTheme)
+        
+        /// <summary>
+        /// For changing theme.
+        /// </summary>
+        /// <param name="Theme">
+        /// Theme theme type.
+        /// </param>
+        public void ChangeTheme(ThemeType Theme)
         {
-            prefModel.IsLightTheme = IsLightTheme;
-            themeService.IsLightTheme = IsLightTheme;
+            prefModel.Theme = Theme;
+            ThemeService.Theme = Theme;
             UpdatePref();
         }
         private void UpdatePref()
@@ -104,8 +128,17 @@ namespace CutCode.CrossPlatform.DataBase
 
         private int GetIndex(CodeModel code) => AllCodes.TakeWhile(c => c.Id != code.Id).Count();
 
+        /// <summary>
+        /// An event that fires when all codes are updated
+        /// </summary>
         public event EventHandler AllCodesUpdated;
+        
+        /// <summary>
+        /// An event that fires when all favorite codes are updated
+        /// </summary>
         public event EventHandler FavCodesUpdated;
+        
+        
         public void PropertyChanged()
         {
             FavCodes.Clear();
@@ -118,6 +151,21 @@ namespace CutCode.CrossPlatform.DataBase
             FavCodesUpdated?.Invoke(this, EventArgs.Empty);
         }
 
+        /// <summary>
+        /// For Adding a code
+        /// </summary>
+        /// <param name="title">
+        /// The code title
+        /// </param>
+        /// <param name="cells">
+        /// The cells in the code
+        /// </param>
+        /// <param name="language">
+        /// The language type of the code
+        /// </param>
+        /// <returns>
+        /// Type of CodeModel
+        /// </returns>
         public CodeModel AddCode(string title, List<Dictionary<string, string>> cells, string language)
         {
             var lastModificationTime = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
@@ -141,6 +189,15 @@ namespace CutCode.CrossPlatform.DataBase
             return code;
         }
 
+        /// <summary>
+        /// For editing a code.
+        /// </summary>
+        /// <param name="code">
+        /// the code that is to be edited
+        /// </param>
+        /// <returns>
+        /// bool type of data if the request was successful or not.
+        /// </returns>
         public bool EditCode(CodeModel code)
         {
             try
@@ -165,9 +222,17 @@ namespace CutCode.CrossPlatform.DataBase
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="code">
+        /// The code that's going to be deleted
+        /// </param>
+        /// <returns>
+        /// Returns a boolean data type if the request was successful or not.
+        /// </returns>
         public bool DelCode(CodeModel code)
         {
-            
             try
             {
                 _db.Delete<CodesTable>(code.Id);
@@ -188,6 +253,24 @@ namespace CutCode.CrossPlatform.DataBase
             "Html", "Java", "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
         };
 
+        /// <summary>
+        /// For changing the order of codes.
+        /// </summary>
+        /// <param name="order">
+        /// The order type
+        /// </param>
+        /// <param name="codes">
+        /// The list of codes
+        /// </param>
+        /// <param name="page">
+        /// The page. If it is home or fav page.
+        /// </param>
+        /// <returns>
+        /// The re-ordered list.
+        /// </returns>
+        /// <exception cref="NullReferenceException">
+        /// If there was null exception
+        /// </exception>
         public async Task<List<CodeModel>> OrderCode(string order, List<CodeModel> codes, string page="Home")
         {
             int ind = AllKindsOfOrder.IndexOf(order);
@@ -218,6 +301,15 @@ namespace CutCode.CrossPlatform.DataBase
             return lst;
         }
 
+        /// <summary>
+        /// For adding a code to favorites list.
+        /// </summary>
+        /// <param name="code">
+        /// The code that's going to be added to the favorites list.
+        /// </param>
+        /// <returns>
+        /// Returns boolean data that tells if the request was successfully processed or not.
+        /// </returns>
         public bool FavModify(CodeModel code)
         {
             try
@@ -240,6 +332,19 @@ namespace CutCode.CrossPlatform.DataBase
             }
             return true;
         }
+        
+        /// <summary>
+        /// For searching a code
+        /// </summary>
+        /// <param name="text">
+        /// The search text
+        /// </param>
+        /// <param name="from">
+        /// The page
+        /// </param>
+        /// <returns>
+        /// Returns the most relevant codes that match the search text
+        /// </returns>
         public async Task<List<CodeModel>> SearchCode(string text, string from)
         {
             var currentCode = from == "Home" ? AllCodes : FavCodes;
@@ -251,7 +356,16 @@ namespace CutCode.CrossPlatform.DataBase
             }
             return newCodes;
         }
-
+        
+        /// <summary>
+        /// For exporting the user data.
+        /// </summary>
+        /// <param name="path">
+        /// The path where the data is going to be exported.
+        /// </param>
+        /// <returns>
+        /// Returns the message if it was successful or not.
+        /// </returns>
         public string ExportData(string path)
         {
             if (Path.GetExtension(path) != ".whl") return "This type of file is not supported!";
@@ -267,6 +381,15 @@ namespace CutCode.CrossPlatform.DataBase
             return "Successfully exported your codes!";
         }
 
+        /// <summary>
+        /// For importing the data.
+        /// </summary>
+        /// <param name="path">
+        /// The path from where it is going to be imported.
+        /// </param>
+        /// <returns>
+        /// Returns the message if it was successful or not.
+        /// </returns>
         public async Task<string> ImportData(string path)
         {
             try

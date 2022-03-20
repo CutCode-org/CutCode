@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Threading;
-using CutCode.CrossPlatform.Interfaces;
+using CutCode.CrossPlatform.Services;
 using Newtonsoft.Json;
 
 namespace CutCode.CrossPlatform.Helpers
@@ -33,7 +33,7 @@ namespace CutCode.CrossPlatform.Helpers
                 {
                     await Dispatcher.UIThread.InvokeAsync(() =>
                     {
-                        NotificationManager.Current.CreateNotification(
+                        NotificationService.Current.CreateNotification(
                             "Update",
                             $"New version({responseJson.UpdateVersion}) is available. Download it from the release page on the Github repository", 
                             10);

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Media;
-using CutCode.CrossPlatform.Interfaces;
+using CutCode.CrossPlatform.Services;
 using CutCode.CrossPlatform.ViewModels;
 using ReactiveUI;
 
@@ -12,8 +12,8 @@ namespace CutCode.CrossPlatform.Models
 {
     public class ThemeButtonModel : ViewModelBase
     {
-        private readonly IThemeService themeService;
-        public ThemeButtonModel(string _text, IThemeService _themeService)
+        private readonly ThemeService themeService;
+        public ThemeButtonModel(string _text, ThemeService _themeService)
         {
             themeService = _themeService;
             themeService.ThemeChanged += ThemeChanged;
@@ -28,8 +28,8 @@ namespace CutCode.CrossPlatform.Models
 
         private void SetAppearance()
         {
-            textColor = themeService.IsLightTheme ? SolidColorBrush.Parse("#0B0B13") : SolidColorBrush.Parse("#94969A");
-            if (themeService.IsLightTheme == true)
+            textColor = themeService.Theme == ThemeType.Light ? SolidColorBrush.Parse("#0B0B13") : SolidColorBrush.Parse("#94969A");
+            if (themeService.Theme == ThemeType.Light)
             {
                 if (text == "Light Mode")
                 {

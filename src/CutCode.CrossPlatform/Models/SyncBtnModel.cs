@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Media;
-using CutCode.CrossPlatform.Interfaces;
+using CutCode.CrossPlatform.Services;
 using CutCode.CrossPlatform.ViewModels;
 using ReactiveUI;
 
@@ -12,8 +12,8 @@ namespace CutCode.CrossPlatform.Models
 {
     public class SyncBtnModel : ViewModelBase
     {
-        private readonly IThemeService themeService;
-        public SyncBtnModel(string _text, IThemeService _themeService)
+        private readonly ThemeService themeService;
+        public SyncBtnModel(string _text, ThemeService _themeService)
         {
             themeService = _themeService;
             themeService.ThemeChanged += ThemeChanged;
@@ -28,12 +28,12 @@ namespace CutCode.CrossPlatform.Models
 
         private void SetAppearance()
         {
-            textColor = themeService.IsLightTheme ? SolidColorBrush.Parse("#0B0B13") : SolidColorBrush.Parse("#94969A");
-            backgroundColor = themeService.IsLightTheme ? SolidColorBrush.Parse("#E5E6E8") : SolidColorBrush.Parse("#27282C");
-            HoverbackgroundColor = themeService.IsLightTheme ? SolidColorBrush.Parse("#DADDE1") : SolidColorBrush.Parse("#202225");
+            textColor = themeService.Theme == ThemeType.Light ? SolidColorBrush.Parse("#0B0B13") : SolidColorBrush.Parse("#94969A");
+            backgroundColor = themeService.Theme == ThemeType.Light ? SolidColorBrush.Parse("#E5E6E8") : SolidColorBrush.Parse("#27282C");
+            HoverbackgroundColor = themeService.Theme == ThemeType.Light ? SolidColorBrush.Parse("#DADDE1") : SolidColorBrush.Parse("#202225");
 
-            if (text == "Import") img = themeService.IsLightTheme ? "../Resources/Images/Icons/import_icon_black.png" : "../Resources/Images/Icons/import_icon_white.png";
-            else img = themeService.IsLightTheme ? "../Resources/Images/Icons/export_icon_black.png" : "../Resources/Images/Icons/export_icon_white.png";
+            if (text == "Import") img = themeService.Theme == ThemeType.Light ? "../Resources/Images/Icons/import_icon_black.png" : "../Resources/Images/Icons/import_icon_white.png";
+            else img = themeService.Theme == ThemeType.Light ? "../Resources/Images/Icons/export_icon_black.png" : "../Resources/Images/Icons/export_icon_white.png";
         }
 
         private string _text;
