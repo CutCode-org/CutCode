@@ -2,6 +2,7 @@
 using System.Dynamic;
 using Avalonia.Media;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace CutCode.CrossPlatform.ViewModels
 {
@@ -9,53 +10,35 @@ namespace CutCode.CrossPlatform.ViewModels
     {
         private readonly AddViewModel AddViewModelInstance;
         private readonly CodeViewModel CodeViewModelInstance;
-        
+
         public CodeCellViewModel(AddViewModel viewModelInstance)
-        {  // Creating new one
+        {
+            // Creating new one
             AddViewModelInstance = viewModelInstance;
             IsEditable = true;
             IsMoreClickable = false;
             Code = "";
         }
-        
+
         public CodeCellViewModel(CodeViewModel viewModelInstance, string description, string code)
-        { // if we are fetching from database
+        {
+            // if we are fetching from database
             CodeViewModelInstance = viewModelInstance;
             Description = description;
             Code = code;
-            
+
             IsEditable = false;
             IsMoreClickable = true;
         }
-        
-        private string _description;
-        public string Description
-        {
-            get => _description;
-            set => this.RaiseAndSetIfChanged(ref _description, value);
-        } 
-        
-        private string _code;
-        public string Code
-        {
-            get => _code;
-            set => this.RaiseAndSetIfChanged(ref _code, value);
-        }
 
-        private bool _isEditable;
-        public bool IsEditable
-        {
-            get => _isEditable;
-            set => this.RaiseAndSetIfChanged(ref _isEditable, value);
-        }
-        
-        private bool _isMoreClickable;
-        public bool IsMoreClickable
-        {
-            get => _isMoreClickable;
-            set => this.RaiseAndSetIfChanged(ref _isMoreClickable, value);
-        }
-        
+        [Reactive] public string Description { get; set; }
+
+        [Reactive] public string Code { get; set; }
+
+        [Reactive] public bool IsEditable { get; set; }
+
+        [Reactive] public bool IsMoreClickable { get; set; }
+
         protected override void OnLightThemeIsSet()
         {
             Background = Color.Parse("#E3E5E8");
@@ -69,33 +52,16 @@ namespace CutCode.CrossPlatform.ViewModels
             TextColor = Color.Parse("#FFFFFF");
             BtnColor = Color.Parse("#F2F2F2");
         }
-        
-        private Color _background;
-        public Color Background
-        {
-            get => _background;
-            set => this.RaiseAndSetIfChanged(ref _background, value);
-        }
-        
-        private Color _textColor;
 
-        public Color TextColor
-        {
-            get => _textColor;
-            set =>  this.RaiseAndSetIfChanged(ref _textColor, value);
-        }
-        
-        private Color _btnColor;
+        [Reactive] public Color Background { get; set; }
 
-        public Color BtnColor
-        {
-            get => _btnColor;
-            set =>  this.RaiseAndSetIfChanged(ref _btnColor, value);
-        }
-        
+        [Reactive] public Color TextColor { get; set; }
+
+        [Reactive] public Color BtnColor { get; set; }
+
         public async void DeleteCell(CodeCellViewModel cell)
         {
-            if(AddViewModelInstance != null) AddViewModel.DeleteCell(AddViewModelInstance, cell);
+            if (AddViewModelInstance != null) AddViewModel.DeleteCell(AddViewModelInstance, cell);
             else CodeViewModel.DeleteCell(CodeViewModelInstance, cell);
         }
     }
