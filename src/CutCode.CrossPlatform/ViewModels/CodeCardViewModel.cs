@@ -2,12 +2,14 @@
 using System.Linq;
 using Avalonia.Media;
 using CutCode.CrossPlatform.Helpers;
-using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Views;
 using CutCode.CrossPlatform.DataBase;
+using CutCode.CrossPlatform.Services;
 using Newtonsoft.Json;
 using ReactiveUI;
+using PageService = CutCode.CrossPlatform.Interfaces.PageService;
+using ThemeService = CutCode.CrossPlatform.Interfaces.ThemeService;
 
 
 namespace CutCode.CrossPlatform.ViewModels
@@ -195,7 +197,7 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             IsPopupOpen = false;
             var delete = DataBaseManager.Current.DelCode(Code);
-            if(!delete)  NotificationManager.Current.CreateNotification("Error", "Error, Unable to delete the code!", 3);
+            if(!delete)  NotificationService.Current.CreateNotification("Error", "Error, Unable to delete the code!", 3);
         }
     }
 }

@@ -169,11 +169,11 @@ namespace CutCode.CrossPlatform.ViewModels
                 PageService.Current.ExternalPage = codeViewPage;
                 Title = "";
                 Cells.Clear();
-                NotificationManager.CreateNotification("Notification", "New code is successfully created", 3);
+                NotificationService.CreateNotification("Notification", "New code is successfully created", 3);
             }
             else
             {
-                NotificationManager.CreateNotification("Warning", "Please Fill the Empty fields", 2);
+                NotificationService.CreateNotification("Warning", "Please Fill the Empty fields", 2);
             }
             
         }

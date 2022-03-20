@@ -104,10 +104,10 @@ namespace CutCode.CrossPlatform.ViewModels
                     
                     if (!string.IsNullOrEmpty(dialogResult?[0]))
                     {
-                        var processing = NotificationManager.CreateNotification("Notification", "Processing...", 100);
+                        var processing = NotificationService.CreateNotification("Notification", "Processing...", 100);
                         message = await DataBase.ImportData(dialogResult[0]);
-                        NotificationManager.CreateNotification("Notification", message, 4);
-                        NotificationManager.CloseNotification(processing);
+                        NotificationService.CreateNotification("Notification", message, 4);
+                        NotificationService.CloseNotification(processing);
                         return;
                     }
                 }
@@ -132,7 +132,7 @@ namespace CutCode.CrossPlatform.ViewModels
                     }
                 }
             }
-            if(!string.IsNullOrEmpty(message)) NotificationManager.CreateNotification("Notification", message, 4);
+            if(!string.IsNullOrEmpty(message)) NotificationService.CreateNotification("Notification", message, 4);
         }
     }
 }

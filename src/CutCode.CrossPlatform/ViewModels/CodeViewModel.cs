@@ -249,12 +249,12 @@ namespace CutCode.CrossPlatform.ViewModels
                 }
                 else
                 {
-                    NotificationManager.CreateNotification("Error", "Error, Unable to save the changes", 5);
+                    NotificationService.CreateNotification("Error", "Error, Unable to save the changes", 5);
                 }
             }
             else
             {
-                NotificationManager.CreateNotification("Warning", "Please Fill the Empty fields", 2);
+                NotificationService.CreateNotification("Warning", "Please Fill the Empty fields", 2);
             }
         }
 
@@ -280,7 +280,7 @@ namespace CutCode.CrossPlatform.ViewModels
             }
             else
             {
-                NotificationManager.Current.CreateNotification("Error", "Error, Unable to save the changes!", 3);
+                NotificationService.CreateNotification("Error", "Error, Unable to save the changes!", 3);
             }
             
         }

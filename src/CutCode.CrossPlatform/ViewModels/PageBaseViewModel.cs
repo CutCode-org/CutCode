@@ -4,9 +4,11 @@ using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
 using Avalonia.Platform;
 using Avalonia.Themes.Fluent;
-using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.DataBase;
+using CutCode.CrossPlatform.Services;
 using ReactiveUI;
+using PageService = CutCode.CrossPlatform.Interfaces.PageService;
+using ThemeService = CutCode.CrossPlatform.Interfaces.ThemeService;
 
 namespace CutCode.CrossPlatform.ViewModels
 {
@@ -18,7 +20,7 @@ namespace CutCode.CrossPlatform.ViewModels
             DataBase = DataBaseManager.Current;
             PageService = PageService.Current;
             AssetLoader = AvaloniaLocator.CurrentMutable.GetService<IAssetLoader>();
-            NotificationManager = NotificationManager.Current;
+            NotificationService = NotificationService.Current;
 
             ThemeService.ThemeChanged += (s, e) =>
             {
@@ -79,7 +81,7 @@ namespace CutCode.CrossPlatform.ViewModels
             set;
         }
 
-        protected NotificationManager NotificationManager
+        protected NotificationService NotificationService
         {
             get;
             set;

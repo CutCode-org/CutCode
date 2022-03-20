@@ -63,9 +63,9 @@ namespace CutCode.CrossPlatform.ViewModels
             };
             
             
-            NotificationManager.ShowNotification += showNotification;
-            NotificationManager.OnCloseNotification += exitNotification;
-            Notifications = new ObservableCollection<NotifyObject>();
+            NotificationService.ShowNotification += ShowNotification!;
+            NotificationService.OnCloseNotification += ExitNotification!;
+            Notifications = new ObservableCollection<Notification>();
         }
 
         protected override void OnLightThemeIsSet()
@@ -153,22 +153,22 @@ namespace CutCode.CrossPlatform.ViewModels
         #endregion
         
         #region NotificationDialogView
-        private ObservableCollection<NotifyObject> _notifications;
-        public ObservableCollection<NotifyObject> Notifications
+        private ObservableCollection<Notification> _notifications;
+        public ObservableCollection<Notification> Notifications
         {
             get => _notifications;
             set => this.RaiseAndSetIfChanged(ref _notifications, value);
         }
 
-        private List<NotifyObject> WaitingNotifications = new();
+        private List<Notification> WaitingNotifications = new();
         private List<LiveNotification> liveNotifications = new();
-        private void showNotification(object sender, EventArgs e)
+        private void ShowNotification(object sender, EventArgs e)
         {
-            var notification = sender as NotifyObject;
+            var notification = sender as Notification;
 
             var notifcationView = new NotificationView()
             {
-                DataContext = new NotificationViewModel(notification)
+                DataContext = new NotificationViewModel(notification!)
             };
             notification.View = notifcationView;
 
@@ -186,26 +186,26 @@ namespace CutCode.CrossPlatform.ViewModels
                     IsEnabled = true
                 };
                 liveNotifications.Add(new LiveNotification() { Timer = closeTimer, Notification = notification});
-                closeTimer.Tick += CloseNotification;
+                closeTimer.Tick += CloseNotification!;
             }
         }
 
-        private void exitNotification(object sender, EventArgs e)
+        private void ExitNotification(object sender, EventArgs e)
         {
-            var notification = sender as NotifyObject;
-            var liveNotification = new LiveNotification();
-            foreach (var _liveNotification in liveNotifications)
+            var notification = sender as Notification;
+            var newLiveNotification = new LiveNotification();
+            foreach (var liveNotification in liveNotifications)
             {
-                if (_liveNotification.Notification == notification)
+                if (liveNotification.Notification == notification)
                 {
-                    liveNotification = _liveNotification;
+                    newLiveNotification = liveNotification;
                     break;
                 }
             }
             Notifications.Remove(notification);
             UpdateNotification();
-            liveNotification.Timer.Stop();
-            liveNotifications.Remove(liveNotification);
+            newLiveNotification.Timer.Stop();
+            liveNotifications.Remove(newLiveNotification);
         }
 
         private void CloseNotification(object sender, EventArgs e)
@@ -237,7 +237,7 @@ namespace CutCode.CrossPlatform.ViewModels
 
                     var notification = WaitingNotifications[i];
                     WaitingNotifications.RemoveAt(i);
-                    NotificationManager.CreateNotification(notification.NotificationType, notification.Message, notification.Delay);
+                    NotificationService.CreateNotification(notification.NotificationType, notification.Message, notification.Delay);
                 }
             }
         }
