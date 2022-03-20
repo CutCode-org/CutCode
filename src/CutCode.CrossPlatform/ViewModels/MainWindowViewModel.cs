@@ -11,10 +11,8 @@ using Avalonia.Media.Imaging;
 using Avalonia.Styling;
 using Avalonia.Threading;
 using CutCode.CrossPlatform.Helpers;
-using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Views;
-using CutCode.CrossPlatform.DataBase;
 using CutCode.CrossPlatform.Services;
 
 namespace CutCode.CrossPlatform.ViewModels

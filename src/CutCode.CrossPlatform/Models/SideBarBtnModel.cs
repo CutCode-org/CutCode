@@ -7,7 +7,6 @@ using Avalonia;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
-using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Services;
 using CutCode.CrossPlatform.ViewModels;
 using ReactiveUI;

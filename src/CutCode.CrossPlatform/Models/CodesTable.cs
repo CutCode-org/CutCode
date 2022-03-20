@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace CutCode.CrossPlatform.DataBase
+namespace CutCode.CrossPlatform.Models
 {
     [Table("CodesTable")]
     public class CodesTable

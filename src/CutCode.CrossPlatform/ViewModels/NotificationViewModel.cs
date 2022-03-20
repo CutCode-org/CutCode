@@ -1,5 +1,4 @@
 ﻿using Avalonia.Media;
-using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using ReactiveUI;
 

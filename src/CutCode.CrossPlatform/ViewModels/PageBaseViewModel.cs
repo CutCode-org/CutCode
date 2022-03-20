@@ -4,7 +4,6 @@ using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
 using Avalonia.Platform;
 using Avalonia.Themes.Fluent;
-using CutCode.CrossPlatform.DataBase;
 using CutCode.CrossPlatform.Services;
 using ReactiveUI;
 using PageService = CutCode.CrossPlatform.Services.PageService;
@@ -17,7 +16,7 @@ namespace CutCode.CrossPlatform.ViewModels
         public PageBaseViewModel()
         {
             ThemeService = ThemeService.Current;
-            DataBase = DataBaseManager.Current;
+            DataBase = DatabaseService.Current;
             PageService = PageService.Current;
             AssetLoader = AvaloniaLocator.CurrentMutable.GetService<IAssetLoader>();
             NotificationService = NotificationService.Current;
@@ -69,7 +68,7 @@ namespace CutCode.CrossPlatform.ViewModels
             set;
         }
         
-        protected DataBaseManager DataBase
+        protected DatabaseService DataBase
         {
             get;
             set;

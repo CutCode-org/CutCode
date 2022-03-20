@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Media;
-using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Services;
 using CutCode.CrossPlatform.ViewModels;
 using ReactiveUI;

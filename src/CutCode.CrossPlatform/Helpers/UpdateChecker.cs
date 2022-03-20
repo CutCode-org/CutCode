@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Threading;
-using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Services;
 using Newtonsoft.Json;
 

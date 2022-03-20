@@ -9,10 +9,8 @@ using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
 using Avalonia.ReactiveUI;
 using CutCode.CrossPlatform.Helpers;
-using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.ViewModels;
 using CutCode.CrossPlatform.Views;
-using CutCode.CrossPlatform.DataBase;
 using CutCode.CrossPlatform.Services;
 using ReactiveUI;
 using Splat;
@@ -42,11 +40,11 @@ namespace CutCode.CrossPlatform
                     DataContext = new MainWindowViewModel()
                 };
                 
-                ThemeService.Current.Theme = DataBaseManager.Current.Theme;
+                ThemeService.Current.Theme = DatabaseService.Current.Theme;
 
                 desktop.Exit += (s, e) =>
                 {
-                    DataBaseManager.Current.ChangeTheme(ThemeService.Current.Theme);
+                    DatabaseService.Current.ChangeTheme(ThemeService.Current.Theme);
                 };
                 var updateThread = new Thread(UpdateChecker.Run);
                 updateThread.Start();

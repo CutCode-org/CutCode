@@ -15,7 +15,6 @@
     <ApplicationIcon>Assets\Images\logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="DataBase" />
     <Folder Include="Models\" />
     <Folder Include="Controllers\" />
     <AvaloniaResource Include="Assets\**" />

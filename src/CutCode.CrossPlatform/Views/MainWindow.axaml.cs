@@ -7,7 +7,6 @@ using Avalonia.Threading;
 using Avalonia.VisualTree;
 using CutCode.CrossPlatform.Controllers;
 using CutCode.CrossPlatform.Helpers;
-using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.ViewModels;
 
 namespace CutCode.CrossPlatform.Views

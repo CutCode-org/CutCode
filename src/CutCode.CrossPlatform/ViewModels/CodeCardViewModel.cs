@@ -4,7 +4,6 @@ using Avalonia.Media;
 using CutCode.CrossPlatform.Helpers;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Views;
-using CutCode.CrossPlatform.DataBase;
 using CutCode.CrossPlatform.Services;
 using Newtonsoft.Json;
 using ReactiveUI;
@@ -38,11 +37,11 @@ namespace CutCode.CrossPlatform.ViewModels
             SetDescription(code.Cells);
             IsPopupOpen = false;
             
-            DataBaseManager.Current.AllCodesUpdated += (sender, args) =>
+            DatabaseService.Current.AllCodesUpdated += (sender, args) =>
             {
-                if (DataBaseManager.Current.AllCodes.Count > 0)
+                if (DatabaseService.Current.AllCodes.Count > 0)
                 {
-                    var currentCode = DataBaseManager.Current.AllCodes.Find(c => c.Id == Code.Id);
+                    var currentCode = DatabaseService.Current.AllCodes.Find(c => c.Id == Code.Id);
                     if (currentCode is not null)
                     {
                         FavouriteText = currentCode.IsFavourite ? "Remove from favourite" : "Add to favourite";
@@ -185,7 +184,7 @@ namespace CutCode.CrossPlatform.ViewModels
         {
             IsPopupOpen = false;
             Code.IsFavourite = !Code.IsFavourite;
-            DataBaseManager.Current.FavModify(Code);
+            DatabaseService.Current.FavModify(Code);
         }
 
         public async void Share()
@@ -196,7 +195,7 @@ namespace CutCode.CrossPlatform.ViewModels
         public async void Delete()
         {
             IsPopupOpen = false;
-            var delete = DataBaseManager.Current.DelCode(Code);
+            var delete = DatabaseService.Current.DelCode(Code);
             if(!delete)  NotificationService.Current.CreateNotification("Error", "Error, Unable to delete the code!", 3);
         }
     }

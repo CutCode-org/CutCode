@@ -8,7 +8,6 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using CutCode.CrossPlatform.Helpers;
-using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Services;
 using ReactiveUI;
 

@@ -7,10 +7,8 @@ using Avalonia;
 using Avalonia.Input.Platform;
 using Avalonia.Media;
 using CutCode.CrossPlatform.Helpers;
-using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Views;
-using CutCode.CrossPlatform.DataBase;
 using CutCode.CrossPlatform.Services;
 using Newtonsoft.Json;
 using ReactiveUI;
@@ -269,7 +267,7 @@ namespace CutCode.CrossPlatform.ViewModels
 
         public async void FavouriteCommand()
         {
-            var favUpdate = DataBaseManager.Current.FavModify(Code);
+            var favUpdate = DatabaseService.Current.FavModify(Code);
             if (favUpdate)
             {
                 Code.IsFavourite = !Code.IsFavourite;
@@ -287,7 +285,7 @@ namespace CutCode.CrossPlatform.ViewModels
 
         public async void DeleteCode()
         {
-            var delete = DataBaseManager.Current.DelCode(Code);
+            var delete = DatabaseService.Current.DelCode(Code);
             if (delete)
             {
                 PageService.ExternalPage = new HomeView();
