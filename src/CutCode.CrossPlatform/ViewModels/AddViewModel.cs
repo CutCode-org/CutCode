@@ -12,6 +12,7 @@ using CutCode.CrossPlatform.ViewModels;
 using CutCode.CrossPlatform.Views;
 using Newtonsoft.Json;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace CutCode.CrossPlatform.ViewModels
 {
@@ -21,115 +22,63 @@ namespace CutCode.CrossPlatform.ViewModels
         public static AddViewModel Current => _addViewModel;
         public ObservableCollection<CodeCellViewModel?> Cells { get; }
         public IList<string> AllLangs { get; set; }
-        private bool _isCellEmpty;
 
-        public bool IsCellEmpty
-        {
-            get => _isCellEmpty;
-            set => this.RaiseAndSetIfChanged(ref _isCellEmpty, value);
-        }
-        
+        [Reactive] public bool IsCellEmpty { get; set; }
+
         public AddViewModel()
         {
             AllLangs = new ObservableCollection<string>()
             {
                 "All languages", "Python", "C++", "C#", "CSS", "Dart", "Golang", "Html", "Java",
-                "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust","Sql", "Swift"
+                "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust", "Sql", "Swift"
             };
-            
+
             Cells = new ObservableCollection<CodeCellViewModel?>();
             IsCellEmpty = true;
-            Cells.CollectionChanged += (sender, args) =>
-            {
-                IsCellEmpty = Cells.Count == 0;
-            };
+            Cells.CollectionChanged += (sender, args) => { IsCellEmpty = Cells.Count == 0; };
         }
 
         protected override void OnLightThemeIsSet()
         {
-            BackgroundColor =  Color.Parse("#FCFCFC");
-            BarBackground =  Color.Parse("#F6F6F6");
-            
+            BackgroundColor = Color.Parse("#FCFCFC");
+            BarBackground = Color.Parse("#F6F6F6");
+
             TextAreaBackground = Color.Parse("#ECECEC");
             TextAreaForeground = Color.Parse("#000000");
             TextAreaOverlayBackground = Color.Parse("#E2E2E2");
-            
+
             ComboBoxBackground = Color.Parse("#ECECEC");
             ComboBoxBackgroundOnHover = Color.Parse("#E2E2E2");
         }
 
         protected override void OnDarkThemeIsSet()
         {
-            BackgroundColor =  Color.Parse("#36393F");
-            BarBackground =  Color.Parse("#303338");
-            
+            BackgroundColor = Color.Parse("#36393F");
+            BarBackground = Color.Parse("#303338");
+
             TextAreaBackground = Color.Parse("#2A2E33");
             TextAreaForeground = Color.Parse("#FFFFFF");
             TextAreaOverlayBackground = Color.Parse("#24272B");
-            
+
             ComboBoxBackground = Color.Parse("#2A2E33");
             ComboBoxBackgroundOnHover = Color.Parse("#24272B");
         }
-        
-        private string _title;
-        public string Title 
-        {
-            get => _title;
-            set => this.RaiseAndSetIfChanged(ref _title, value);
-        }
-        
-        private Color _backgroundColor;
 
-        public Color BackgroundColor
-        {
-            get => _backgroundColor;
-            set => this.RaiseAndSetIfChanged(ref _backgroundColor, value);
-        }
-        
-        private Color _comboBoxBackground;
-        public Color ComboBoxBackground
-        {
-            get => _comboBoxBackground;
-            set =>this.RaiseAndSetIfChanged(ref _comboBoxBackground, value);
-            
-        }
-        
-        private Color _comboBoxBackgroundOnHover;
-        public Color ComboBoxBackgroundOnHover
-        {
-            get => _comboBoxBackgroundOnHover;
-            set =>this.RaiseAndSetIfChanged(ref _comboBoxBackgroundOnHover, value);
-            
-        }
-        
-        private Color _barBackground;
+        [Reactive] public string Title { get; set; }
 
-        public Color BarBackground
-        {
-            get => _barBackground;
-            set => this.RaiseAndSetIfChanged(ref _barBackground, value);
-        }
+        [Reactive] public Color BackgroundColor { get; set; }
 
-        private Color _textAreaBackground;
-        public Color TextAreaBackground
-        {
-            get => _textAreaBackground;
-            set => this.RaiseAndSetIfChanged(ref _textAreaBackground, value);
-        }
+        [Reactive] public Color ComboBoxBackground { get; set; }
 
-        private Color _textAreaForeground;
-        public Color TextAreaForeground
-        {
-            get => _textAreaForeground;
-            set => this.RaiseAndSetIfChanged(ref _textAreaForeground, value);
-        }
-        
-        private Color _textAreaOverlayBackground;
-        public Color TextAreaOverlayBackground
-        {
-            get => _textAreaOverlayBackground;
-            set => this.RaiseAndSetIfChanged(ref _textAreaOverlayBackground, value);
-        }
+        [Reactive] public Color ComboBoxBackgroundOnHover { get; set; }
+
+        [Reactive] public Color BarBackground { get; set; }
+
+        [Reactive] public Color TextAreaBackground { get; set; }
+
+        [Reactive] public Color TextAreaForeground { get; set; }
+
+        [Reactive] public Color TextAreaOverlayBackground { get; set; }
 
         public async void AddCell()
         {
@@ -147,17 +96,17 @@ namespace CutCode.CrossPlatform.ViewModels
         public async void Save()
         {
             if (!string.IsNullOrEmpty(Title) &&
-                Cells.Count > 0  &&
+                Cells.Count > 0 &&
                 !Cells.Select(x => x.Description).ToList().Any(string.IsNullOrEmpty) &&
                 !Cells.Select(x => x.Code).ToList().Any(string.IsNullOrEmpty))
             {
-                var cellsList = Cells.Select(x => 
+                var cellsList = Cells.Select(x =>
                     new Dictionary<string, string>()
                     {
-                        {"Description", x.Description},
-                        {"Code", x.Code}
+                        { "Description", x.Description },
+                        { "Code", x.Code }
                     }).ToList();
-            
+
                 var codeModel = DataBase.AddCode(Title, cellsList, _selectedLanguage);
                 var codeViewPage = new CodeView
                 {
@@ -172,7 +121,6 @@ namespace CutCode.CrossPlatform.ViewModels
             {
                 NotificationService.CreateNotification("Warning", "Please Fill the Empty fields", 2);
             }
-            
         }
 
         public static void DeleteCell(AddViewModel vm, CodeCellViewModel cell)
