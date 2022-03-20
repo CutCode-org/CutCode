@@ -21,7 +21,6 @@ namespace CutCode.CrossPlatform.ViewModels
     {
         private static readonly AddViewModel _addViewModel = new();
         public static AddViewModel Current => _addViewModel;
-        private IDataBase Database => DataBase;
         public ObservableCollection<CodeCellViewModel?> Cells { get; }
         public IList<string> AllLangs { get; set; }
         private bool _isCellEmpty;
@@ -166,7 +165,7 @@ namespace CutCode.CrossPlatform.ViewModels
                 {
                     DataContext = new CodeViewModel(codeModel)
                 };
-                PageService.Current.ExternalPage = codeViewPage;
+                PageService.ExternalPage = codeViewPage;
                 Title = "";
                 Cells.Clear();
                 NotificationService.CreateNotification("Notification", "New code is successfully created", 3);

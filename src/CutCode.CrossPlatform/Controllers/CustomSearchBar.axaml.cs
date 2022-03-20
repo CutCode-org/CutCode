@@ -9,6 +9,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using CutCode.CrossPlatform.Helpers;
 using CutCode.CrossPlatform.Interfaces;
+using CutCode.CrossPlatform.Services;
 using ReactiveUI;
 
 namespace CutCode.CrossPlatform.Controllers
@@ -39,12 +40,12 @@ namespace CutCode.CrossPlatform.Controllers
             textBox.DataContext = this;
             progressBar.IsVisible = false;
              
-            CloseButton.Foreground = ThemeService.Current.IsLightTheme == true ? Brushes.Black : Brushes.White;
+            CloseButton.Foreground = ThemeService.Current.Theme == ThemeType.Light ? Brushes.Black : Brushes.White;
             ThemeService.Current.ThemeChanged += (sender, args) =>
             {
                 var service = (ThemeService)sender!;
-                textBox.CaretBrush = service.IsLightTheme == true ? Brushes.Black : Brushes.White;
-                CloseButton.Foreground = service.IsLightTheme == true ? Brushes.Black : Brushes.White;
+                textBox.CaretBrush = ThemeService.Current.Theme == ThemeType.Light ? Brushes.Black : Brushes.White;
+                CloseButton.Foreground = ThemeService.Current.Theme == ThemeType.Light ? Brushes.Black : Brushes.White;
             };
             
             this.WhenAnyValue(x => x.textBox.Text)

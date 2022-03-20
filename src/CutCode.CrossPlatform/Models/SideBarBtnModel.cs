@@ -8,6 +8,7 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using CutCode.CrossPlatform.Interfaces;
+using CutCode.CrossPlatform.Services;
 using CutCode.CrossPlatform.ViewModels;
 using ReactiveUI;
 
@@ -22,10 +23,10 @@ namespace CutCode.CrossPlatform.Models
     }
     public class SideBarBtnModel : ViewModelBase
     {
-        private readonly IThemeService themeService;
+        private readonly ThemeService themeService;
         private readonly IAssetLoader assetLoader;
         private List<string> btnBothimages = new List<string>();
-        public SideBarBtnModel(string _toolTipText, IThemeService _themeService)
+        public SideBarBtnModel(string _toolTipText, ThemeService _themeService)
         {
             assetLoader = AvaloniaLocator.CurrentMutable.GetService<IAssetLoader>();
             
@@ -47,15 +48,15 @@ namespace CutCode.CrossPlatform.Models
 
         private void SetAppearance()
         {
-            imageSource = themeService.IsLightTheme ? ImageFromUri($"avares://CutCode.CrossPlatform/Assets/Images/Icons/{btnBothimages[0]}") : ImageFromUri($"avares://CutCode.CrossPlatform/Assets/Images/Icons/{btnBothimages[1]}");
+            imageSource = ThemeService.Current.Theme == ThemeType.Light ? ImageFromUri($"avares://CutCode.CrossPlatform/Assets/Images/Icons/{btnBothimages[0]}") : ImageFromUri($"avares://CutCode.CrossPlatform/Assets/Images/Icons/{btnBothimages[1]}");
 
-            toolTipBackground = themeService.IsLightTheme ? Color.Parse("#CBD0D5") : Color.Parse("#1E1E1E");
-            toolTipForeground = themeService.IsLightTheme ? Color.Parse("#060607") : Color.Parse("#94969A");
+            toolTipBackground = ThemeService.Current.Theme == ThemeType.Light ? Color.Parse("#CBD0D5") : Color.Parse("#1E1E1E");
+            toolTipForeground = ThemeService.Current.Theme == ThemeType.Light ? Color.Parse("#060607") : Color.Parse("#94969A");
 
             
             if (background != Color.Parse("#00FFFFFF"))
             {
-                background = themeService.IsLightTheme ? Color.Parse("#FCFCFC") : Color.Parse("#36393F");
+                background = ThemeService.Current.Theme == ThemeType.Light ? Color.Parse("#FCFCFC") : Color.Parse("#36393F");
             }
         }
         

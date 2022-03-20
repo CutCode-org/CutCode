@@ -15,14 +15,30 @@ using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Views;
 using CutCode.CrossPlatform.DataBase;
+using CutCode.CrossPlatform.Services;
 
 namespace CutCode.CrossPlatform.ViewModels
 {
     public class MainWindowViewModel : PageBaseViewModel
     {
         public ObservableCollection<TabItemModel> Tabs { get; set;  }
+
+        private bool _isDarkTheme;
+        public bool IsDarkTheme
+        {
+            get => _isDarkTheme;
+            set => this.RaiseAndSetIfChanged(ref _isDarkTheme, value);
+        }
         protected override void OnLoad()
         {
+            IsDarkTheme = ThemeService.Current.Theme == ThemeType.Dark;
+            
+            this.WhenAnyValue(x => x.IsDarkTheme)
+                .Subscribe(x =>
+                {
+                    ThemeService.Current.Theme = IsDarkTheme ? ThemeType.Dark : ThemeType.Light;
+                });
+            
             Tabs = new ObservableCollection<TabItemModel>();
             Tabs.Add(new TabItemModel()
             {
@@ -51,14 +67,14 @@ namespace CutCode.CrossPlatform.ViewModels
 
             CurrentTabItem = 0;
             
-            PageService.Current.TabChanged += (sender, args) =>
+            PageService.TabChanged += (sender, args) =>
             {
-                CurrentTabItem = PageService.Current.CurrentTabIndex;
+                CurrentTabItem = PageService.CurrentTabIndex;
             };
 
-            PageService.Current.ExternalPageChange += (sender, args) =>
+            PageService.ExternalPageChange += (sender, args) =>
             {
-                Tabs[0].Content = PageService.Current.ExternalPage;
+                Tabs[0].Content = PageService.ExternalPage;
                 CurrentTabItem = 0;
             };
             

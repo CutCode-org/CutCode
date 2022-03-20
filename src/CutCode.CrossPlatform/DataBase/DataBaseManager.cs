@@ -7,10 +7,11 @@ using Newtonsoft.Json;
 using System.IO;
 using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
+using CutCode.CrossPlatform.Services;
 
 namespace CutCode.CrossPlatform.DataBase
 {
-    public class DataBaseManager : IDataBase
+    public class DataBaseManager
     {
         private static DataBaseManager _dataBase = new DataBaseManager();
         public static DataBaseManager Current => _dataBase;
@@ -18,7 +19,7 @@ namespace CutCode.CrossPlatform.DataBase
         public List<CodeModel> AllCodes { get; set; }
         public List<CodeModel> FavCodes { get; set; }
         private SQLiteConnection _db;
-        private readonly IThemeService themeService = ThemeService.Current;
+        private readonly ThemeService ThemeService = ThemeService.Current;
 
         private string prefpath { get; set; }
         private string dbpath { get; set; }
@@ -34,19 +35,19 @@ namespace CutCode.CrossPlatform.DataBase
             if (File.Exists(prefpath))
             {
                 string pref = File.ReadAllText(prefpath);
-                prefModel = JsonConvert.DeserializeObject<PrefModel>(pref);
-                isLightTheme = prefModel.IsLightTheme;
+                prefModel = JsonConvert.DeserializeObject<PrefModel>(pref)!;
+                Theme = prefModel.Theme;
                 sortBy = prefModel.SortBy;
             }
             else
             {
-                isLightTheme = true;
+                Theme = ThemeType.Light;
                 sortBy = "Date";
-                prefModel = new PrefModel() { IsLightTheme = isLightTheme, SortBy = sortBy };
+                prefModel = new PrefModel() { Theme = Theme, SortBy = sortBy };
                 UpdatePref();
             }
 
-            themeService.IsLightTheme = isLightTheme;
+            ThemeService.Theme = Theme;
             OpenDB();
         }
         private void OpenDB()
@@ -80,7 +81,7 @@ namespace CutCode.CrossPlatform.DataBase
         #region Preference region
 
         private PrefModel prefModel = new PrefModel();
-        public bool isLightTheme { get; set; }
+        public ThemeType Theme;
         public string sortBy { get; set; }
 
         public void ChangeSort(string sort)
@@ -88,10 +89,10 @@ namespace CutCode.CrossPlatform.DataBase
             prefModel.SortBy = sort;
             UpdatePref();
         }
-        public void ChangeTheme(bool IsLightTheme)
+        public void ChangeTheme(ThemeType Theme)
         {
-            prefModel.IsLightTheme = IsLightTheme;
-            themeService.IsLightTheme = IsLightTheme;
+            prefModel.Theme = Theme;
+            ThemeService.Theme = Theme;
             UpdatePref();
         }
         private void UpdatePref()

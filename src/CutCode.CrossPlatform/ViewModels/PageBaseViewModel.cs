@@ -7,8 +7,8 @@ using Avalonia.Themes.Fluent;
 using CutCode.CrossPlatform.DataBase;
 using CutCode.CrossPlatform.Services;
 using ReactiveUI;
-using PageService = CutCode.CrossPlatform.Interfaces.PageService;
-using ThemeService = CutCode.CrossPlatform.Interfaces.ThemeService;
+using PageService = CutCode.CrossPlatform.Services.PageService;
+using ThemeService = CutCode.CrossPlatform.Services.ThemeService;
 
 namespace CutCode.CrossPlatform.ViewModels
 {
@@ -37,7 +37,7 @@ namespace CutCode.CrossPlatform.ViewModels
         
         protected virtual void OnThemeChanged()
         {
-            if (ThemeService.IsLightTheme)
+            if (ThemeService.Theme == ThemeType.Light)
             {
                 OnLightThemeIsSet();
             }

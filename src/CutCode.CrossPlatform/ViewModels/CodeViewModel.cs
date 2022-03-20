@@ -11,6 +11,7 @@ using CutCode.CrossPlatform.Interfaces;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Views;
 using CutCode.CrossPlatform.DataBase;
+using CutCode.CrossPlatform.Services;
 using Newtonsoft.Json;
 using ReactiveUI;
 
@@ -18,7 +19,6 @@ namespace CutCode.CrossPlatform.ViewModels
 {
     public class CodeViewModel : PageBaseViewModel
     {
-        private IDataBase Database => DataBase;
         public CodeModel Code;
         
         public ObservableCollection<CodeCellViewModel?> Cells { get; }
@@ -54,12 +54,12 @@ namespace CutCode.CrossPlatform.ViewModels
                     
             };
             
-            if(ThemeService.IsLightTheme) OnLightThemeIsSet();
+            if(ThemeService.Theme == ThemeType.Light) OnLightThemeIsSet();
             else OnDarkThemeIsSet();
             
-            ThemeService.Current.ThemeChanged += (sender, args) =>
+            ThemeService.ThemeChanged += (sender, args) =>
             {
-                if(ThemeService.IsLightTheme) OnLightThemeIsSet();
+                if(ThemeService.Theme == ThemeType.Light) OnLightThemeIsSet();
                 else OnDarkThemeIsSet();
             };
             
@@ -219,7 +219,7 @@ namespace CutCode.CrossPlatform.ViewModels
 
         public async void Cancel()
         {
-            PageService.Current.ExternalPage = new HomeView();
+            PageService.ExternalPage = new HomeView();
         }
 
         public async void Save()
@@ -239,7 +239,7 @@ namespace CutCode.CrossPlatform.ViewModels
                     new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds(), Code.IsFavourite);
                 editedCode.SetId(Code.Id);
 
-                if (Database.EditCode(editedCode))
+                if (DataBase.EditCode(editedCode))
                 {
                     IsEditEnabled = false;
                     for(int i = 0; i < Cells.Count; i++)
@@ -275,7 +275,7 @@ namespace CutCode.CrossPlatform.ViewModels
                 Code.IsFavourite = !Code.IsFavourite;
                 IsFavouritePath = Code.IsFavourite ? IconPaths.StarFull : IconPaths.Star;
             
-                if(ThemeService.IsLightTheme) IsFavouriteColor = Code.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#4D4D4D");
+                if(ThemeService.Current.Theme == ThemeType.Light) IsFavouriteColor = Code.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#4D4D4D");
                 else IsFavouriteColor = Code.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#94969A");
             }
             else
@@ -290,7 +290,7 @@ namespace CutCode.CrossPlatform.ViewModels
             var delete = DataBaseManager.Current.DelCode(Code);
             if (delete)
             {
-                PageService.Current.ExternalPage = new HomeView();
+                PageService.ExternalPage = new HomeView();
             }
             else
             {

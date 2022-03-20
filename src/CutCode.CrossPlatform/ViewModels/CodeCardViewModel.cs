@@ -8,8 +8,8 @@ using CutCode.CrossPlatform.DataBase;
 using CutCode.CrossPlatform.Services;
 using Newtonsoft.Json;
 using ReactiveUI;
-using PageService = CutCode.CrossPlatform.Interfaces.PageService;
-using ThemeService = CutCode.CrossPlatform.Interfaces.ThemeService;
+using PageService = CutCode.CrossPlatform.Services.PageService;
+using ThemeService = CutCode.CrossPlatform.Services.ThemeService;
 
 
 namespace CutCode.CrossPlatform.ViewModels
@@ -26,12 +26,12 @@ namespace CutCode.CrossPlatform.ViewModels
             IsFavouritePath = code.IsFavourite ? IconPaths.StarFull : IconPaths.Star;
             FavouriteText = Code.IsFavourite ? "Remove from favourite" : "Add to favourite";
             
-            if(ThemeService.Current.IsLightTheme) OnLightThemeIsSet();
+            if(ThemeService.Current.Theme == ThemeType.Light) OnLightThemeIsSet();
             else OnDarkThemeIsSet();
             
             ThemeService.Current.ThemeChanged += (sender, args) =>
             {
-                if(ThemeService.Current.IsLightTheme) OnLightThemeIsSet();
+                if(ThemeService.Current.Theme == ThemeType.Light) OnLightThemeIsSet();
                 else OnDarkThemeIsSet();
             };
             
@@ -46,7 +46,7 @@ namespace CutCode.CrossPlatform.ViewModels
                     if (currentCode is not null)
                     {
                         FavouriteText = currentCode.IsFavourite ? "Remove from favourite" : "Add to favourite";
-                        if (ThemeService.Current.IsLightTheme) IsFavouriteColor = currentCode.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#4D4D4D");
+                        if (ThemeService.Current.Theme == ThemeType.Light) IsFavouriteColor = currentCode.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#4D4D4D");
                         else IsFavouriteColor = currentCode.IsFavourite ? Color.Parse("#F7A000") : Color.Parse("#94969A");
                         IsFavouritePath = currentCode.IsFavourite ? IconPaths.StarFull : IconPaths.Star;
                         Code = currentCode;
