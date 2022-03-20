@@ -1,68 +1,64 @@
-﻿using System.Diagnostics;
-using System.Dynamic;
-using Avalonia.Media;
-using ReactiveUI;
+﻿using Avalonia.Media;
 using ReactiveUI.Fody.Helpers;
 
-namespace CutCode.CrossPlatform.ViewModels
+namespace CutCode.CrossPlatform.ViewModels;
+
+public class CodeCellViewModel : PageBaseViewModel
 {
-    public class CodeCellViewModel : PageBaseViewModel
+    private readonly AddViewModel AddViewModelInstance;
+    private readonly CodeViewModel CodeViewModelInstance;
+
+    public CodeCellViewModel(AddViewModel viewModelInstance)
     {
-        private readonly AddViewModel AddViewModelInstance;
-        private readonly CodeViewModel CodeViewModelInstance;
+        // Creating new one
+        AddViewModelInstance = viewModelInstance;
+        IsEditable = true;
+        IsMoreClickable = false;
+        Code = "";
+    }
 
-        public CodeCellViewModel(AddViewModel viewModelInstance)
-        {
-            // Creating new one
-            AddViewModelInstance = viewModelInstance;
-            IsEditable = true;
-            IsMoreClickable = false;
-            Code = "";
-        }
+    public CodeCellViewModel(CodeViewModel viewModelInstance, string description, string code)
+    {
+        // if we are fetching from database
+        CodeViewModelInstance = viewModelInstance;
+        Description = description;
+        Code = code;
 
-        public CodeCellViewModel(CodeViewModel viewModelInstance, string description, string code)
-        {
-            // if we are fetching from database
-            CodeViewModelInstance = viewModelInstance;
-            Description = description;
-            Code = code;
+        IsEditable = false;
+        IsMoreClickable = true;
+    }
 
-            IsEditable = false;
-            IsMoreClickable = true;
-        }
+    [Reactive] public string Description { get; set; }
 
-        [Reactive] public string Description { get; set; }
+    [Reactive] public string Code { get; set; }
 
-        [Reactive] public string Code { get; set; }
+    [Reactive] public bool IsEditable { get; set; }
 
-        [Reactive] public bool IsEditable { get; set; }
+    [Reactive] public bool IsMoreClickable { get; set; }
 
-        [Reactive] public bool IsMoreClickable { get; set; }
+    [Reactive] public Color Background { get; set; }
 
-        protected override void OnLightThemeIsSet()
-        {
-            Background = Color.Parse("#E3E5E8");
-            TextColor = Color.Parse("#000000");
-            BtnColor = Color.Parse("#090909");
-        }
+    [Reactive] public Color TextColor { get; set; }
 
-        protected override void OnDarkThemeIsSet()
-        {
-            Background = Color.Parse("#202225");
-            TextColor = Color.Parse("#FFFFFF");
-            BtnColor = Color.Parse("#F2F2F2");
-        }
+    [Reactive] public Color BtnColor { get; set; }
 
-        [Reactive] public Color Background { get; set; }
+    protected override void OnLightThemeIsSet()
+    {
+        Background = Color.Parse("#E3E5E8");
+        TextColor = Color.Parse("#000000");
+        BtnColor = Color.Parse("#090909");
+    }
 
-        [Reactive] public Color TextColor { get; set; }
+    protected override void OnDarkThemeIsSet()
+    {
+        Background = Color.Parse("#202225");
+        TextColor = Color.Parse("#FFFFFF");
+        BtnColor = Color.Parse("#F2F2F2");
+    }
 
-        [Reactive] public Color BtnColor { get; set; }
-
-        public async void DeleteCell(CodeCellViewModel cell)
-        {
-            if (AddViewModelInstance != null) AddViewModel.DeleteCell(AddViewModelInstance, cell);
-            else CodeViewModel.DeleteCell(CodeViewModelInstance, cell);
-        }
+    public async void DeleteCell(CodeCellViewModel cell)
+    {
+        if (AddViewModelInstance != null) AddViewModel.DeleteCell(AddViewModelInstance, cell);
+        else CodeViewModel.DeleteCell(CodeViewModelInstance, cell);
     }
 }
