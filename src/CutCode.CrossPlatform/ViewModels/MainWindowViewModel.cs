@@ -12,10 +12,19 @@ using ReactiveUI.Fody.Helpers;
 
 namespace CutCode.CrossPlatform.ViewModels;
 
-public class MainWindowViewModel : PageBaseViewModel
+public class MainWindowViewModel : PageBaseViewModel, IScreen
 {
+    [Reactive] public string HomeIcon { get; set; } = IconPaths.Home;
+    public RoutingState Router { get; }
     private int _currentTabItem;
     public ObservableCollection<TabItemModel> Tabs { get; set; }
+
+
+    public MainWindowViewModel()
+    {
+        Router = new RoutingState();
+        Router.Navigate.Execute(new HomeViewModel(this));
+    }
 
     [Reactive] public bool IsDarkTheme { get; set; }
 
@@ -90,6 +99,7 @@ public class MainWindowViewModel : PageBaseViewModel
         MainTextColor = Color.Parse("#0B0B13");
 
         TitlebarBtnsHoverColor = Color.Parse("#D0D1D2");
+        MenuButtonColour = Color.Parse("#0B0B13");
     }
 
     protected override void OnDarkThemeIsSet()
@@ -101,6 +111,7 @@ public class MainWindowViewModel : PageBaseViewModel
         MainTextColor = Color.Parse("#94969A");
 
         TitlebarBtnsHoverColor = Color.Parse("#373737");
+        MenuButtonColour = Color.Parse("#94969A");
     }
 
     #region Color
@@ -116,6 +127,8 @@ public class MainWindowViewModel : PageBaseViewModel
     [Reactive] public Color MainTextColor { get; set; }
 
     [Reactive] public Color TitlebarBtnsHoverColor { get; set; }
+
+    [Reactive] public Color MenuButtonColour { get; set; }
 
     #endregion
 

@@ -5,11 +5,12 @@ using System.Linq;
 using Avalonia.Media;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Services;
+using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
 namespace CutCode.CrossPlatform.ViewModels;
 
-public class HomeViewModel : PageBaseViewModel
+public class HomeViewModel : PageBaseViewModel, IRoutableViewModel
 {
     private string _basicSort;
 
@@ -19,6 +20,17 @@ public class HomeViewModel : PageBaseViewModel
     private string _searchText;
 
     public HomeViewModel()
+    {
+        Initialise();
+    }
+
+    public HomeViewModel(IScreen screen)
+    {
+        HostScreen = screen;
+        Initialise();
+    }
+
+    public void Initialise()
     {
         AllCodes = new ObservableCollection<CodeCardViewModel>();
         CodeModeToViewModel(DataBase.AllCodes);
@@ -47,7 +59,7 @@ public class HomeViewModel : PageBaseViewModel
 
     [Reactive] public bool EmptyLabelVisibility { get; set; }
 
-    private int Sortby { get; }
+    private int Sortby { get; set; }
 
     [Reactive] public string EmptyLabel { get; set; }
 
@@ -156,4 +168,7 @@ public class HomeViewModel : PageBaseViewModel
     [Reactive] public Color ComboboxBackgroundColor { get; set; }
 
     #endregion
+
+    public string? UrlPathSegment => Guid.NewGuid().ToString().Substring(0, 5);
+    public IScreen HostScreen { get; }
 }
