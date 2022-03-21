@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reactive;
 using Avalonia.Media;
 using Avalonia.Threading;
 using CutCode.CrossPlatform.Helpers;
@@ -9,12 +10,14 @@ using CutCode.CrossPlatform.Services;
 using CutCode.CrossPlatform.Views;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Notification = CutCode.CrossPlatform.Models.Notification;
 
 namespace CutCode.CrossPlatform.ViewModels;
 
 public class MainWindowViewModel : PageBaseViewModel, IScreen
 {
     [Reactive] public string HomeIcon { get; set; } = IconPaths.Home;
+    [Reactive] public string AddIcon { get; set; } = IconPaths.Add;
     public RoutingState Router { get; }
     private int _currentTabItem;
     public ObservableCollection<TabItemModel> Tabs { get; set; }
@@ -24,6 +27,9 @@ public class MainWindowViewModel : PageBaseViewModel, IScreen
     {
         Router = new RoutingState();
         Router.Navigate.Execute(new HomeViewModel(this));
+
+        GoHome = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new HomeViewModel(this)));
+        GoAdd = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new AddViewModel(this)));
     }
 
     [Reactive] public bool IsDarkTheme { get; set; }
@@ -129,6 +135,13 @@ public class MainWindowViewModel : PageBaseViewModel, IScreen
     [Reactive] public Color TitlebarBtnsHoverColor { get; set; }
 
     [Reactive] public Color MenuButtonColour { get; set; }
+
+    #endregion
+
+    #region Commands
+
+    public ReactiveCommand<Unit, IRoutableViewModel> GoHome { get; }
+    public ReactiveCommand<Unit, IRoutableViewModel> GoAdd { get; }
 
     #endregion
 

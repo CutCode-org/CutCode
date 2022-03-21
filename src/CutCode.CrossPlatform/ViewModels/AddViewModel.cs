@@ -1,19 +1,35 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Avalonia.Media;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Views;
+using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
 namespace CutCode.CrossPlatform.ViewModels;
 
-public class AddViewModel : PageBaseViewModel
+public class AddViewModel : PageBaseViewModel, IRoutableViewModel
 {
     private string _selectedLanguage;
 
     public AddViewModel()
     {
+        AllLangs = new ObservableCollection<string>
+        {
+            "All languages", "Python", "C++", "C#", "CSS", "Dart", "Golang", "Html", "Java",
+            "Javascript", "Kotlin", "Php", "C", "Ruby", "Rust", "Sql", "Swift"
+        };
+
+        Cells = new ObservableCollection<CodeCellViewModel?>();
+        IsCellEmpty = true;
+        Cells.CollectionChanged += (sender, args) => { IsCellEmpty = Cells.Count == 0; };
+    }
+
+    public AddViewModel(IScreen screen)
+    {
+        HostScreen = screen;
         AllLangs = new ObservableCollection<string>
         {
             "All languages", "Python", "C++", "C#", "CSS", "Dart", "Golang", "Html", "Java",
@@ -126,4 +142,7 @@ public class AddViewModel : PageBaseViewModel
     {
         _selectedLanguage = selectedLanguage;
     }
+
+    public string? UrlPathSegment => Guid.NewGuid().ToString().Substring(0, 5);
+    public IScreen HostScreen { get; }
 }

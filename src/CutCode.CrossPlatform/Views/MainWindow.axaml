@@ -137,16 +137,37 @@
         <!--         </DataTemplate> -->
         <!--     </TabControl.ContentTemplate> -->
         <!-- </TabControl> -->
-        <SplitView IsPaneOpen="True" DisplayMode="Inline" OpenPaneLength="296" Grid.Column="0" Grid.Row="1"
+        <SplitView IsPaneOpen="True" DisplayMode="Inline" OpenPaneLength="60" Grid.Column="0" Grid.Row="1"
                    Grid.ColumnSpan="3">
+
+            <SplitView.Styles>
+                <Style Selector="Panel">
+                    <Setter Property="Background"
+                            Value="{Binding SideBarColor, Converter={StaticResource ColorToBrushConverter}}">
+                    </Setter>
+                    <!-- <Setter Property="Foreground" -->
+                    <!--         Value="{Binding MainTextColor, Converter={StaticResource ColorToBrushConverter}}"> -->
+                    <!-- </Setter> -->
+                </Style>
+            </SplitView.Styles>
             <SplitView.Pane>
-                <Button>
-                    <Viewbox Height="25" Width="25" Margin="3 0 0 0">
-                        <Path Fill="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
-                              Data="{Binding HomeIcon, Converter={StaticResource StringToGeometryConverter}}" />
-                    </Viewbox>
-                </Button>
+                <StackPanel>
+                    <Button Command="{Binding GoHome}" Background="Transparent">
+                        <Viewbox Height="25" Width="25" Margin="3 0 0 0">
+                            <Path Fill="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
+                                  Data="{Binding HomeIcon, Converter={StaticResource StringToGeometryConverter}}" />
+                        </Viewbox>
+                    </Button>
+                    <Button Command="{Binding GoAdd}">
+                        <Viewbox Height="25" Width="25" Margin="3 0 0 0">
+                            <Path Fill="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
+                                  Data="{Binding AddIcon, Converter={StaticResource StringToGeometryConverter}}" />
+                        </Viewbox>
+                    </Button>
+                </StackPanel>
+                
             </SplitView.Pane>
+            <rxui:RoutedViewHost Grid.Row="1" Grid.Column="3" Router="{Binding Router}" />
         </SplitView>
 
         <!-- <rxui:RoutedViewHost Grid.Row="1" Grid.Column="3" Router="{Binding Router}" /> -->

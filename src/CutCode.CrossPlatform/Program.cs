@@ -33,6 +33,7 @@ namespace CutCode.CrossPlatform
         public static AppBuilder BuildAvaloniaApp()
         {
             Locator.CurrentMutable.Register(() => new HomeView(), typeof(IViewFor<HomeViewModel>));
+            Locator.CurrentMutable.Register(() => new AddView(), typeof(IViewFor<AddViewModel>));
             return AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .LogToTrace()
