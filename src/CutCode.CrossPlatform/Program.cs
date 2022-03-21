@@ -4,6 +4,7 @@ using Avalonia;
 using Avalonia.Logging;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
+using CutCode.CrossPlatform.BootStrappers;
 using CutCode.CrossPlatform.ViewModels;
 using CutCode.CrossPlatform.Views;
 using ReactiveUI;
@@ -25,15 +26,19 @@ namespace CutCode.CrossPlatform
                             .Location))
                     .Length > 1;
             if (!isRunningInAnotherInstance)
+            {
+                RegisterDependencies();
                 BuildAvaloniaApp()
                     .StartWithClassicDesktopLifetime(args);
+            }
         }
+
+        private static void RegisterDependencies() =>
+            EntryBootstrapper.Register(Locator.CurrentMutable, Locator.Current);
 
         // Avalonia configuration, don't remove; also used by visual designer.
         public static AppBuilder BuildAvaloniaApp()
         {
-            Locator.CurrentMutable.Register(() => new HomeView(), typeof(IViewFor<HomeViewModel>));
-            Locator.CurrentMutable.Register(() => new AddView(), typeof(IViewFor<AddViewModel>));
             return AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .LogToTrace()
