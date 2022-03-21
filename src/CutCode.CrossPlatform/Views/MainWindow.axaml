@@ -149,10 +149,14 @@
                     <!--         Value="{Binding MainTextColor, Converter={StaticResource ColorToBrushConverter}}"> -->
                     <!-- </Setter> -->
                 </Style>
+                <Style Selector="Button">
+                    <Setter Property="Background" Value="Transparent"></Setter>
+                    <Setter Property="Margin" Value="4"></Setter>
+                </Style>
             </SplitView.Styles>
             <SplitView.Pane>
                 <StackPanel>
-                    <Button Command="{Binding GoHome}" Background="Transparent">
+                    <Button Command="{Binding GoHome}">
                         <Viewbox Height="25" Width="25" Margin="3 0 0 0">
                             <Path Fill="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
                                   Data="{Binding HomeIcon, Converter={StaticResource StringToGeometryConverter}}" />
@@ -165,7 +169,7 @@
                         </Viewbox>
                     </Button>
                 </StackPanel>
-                
+
             </SplitView.Pane>
             <rxui:RoutedViewHost Grid.Row="1" Grid.Column="3" Router="{Binding Router}" />
         </SplitView>
