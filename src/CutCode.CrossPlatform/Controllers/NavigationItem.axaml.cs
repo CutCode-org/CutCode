@@ -8,8 +8,10 @@ using Aura.UI.Extensions;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using Avalonia.Xaml.Interactions.Custom;
 
 namespace CutCode.CrossPlatform.Controllers;
 
@@ -25,12 +27,23 @@ public class NavigationItem : UserControl
     {
         IconProperty.Changed.AddClassHandler<NavigationItem>((x, e) => x.IconPropertyChanged(e));
         IconColourProperty.Changed.AddClassHandler<NavigationItem>((x, e) => x.IconColourPropertyChanged(e));
+        CommandProperty.Changed.AddClassHandler<NavigationItem>((x, e) => x.CommandPropertyChanged(e));
+        CommandParameterProperty.Changed.AddClassHandler<NavigationItem>((x, e) =>
+            x.CommandParameterPropertyChanged(e));
     }
 
 
     public NavigationItem()
     {
         InitializeComponent();
+        MainButton.Click += MainButtonOnClick;
+    }
+
+    private void MainButtonOnClick(object? sender, RoutedEventArgs e)
+    {
+        if (e.Handled || Command?.CanExecute(CommandParameter) != true) return;
+        Command.Execute(CommandParameter);
+        e.Handled = true;
     }
 
     private void InitializeComponent()
@@ -47,13 +60,22 @@ public class NavigationItem : UserControl
         set => SetValue(IconColourProperty, value);
     }
 
-    public static readonly StyledProperty<ICommand> CommandProperty =
-        AvaloniaProperty.Register<NavigationItem, ICommand>(nameof(Command));
+    public static readonly StyledProperty<ICommand?> CommandProperty =
+        AvaloniaProperty.Register<NavigationItem, ICommand?>(nameof(Command));
 
-    public ICommand Command
+    public ICommand? Command
     {
         get => GetValue(CommandProperty);
         set => SetValue(CommandProperty, value);
+    }
+
+    public static readonly StyledProperty<object?> CommandParameterProperty =
+        AvaloniaProperty.Register<NavigationItem, object?>(nameof(CommandParameter));
+
+    public object? CommandParameter
+    {
+        get => GetValue(CommandParameterProperty);
+        set => SetValue(CommandParameterProperty, value);
     }
 
 
@@ -95,10 +117,16 @@ public class NavigationItem : UserControl
         if (e.Sender is NavigationItem ctrl)
             ctrl.ActiveBorder.IsVisible = (bool)e.NewValue;
     }
-    
+
     private void CommandPropertyChanged(AvaloniaPropertyChangedEventArgs e)
     {
         if (e.Sender is NavigationItem ctrl)
-            ctrl.MainButton.Command = (ICommand)e.NewValue;
+            ctrl.MainButton.Command = (ICommand?)e.NewValue;
+    }
+
+    private void CommandParameterPropertyChanged(AvaloniaPropertyChangedEventArgs e)
+    {
+        if (e.Sender is NavigationItem ctrl)
+            ctrl.MainButton.CommandParameter = e.NewValue;
     }
 }
