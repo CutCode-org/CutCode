@@ -9,6 +9,7 @@
         xmlns:conv="using:CutCode.CrossPlatform.Converters"
         xmlns:defconverters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
         xmlns:converters="using:CutCode.CrossPlatform.Converters"
+        xmlns:help="clr-namespace:CutCode.CrossPlatform.Helpers"
         mc:Ignorable="d"
         MinHeight="500" MinWidth="750"
         d:DesignHeight="570" d:DesignWidth="800"
@@ -155,26 +156,28 @@
                 </Style>
             </SplitView.Styles>
             <SplitView.Pane>
-                <StackPanel>
-                    <Button Command="{Binding GoHome}">
+                <StackPanel Background="{Binding SideBarColor, Converter={StaticResource ColorToBrushConverter}}">
+                    <Button Command="{Binding GoHome}" x:Name="HomeViewModel">
                         <Viewbox Height="25" Width="25" Margin="3 0 0 0">
                             <Path Fill="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
                                   Data="{Binding HomeIcon, Converter={StaticResource StringToGeometryConverter}}" />
                         </Viewbox>
                     </Button>
-                    <Button Command="{Binding GoAdd}">
+                    <Button Command="{Binding GoAdd}" x:Name="AddViewModel">
                         <Viewbox Height="25" Width="25" Margin="3 0 0 0">
                             <Path Fill="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
                                   Data="{Binding AddIcon, Converter={StaticResource StringToGeometryConverter}}" />
                         </Viewbox>
                     </Button>
+                    <controls:NavigationItem
+                        IconColour="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
+                        Icon="{x:Static help:IconPaths.Add}"
+                        Command="{Binding GoAdd}">
+                    </controls:NavigationItem>
                 </StackPanel>
-
             </SplitView.Pane>
-            <rxui:RoutedViewHost Grid.Row="1" Grid.Column="3" Router="{Binding Router}" />
+            <rxui:RoutedViewHost Router="{Binding Router}" />
         </SplitView>
-
-        <!-- <rxui:RoutedViewHost Grid.Row="1" Grid.Column="3" Router="{Binding Router}" /> -->
 
         <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
             <ItemsControl Margin="0,0,10,10"

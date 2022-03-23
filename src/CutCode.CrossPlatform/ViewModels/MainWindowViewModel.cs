@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Reactive;
+using System.Reactive.Linq;
 using Avalonia.Media;
 using Avalonia.Threading;
 using CutCode.CrossPlatform.Helpers;
@@ -18,6 +20,8 @@ public class MainWindowViewModel : PageBaseViewModel, IScreen
 {
     [Reactive] public string HomeIcon { get; set; } = IconPaths.Home;
     [Reactive] public string AddIcon { get; set; } = IconPaths.Add;
+
+    public string? CurrentViewModel { get; set; }
     public RoutingState Router { get; }
     private int _currentTabItem;
     public ObservableCollection<TabItemModel> Tabs { get; set; }
@@ -30,6 +34,8 @@ public class MainWindowViewModel : PageBaseViewModel, IScreen
 
         GoHome = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new HomeViewModel(this)));
         GoAdd = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new AddViewModel(this)));
+
+        Router.CurrentViewModel.Subscribe(x => CurrentViewModel = x?.GetType().Name);
     }
 
     [Reactive] public bool IsDarkTheme { get; set; }

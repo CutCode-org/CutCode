@@ -1,5 +1,7 @@
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Mixins;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
@@ -15,13 +17,19 @@ namespace CutCode.CrossPlatform.Views
 {
     public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
     {
+        public Button HomeViewModel => this.FindControl<Button>(nameof(HomeViewModel));
+        public Button AddViewModel => this.FindControl<Button>(nameof(AddViewModel));
+
         public MainWindow()
         {
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
 #endif
-            this.WhenActivated(d => { });
+            this.WhenActivated(d =>
+            {
+                
+            });
         }
 
         public void ChangeWindowPosition(object sender, PointerPressedEventArgs e)
