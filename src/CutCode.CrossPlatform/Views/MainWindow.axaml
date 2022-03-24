@@ -3,12 +3,14 @@
         xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:rxui="clr-namespace:Avalonia.ReactiveUI;assembly=Avalonia.ReactiveUI"
         xmlns:views="using:CutCode.CrossPlatform.Views"
         xmlns:controls="using:CutCode.CrossPlatform.Controllers"
         xmlns:conv="using:CutCode.CrossPlatform.Converters"
         xmlns:defconverters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
         xmlns:converters="using:CutCode.CrossPlatform.Converters"
-        mc:Ignorable="d" 
+        xmlns:help="clr-namespace:CutCode.CrossPlatform.Helpers"
+        mc:Ignorable="d"
         MinHeight="500" MinWidth="750"
         d:DesignHeight="570" d:DesignWidth="800"
         x:Class="CutCode.CrossPlatform.Views.MainWindow"
@@ -20,128 +22,147 @@
         WindowState="Maximized"
         CornerRadius="50"
         WindowStartupLocation="CenterScreen"
-        ExtendClientAreaToDecorationsHint="True" 
+        ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="-1">
-  
-  <Window.Background>
-    <SolidColorBrush Color="{Binding BackgroundColor}"/>
-  </Window.Background>
-  
-  <Design.DataContext>
-    <vm:MainWindowViewModel/>
-  </Design.DataContext>
 
-  <Window.Styles>
-    <StyleInclude Source="avares://CutCode.CrossPlatform/Controllers/WindowButtons.axaml"/>
-    <Style Selector="ToolTip#sideBarBtnToolTip">
-      <Setter Property="Template">
-        <ControlTemplate>
-          <Border VerticalAlignment="Top" CornerRadius="0,10,10,0" BorderThickness="0" Background="{TemplateBinding Background}"  Margin="5,5,5,5">
-              <Label Content="{TemplateBinding Content}" FontSize="12"
-                     Foreground="{TemplateBinding BorderBrush}"
-                     FontFamily="{DynamicResource PoppinsSemibold}" FontWeight="SemiBold" Height="34" Margin="2,6,2,2"/>
-          </Border>
-        </ControlTemplate>
-      </Setter>
-    </Style>
-    
-    <Style Selector=":is(Button).ButtonStyle">
-      <Setter Property="Template">
-        <ControlTemplate>
-          <Border>
-            <Grid Background="{TemplateBinding Background}">
-              <ContentPresenter Name="PART_ContentPresenter"
-                                Content="{TemplateBinding Content}"/>
-            </Grid>
-          </Border>
-        </ControlTemplate>
-      </Setter>
-    </Style>
-    
-    <Style Selector="Button.ButtonStyle /template/ Border:pointerover">
-      <Setter Property="Background" Value="{Binding $parent[Button].BorderBrush}"/>
-      <Setter Property="BorderBrush" Value="Transparent"/>
-    </Style>
-    
-    <Style Selector="TabControl#tabControl /template/ ContentPresenter#PART_SelectedContentHost">
-      <Setter Property="Padding" Value="-12,0,-12,0"/>
-    </Style>
-    
-  </Window.Styles>
-  
-  
-  <Window.Resources>
-    <defconverters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
-    <converters:StringToGeometryConverter x:Key="StringToGeometryConverter"/>
-  </Window.Resources>
-  
-  
-  <Grid RowDefinitions="50,*" ColumnDefinitions="60,*,auto" Margin="{Binding $parent[Window].OffScreenMargin}" Background="{Binding BackgroundColor, Converter={StaticResource ColorToBrushConverter}}">
-    <Border Grid.Column="0" Grid.Row="0" Background="{Binding SideBarColor, Converter={StaticResource ColorToBrushConverter}}">
-      <Image Source="avares://CutCode.CrossPlatform/Assets/Images/logo.png" 
-             Width="35" Height="35" Margin="5,0,0,0"
-             RenderOptions.BitmapInterpolationMode="HighQuality"/>
-    </Border>
-    <Grid Grid.Column="1" Grid.Row="0"
-          Background="{Binding TitleBarColor, Converter={StaticResource ColorToBrushConverter}}"
-          ColumnDefinitions="*,auto"
-          PointerPressed="ChangeWindowPosition">
-      <Label Grid.Column="0" Content="CutCode" FontSize="20" 
-             Foreground="{Binding MainTextColor, Converter={StaticResource ColorToBrushConverter}}"
-             FontWeight="Bold" FontFamily="{DynamicResource PoppinsSemibold}"
-             Padding="15,10,15,0">
-      </Label>
-      <ToggleSwitch Grid.Column="1"
-                    Margin="0 0 10 0"
-                    OffContent="Light" OnContent="Dark"
-                    Foreground="{Binding MainTextColor, Converter={StaticResource ColorToBrushConverter}}"
-                    IsChecked="{Binding IsDarkTheme}">
-      </ToggleSwitch>
-    </Grid>
-    <controls:WindowButtons Grid.Column="2" Grid.Row="0" 
-                            HostWindow="{Binding $parent[Window]}"
-                            Background="{Binding TitleBarColor, Converter={StaticResource ColorToBrushConverter}}"
-                            Foreground="{Binding MainTextColor, Converter={StaticResource ColorToBrushConverter}}">
-    </controls:WindowButtons>
-    
-    <TabControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"
-                TabStripPlacement="Left" SelectedIndex="{Binding CurrentTabItem}" Items="{Binding Tabs}"
-                Background="{Binding SideBarColor, Converter={StaticResource ColorToBrushConverter}}"
-                Foreground="{Binding MainTextColor, Converter={StaticResource ColorToBrushConverter}}"
-                ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-      <TabControl.Styles>
-        <Style Selector="TabItem">
-          <Setter Property="Width" Value="45"/>
-          <Setter Property="Margin" Value="5,0,0,0"/>
+    <Window.Background>
+        <SolidColorBrush Color="{Binding BackgroundColor}" />
+    </Window.Background>
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <Window.Styles>
+        <StyleInclude Source="avares://CutCode.CrossPlatform/Controllers/WindowButtons.axaml" />
+        <Style Selector="ToolTip#sideBarBtnToolTip">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border VerticalAlignment="Top" CornerRadius="0,10,10,0" BorderThickness="0"
+                            Background="{TemplateBinding Background}" Margin="5,5,5,5">
+                        <Label Content="{TemplateBinding Content}" FontSize="12"
+                               Foreground="{TemplateBinding BorderBrush}"
+                               FontFamily="{DynamicResource PoppinsSemibold}" FontWeight="SemiBold" Height="34"
+                               Margin="2,6,2,2" />
+                    </Border>
+                </ControlTemplate>
+            </Setter>
         </Style>
-        </TabControl.Styles>
-        <TabControl.ItemTemplate>
-          <DataTemplate>
-              <Viewbox Height="25" Width="25" Margin="3,0,0,0">
-                <Path  Fill="{Binding PathColor, Converter={StaticResource ColorToBrushConverter}}"
-                       Data="{Binding Path, Converter={StaticResource StringToGeometryConverter}}"/>
-              </Viewbox> 
-          </DataTemplate>
-        </TabControl.ItemTemplate>
-        
-        <TabControl.ContentTemplate>
-          <DataTemplate>
-            <ContentPresenter Content="{Binding Content}"/>
-          </DataTemplate>
-        </TabControl.ContentTemplate>
-     </TabControl>
-    
-    <Grid  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
-      <ItemsControl Margin="0,0,10,10"
-                    Items="{Binding Notifications}"
-                    HorizontalAlignment="Right" VerticalAlignment="Bottom">
-        <ItemsControl.ItemTemplate>
-          <DataTemplate>
-            <ContentPresenter Margin="0,5,0,5" Content="{Binding View}"/>
-          </DataTemplate>
-        </ItemsControl.ItemTemplate>
-      </ItemsControl>
+
+        <Style Selector=":is(Button).ButtonStyle">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border>
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter Name="PART_ContentPresenter"
+                                              Content="{TemplateBinding Content}" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="Button.ButtonStyle /template/ Border:pointerover">
+            <Setter Property="Background" Value="{Binding $parent[Button].BorderBrush}" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
+
+        <Style Selector="TabControl#tabControl /template/ ContentPresenter#PART_SelectedContentHost">
+            <Setter Property="Padding" Value="-12,0,-12,0" />
+        </Style>
+
+    </Window.Styles>
+
+
+    <Window.Resources>
+        <defconverters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
+        <converters:StringToGeometryConverter x:Key="StringToGeometryConverter" />
+    </Window.Resources>
+
+
+    <Grid RowDefinitions="50,*" ColumnDefinitions="60,*,auto, Auto" Margin="{Binding $parent[Window].OffScreenMargin}"
+          Background="{Binding BackgroundColor, Converter={StaticResource ColorToBrushConverter}}">
+        <Border Grid.Column="0" Grid.Row="0"
+                Background="{Binding SideBarColor, Converter={StaticResource ColorToBrushConverter}}">
+            <Image Source="avares://CutCode.CrossPlatform/Assets/Images/logo.png"
+                   Width="35" Height="35" Margin="5,0,0,0"
+                   RenderOptions.BitmapInterpolationMode="HighQuality" />
+        </Border>
+        <Grid Grid.Column="1" Grid.Row="0"
+              Background="{Binding TitleBarColor, Converter={StaticResource ColorToBrushConverter}}"
+              ColumnDefinitions="*,auto"
+              PointerPressed="ChangeWindowPosition">
+            <Label Grid.Column="0" Content="CutCode" FontSize="20"
+                   Foreground="{Binding MainTextColor, Converter={StaticResource ColorToBrushConverter}}"
+                   FontWeight="Bold" FontFamily="{DynamicResource PoppinsSemibold}"
+                   Padding="15,10,15,0">
+            </Label>
+            <ToggleSwitch Grid.Column="1"
+                          Margin="0 0 10 0"
+                          OffContent="Light" OnContent="Dark"
+                          Foreground="{Binding MainTextColor, Converter={StaticResource ColorToBrushConverter}}"
+                          IsChecked="{Binding IsDarkTheme}">
+            </ToggleSwitch>
+        </Grid>
+        <controls:WindowButtons Grid.Column="2" Grid.Row="0"
+                                HostWindow="{Binding $parent[Window]}"
+                                Background="{Binding TitleBarColor, Converter={StaticResource ColorToBrushConverter}}"
+                                Foreground="{Binding MainTextColor, Converter={StaticResource ColorToBrushConverter}}">
+        </controls:WindowButtons>
+        <SplitView IsPaneOpen="True" DisplayMode="Inline" OpenPaneLength="60" Grid.Column="0" Grid.Row="1"
+                   Grid.ColumnSpan="3">
+
+            <SplitView.Styles>
+                <Style Selector="Panel">
+                    <Setter Property="Background"
+                            Value="{Binding SideBarColor, Converter={StaticResource ColorToBrushConverter}}">
+                    </Setter>
+                </Style>
+                <Style Selector="Button">
+                    <Setter Property="Background" Value="Transparent"></Setter>
+                    <Setter Property="Margin" Value="4"></Setter>
+                </Style>
+            </SplitView.Styles>
+            <SplitView.Pane>
+                <StackPanel x:Name="MenuPanel"
+                            Background="{Binding SideBarColor, Converter={StaticResource ColorToBrushConverter}}">
+                    <controls:NavigationItem
+                        x:Name="HomeViewModel"
+                        IconColour="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
+                        Icon="{x:Static help:IconPaths.Home}"
+                        Command="{Binding GoHome}"
+                        IsActive="True" />
+                    <controls:NavigationItem
+                        x:Name="AddViewModel"
+                        IconColour="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
+                        Icon="{x:Static help:IconPaths.Add}"
+                        Command="{Binding GoAdd}" />
+                    <controls:NavigationItem
+                        x:Name="FavoritesViewModel"
+                        IconColour="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
+                        Icon="{x:Static help:IconPaths.Favourite}"
+                        Command="{Binding GoFavourites}" />
+                    <controls:NavigationItem
+                        x:Name="SettingsViewModel"
+                        IconColour="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
+                        Icon="{x:Static help:IconPaths.Setting}"
+                        Command="{Binding GoSettings}" />
+                </StackPanel>
+            </SplitView.Pane>
+            <rxui:RoutedViewHost Router="{Binding Router}" />
+        </SplitView>
+
+        <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
+            <ItemsControl Margin="0,0,10,10"
+                          Items="{Binding Notifications}"
+                          HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ContentPresenter Margin="0,5,0,5" Content="{Binding View}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
     </Grid>
-  </Grid>
 </Window>

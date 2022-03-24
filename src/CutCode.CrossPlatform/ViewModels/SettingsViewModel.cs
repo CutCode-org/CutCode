@@ -6,12 +6,22 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media;
 using CutCode.CrossPlatform.Models;
+using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
 namespace CutCode.CrossPlatform.ViewModels;
 
-public class SettingsViewModel : PageBaseViewModel
+public class SettingsViewModel : PageBaseViewModel, IRoutableViewModel
 {
+    public SettingsViewModel(IScreen screen)
+    {
+        HostScreen = screen;
+    }
+
+    public SettingsViewModel()
+    {
+    }
+
     [Reactive] public Color BackgroundColor { get; set; }
 
     [Reactive] public Color MainTextColor { get; set; }
@@ -21,6 +31,9 @@ public class SettingsViewModel : PageBaseViewModel
     [Reactive] public Color BtnColor { get; set; }
 
     public ObservableCollection<DeveloperCardViewModel> developers { get; set; }
+
+    public string? UrlPathSegment => Guid.NewGuid().ToString().Substring(0, 5);
+    public IScreen HostScreen { get; }
 
     protected override void OnLoad()
     {
@@ -65,7 +78,7 @@ public class SettingsViewModel : PageBaseViewModel
         string message = "";
         if (sync == "Import")
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
+            OpenFileDialog fileDialog = new();
             fileDialog.AllowMultiple = false;
             fileDialog.Directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             var fileExt = new List<FileDialogFilter>
@@ -92,7 +105,7 @@ public class SettingsViewModel : PageBaseViewModel
         }
         else
         {
-            SaveFileDialog fileDialog = new SaveFileDialog();
+            SaveFileDialog fileDialog = new();
             fileDialog.Directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             var fileExt = new List<FileDialogFilter>
             {

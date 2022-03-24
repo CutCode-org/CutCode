@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reactive;
 using Avalonia.Media;
 using Avalonia.Threading;
 using CutCode.CrossPlatform.Helpers;
@@ -9,27 +10,37 @@ using CutCode.CrossPlatform.Services;
 using CutCode.CrossPlatform.Views;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Notification = CutCode.CrossPlatform.Models.Notification;
 
 namespace CutCode.CrossPlatform.ViewModels;
 
-public class MainWindowViewModel : PageBaseViewModel
+public class MainWindowViewModel : PageBaseViewModel, IScreen
 {
-    private int _currentTabItem;
-    public ObservableCollection<TabItemModel> Tabs { get; set; }
+    public MainWindowViewModel()
+    {
+        Router = new RoutingState();
+        Router.Navigate.Execute(new HomeViewModel(this));
+
+        GoHome = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new HomeViewModel(this)));
+        GoAdd = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new AddViewModel(this)));
+        GoFavourites =
+            ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new FavoritesViewModel(this)));
+        GoSettings = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new SettingsViewModel(this)));
+
+        Router.CurrentViewModel.Subscribe(x =>
+            OnNaviagted(x?.GetType().Name)
+        );
+    }
 
     [Reactive] public bool IsDarkTheme { get; set; }
 
-    public int CurrentTabItem
-    {
-        get => _currentTabItem;
-        set
-        {
-            if (value != 0 && Tabs[0].Content is not HomeView)
-                Tabs[0].Content = new HomeView();
-            else if (_currentTabItem == 1) Tabs[1].Content = new AddView();
+    public RoutingState Router { get; }
 
-            this.RaiseAndSetIfChanged(ref _currentTabItem, value);
-        }
+    public event EventHandler<string?> Navigated;
+
+    private void OnNaviagted(string? vm)
+    {
+        Navigated?.Invoke(this, vm);
     }
 
     protected override void OnLoad()
@@ -38,42 +49,6 @@ public class MainWindowViewModel : PageBaseViewModel
 
         this.WhenAnyValue(x => x.IsDarkTheme)
             .Subscribe(x => { ThemeService.Current.Theme = IsDarkTheme ? ThemeType.Dark : ThemeType.Light; });
-
-        Tabs = new ObservableCollection<TabItemModel>();
-        Tabs.Add(new TabItemModel
-        {
-            ToolTip = "Home",
-            Path = IconPaths.Home,
-            Content = new HomeView()
-        });
-        Tabs.Add(new TabItemModel
-        {
-            ToolTip = "Add",
-            Path = IconPaths.Add,
-            Content = new AddView()
-        });
-        Tabs.Add(new TabItemModel
-        {
-            ToolTip = "Favourite",
-            Path = IconPaths.Favourite,
-            Content = new FavoritesView()
-        });
-        Tabs.Add(new TabItemModel
-        {
-            ToolTip = "Settings",
-            Path = IconPaths.Setting,
-            Content = new SettingsView()
-        });
-
-        CurrentTabItem = 0;
-
-        PageService.TabChanged += (sender, args) => { CurrentTabItem = PageService.CurrentTabIndex; };
-
-        PageService.ExternalPageChange += (sender, args) =>
-        {
-            Tabs[0].Content = PageService.ExternalPage;
-            CurrentTabItem = 0;
-        };
 
 
         NotificationService.ShowNotification += ShowNotification!;
@@ -90,6 +65,7 @@ public class MainWindowViewModel : PageBaseViewModel
         MainTextColor = Color.Parse("#0B0B13");
 
         TitlebarBtnsHoverColor = Color.Parse("#D0D1D2");
+        MenuButtonColour = Color.Parse("#0B0B13");
     }
 
     protected override void OnDarkThemeIsSet()
@@ -101,6 +77,7 @@ public class MainWindowViewModel : PageBaseViewModel
         MainTextColor = Color.Parse("#94969A");
 
         TitlebarBtnsHoverColor = Color.Parse("#373737");
+        MenuButtonColour = Color.Parse("#94969A");
     }
 
     #region Color
@@ -117,6 +94,17 @@ public class MainWindowViewModel : PageBaseViewModel
 
     [Reactive] public Color TitlebarBtnsHoverColor { get; set; }
 
+    [Reactive] public Color MenuButtonColour { get; set; }
+
+    #endregion
+
+    #region Commands
+
+    public ReactiveCommand<Unit, IRoutableViewModel> GoHome { get; }
+    public ReactiveCommand<Unit, IRoutableViewModel> GoAdd { get; }
+    public ReactiveCommand<Unit, IRoutableViewModel> GoFavourites { get; }
+    public ReactiveCommand<Unit, IRoutableViewModel> GoSettings { get; }
+
     #endregion
 
     #region NotificationDialogView
@@ -130,7 +118,7 @@ public class MainWindowViewModel : PageBaseViewModel
     {
         Notification? notification = sender as Notification;
 
-        NotificationView notifcationView = new NotificationView
+        NotificationView notifcationView = new()
         {
             DataContext = new NotificationViewModel(notification!)
         };
@@ -144,7 +132,7 @@ public class MainWindowViewModel : PageBaseViewModel
         {
             Notifications.Add(notification);
 
-            DispatcherTimer closeTimer = new DispatcherTimer
+            DispatcherTimer closeTimer = new()
             {
                 Interval = TimeSpan.FromSeconds(notification.Delay),
                 IsEnabled = true
@@ -157,7 +145,7 @@ public class MainWindowViewModel : PageBaseViewModel
     private void ExitNotification(object sender, EventArgs e)
     {
         Notification? notification = sender as Notification;
-        LiveNotification newLiveNotification = new LiveNotification();
+        LiveNotification newLiveNotification = new();
         foreach (LiveNotification liveNotification in liveNotifications)
             if (liveNotification.Notification == notification)
             {
@@ -174,7 +162,7 @@ public class MainWindowViewModel : PageBaseViewModel
     private void CloseNotification(object sender, EventArgs e)
     {
         DispatcherTimer? timer = sender as DispatcherTimer;
-        LiveNotification liveNotification = new LiveNotification();
+        LiveNotification liveNotification = new();
         foreach (LiveNotification _liveNotification in liveNotifications)
             if (_liveNotification.Timer == timer)
             {
