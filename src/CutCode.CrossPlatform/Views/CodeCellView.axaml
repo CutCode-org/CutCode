@@ -101,6 +101,7 @@
         </Grid>
         
         <avEdit:TextEditor Grid.Row="1"
+                           x:Name="TextEditor"
                            Background="Transparent"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Stretch"
@@ -112,7 +113,6 @@
                            ScrollViewer.VerticalScrollBarVisibility="Auto"
                            ShowLineNumbers="True"
                            Height="300"
-                           Text="{Binding Code}"
                            Padding="10,0,10,10"
                            IsReadOnly="{Binding !IsEditable}"/>
     </Grid>

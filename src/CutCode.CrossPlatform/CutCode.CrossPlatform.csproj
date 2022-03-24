@@ -34,6 +34,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="ReactiveUI.Fody" Version="17.1.50" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+    <PackageReference Include="TextMateSharp.Grammars" Version="1.0.31" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AvaloniaEdit\AvaloniaEdit.csproj" />
