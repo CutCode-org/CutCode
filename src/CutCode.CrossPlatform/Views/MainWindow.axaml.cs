@@ -23,8 +23,6 @@ namespace CutCode.CrossPlatform.Views
     {
         public StackPanel MenuPanel => this.FindControl<StackPanel>(nameof(MenuPanel));
 
-        public string CurrVm { get; set; }
-
         public MainWindow()
         {
             InitializeComponent();
@@ -42,10 +40,7 @@ namespace CutCode.CrossPlatform.Views
             var lt = MenuPanel.GetLogicalChildren();
             foreach (NavigationItem? logical in lt.Cast<NavigationItem>())
             {
-                if (logical.Name == e)
-                    logical.IsActive = true;
-                else
-                    logical.IsActive = false;
+                logical.IsActive = logical.Name == e;
             }
         }
 

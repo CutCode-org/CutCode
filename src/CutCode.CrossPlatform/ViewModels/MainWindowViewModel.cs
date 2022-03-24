@@ -16,9 +16,6 @@ namespace CutCode.CrossPlatform.ViewModels;
 
 public class MainWindowViewModel : PageBaseViewModel, IScreen
 {
-    private int _currentTabItem;
-
-
     public MainWindowViewModel()
     {
         Router = new RoutingState();
@@ -26,34 +23,16 @@ public class MainWindowViewModel : PageBaseViewModel, IScreen
 
         GoHome = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new HomeViewModel(this)));
         GoAdd = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new AddViewModel(this)));
-        GoFavourites = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new FavoritesViewModel(this)));
+        GoFavourites =
+            ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new FavoritesViewModel(this)));
         GoSettings = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new SettingsViewModel(this)));
-
-
 
         Router.CurrentViewModel.Subscribe(x =>
             OnNaviagted(x?.GetType().Name)
         );
     }
 
-    [Reactive] public string HomeIcon { get; set; } = IconPaths.Home;
-    [Reactive] public string AddIcon { get; set; } = IconPaths.Add;
-    public ObservableCollection<TabItemModel> Tabs { get; set; }
-
     [Reactive] public bool IsDarkTheme { get; set; }
-
-    public int CurrentTabItem
-    {
-        get => _currentTabItem;
-        set
-        {
-            if (value != 0 && Tabs[0].Content is not HomeView)
-                Tabs[0].Content = new HomeView();
-            else if (_currentTabItem == 1) Tabs[1].Content = new AddView();
-
-            this.RaiseAndSetIfChanged(ref _currentTabItem, value);
-        }
-    }
 
     public RoutingState Router { get; }
 
@@ -70,42 +49,6 @@ public class MainWindowViewModel : PageBaseViewModel, IScreen
 
         this.WhenAnyValue(x => x.IsDarkTheme)
             .Subscribe(x => { ThemeService.Current.Theme = IsDarkTheme ? ThemeType.Dark : ThemeType.Light; });
-
-        Tabs = new ObservableCollection<TabItemModel>();
-        Tabs.Add(new TabItemModel
-        {
-            ToolTip = "Home",
-            Path = IconPaths.Home,
-            Content = new HomeView()
-        });
-        Tabs.Add(new TabItemModel
-        {
-            ToolTip = "Add",
-            Path = IconPaths.Add,
-            Content = new AddView()
-        });
-        Tabs.Add(new TabItemModel
-        {
-            ToolTip = "Favourite",
-            Path = IconPaths.Favourite,
-            Content = new FavoritesView()
-        });
-        Tabs.Add(new TabItemModel
-        {
-            ToolTip = "Settings",
-            Path = IconPaths.Setting,
-            Content = new SettingsView()
-        });
-
-        CurrentTabItem = 0;
-
-        PageService.TabChanged += (sender, args) => { CurrentTabItem = PageService.CurrentTabIndex; };
-
-        PageService.ExternalPageChange += (sender, args) =>
-        {
-            Tabs[0].Content = PageService.ExternalPage;
-            CurrentTabItem = 0;
-        };
 
 
         NotificationService.ShowNotification += ShowNotification!;
@@ -161,7 +104,6 @@ public class MainWindowViewModel : PageBaseViewModel, IScreen
     public ReactiveCommand<Unit, IRoutableViewModel> GoAdd { get; }
     public ReactiveCommand<Unit, IRoutableViewModel> GoFavourites { get; }
     public ReactiveCommand<Unit, IRoutableViewModel> GoSettings { get; }
-
 
     #endregion
 
