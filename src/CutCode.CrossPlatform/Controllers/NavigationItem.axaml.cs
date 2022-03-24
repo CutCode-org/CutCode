@@ -27,6 +27,7 @@ public class NavigationItem : UserControl
     {
         IconProperty.Changed.AddClassHandler<NavigationItem>((x, e) => x.IconPropertyChanged(e));
         IconColourProperty.Changed.AddClassHandler<NavigationItem>((x, e) => x.IconColourPropertyChanged(e));
+        IsActiveProperty.Changed.AddClassHandler<NavigationItem>((x, e) => x.IsActivePropertyChanged(e));
         CommandProperty.Changed.AddClassHandler<NavigationItem>((x, e) => x.CommandPropertyChanged(e));
         CommandParameterProperty.Changed.AddClassHandler<NavigationItem>((x, e) =>
             x.CommandParameterPropertyChanged(e));
@@ -115,7 +116,7 @@ public class NavigationItem : UserControl
     private void IsActivePropertyChanged(AvaloniaPropertyChangedEventArgs e)
     {
         if (e.Sender is NavigationItem ctrl)
-            ctrl.ActiveBorder.IsVisible = (bool)e.NewValue;
+            ctrl.ActiveBorder.IsVisible = (bool)(e.NewValue ?? true);
     }
 
     private void CommandPropertyChanged(AvaloniaPropertyChangedEventArgs e)

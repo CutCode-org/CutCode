@@ -110,34 +110,6 @@
                                 Background="{Binding TitleBarColor, Converter={StaticResource ColorToBrushConverter}}"
                                 Foreground="{Binding MainTextColor, Converter={StaticResource ColorToBrushConverter}}">
         </controls:WindowButtons>
-
-        <!-- <TabControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" -->
-        <!--             TabStripPlacement="Left" SelectedIndex="{Binding CurrentTabItem}" Items="{Binding Tabs}" -->
-        <!--             Background="{Binding SideBarColor, Converter={StaticResource ColorToBrushConverter}}" -->
-        <!--             Foreground="{Binding MainTextColor, Converter={StaticResource ColorToBrushConverter}}" -->
-        <!--             ScrollViewer.VerticalScrollBarVisibility="Disabled" -->
-        <!--             ScrollViewer.HorizontalScrollBarVisibility="Disabled"> -->
-        <!--     <TabControl.Styles> -->
-        <!--         <Style Selector="TabItem"> -->
-        <!--             <Setter Property="Width" Value="45" /> -->
-        <!--             <Setter Property="Margin" Value="5,0,0,0" /> -->
-        <!--         </Style> -->
-        <!--     </TabControl.Styles> -->
-        <!--     <TabControl.ItemTemplate> -->
-        <!--         <DataTemplate> -->
-        <!--             <Viewbox Height="25" Width="25" Margin="3,0,0,0"> -->
-        <!--                 <Path Fill="{Binding PathColor, Converter={StaticResource ColorToBrushConverter}}" -->
-        <!--                       Data="{Binding Path, Converter={StaticResource StringToGeometryConverter}}" /> -->
-        <!--             </Viewbox> -->
-        <!--         </DataTemplate> -->
-        <!--     </TabControl.ItemTemplate> -->
-        <!-- -->
-        <!--     <TabControl.ContentTemplate> -->
-        <!--         <DataTemplate> -->
-        <!--             <ContentPresenter Content="{Binding Content}" /> -->
-        <!--         </DataTemplate> -->
-        <!--     </TabControl.ContentTemplate> -->
-        <!-- </TabControl> -->
         <SplitView IsPaneOpen="True" DisplayMode="Inline" OpenPaneLength="60" Grid.Column="0" Grid.Row="1"
                    Grid.ColumnSpan="3">
 
@@ -146,9 +118,6 @@
                     <Setter Property="Background"
                             Value="{Binding SideBarColor, Converter={StaticResource ColorToBrushConverter}}">
                     </Setter>
-                    <!-- <Setter Property="Foreground" -->
-                    <!--         Value="{Binding MainTextColor, Converter={StaticResource ColorToBrushConverter}}"> -->
-                    <!-- </Setter> -->
                 </Style>
                 <Style Selector="Button">
                     <Setter Property="Background" Value="Transparent"></Setter>
@@ -156,24 +125,29 @@
                 </Style>
             </SplitView.Styles>
             <SplitView.Pane>
-                <StackPanel Background="{Binding SideBarColor, Converter={StaticResource ColorToBrushConverter}}">
-                    <Button Command="{Binding GoHome}" x:Name="HomeViewModel">
-                        <Viewbox Height="25" Width="25" Margin="3 0 0 0">
-                            <Path Fill="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
-                                  Data="{Binding HomeIcon, Converter={StaticResource StringToGeometryConverter}}" />
-                        </Viewbox>
-                    </Button>
-                    <Button Command="{Binding GoAdd}" x:Name="AddViewModel">
-                        <Viewbox Height="25" Width="25" Margin="3 0 0 0">
-                            <Path Fill="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
-                                  Data="{Binding AddIcon, Converter={StaticResource StringToGeometryConverter}}" />
-                        </Viewbox>
-                    </Button>
+                <StackPanel x:Name="MenuPanel"
+                            Background="{Binding SideBarColor, Converter={StaticResource ColorToBrushConverter}}">
                     <controls:NavigationItem
+                        x:Name="HomeViewModel"
+                        IconColour="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
+                        Icon="{x:Static help:IconPaths.Home}"
+                        Command="{Binding GoHome}"
+                        IsActive="True" />
+                    <controls:NavigationItem
+                        x:Name="AddViewModel"
                         IconColour="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
                         Icon="{x:Static help:IconPaths.Add}"
-                        Command="{Binding GoAdd}">
-                    </controls:NavigationItem>
+                        Command="{Binding GoAdd}" />
+                    <controls:NavigationItem
+                        x:Name="FavoritesViewModel"
+                        IconColour="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
+                        Icon="{x:Static help:IconPaths.Favourite}"
+                        Command="{Binding GoFavourites}" />
+                    <controls:NavigationItem
+                        x:Name="SettingsViewModel"
+                        IconColour="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
+                        Icon="{x:Static help:IconPaths.Setting}"
+                        Command="{Binding GoSettings}" />
                 </StackPanel>
             </SplitView.Pane>
             <rxui:RoutedViewHost Router="{Binding Router}" />

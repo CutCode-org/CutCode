@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Reactive;
-using System.Reactive.Linq;
 using Avalonia.Media;
 using Avalonia.Threading;
 using CutCode.CrossPlatform.Helpers;
@@ -18,13 +16,7 @@ namespace CutCode.CrossPlatform.ViewModels;
 
 public class MainWindowViewModel : PageBaseViewModel, IScreen
 {
-    [Reactive] public string HomeIcon { get; set; } = IconPaths.Home;
-    [Reactive] public string AddIcon { get; set; } = IconPaths.Add;
-
-    public string? CurrentViewModel { get; set; }
-    public RoutingState Router { get; }
     private int _currentTabItem;
-    public ObservableCollection<TabItemModel> Tabs { get; set; }
 
 
     public MainWindowViewModel()
@@ -34,9 +26,19 @@ public class MainWindowViewModel : PageBaseViewModel, IScreen
 
         GoHome = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new HomeViewModel(this)));
         GoAdd = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new AddViewModel(this)));
+        GoFavourites = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new FavoritesViewModel(this)));
+        GoSettings = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new SettingsViewModel(this)));
 
-        Router.CurrentViewModel.Subscribe(x => CurrentViewModel = x?.GetType().Name);
+
+
+        Router.CurrentViewModel.Subscribe(x =>
+            OnNaviagted(x?.GetType().Name)
+        );
     }
+
+    [Reactive] public string HomeIcon { get; set; } = IconPaths.Home;
+    [Reactive] public string AddIcon { get; set; } = IconPaths.Add;
+    public ObservableCollection<TabItemModel> Tabs { get; set; }
 
     [Reactive] public bool IsDarkTheme { get; set; }
 
@@ -51,6 +53,15 @@ public class MainWindowViewModel : PageBaseViewModel, IScreen
 
             this.RaiseAndSetIfChanged(ref _currentTabItem, value);
         }
+    }
+
+    public RoutingState Router { get; }
+
+    public event EventHandler<string?> Navigated;
+
+    private void OnNaviagted(string? vm)
+    {
+        Navigated?.Invoke(this, vm);
     }
 
     protected override void OnLoad()
@@ -148,6 +159,9 @@ public class MainWindowViewModel : PageBaseViewModel, IScreen
 
     public ReactiveCommand<Unit, IRoutableViewModel> GoHome { get; }
     public ReactiveCommand<Unit, IRoutableViewModel> GoAdd { get; }
+    public ReactiveCommand<Unit, IRoutableViewModel> GoFavourites { get; }
+    public ReactiveCommand<Unit, IRoutableViewModel> GoSettings { get; }
+
 
     #endregion
 
@@ -162,7 +176,7 @@ public class MainWindowViewModel : PageBaseViewModel, IScreen
     {
         Notification? notification = sender as Notification;
 
-        NotificationView notifcationView = new NotificationView
+        NotificationView notifcationView = new()
         {
             DataContext = new NotificationViewModel(notification!)
         };
@@ -176,7 +190,7 @@ public class MainWindowViewModel : PageBaseViewModel, IScreen
         {
             Notifications.Add(notification);
 
-            DispatcherTimer closeTimer = new DispatcherTimer
+            DispatcherTimer closeTimer = new()
             {
                 Interval = TimeSpan.FromSeconds(notification.Delay),
                 IsEnabled = true
@@ -189,7 +203,7 @@ public class MainWindowViewModel : PageBaseViewModel, IScreen
     private void ExitNotification(object sender, EventArgs e)
     {
         Notification? notification = sender as Notification;
-        LiveNotification newLiveNotification = new LiveNotification();
+        LiveNotification newLiveNotification = new();
         foreach (LiveNotification liveNotification in liveNotifications)
             if (liveNotification.Notification == notification)
             {
@@ -206,7 +220,7 @@ public class MainWindowViewModel : PageBaseViewModel, IScreen
     private void CloseNotification(object sender, EventArgs e)
     {
         DispatcherTimer? timer = sender as DispatcherTimer;
-        LiveNotification liveNotification = new LiveNotification();
+        LiveNotification liveNotification = new();
         foreach (LiveNotification _liveNotification in liveNotifications)
             if (_liveNotification.Timer == timer)
             {
