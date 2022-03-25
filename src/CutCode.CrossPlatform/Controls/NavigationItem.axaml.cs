@@ -13,7 +13,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Xaml.Interactions.Custom;
 
-namespace CutCode.CrossPlatform.Controllers;
+namespace CutCode.CrossPlatform.Controls;
 
 public class NavigationItem : UserControl
 {

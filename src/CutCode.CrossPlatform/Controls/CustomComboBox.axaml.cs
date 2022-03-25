@@ -8,7 +8,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using CutCode.CrossPlatform.Helpers;
 
-namespace CutCode.CrossPlatform.Controllers
+namespace CutCode.CrossPlatform.Controls
 {
     public class CustomComboBox : UserControl
     {

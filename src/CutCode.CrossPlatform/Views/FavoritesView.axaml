@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
-             xmlns:controls="using:CutCode.CrossPlatform.Controllers"
+             xmlns:controls="using:CutCode.CrossPlatform.Controls"
              xmlns:converters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
              x:Class="CutCode.CrossPlatform.Views.FavoritesView">
     

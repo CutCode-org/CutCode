@@ -5,7 +5,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 
-namespace CutCode.CrossPlatform.Controllers
+namespace CutCode.CrossPlatform.Controls
 {
     //maximizePath = Geometry.Parse("F1M50,-150L50,-50 150,-50 150,-150 50,-150z M37.5,-162.5L162.5,-162.5 162.5,-37.5 37.5,-37.5 37.5,-162.5z");
     //restorePath = Geometry.Parse("F1M50,-125L50,-37.5 137.5,-37.5 137.5,-125 50,-125z M75,-150L75,-137.5 150,-137.5 150,-62.5 162.5,-62.5 162.5,-150 75,-150z M62.5,-162.5L175,-162.5 175,-50 150,-50 150,-25 37.5,-25 37.5,-137.5 62.5,-137.5 62.5,-162.5z");
