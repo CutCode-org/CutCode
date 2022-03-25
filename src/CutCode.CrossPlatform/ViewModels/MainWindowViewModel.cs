@@ -30,6 +30,13 @@ public class MainWindowViewModel : PageBaseViewModel, IScreen
         Router.CurrentViewModel.Subscribe(x =>
             OnNaviagted(x?.GetType().Name)
         );
+        
+        GlobalEvents.OnShowCodeModel += GlobalEventsOnOnShowCodeModel;
+    }
+
+    private void GlobalEventsOnOnShowCodeModel(object? sender, CodeModel e)
+    {
+        Router.Navigate.Execute(new CodeViewModel(e, this));
     }
 
     [Reactive] public bool IsDarkTheme { get; set; }
