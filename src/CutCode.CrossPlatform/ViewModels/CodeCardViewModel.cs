@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using Avalonia.Media;
 using CutCode.CrossPlatform.Helpers;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Services;
 using CutCode.CrossPlatform.Views;
 using Newtonsoft.Json;
+using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
 namespace CutCode.CrossPlatform.ViewModels;
@@ -16,6 +19,12 @@ public class CodeCardViewModel : ViewModelBase
 
     public CodeCardViewModel(CodeModel code)
     {
+        Initialise(code);
+    }
+
+    public void Initialise(CodeModel code)
+    {
+        Navigate = ReactiveCommand.Create(Clicked);
         Code = code;
         Title = code.Title;
         LastModificationTime = code.LastModificationTime;
@@ -118,12 +127,16 @@ public class CodeCardViewModel : ViewModelBase
         }
     }
 
-    public async void Clicked()
+    public ReactiveCommand<Unit, Unit> Navigate { get; set; }
+
+    public void Clicked()
     {
-        PageService.Current.ExternalPage = new CodeView
-        {
-            DataContext = new CodeViewModel(Code)
-        };
+        GlobalEvents.ShowCodeModel(Code);
+        // _router.Navigate.Execute(new CodeViewModel(Code, HostScreen));
+        // PageService.Current.ExternalPage = new CodeView
+        // {
+        //     DataContext = new CodeViewModel(Code)
+        // };
     }
 
 

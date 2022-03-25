@@ -18,5 +18,6 @@ public static class NavigationBootstrapper
         services.Register(() => new AddView(), typeof(IViewFor<AddViewModel>));
         services.Register(() => new FavoritesView(), typeof(IViewFor<FavoritesViewModel>));
         services.Register(() => new SettingsView(), typeof(IViewFor<SettingsViewModel>));
+        services.Register(() => new CodeView(), typeof(IViewFor<CodeViewModel>));
     }
 }
