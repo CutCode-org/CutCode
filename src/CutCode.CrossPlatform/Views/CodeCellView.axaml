@@ -13,6 +13,8 @@
         <cv:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
     </UserControl.Resources>
     
+    
+    
     <UserControl.Styles>
         <Style Selector="Button:pointerover /template/ ContentPresenter">
             <Setter Property="Background" Value="Transparent"/>
