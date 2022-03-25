@@ -1,0 +1,36 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="CutCode.CrossPlatform.Controls.NavigationItem"
+             xmlns:converters="using:CutCode.CrossPlatform.Controls"
+             xmlns:converters1="clr-namespace:CutCode.CrossPlatform.Converters">
+
+    <UserControl.Resources>
+        <converters1:StringToGeometryConverter x:Key="StringToGeometryConverter" />
+    </UserControl.Resources>
+    
+    <UserControl.Styles>
+        <Style Selector="Button">
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        <Style Selector="Button:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="RenderTransform" Value="scale(1.06)"/>
+        </Style>
+        <Style Selector="Button:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+    </UserControl.Styles>
+    
+    <StackPanel Orientation="Horizontal" x:Name="MainGrid" HorizontalAlignment="Center">
+        <Border x:Name="ActiveBorder" IsVisible="False" Background="Transparent" CornerRadius="5" BorderBrush="#3F3FFF" BorderThickness="1"
+                Height="25" />
+        <Button x:Name="MainButton" Margin="3 8 8 8" Padding="0 4 4 4">
+            <Viewbox Height="25" Width="25" Margin="3 0 0 0">
+                <Path x:Name="IconPath" />
+            </Viewbox>
+        </Button>
+    </StackPanel>
+</UserControl>

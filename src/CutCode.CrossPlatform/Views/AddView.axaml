@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
              xmlns:converters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
-             xmlns:controllers="clr-namespace:CutCode.CrossPlatform.Controllers"
+             xmlns:controllers="clr-namespace:CutCode.CrossPlatform.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CutCode.CrossPlatform.Views.AddView">
     <UserControl.Resources>

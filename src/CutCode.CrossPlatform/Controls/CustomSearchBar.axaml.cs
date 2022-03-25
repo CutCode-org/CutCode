@@ -11,7 +11,7 @@ using CutCode.CrossPlatform.Helpers;
 using CutCode.CrossPlatform.Services;
 using ReactiveUI;
 
-namespace CutCode.CrossPlatform.Controllers
+namespace CutCode.CrossPlatform.Controls
 {
     public class CustomSearchBar : UserControl
     {

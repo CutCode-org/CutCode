@@ -12,7 +12,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
-using CutCode.CrossPlatform.Controllers;
+using CutCode.CrossPlatform.Controls;
 using CutCode.CrossPlatform.Helpers;
 using CutCode.CrossPlatform.ViewModels;
 using ReactiveUI;

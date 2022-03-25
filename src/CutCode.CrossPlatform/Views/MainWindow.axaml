@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:rxui="clr-namespace:Avalonia.ReactiveUI;assembly=Avalonia.ReactiveUI"
         xmlns:views="using:CutCode.CrossPlatform.Views"
-        xmlns:controls="using:CutCode.CrossPlatform.Controllers"
+        xmlns:controls="using:CutCode.CrossPlatform.Controls"
         xmlns:conv="using:CutCode.CrossPlatform.Converters"
         xmlns:defconverters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
         xmlns:converters="using:CutCode.CrossPlatform.Converters"
@@ -35,7 +35,7 @@
     </Design.DataContext>
 
     <Window.Styles>
-        <StyleInclude Source="avares://CutCode.CrossPlatform/Controllers/WindowButtons.axaml" />
+        <StyleInclude Source="avares://CutCode.CrossPlatform/Controls/WindowButtons.axaml" />
         <Style Selector="ToolTip#sideBarBtnToolTip">
             <Setter Property="Template">
                 <ControlTemplate>
@@ -71,7 +71,6 @@
         <Style Selector="TabControl#tabControl /template/ ContentPresenter#PART_SelectedContentHost">
             <Setter Property="Padding" Value="-12,0,-12,0" />
         </Style>
-
     </Window.Styles>
 
 
@@ -150,7 +149,11 @@
                         Command="{Binding GoSettings}" />
                 </StackPanel>
             </SplitView.Pane>
-            <rxui:RoutedViewHost Router="{Binding Router}" />
+            <rxui:RoutedViewHost Router="{Binding Router}">
+                <rxui:RoutedViewHost.PageTransition>
+                    <CrossFade Duration="0:00:00.250"/>
+                </rxui:RoutedViewHost.PageTransition>
+            </rxui:RoutedViewHost>
         </SplitView>
 
         <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">

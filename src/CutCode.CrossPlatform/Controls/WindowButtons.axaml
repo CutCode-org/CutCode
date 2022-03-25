@@ -1,6 +1,6 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui" 
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="using:CutCode.CrossPlatform.Controllers">
+        xmlns:controls="using:CutCode.CrossPlatform.Controls">
   <Style Selector="controls|WindowButtons">
     <!--<Setter Property="MaxHeight" Value="30" />-->
     <Setter Property="Focusable" Value="true"/>
