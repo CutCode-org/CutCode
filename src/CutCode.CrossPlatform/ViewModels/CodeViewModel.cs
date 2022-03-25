@@ -8,15 +8,27 @@ using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Services;
 using CutCode.CrossPlatform.Views;
 using Newtonsoft.Json;
+using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
 namespace CutCode.CrossPlatform.ViewModels;
 
-public class CodeViewModel : PageBaseViewModel
+public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
 {
     public CodeModel Code;
 
     public CodeViewModel(CodeModel code)
+    {
+        Initialise(code);
+    }
+
+    public CodeViewModel(CodeModel code, IScreen screen)
+    {
+        HostScreen = screen;
+        Initialise(code);
+    }
+
+    public void Initialise(CodeModel code)
     {
         Code = code;
         Title = Code.Title;
@@ -52,7 +64,7 @@ public class CodeViewModel : PageBaseViewModel
         IsFavouritePath = code.IsFavourite ? IconPaths.StarFull : IconPaths.Star;
     }
 
-    public ObservableCollection<CodeCellViewModel?> Cells { get; }
+    public ObservableCollection<CodeCellViewModel?> Cells { get; set; }
 
     [Reactive] public string Title { get; set; }
 
@@ -207,4 +219,7 @@ public class CodeViewModel : PageBaseViewModel
     {
         if (vm.IsEditEnabled) vm.Cells.Remove(cell);
     }
+
+    public string? UrlPathSegment => Guid.NewGuid().ToString().Substring(0, 5);
+    public IScreen HostScreen { get; }
 }
