@@ -26,7 +26,9 @@ namespace CutCode.CrossPlatform.Helpers
             Application.Current.Resources["ComboBoxItemForegroundSelected"] = new SolidColorBrush(Colors.Black, 1);
             Application.Current.Resources["ComboBoxItemForegroundSelectedPressed"] = new SolidColorBrush(Colors.Black, 1);
             Application.Current.Resources["ComboBoxItemForegroundSelectedPointerOver"] = new SolidColorBrush(Colors.Black, 1);
-            
+
+            Application.Current.Resources["TextColor1"] = new SolidColorBrush(Color.Parse(("#0B0B13")), 1);
+            Application.Current.Resources["BackgroundColor1"] = new SolidColorBrush(Color.Parse(("#F2F3F5")), 1);
         }
         
         public static void DarkThemeColors()
@@ -48,6 +50,9 @@ namespace CutCode.CrossPlatform.Helpers
             Application.Current.Resources["ComboBoxItemForegroundSelected"] = new SolidColorBrush(Colors.White, 1);
             Application.Current.Resources["ComboBoxItemForegroundSelectedPressed"] = new SolidColorBrush(Colors.White, 1);
             Application.Current.Resources["ComboBoxItemForegroundSelectedPointerOver"] = new SolidColorBrush(Colors.White, 1);
+
+            Application.Current.Resources["TextColor1"] = new SolidColorBrush(Color.Parse(("#94969A")), 1);
+            Application.Current.Resources["BackgroundColor1"] = new SolidColorBrush(Color.Parse(("#32363C")), 1);
         }
     }
 }
