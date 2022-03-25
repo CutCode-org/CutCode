@@ -1,4 +1,5 @@
-﻿using Avalonia;
+﻿using System.Reactive.Disposables;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
@@ -15,10 +16,7 @@ namespace CutCode.CrossPlatform.Views
         public CodeCellView()
         {
             InitializeComponent();
-            this.WhenActivated(d =>
-            {
-                this.Bind(ViewModel, x => x.Code, x => x.TextEditor.Text);
-            });
+            this.WhenActivated(d => { this.Bind(ViewModel, x => x.Code, x => x.TextEditor.Text).DisposeWith(d); });
         }
 
         private void InitializeComponent()

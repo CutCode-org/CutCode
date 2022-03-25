@@ -27,10 +27,13 @@
   <ItemGroup>
     <PackageReference Include="Aura.UI" Version="0.1.5-dev-04" />
     <PackageReference Include="Avalonia" Version="0.10.999-cibuild0017745-beta" />
+    <PackageReference Include="Avalonia.AvaloniaEdit" Version="0.10.12.2" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0017745-beta" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0017745-beta" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0017745-beta" />
+    <PackageReference Include="AvaloniaEdit.TextMate" Version="0.10.12.2" />
+    <PackageReference Include="AvaloniaEdit.TextMate.Grammars" Version="0.10.12" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="ReactiveUI.Fody" Version="17.1.50" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
