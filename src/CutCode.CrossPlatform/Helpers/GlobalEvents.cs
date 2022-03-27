@@ -1,4 +1,5 @@
 ﻿using System;
+using AvaloniaEdit.TextMate.Grammars;
 using CutCode.CrossPlatform.Models;
 
 namespace CutCode.CrossPlatform.Helpers;
@@ -18,11 +19,11 @@ public static class GlobalEvents
     {
         OnCancelClicked?.Invoke(null, null!);
     }
-    
-    public static event EventHandler OnSaveClicked;
 
-    public static void SaveClicked()
+    public static event EventHandler<Language> OnLanguageSet;
+
+    public static void LanguageSet(Language language)
     {
-        OnSaveClicked?.Invoke(null, null!);
+        OnLanguageSet?.Invoke(null, language);
     }
 }

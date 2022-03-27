@@ -1,4 +1,6 @@
 ﻿using Avalonia.Media;
+using AvaloniaEdit.TextMate.Grammars;
+using CutCode.CrossPlatform.Helpers;
 using ReactiveUI.Fody.Helpers;
 
 namespace CutCode.CrossPlatform.ViewModels;
