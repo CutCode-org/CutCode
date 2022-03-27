@@ -26,23 +26,11 @@ As a developer, we often search on <strong>Google</strong> / <strong>StackOverFl
 # Coming Soon 
 1. **Syntax highlighting for all the programming languages supported by CutCode.**
 2. **MacOS support.**
-
-
-# Release 🚀
-### [Windows](https://github.com/Abdesol/CutCode/releases/download/v3.0.0/CutCode.v3.0.0.Win.x64.exe) 
-
-### [Linux](https://github.com/Abdesol/CutCode/releases/download/v3.0.0/CutCode_linux_x64_installer.sh)
+3. **Theme changing and plugins.**
+4. **Automatic updater.**
+5. **Animations everywhere**
 
 # Contributors
-
-**Creator**
-- [Abdella Solomon](https://github.com/Abdesol)
-
-**Other Contributors**
-- [Piero Castillo](https://github.com/PieroCastillo)
-- [KortaPo](https://github.com/KortaPo)
-
-### All Contributors
 <a href="https://github.com/Abdesol/CutCode/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Abdesol/CutCode"/>
 </a>
@@ -51,19 +39,9 @@ As a developer, we often search on <strong>Google</strong> / <strong>StackOverFl
 
 Made with [contrib.rocks](https://contrib.rocks).
 
-<br/>
-
 # Credits
 This project is **MIT licensed** and entirely open source, hence, it is completely free to use. However, if you are inspired from this project and have used the source code of this project in your own projects, please consider giving credits to us.
+You can get the latest version of CutCode from the release page [here](https://github.com/CutCode-org/CutCode/releases/latest)
 
 **Thank you for using CutCode!**
-
-**Have a nice day!**
-
-# Additional Information
-
-Connect with me on [GitHub](https://github.com/Abdesol) and [Twitter](https://twitter.com/AbdellaSolomon).
-<br>
-Star and share this project with your programmer friends.
-<br>
-And make sure to follow me on GitHub to get updated quick :)
+**Star and share this project with your programmer friends.**
