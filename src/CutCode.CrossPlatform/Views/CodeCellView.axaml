@@ -116,6 +116,7 @@
                            ShowLineNumbers="True"
                            Height="300"
                            Padding="10,0,10,10"
-                           IsReadOnly="{Binding !IsEditable}"/>
+                           IsReadOnly="{Binding !IsEditable}"
+                           />
     </Grid>
 </UserControl>

@@ -1,4 +1,5 @@
 ﻿using Avalonia.Media;
+using AvaloniaEdit.Document;
 using AvaloniaEdit.TextMate.Grammars;
 using CutCode.CrossPlatform.Helpers;
 using ReactiveUI.Fody.Helpers;
@@ -9,6 +10,8 @@ public class CodeCellViewModel : PageBaseViewModel
 {
     private readonly AddViewModel AddViewModelInstance;
     private readonly CodeViewModel CodeViewModelInstance;
+
+    [Reactive] public TextDocument Document { get; set; } = new TextDocument();
 
     public CodeCellViewModel(AddViewModel viewModelInstance)
     {
@@ -25,6 +28,7 @@ public class CodeCellViewModel : PageBaseViewModel
         CodeViewModelInstance = viewModelInstance;
         Description = description;
         Code = code;
+        Document.Text = code;
 
         IsEditable = false;
         IsMoreClickable = true;

@@ -5,6 +5,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using AvaloniaEdit;
+using AvaloniaEdit.Document;
 using AvaloniaEdit.Indentation.CSharp;
 using AvaloniaEdit.TextMate;
 using AvaloniaEdit.TextMate.Grammars;
@@ -23,7 +24,11 @@ namespace CutCode.CrossPlatform.Views
         public CodeCellView()
         {
             InitializeComponent();
-            this.WhenActivated(d => { this.Bind(ViewModel, x => x.Code, x => x.TextEditor.Text).DisposeWith(d); });
+            this.WhenActivated(d =>
+            {
+                // this.Bind(ViewModel, x => x.Code, x => x.TextEditor.Text).DisposeWith(d);
+                this.Bind(ViewModel, x => x.Document, x => x.TextEditor.Document).DisposeWith(d);
+            });
 
             TextEditor.TextArea.IndentationStrategy = new CSharpIndentationStrategy(TextEditor.Options);
 

@@ -147,13 +147,13 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
     {
         if (Cells.Count > 0 &&
             !Cells.Select(x => x.Description).ToList().Any(string.IsNullOrEmpty) &&
-            !Cells.Select(x => x.Code).ToList().Any(string.IsNullOrEmpty))
+            !Cells.Select(x => x.Document.Text).ToList().Any(string.IsNullOrEmpty))
         {
             var cellsList = Cells.Select(x =>
                 new Dictionary<string, string>
                 {
                     { "Description", x.Description },
-                    { "Code", x.Code }
+                    { "Code", x.Document.Text }
                 }).ToList();
 
             CodeModel editedCode = new CodeModel(Title, cellsList, Language,

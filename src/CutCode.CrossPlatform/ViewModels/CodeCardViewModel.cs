@@ -28,7 +28,7 @@ public class CodeCardViewModel : ViewModelBase
         Code = code;
         Title = code.Title;
         LastModificationTime = code.LastModificationTime;
-        Language = Languages.LanguagesDict[code.Language];
+        Language = code.Language;
         IsFavouritePath = code.IsFavourite ? IconPaths.StarFull : IconPaths.Star;
         FavouriteText = Code.IsFavourite ? "Remove from favourite" : "Add to favourite";
 
