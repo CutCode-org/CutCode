@@ -36,20 +36,6 @@
 
     <Window.Styles>
         <StyleInclude Source="avares://CutCode.CrossPlatform/Controls/WindowButtons.axaml" />
-        <Style Selector="ToolTip#sideBarBtnToolTip">
-            <Setter Property="Template">
-                <ControlTemplate>
-                    <Border VerticalAlignment="Top" CornerRadius="0,10,10,0" BorderThickness="0"
-                            Background="{TemplateBinding Background}" Margin="5,5,5,5">
-                        <Label Content="{TemplateBinding Content}" FontSize="12"
-                               Foreground="{TemplateBinding BorderBrush}"
-                               FontFamily="{DynamicResource PoppinsSemibold}" FontWeight="SemiBold" Height="34"
-                               Margin="2,6,2,2" />
-                    </Border>
-                </ControlTemplate>
-            </Setter>
-        </Style>
-
         <Style Selector=":is(Button).ButtonStyle">
             <Setter Property="Template">
                 <ControlTemplate>
@@ -66,10 +52,6 @@
         <Style Selector="Button.ButtonStyle /template/ Border:pointerover">
             <Setter Property="Background" Value="{Binding $parent[Button].BorderBrush}" />
             <Setter Property="BorderBrush" Value="Transparent" />
-        </Style>
-
-        <Style Selector="TabControl#tabControl /template/ ContentPresenter#PART_SelectedContentHost">
-            <Setter Property="Padding" Value="-12,0,-12,0" />
         </Style>
     </Window.Styles>
 
@@ -128,25 +110,71 @@
                             Background="{Binding SideBarColor, Converter={StaticResource ColorToBrushConverter}}">
                     <controls:NavigationItem
                         x:Name="HomeViewModel"
+                        ToolTip.Tip="Home"
+                        ToolTip.Placement="Right"
+                        ToolTip.ShowDelay="0"
+                        ToolTip.HorizontalOffset="8"
                         IconColour="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
                         Icon="{x:Static help:IconPaths.Home}"
                         Command="{Binding GoHome}"
                         IsActive="True" />
                     <controls:NavigationItem
                         x:Name="AddViewModel"
+                        ToolTip.Tip="Add a snippet"
+                        ToolTip.Placement="Right"
+                        ToolTip.ShowDelay="0"
+                        ToolTip.HorizontalOffset="8"
                         IconColour="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
                         Icon="{x:Static help:IconPaths.Add}"
                         Command="{Binding GoAdd}" />
                     <controls:NavigationItem
                         x:Name="FavoritesViewModel"
+                        ToolTip.Tip="My favourite snippets"
+                        ToolTip.Placement="Right"
+                        ToolTip.ShowDelay="0"
+                        ToolTip.HorizontalOffset="8"
                         IconColour="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
                         Icon="{x:Static help:IconPaths.Favourite}"
                         Command="{Binding GoFavourites}" />
                     <controls:NavigationItem
                         x:Name="SettingsViewModel"
+                        ToolTip.Tip="Settings"
+                        ToolTip.Placement="Right"
+                        ToolTip.ShowDelay="0"
+                        ToolTip.HorizontalOffset="8"
                         IconColour="{Binding MenuButtonColour, Converter={StaticResource ColorToBrushConverter}}"
                         Icon="{x:Static help:IconPaths.Setting}"
                         Command="{Binding GoSettings}" />
+                    
+                    <StackPanel.Styles>
+                        <Style Selector="controls|NavigationItem ToolTip">
+                            <Setter Property="Padding" Value="10 7 10 7"/>
+                            <Setter Property="CornerRadius" Value="10"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="FontFamily" Value="{DynamicResource PoppinsRegular}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource TextColor1}"/>
+                            <Setter Property="Background" Value="{DynamicResource BackgroundColor1}"/>
+                            <Setter Property="Template">
+                                <ControlTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Viewbox VerticalAlignment="Center" Height="12">
+                                            <Path Stretch="UniformToFill" Fill="{TemplateBinding Background}" 
+                                                  Data="F1M130.5,-175L137.5,-169.837493896484 137.5,-29.9124984741211 130.75,-25.0000019073486 62.5,-95.3375015258789 62.5,-105.675003051758 130.5,-175z"/>
+                                        </Viewbox>
+                                        <ContentPresenter Name="PART_ContentPresenter"
+                                                          Background="{TemplateBinding Background}"
+                                                          BorderBrush="{TemplateBinding BorderBrush}"
+                                                          BorderThickness="{TemplateBinding BorderThickness}"
+                                                          CornerRadius="{TemplateBinding CornerRadius}"
+                                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                          Content="{TemplateBinding Content}" 
+                                                          Padding="{TemplateBinding Padding}"/>
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Setter>
+                        </Style>
+                    </StackPanel.Styles>
                 </StackPanel>
             </SplitView.Pane>
             <rxui:RoutedViewHost Router="{Binding Router}">

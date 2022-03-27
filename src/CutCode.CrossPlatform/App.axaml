@@ -11,6 +11,9 @@
     <FontFamily x:Key="PoppinsSemibold">avares://CutCode.CrossPlatform/Assets/Fonts/Poppins-SemiBold.ttf#Poppins</FontFamily>
     <FontFamily x:Key="PoppinsRegular">avares://CutCode.CrossPlatform/Assets/Fonts/Poppins-Regular.ttf#Poppins</FontFamily>
     <FontFamily x:Key="InconsolataRegular">avares://CutCode.CrossPlatform/Assets/Fonts/Inconsolata-Regular.ttf#Inconsolata</FontFamily>
+    
+    <SolidColorBrush x:Key="TextColor1"/>
+    <SolidColorBrush x:Key="BackgroundColor1"/>
   </Application.Resources>
   
   
