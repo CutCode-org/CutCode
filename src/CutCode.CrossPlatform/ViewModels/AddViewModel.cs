@@ -129,7 +129,7 @@ public class AddViewModel : PageBaseViewModel, IRoutableViewModel
                     { "Code", x.Code }
                 }).ToList();
 
-            CodeModel codeModel = DataBase.AddCode(Title, cellsList, _selectedLanguage);
+            CodeModel codeModel = DataBase.AddCode(Title, cellsList, SelectedLanguage2.Id);
             GlobalEvents.ShowCodeModel(codeModel);
             Title = "";
             Cells.Clear();
