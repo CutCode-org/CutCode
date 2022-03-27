@@ -140,7 +140,7 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
 
     public async void Cancel()
     {
-        PageService.ExternalPage = new HomeView();
+        GlobalEvents.CancelClicked();
     }
 
     public async void Save()

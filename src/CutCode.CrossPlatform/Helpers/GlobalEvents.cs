@@ -11,4 +11,18 @@ public static class GlobalEvents
     {
         OnShowCodeModel?.Invoke(null, code);
     }
+
+    public static event EventHandler OnCancelClicked;
+
+    public static void CancelClicked()
+    {
+        OnCancelClicked?.Invoke(null, null!);
+    }
+    
+    public static event EventHandler OnSaveClicked;
+
+    public static void SaveClicked()
+    {
+        OnSaveClicked?.Invoke(null, null!);
+    }
 }
