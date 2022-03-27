@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Avalonia.Media;
+using CutCode.CrossPlatform.Helpers;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Views;
 using ReactiveUI;
@@ -98,9 +99,8 @@ public class AddViewModel : PageBaseViewModel, IRoutableViewModel
 
     public async void Cancel()
     {
-        PageService.CurrentTabIndex = 0;
-        Title = "";
         Cells.Clear();
+        GlobalEvents.CancelClicked();
     }
 
     public async void Save()
@@ -118,11 +118,7 @@ public class AddViewModel : PageBaseViewModel, IRoutableViewModel
                 }).ToList();
 
             CodeModel codeModel = DataBase.AddCode(Title, cellsList, _selectedLanguage);
-            CodeView codeViewPage = new CodeView
-            {
-                DataContext = new CodeViewModel(codeModel)
-            };
-            PageService.ExternalPage = codeViewPage;
+            GlobalEvents.ShowCodeModel(codeModel);
             Title = "";
             Cells.Clear();
             NotificationService.CreateNotification("Notification", "New code is successfully created", 3);

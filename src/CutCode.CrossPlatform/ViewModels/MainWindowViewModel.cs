@@ -30,8 +30,14 @@ public class MainWindowViewModel : PageBaseViewModel, IScreen
         Router.CurrentViewModel.Subscribe(x =>
             OnNaviagted(x?.GetType().Name)
         );
-        
+
         GlobalEvents.OnShowCodeModel += GlobalEventsOnOnShowCodeModel;
+        GlobalEvents.OnCancelClicked += GlobalEventsOnOnCancelClicked;
+    }
+
+    private void GlobalEventsOnOnCancelClicked(object? sender, EventArgs e)
+    {
+        Router.Navigate.Execute(new HomeViewModel(this));
     }
 
     private void GlobalEventsOnOnShowCodeModel(object? sender, CodeModel e)
