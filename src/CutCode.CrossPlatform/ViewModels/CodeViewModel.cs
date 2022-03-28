@@ -18,6 +18,8 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
 {
     public CodeModel Code;
 
+    private Language _language;
+
     public CodeViewModel(CodeModel code)
     {
         Initialise(code);
@@ -35,8 +37,8 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
         Title = Code.Title;
 
         var reg = new RegistryOptions(ThemeName.Dark);
-        var lang = reg.GetLanguageByExtension(code.Language);
-        Language = lang.ToString();
+        _language = reg.GetLanguageByExtension(code.Language);
+        Language = _language.ToString();
         IsEditEnabled = false;
 
         var cellsDict = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(code.Cells);
@@ -101,7 +103,11 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
     {
         Cells.Clear();
         if (cells == null) return;
-        foreach (var cell in cells) Cells.Add(new CodeCellViewModel(this, cell["Description"], cell["Code"]));
+        foreach (var cell in cells)
+        {
+            Cells.Add(new CodeCellViewModel(this, cell["Description"], cell["Code"]));
+            GlobalEvents.LanguageSet(_language);
+        }
     }
 
     private void OnLightThemeIsSet()
