@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Avalonia.Media;
+using AvaloniaEdit.TextMate.Grammars;
 using CutCode.CrossPlatform.Helpers;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Services;
@@ -32,8 +33,10 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
     {
         Code = code;
         Title = Code.Title;
-        Language = code.Language;
 
+        var reg = new RegistryOptions(ThemeName.Dark);
+        var lang = reg.GetLanguageByExtension(code.Language);
+        Language = lang.ToString();
         IsEditEnabled = false;
 
         var cellsDict = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(code.Cells);
