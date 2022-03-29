@@ -2,6 +2,7 @@
 using System.Reactive.Disposables;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using AvaloniaEdit;
@@ -39,8 +40,8 @@ namespace CutCode.CrossPlatform.Views
 
             string scopeName = _registryOptions.GetScopeByLanguageId(csharpLanguage.Id);
             _textMateInstallation.SetGrammar(scopeName);
-
             GlobalEvents.OnLanguageSet += GlobalEventsOnOnLanguageSet;
+            GlobalEvents.ViewRegistered(this);
         }
 
         private void GlobalEventsOnOnLanguageSet(object? sender, Language e)

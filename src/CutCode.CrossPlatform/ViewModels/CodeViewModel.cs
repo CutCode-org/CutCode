@@ -18,7 +18,7 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
 {
     public CodeModel Code;
 
-    private Language _language;
+    public Language _language;
 
     public CodeViewModel(CodeModel code)
     {
@@ -106,7 +106,6 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
         foreach (var cell in cells)
         {
             Cells.Add(new CodeCellViewModel(this, cell["Description"], cell["Code"]));
-            GlobalEvents.LanguageSet(_language);
         }
     }
 

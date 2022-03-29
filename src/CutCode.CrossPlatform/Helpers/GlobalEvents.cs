@@ -26,4 +26,11 @@ public static class GlobalEvents
     {
         OnLanguageSet?.Invoke(null, language);
     }
+
+    public static event EventHandler<object> OnViewRegistered;
+
+    public static void ViewRegistered(object sender)
+    {
+        OnViewRegistered?.Invoke(sender, null!);
+    }
 }

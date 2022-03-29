@@ -32,6 +32,11 @@ public class CodeCellViewModel : PageBaseViewModel
 
         IsEditable = false;
         IsMoreClickable = true;
+
+        GlobalEvents.OnViewRegistered += (sender, o) =>
+        {
+            GlobalEvents.LanguageSet(viewModelInstance._language);
+        };
     }
 
     [Reactive] public string Description { get; set; }
