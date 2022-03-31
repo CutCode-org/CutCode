@@ -55,7 +55,10 @@
             <!--                             OverlayBrush="{Binding ComboBoxBackgroundOnHover, Converter={StaticResource ColorToBrushConverter}}"/> -->
             <ComboBox Name="Choose Language" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"
                       Items="{Binding AllLanguages}"
-                      SelectedItem="{Binding SelectedLanguage2}"></ComboBox>
+                      SelectedItem="{Binding SelectedLanguage2}"
+                      Background="{Binding ComboBoxBackground, Converter={StaticResource ColorToBrushConverter}}"
+                      Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}"
+                      BorderBrush="{Binding ComboBoxBackgroundOnHover, Converter={StaticResource ColorToBrushConverter}}"/>
             
         </Grid>
         
