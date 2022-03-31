@@ -16,9 +16,8 @@ namespace CutCode.CrossPlatform.ViewModels;
 
 public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
 {
-    public CodeModel Code;
-
     public Language? _language;
+    public CodeModel Code;
 
     public CodeViewModel(CodeModel code)
     {
@@ -31,12 +30,45 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
         Initialise(code);
     }
 
+    public ObservableCollection<CodeCellViewModel?> Cells { get; set; }
+
+    [Reactive] public string Title { get; set; }
+
+    [Reactive] public bool IsCellEmpty { get; set; }
+
+    [Reactive] public bool IsEditEnabled { get; set; }
+
+    [Reactive] public Color BackgroundColor { get; set; }
+
+    [Reactive] public Color BtnColor { get; set; }
+
+    [Reactive] public Color ComboBoxBackground { get; set; }
+
+    [Reactive] public Color ComboBoxBackgroundOnHover { get; set; }
+
+    [Reactive] public Color BarBackground { get; set; }
+
+    [Reactive] public Color TextAreaBackground { get; set; }
+
+    [Reactive] public Color TextAreaForeground { get; set; }
+
+    [Reactive] public Color TextAreaOverlayBackground { get; set; }
+
+    [Reactive] public Color IsFavouriteColor { get; set; }
+
+    [Reactive] public string IsFavouritePath { get; set; }
+
+    [Reactive] public string Language { get; set; }
+
+    public string? UrlPathSegment => Guid.NewGuid().ToString().Substring(0, 5);
+    public IScreen HostScreen { get; }
+
     public void Initialise(CodeModel code)
     {
         Code = code;
         Title = Code.Title;
 
-        var reg = new RegistryOptions(ThemeName.Dark);
+        RegistryOptions reg = new RegistryOptions(ThemeName.Dark);
         _language = reg.GetLanguageByExtension(code.Language);
         if (_language is null)
             UpdateToNewLanguages(code.Language, reg);
@@ -96,44 +128,11 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
         };
     }
 
-    public ObservableCollection<CodeCellViewModel?> Cells { get; set; }
-
-    [Reactive] public string Title { get; set; }
-
-    [Reactive] public bool IsCellEmpty { get; set; }
-
-    [Reactive] public bool IsEditEnabled { get; set; }
-
-    [Reactive] public Color BackgroundColor { get; set; }
-
-    [Reactive] public Color BtnColor { get; set; }
-
-    [Reactive] public Color ComboBoxBackground { get; set; }
-
-    [Reactive] public Color ComboBoxBackgroundOnHover { get; set; }
-
-    [Reactive] public Color BarBackground { get; set; }
-
-    [Reactive] public Color TextAreaBackground { get; set; }
-
-    [Reactive] public Color TextAreaForeground { get; set; }
-
-    [Reactive] public Color TextAreaOverlayBackground { get; set; }
-
-    [Reactive] public Color IsFavouriteColor { get; set; }
-
-    [Reactive] public string IsFavouritePath { get; set; }
-
-    [Reactive] public string Language { get; set; }
-
     private void CellsToViewModel(List<Dictionary<string, string>>? cells)
     {
         Cells.Clear();
         if (cells == null) return;
-        foreach (var cell in cells)
-        {
-            Cells.Add(new CodeCellViewModel(this, cell["Description"], cell["Code"]));
-        }
+        foreach (var cell in cells) Cells.Add(new CodeCellViewModel(this, cell["Description"], cell["Code"]));
     }
 
     private void OnLightThemeIsSet()
@@ -191,7 +190,7 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
                     { "Code", x.Document.Text }
                 }).ToList();
 
-            CodeModel editedCode = new CodeModel(Title, cellsList, Language,
+            CodeModel editedCode = new(Title, cellsList, Language,
                 new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds(), Code.IsFavourite);
             editedCode.SetId(Code.Id);
 
@@ -238,10 +237,7 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
     public async void DeleteCode()
     {
         bool delete = DatabaseService.Current.DelCode(Code);
-        if (delete)
-        {
-            PageService.ExternalPage = new HomeView();
-        }
+        if (delete) PageService.ExternalPage = new HomeView();
         // if it wasn't deleted, we will show notificaiton
     }
 
@@ -254,7 +250,4 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
     {
         if (vm.IsEditEnabled) vm.Cells.Remove(cell);
     }
-
-    public string? UrlPathSegment => Guid.NewGuid().ToString().Substring(0, 5);
-    public IScreen HostScreen { get; }
 }
