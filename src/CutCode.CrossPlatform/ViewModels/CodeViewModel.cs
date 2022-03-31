@@ -18,7 +18,7 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
 {
     public CodeModel Code;
 
-    public Language _language;
+    public Language? _language;
 
     public CodeViewModel(CodeModel code)
     {
@@ -38,6 +38,8 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
 
         var reg = new RegistryOptions(ThemeName.Dark);
         _language = reg.GetLanguageByExtension(code.Language);
+        if (_language is null)
+            UpdateToNewLanguages(code.Language, reg);
         Language = _language.ToString();
         IsEditEnabled = false;
 
@@ -67,6 +69,19 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
         };
 
         IsFavouritePath = code.IsFavourite ? IconPaths.StarFull : IconPaths.Star;
+    }
+
+    private void UpdateToNewLanguages(string language, RegistryOptions reg)
+    {
+        var all = reg.GetAvailableLanguages();
+        _language = language switch
+        {
+            "Python" => reg.GetLanguageByExtension(".py"),
+            "c++" => reg.GetLanguageByExtension(".cpp"),
+            "C#" => reg.GetLanguageByExtension(".cs"),
+            "CSS" => reg.GetLanguageByExtension(".css"),
+            _ => _language
+        };
     }
 
     public ObservableCollection<CodeCellViewModel?> Cells { get; set; }
