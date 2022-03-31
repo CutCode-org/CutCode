@@ -23,6 +23,7 @@
     <StyleInclude Source="/Styles/ButtonStyles.axaml"/>
     <StyleInclude Source="/Styles/ScrollBarStyles.axaml"/>
     <StyleInclude Source="/Styles/TextBoxStyles.axaml"/>
+    <StyleInclude Source="/Styles/ComboBox.axaml"/>
     
     <StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml" />
 
