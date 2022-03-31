@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Avalonia.Media;
+using AvaloniaEdit.TextMate.Grammars;
 using CutCode.CrossPlatform.Helpers;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Services;
@@ -15,6 +16,7 @@ namespace CutCode.CrossPlatform.ViewModels;
 
 public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
 {
+    public Language? _language;
     public CodeModel Code;
 
     public CodeViewModel(CodeModel code)
@@ -26,42 +28,6 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
     {
         HostScreen = screen;
         Initialise(code);
-    }
-
-    public void Initialise(CodeModel code)
-    {
-        Code = code;
-        Title = Code.Title;
-        Language = code.Language;
-
-        IsEditEnabled = false;
-
-        var cellsDict = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(code.Cells);
-        Cells = new ObservableCollection<CodeCellViewModel?>();
-        CellsToViewModel(cellsDict);
-        for (int i = 0; i < Cells.Count; i++) Cells[i].IsEditable = false;
-
-        IsCellEmpty = Cells.Count == 0;
-        Cells.CollectionChanged += (sender, args) =>
-        {
-            IsCellEmpty = Cells.Count == 0;
-            if (IsCellEmpty && !IsEditEnabled)
-            {
-                IsEditEnabled = IsCellEmpty;
-                for (int i = 0; i < Cells.Count; i++) Cells[i].IsEditable = IsEditEnabled;
-            }
-        };
-
-        if (ThemeService.Theme == ThemeType.Light) OnLightThemeIsSet();
-        else OnDarkThemeIsSet();
-
-        ThemeService.ThemeChanged += (sender, args) =>
-        {
-            if (ThemeService.Theme == ThemeType.Light) OnLightThemeIsSet();
-            else OnDarkThemeIsSet();
-        };
-
-        IsFavouritePath = code.IsFavourite ? IconPaths.StarFull : IconPaths.Star;
     }
 
     public ObservableCollection<CodeCellViewModel?> Cells { get; set; }
@@ -93,6 +59,74 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
     [Reactive] public string IsFavouritePath { get; set; }
 
     [Reactive] public string Language { get; set; }
+
+    public string? UrlPathSegment => Guid.NewGuid().ToString().Substring(0, 5);
+    public IScreen HostScreen { get; }
+
+    public void Initialise(CodeModel code)
+    {
+        Code = code;
+        Title = Code.Title;
+
+        RegistryOptions reg = new RegistryOptions(ThemeName.Dark);
+        _language = reg.GetLanguageByExtension(code.Language);
+        if (_language is null)
+            UpdateToNewLanguages(code.Language, reg);
+        Language = _language.ToString();
+        IsEditEnabled = false;
+
+        var cellsDict = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(code.Cells);
+        Cells = new ObservableCollection<CodeCellViewModel?>();
+        CellsToViewModel(cellsDict);
+        for (int i = 0; i < Cells.Count; i++) Cells[i].IsEditable = false;
+
+        IsCellEmpty = Cells.Count == 0;
+        Cells.CollectionChanged += (sender, args) =>
+        {
+            IsCellEmpty = Cells.Count == 0;
+            if (IsCellEmpty && !IsEditEnabled)
+            {
+                IsEditEnabled = IsCellEmpty;
+                for (int i = 0; i < Cells.Count; i++) Cells[i].IsEditable = IsEditEnabled;
+            }
+        };
+
+        if (ThemeService.Theme == ThemeType.Light) OnLightThemeIsSet();
+        else OnDarkThemeIsSet();
+
+        ThemeService.ThemeChanged += (sender, args) =>
+        {
+            if (ThemeService.Theme == ThemeType.Light) OnLightThemeIsSet();
+            else OnDarkThemeIsSet();
+        };
+
+        IsFavouritePath = code.IsFavourite ? IconPaths.StarFull : IconPaths.Star;
+    }
+
+    private void UpdateToNewLanguages(string language, RegistryOptions reg)
+    {
+        var all = reg.GetAvailableLanguages();
+        _language = language switch
+        {
+            "Python" => reg.GetLanguageByExtension(".py"),
+            "c++" => reg.GetLanguageByExtension(".cpp"),
+            "C#" => reg.GetLanguageByExtension(".cs"),
+            "CSS" => reg.GetLanguageByExtension(".css"),
+            "Dart" => reg.GetLanguageByExtension(".dart"),
+            "Golang" => reg.GetLanguageByExtension(".go"),
+            "HTML" => reg.GetLanguageByExtension(".html"),
+            "Java" => reg.GetLanguageByExtension(".java"),
+            "Javascript" => reg.GetLanguageByExtension(".js"),
+            "Kotlin" => reg.GetLanguageByExtension(".java"),
+            "Php" => reg.GetLanguageByExtension(".php"),
+            "C" => reg.GetLanguageByExtension(".c"),
+            "Ruby" => reg.GetLanguageByExtension(".rb"),
+            "Rust" => reg.GetLanguageByExtension(".rs"),
+            "Sql" => reg.GetLanguageByExtension(".sql"),
+            "Swift" => reg.GetLanguageByExtension(".swift"),
+            _ => _language
+        };
+    }
 
     private void CellsToViewModel(List<Dictionary<string, string>>? cells)
     {
@@ -147,16 +181,16 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
     {
         if (Cells.Count > 0 &&
             !Cells.Select(x => x.Description).ToList().Any(string.IsNullOrEmpty) &&
-            !Cells.Select(x => x.Code).ToList().Any(string.IsNullOrEmpty))
+            !Cells.Select(x => x.Document.Text).ToList().Any(string.IsNullOrEmpty))
         {
             var cellsList = Cells.Select(x =>
                 new Dictionary<string, string>
                 {
                     { "Description", x.Description },
-                    { "Code", x.Code }
+                    { "Code", x.Document.Text }
                 }).ToList();
 
-            CodeModel editedCode = new CodeModel(Title, cellsList, Language,
+            CodeModel editedCode = new(Title, cellsList, Language,
                 new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds(), Code.IsFavourite);
             editedCode.SetId(Code.Id);
 
@@ -203,10 +237,7 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
     public async void DeleteCode()
     {
         bool delete = DatabaseService.Current.DelCode(Code);
-        if (delete)
-        {
-            PageService.ExternalPage = new HomeView();
-        }
+        if (delete) PageService.ExternalPage = new HomeView();
         // if it wasn't deleted, we will show notificaiton
     }
 
@@ -219,7 +250,4 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
     {
         if (vm.IsEditEnabled) vm.Cells.Remove(cell);
     }
-
-    public string? UrlPathSegment => Guid.NewGuid().ToString().Substring(0, 5);
-    public IScreen HostScreen { get; }
 }

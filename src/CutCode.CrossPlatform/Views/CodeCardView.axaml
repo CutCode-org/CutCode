@@ -119,9 +119,9 @@
                          HorizontalAlignment="Left" VerticalAlignment="Center"
                          Margin="25,15,10,15"
                          Padding="15">
-                    <Path Stretch="UniformToFill"
-                          Data="{Binding Language, Converter={StaticResource StringToGeometryConverter}}"
-                          Fill="{Binding LanguageColor, Converter={StaticResource ColorToBrushConverter}}"/>
+                    <!-- <Path Stretch="UniformToFill" -->
+                    <!--       Data="{Binding Language, Converter={StaticResource StringToGeometryConverter}}" -->
+                    <!--       Fill="{Binding LanguageColor, Converter={StaticResource ColorToBrushConverter}}"/> -->
                 </Viewbox>
                 <Grid Grid.Column="1" RowDefinitions="Auto, *">
                     <Grid Grid.Row="0" ColumnDefinitions="*, Auto, Auto">
