@@ -80,6 +80,18 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
             "c++" => reg.GetLanguageByExtension(".cpp"),
             "C#" => reg.GetLanguageByExtension(".cs"),
             "CSS" => reg.GetLanguageByExtension(".css"),
+            "Dart" => reg.GetLanguageByExtension(".dart"),
+            "Golang" => reg.GetLanguageByExtension(".go"),
+            "HTML" => reg.GetLanguageByExtension(".html"),
+            "Java" => reg.GetLanguageByExtension(".java"),
+            "Javascript" => reg.GetLanguageByExtension(".js"),
+            "Kotlin" => reg.GetLanguageByExtension(".java"),
+            "Php" => reg.GetLanguageByExtension(".php"),
+            "C" => reg.GetLanguageByExtension(".c"),
+            "Ruby" => reg.GetLanguageByExtension(".rb"),
+            "Rust" => reg.GetLanguageByExtension(".rs"),
+            "Sql" => reg.GetLanguageByExtension(".sql"),
+            "Swift" => reg.GetLanguageByExtension(".swift"),
             _ => _language
         };
     }
