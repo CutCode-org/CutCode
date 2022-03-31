@@ -45,14 +45,6 @@
                      Background="{Binding TextAreaBackground, Converter={StaticResource ColorToBrushConverter}}"
                      BorderBrush="{Binding TextAreaOverlayBackground, Converter={StaticResource ColorToBrushConverter}}" 
                      BorderThickness="0"/>
-            <!-- <controllers:CustomComboBox Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"  -->
-            <!--                             Items="{Binding AllLangs}" -->
-            <!--                             ItemSelected="{Binding LanguageChanged}" -->
-            <!--                             SelectedIndex="0" -->
-            <!--                             Name="Choose Language" Margin="0,0,12,0" -->
-            <!--                             Background="{Binding ComboBoxBackground, Converter={StaticResource ColorToBrushConverter}}" -->
-            <!--                             Foreground="{Binding TextAreaForeground, Converter={StaticResource ColorToBrushConverter}}" -->
-            <!--                             OverlayBrush="{Binding ComboBoxBackgroundOnHover, Converter={StaticResource ColorToBrushConverter}}"/> -->
             <ComboBox Name="Choose Language" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"
                       Items="{Binding AllLanguages}"
                       SelectedItem="{Binding SelectedLanguage2}"
