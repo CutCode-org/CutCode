@@ -40,9 +40,6 @@
     <PackageReference Include="TextMateSharp.Grammars" Version="1.0.31" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AvaloniaEdit\AvaloniaEdit.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Views\NotificationView.axaml.cs">
       <DependentUpon>NotificationView.axaml</DependentUpon>
       <SubType>Code</SubType>
