@@ -19,6 +19,10 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
     public Language? _language;
     public CodeModel Code;
 
+    [Reactive] public ObservableCollection<Language> AllLanguages { get; set; }
+
+    [Reactive] public Language SelectedLanguage { get; set; }
+
     public CodeViewModel(CodeModel code)
     {
         Initialise(code);
@@ -69,9 +73,11 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
         Title = Code.Title;
 
         RegistryOptions reg = new RegistryOptions(ThemeName.Dark);
+        AllLanguages = new ObservableCollection<Language>(reg.GetAvailableLanguages());
         _language = reg.GetLanguageByExtension(code.Language);
         if (_language is null)
             UpdateToNewLanguages(code.Language, reg);
+        SelectedLanguage = _language;
         Language = _language.ToString();
         IsEditEnabled = false;
 
@@ -101,6 +107,12 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
         };
 
         IsFavouritePath = code.IsFavourite ? IconPaths.StarFull : IconPaths.Star;
+
+        this.WhenAnyValue(x => x.SelectedLanguage).Subscribe(x =>
+        {
+            Language = x.ToString();
+            _language = x;
+        });
     }
 
     private void UpdateToNewLanguages(string language, RegistryOptions reg)
@@ -190,7 +202,7 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
                     { "Code", x.Document.Text }
                 }).ToList();
 
-            CodeModel editedCode = new(Title, cellsList, Language,
+            CodeModel editedCode = new(Title, cellsList, _language.Extensions.First(),
                 new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds(), Code.IsFavourite);
             editedCode.SetId(Code.Id);
 

@@ -206,6 +206,8 @@ namespace CutCode.CrossPlatform.Services
                 if (dbCode is not null)
                 {
                     dbCode.Cells = code.Cells;
+                    dbCode.Title = code.Title;
+                    dbCode.Language = code.Language;
                     _db.RunInTransaction(() =>
                     {
                         _db.Update(dbCode);
