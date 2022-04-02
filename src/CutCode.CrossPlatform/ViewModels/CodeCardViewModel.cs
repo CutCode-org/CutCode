@@ -7,15 +7,18 @@ using CutCode.CrossPlatform.Helpers;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Services;
 using CutCode.CrossPlatform.Views;
+using DynamicData;
 using Newtonsoft.Json;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using TextMateSharp.Grammars;
 
 namespace CutCode.CrossPlatform.ViewModels;
 
 public class CodeCardViewModel : ViewModelBase
 {
     public CodeModel Code;
+    private RegistryOptions _registryOptions;
 
     public CodeCardViewModel(CodeModel code)
     {
@@ -24,6 +27,7 @@ public class CodeCardViewModel : ViewModelBase
 
     public void Initialise(CodeModel code)
     {
+        _registryOptions = new(ThemeService.Current.Theme == ThemeType.Light ? ThemeName.LightPlus : ThemeName.DarkPlus);
         Navigate = ReactiveCommand.Create(Clicked);
         Code = code;
         Title = code.Title;
@@ -64,7 +68,7 @@ public class CodeCardViewModel : ViewModelBase
             }
         };
     }
-
+    
     [Reactive] public Color MainTextColor { get; set; }
 
     [Reactive] public Color CardColor { get; set; }
@@ -89,6 +93,9 @@ public class CodeCardViewModel : ViewModelBase
 
     [Reactive] public Color IsFavouriteColor { get; set; }
 
+    public string LanguagePath =>
+        Languages.GetLanguagePath(_registryOptions.GetLanguageByExtension(Language));
+        
     public string Language { get; set; }
     public long LastModificationTime { get; set; }
 
