@@ -14,6 +14,10 @@
         <converters:StringToGeometryConverter x:Key="StringToGeometryConverter"/>
     </UserControl.Resources>
     
+    <Design.DataContext>
+        <vm:CodeCardViewModel/>
+    </Design.DataContext>
+    
     <UserControl.Styles>
         <Style Selector="ToggleButton:pointerover /template/ ContentPresenter">
             <Setter Property="Background" Value="Transparent"/>
@@ -119,9 +123,9 @@
                          HorizontalAlignment="Left" VerticalAlignment="Center"
                          Margin="25,15,10,15"
                          Padding="15">
-                    <!-- <Path Stretch="UniformToFill" -->
-                    <!--       Data="{Binding Language, Converter={StaticResource StringToGeometryConverter}}" -->
-                    <!--       Fill="{Binding LanguageColor, Converter={StaticResource ColorToBrushConverter}}"/> -->
+                     <Path Stretch="UniformToFill" 
+                           Data="{Binding LanguagePath, Converter={StaticResource StringToGeometryConverter}}"
+                           Fill="{Binding LanguageColor, Converter={StaticResource ColorToBrushConverter}}"/>
                 </Viewbox>
                 <Grid Grid.Column="1" RowDefinitions="Auto, *">
                     <Grid Grid.Row="0" ColumnDefinitions="*, Auto, Auto">
@@ -130,7 +134,7 @@
                                FontFamily="{StaticResource PoppinsRegular}"
                                FontSize="17"
                                Margin="20,20,0,8"
-                               Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"/>
+                               Foreground="{Binding MainTextColor, Converter={StaticResource ColorToBrushConverter}}"/>
                         <Viewbox Grid.Column="1"
                                  Height="22"
                                  HorizontalAlignment="Right"
@@ -138,15 +142,6 @@
                             <Path Stretch="UniformToFill"
                                   Data="{Binding IsFavouritePath, Converter={StaticResource StringToGeometryConverter}}"
                                   Fill="{Binding IsFavouriteColor, Converter={StaticResource ColorToBrushConverter}}"/>
-                        </Viewbox>
-                        
-                        <Viewbox Grid.Column="2"
-                                 Height="22"
-                                 HorizontalAlignment="Right"
-                                 Margin="0,-10,10,0">
-                            <Path Stretch="UniformToFill"
-                                  Data=""
-                                  Fill="{Binding LanguageColor, Converter={StaticResource ColorToBrushConverter}}"/>
                         </Viewbox>
                         
                         <ToggleButton Grid.Column="2" x:Name="MoreBtn"
@@ -163,13 +158,14 @@
                             </Viewbox>
                         </ToggleButton>
                     </Grid>
+                    
                     <ScrollViewer Grid.Row="1" 
                                   HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
                                   Margin="20,10,12,7">
                         <Label Content="{Binding Description}"
                                FontFamily="{StaticResource PoppinsRegular}"
                                FontSize="14"
-                               Foreground="{Binding mainTextColor, Converter={StaticResource ColorToBrushConverter}}"/>
+                               Foreground="{Binding MainTextColor, Converter={StaticResource ColorToBrushConverter}}"/>
                     </ScrollViewer>
                 </Grid>
             </Grid>

@@ -29,6 +29,8 @@ namespace CutCode.CrossPlatform
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
+                if(ThemeService.Current.Theme == ThemeType.Light) SystemColorsConfig.LightThemeColors();
+                else SystemColorsConfig.DarkThemeColors();
                 ThemeService.Current.ThemeChanged += (sender, args) =>
                 {
                     if(ThemeService.Current.Theme == ThemeType.Light) SystemColorsConfig.LightThemeColors();

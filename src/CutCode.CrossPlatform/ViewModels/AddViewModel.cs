@@ -7,6 +7,7 @@ using Avalonia.Media;
 using AvaloniaEdit.TextMate.Grammars;
 using CutCode.CrossPlatform.Helpers;
 using CutCode.CrossPlatform.Models;
+using CutCode.CrossPlatform.Services;
 using CutCode.CrossPlatform.Views;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -47,7 +48,7 @@ public class AddViewModel : PageBaseViewModel, IRoutableViewModel
         IsCellEmpty = true;
         Cells.CollectionChanged += (sender, args) => { IsCellEmpty = Cells.Count == 0; };
 
-        var reg = new RegistryOptions(ThemeName.Dark);
+        var reg = new RegistryOptions(ThemeService.Theme == ThemeType.Light ? ThemeName.LightPlus : ThemeName.DarkPlus);
 
         AllLanguages = new ObservableCollection<Language>(reg.GetAvailableLanguages());
         SelectedLanguage2 = reg.GetLanguageByExtension(".cs");

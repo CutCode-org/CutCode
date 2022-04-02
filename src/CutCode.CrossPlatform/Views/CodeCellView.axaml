@@ -13,7 +13,9 @@
         <cv:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
     </UserControl.Resources>
     
-    
+    <Design.DataContext>
+        <vm:CodeCellViewModel/>
+    </Design.DataContext>
     
     <UserControl.Styles>
         <Style Selector="Button:pointerover /template/ ContentPresenter">
@@ -116,7 +118,6 @@
                            ShowLineNumbers="True"
                            Height="300"
                            Padding="10,0,10,10"
-                           IsReadOnly="{Binding !IsEditable}"
-                           />
+                           IsReadOnly="{Binding !IsEditable}"/>
     </Grid>
 </UserControl>

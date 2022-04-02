@@ -1,13 +1,29 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using CutCode.CrossPlatform.Services;
+using TextMateSharp.Grammars;
 
 namespace CutCode.CrossPlatform.Helpers
 {
     public static class Languages
     {
-
-        public static Dictionary<string, string> LanguagesDict = new Dictionary<string, string>()
+        private static RegistryOptions _registryOptions => new(ThemeService.Current.Theme == ThemeType.Light
+            ? ThemeName.LightPlus
+            : ThemeName.DarkPlus);
+        public static string GetLanguagePath(Language language)
         {
-            {"All languages", IconPaths.File},
+            try
+            {
+                return LanguagesDict[language.Aliases[0]];
+            }
+            catch
+            {
+                return LanguagesDict["File"];
+            }
+        }
+        private static Dictionary<string, string> LanguagesDict = new Dictionary<string, string>()
+        {
+            {"File", IconPaths.File},
             {"Python", IconPaths.Python},
             {"C++", IconPaths.Cpp},
             {"C#", IconPaths.CSharp},
