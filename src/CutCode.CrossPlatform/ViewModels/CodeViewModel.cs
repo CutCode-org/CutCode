@@ -237,7 +237,7 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
     public async void DeleteCode()
     {
         bool delete = DatabaseService.Current.DelCode(Code);
-        if (delete) PageService.ExternalPage = new HomeView();
+        if (delete) GlobalEvents.CancelClicked();
         // if it wasn't deleted, we will show notificaiton
     }
 
