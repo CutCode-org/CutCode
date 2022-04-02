@@ -11,15 +11,17 @@ using AvaloniaEdit.Indentation.CSharp;
 using AvaloniaEdit.TextMate;
 using AvaloniaEdit.TextMate.Grammars;
 using CutCode.CrossPlatform.Helpers;
+using CutCode.CrossPlatform.Services;
 using CutCode.CrossPlatform.ViewModels;
 using ReactiveUI;
+using TextMateSharp.Internal.Themes;
 
 namespace CutCode.CrossPlatform.Views
 {
     public class CodeCellView : ReactiveUserControl<CodeCellViewModel>
     {
         private TextEditor TextEditor => this.FindControl<TextEditor>(nameof(TextEditor));
-        private readonly TextMate.Installation _textMateInstallation;
+        private TextMate.Installation _textMateInstallation;
         private RegistryOptions _registryOptions;
 
         public CodeCellView()
@@ -33,19 +35,30 @@ namespace CutCode.CrossPlatform.Views
 
             TextEditor.TextArea.IndentationStrategy = new CSharpIndentationStrategy(TextEditor.Options);
 
-            _registryOptions = new RegistryOptions(ThemeName.Dark);
+            _registryOptions = new RegistryOptions(ThemeService.Current.Theme == ThemeType.Light ? ThemeName.LightPlus : ThemeName.DarkPlus);
+            ThemeService.Current.ThemeChanged += (sender, args) =>
+            {
+                _registryOptions = new RegistryOptions(ThemeService.Current.Theme == ThemeType.Light ? ThemeName.LightPlus : ThemeName.DarkPlus);
+                _textMateInstallation = TextEditor.InstallTextMate(_registryOptions);
+
+                var scopeName = _registryOptions.GetScopeByLanguageId(_currentLanguage!.Id);
+                _textMateInstallation.SetGrammar(scopeName);
+            };
+
             _textMateInstallation = TextEditor.InstallTextMate(_registryOptions);
 
-            Language csharpLanguage = _registryOptions.GetLanguageByExtension(".cs");
+            _currentLanguage = _registryOptions.GetLanguageByExtension(".cs");
 
-            string scopeName = _registryOptions.GetScopeByLanguageId(csharpLanguage.Id);
+            var scopeName = _registryOptions.GetScopeByLanguageId(_currentLanguage.Id);
             _textMateInstallation.SetGrammar(scopeName);
             GlobalEvents.OnLanguageSet += GlobalEventsOnOnLanguageSet;
             GlobalEvents.ViewRegistered(this);
         }
 
+        private Language _currentLanguage;
         private void GlobalEventsOnOnLanguageSet(object? sender, Language e)
         {
+            _currentLanguage = e;
             string scopeName = _registryOptions.GetScopeByLanguageId(e.Id);
             _textMateInstallation.SetGrammar(scopeName);
         }
