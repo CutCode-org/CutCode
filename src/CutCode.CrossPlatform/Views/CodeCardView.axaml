@@ -6,7 +6,7 @@
              xmlns:vm="using:CutCode.CrossPlatform.ViewModels"
              xmlns:converters="using:CutCode.CrossPlatform.Converters"
              mc:Ignorable="d" ClipToBounds="True"
-             MinHeight="180" MaxHeight="250" Margin="8,5,19,5"
+             MinHeight="180" MaxHeight="250" Margin="0,0,5,0"
              x:Class="CutCode.CrossPlatform.Views.CodeCardView">
     
     <UserControl.Resources>

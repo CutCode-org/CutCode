@@ -49,19 +49,31 @@
             </Grid>
         </WrapPanel>
         
-        <ScrollViewer Grid.Row="1"  BorderBrush="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                       Margin="5,5,5,5" IsVisible="{Binding !EmptyLabelVisibility}"
-                       BorderThickness="0">
-            <ItemsControl Items="{Binding AllCodes}" BorderThickness="0" Background="Transparent"
-                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                          HorizontalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </ScrollViewer>
+        <ListBox Grid.Row="1"  BorderBrush="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    Items="{Binding AllCodes}" Background="Transparent"
+                    Margin="10,5,12,5" IsVisible="{Binding !EmptyLabelVisibility}"
+                    BorderThickness="0"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.Styles>
+                <Style Selector="ListBoxItem">
+                    <Setter Property="Margin" Value="0"/>
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                </Style>
+                <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Style>
+                <Style Selector="ListBoxItem:pressed /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Style>
+            </ListBox.Styles>
+        </ListBox>
         
         <Label Grid.Row="1" IsVisible="{Binding EmptyLabelVisibility}"
                Content="{Binding EmptyLabel}"
