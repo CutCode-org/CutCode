@@ -181,7 +181,7 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
 
     public async void AddCell()
     {
-        Cells.Add(new CodeCellViewModel(AddViewModel.Current));
+        Cells.Add(new CodeCellViewModel(this));
     }
 
     public async void Cancel()
@@ -251,15 +251,5 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
         bool delete = DatabaseService.Current.DelCode(Code);
         if (delete) GlobalEvents.CancelClicked();
         // if it wasn't deleted, we will show notificaiton
-    }
-
-    public async void Share()
-    {
-        // will be implemented later
-    }
-
-    public static void DeleteCell(CodeViewModel vm, CodeCellViewModel cell)
-    {
-        if (vm.IsEditEnabled) vm.Cells.Remove(cell);
     }
 }

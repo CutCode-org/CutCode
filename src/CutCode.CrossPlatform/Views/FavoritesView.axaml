@@ -49,31 +49,18 @@
             </Grid>
         </WrapPanel>
         
-        <ListBox Grid.Row="1"  BorderBrush="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                 Items="{Binding AllFavouriteCodes}" Background="Transparent"
-                 Margin="10,5,12,5" IsVisible="{Binding !EmptyLabelVisibility}"
-                 BorderThickness="0"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 ScrollViewer.VerticalScrollBarVisibility="Visible">
-            <ListBox.ItemsPanel>
+        <controls:AnimatedListBox Grid.Row="1"  BorderBrush="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    Items="{Binding AllFavouriteCodes}" Background="Transparent"
+                    Margin="10,5,12,5" IsVisible="{Binding !EmptyLabelVisibility}"
+                    BorderThickness="0"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <controls:AnimatedListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel/>
                 </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.Styles>
-                <Style Selector="ListBoxItem">
-                    <Setter Property="Margin" Value="0"/>
-                    <Setter Property="Padding" Value="0"/>
-                    <Setter Property="Background" Value="Transparent"/>
-                </Style>
-                <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                    <Setter Property="Background" Value="Transparent"/>
-                </Style>
-                <Style Selector="ListBoxItem:pressed /template/ ContentPresenter#PART_ContentPresenter">
-                    <Setter Property="Background" Value="Transparent"/>
-                </Style>
-            </ListBox.Styles>
-        </ListBox>
+            </controls:AnimatedListBox.ItemsPanel>
+        </controls:AnimatedListBox>
         
         <Label Grid.Row="1" IsVisible="{Binding EmptyLabelVisibility}"
                Content="{Binding EmptyLabel}"

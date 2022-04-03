@@ -65,6 +65,7 @@
                      HorizontalAlignment="Stretch"/>
             
             <Button Grid.Column="1"
+                    IsEnabled="{Binding IsEditable}"
                     Background="Transparent"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Right"

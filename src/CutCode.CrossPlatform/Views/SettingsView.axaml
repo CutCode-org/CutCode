@@ -79,32 +79,6 @@
                     </Button>
                 </StackPanel>
             </Border>
-
-            <!-- About developers area -->
-            <!-- <Border CornerRadius="10" ClipToBounds="True" Grid.Row="1" Margin="5,0,5,15"> -->
-            <!--     <StackPanel -->
-            <!--         Background="{Binding CardColor, Converter={StaticResource ColorToBrushConverter}}"> -->
-            <!--         <StackPanel.Styles> -->
-            <!--             <Style Selector="Button:pressed /template/ ContentPresenter"> -->
-            <!--                 <Setter Property="Background" Value="{TemplateBinding Background}" /> -->
-            <!--                 <Setter Property="RenderTransform" Value="scale(0.85)" /> -->
-            <!--             </Style> -->
-            <!--         </StackPanel.Styles> -->
-            <!--         <Label Content="Developers" -->
-            <!--                Foreground="{Binding MainTextColor, Converter={StaticResource ColorToBrushConverter}}" -->
-            <!--                FontWeight="Bold" FontFamily="{DynamicResource PoppinsSemibold}" FontSize="22" -->
-            <!--                Margin="25,18,0,10" /> -->
-            <!-- -->
-            <!--         <ItemsControl Items="{Binding developers}" Margin="30,0,0,0" HorizontalAlignment="Left"> -->
-            <!--             <ItemsControl.ItemsPanel> -->
-            <!--                 <ItemsPanelTemplate> -->
-            <!--                     <WrapPanel /> -->
-            <!--                 </ItemsPanelTemplate> -->
-            <!--             </ItemsControl.ItemsPanel> -->
-            <!--         </ItemsControl> -->
-            <!--     </StackPanel> -->
-            <!-- </Border> -->
         </Grid>
     </ScrollViewer>
-
 </UserControl>

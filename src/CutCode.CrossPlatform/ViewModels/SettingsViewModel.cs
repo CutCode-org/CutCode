@@ -29,33 +29,9 @@ public class SettingsViewModel : PageBaseViewModel, IRoutableViewModel
     [Reactive] public Color CardColor { get; set; }
 
     [Reactive] public Color BtnColor { get; set; }
-
-    public ObservableCollection<DeveloperCardViewModel> developers { get; set; }
-
+    
     public string? UrlPathSegment => Guid.NewGuid().ToString().Substring(0, 5);
     public IScreen HostScreen { get; }
-
-    protected override void OnLoad()
-    {
-        developers = new ObservableCollection<DeveloperCardViewModel>
-        {
-            new(
-                "avares://CutCode.CrossPlatform/Assets/Images/Developers/abdesol.png",
-                "Abdella Solomon",
-                "C# and Python Programmer. Currently into AI/ML",
-                "@abdesol",
-                "https://github.com/Abdesol",
-                "https://twitter.com/AbdellaSolomon"),
-
-            new(
-                "avares://CutCode.CrossPlatform/Assets/Images/Developers/piero.png",
-                "Piero Castillo",
-                "Student and C# programmer who lives in Lima, Peru",
-                "@sharped_net",
-                "https://github.com/PieroCastillo",
-                "https://twitter.com/sharped_net")
-        };
-    }
 
     protected override void OnLightThemeIsSet()
     {

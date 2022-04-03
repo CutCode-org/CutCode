@@ -8,15 +8,18 @@ using Avalonia.Styling;
 
 namespace CutCode.CrossPlatform.Controls;
 
-[PseudoClasses(":Added"), PseudoClasses(":Removed")]
+[PseudoClasses(":Added", ":Removed")]
 public class AnimatedListBoxItem : ListBoxItem, IStyleable
 {
-    Type IStyleable.StyleKey => typeof(ListBoxItem);
-    
+    Type IStyleable.StyleKey => typeof(AnimatedListBoxItem);
+
+    private bool isAttached = false;
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
-        PseudoClasses.Set(":Added", true);
         base.OnAttachedToVisualTree(e);
+        if (isAttached) return;
+        PseudoClasses.Set(":Added", true);
+        isAttached = true;
     }
 
     protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)

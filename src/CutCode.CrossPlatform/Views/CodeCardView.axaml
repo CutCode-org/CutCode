@@ -72,6 +72,20 @@
                        PlacementTarget="{Binding ElementName=MoreBtn}">
                     <Border Background="{Binding PopupColor, Converter={StaticResource ColorToBrushConverter}}"
                             CornerRadius="5">
+                        <Border.Styles>
+                            <Style Selector="Border">
+                                <Style.Animations>
+                                    <Animation Duration="0:0:0.1"> 
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="Opacity" Value="0.0"/>
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%">
+                                            <Setter Property="Opacity" Value="1.0"/>
+                                        </KeyFrame>
+                                    </Animation>
+                                </Style.Animations>
+                            </Style>
+                        </Border.Styles>
                         <StackPanel>
                             <StackPanel.Styles>
                                 <Style Selector="Button:pressed  /template/ ContentPresenter, Button:pointerover /template/ ContentPresenter">
@@ -114,7 +128,7 @@
                                        Content="Delete Code" Foreground="{Binding $parent[Button].Foreground}"/>
                             </Button>
                         </StackPanel>
-                        
+                       
                     </Border>
                 </Popup>
                 

@@ -55,8 +55,6 @@ public class AddViewModel : PageBaseViewModel, IRoutableViewModel
         this.WhenAnyValue(x => x.SelectedLanguage2).WhereNotNull().Subscribe(GlobalEvents.LanguageSet);
     }
 
-    public static AddViewModel Current { get; } = new();
-
     public ObservableCollection<CodeCellViewModel?> Cells { get; }
     public IList<string> AllLangs { get; set; }
 
@@ -140,11 +138,6 @@ public class AddViewModel : PageBaseViewModel, IRoutableViewModel
         {
             NotificationService.CreateNotification("Warning", "Please Fill the Empty fields", 2);
         }
-    }
-
-    public static void DeleteCell(AddViewModel vm, CodeCellViewModel cell)
-    {
-        vm.Cells.Remove(cell);
     }
 
     public async void LanguageChanged(string selectedLanguage)

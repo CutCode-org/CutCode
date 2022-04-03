@@ -46,6 +46,7 @@
                      BorderBrush="{Binding TextAreaOverlayBackground, Converter={StaticResource ColorToBrushConverter}}" 
                      BorderThickness="0"/>
             <ComboBox Name="Choose Language" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"
+                      Margin="0,0,18,0"
                       Items="{Binding AllLanguages}"
                       SelectedItem="{Binding SelectedLanguage2}"
                       Background="{Binding ComboBoxBackground, Converter={StaticResource ColorToBrushConverter}}"
@@ -54,15 +55,18 @@
             
         </Grid>
         
-        <ScrollViewer Grid.Row="1" IsVisible="{Binding !IsCellEmpty}">
-            <ItemsControl Items="{Binding Cells}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </ScrollViewer>
+        <controllers:AnimatedListBox Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+             Items="{Binding Cells}" Background="Transparent" 
+             IsVisible="{Binding !IsCellEmpty}"
+             BorderThickness="0"
+             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+             ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <controllers:AnimatedListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel/>
+                </ItemsPanelTemplate>
+            </controllers:AnimatedListBox.ItemsPanel>
+        </controllers:AnimatedListBox>
         
         <Label Grid.Row="1" IsVisible="{Binding IsCellEmpty}"
                Content="You don't have any cells yet"

@@ -60,32 +60,6 @@
                     <StackPanel/>
                 </ItemsPanelTemplate>
             </controls:AnimatedListBox.ItemsPanel>
-            <controls:AnimatedListBox.Styles>
-                <Style Selector="controls|AnimatedListBoxItem:Added /template/ ContentPresenter#PART_ContentPresenter">
-                    <Style.Animations>
-                        <Animation Duration="0:0:0.3"> 
-                            <KeyFrame Cue="0%">
-                                <Setter Property="Opacity" Value="0.0"/>
-                            </KeyFrame>
-                            <KeyFrame Cue="100%">
-                                <Setter Property="Opacity" Value="1.0"/>
-                            </KeyFrame>
-                        </Animation>
-                    </Style.Animations>
-                </Style>
-                <Style Selector="controls|AnimatedListBoxItem:Removed /template/ ContentPresenter#PART_ContentPresenter">
-                    <Style.Animations>
-                        <Animation Duration="0:0:0.3"> 
-                            <KeyFrame Cue="0%">
-                                <Setter Property="Opacity" Value="1.0"/>
-                            </KeyFrame>
-                            <KeyFrame Cue="100%">
-                                <Setter Property="Opacity" Value="0.0"/>
-                            </KeyFrame>
-                        </Animation>
-                    </Style.Animations>
-                </Style>
-            </controls:AnimatedListBox.Styles>
         </controls:AnimatedListBox>
         
         <Label Grid.Row="1" IsVisible="{Binding EmptyLabelVisibility}"
