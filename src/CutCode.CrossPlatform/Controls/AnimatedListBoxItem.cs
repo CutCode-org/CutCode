@@ -15,19 +15,13 @@ public class AnimatedListBoxItem : ListBoxItem, IStyleable
     
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
+        PseudoClasses.Set(":Added", true);
         base.OnAttachedToVisualTree(e);
-        Attached(true);
     }
 
     protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
     {
-        Attached(false);
+        PseudoClasses.Set(":Removed", true);
         base.OnDetachedFromVisualTree(e);
-    }
-    
-    private void Attached(bool attached)
-    {
-        PseudoClasses.Set(":Added", attached);
-        PseudoClasses.Set(":Removed", !attached);
     }
 }
