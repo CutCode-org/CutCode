@@ -29,16 +29,16 @@ namespace CutCode.CrossPlatform.Helpers
             {"C#", IconPaths.CSharp},
             {"CSS", IconPaths.Css},
             {"Dart", IconPaths.Dart},
-            {"Golang", IconPaths.Go},
-            {"Html", IconPaths.Html},
+            {"Go", IconPaths.Go},
+            {"HTML", IconPaths.Html},
             {"Java", IconPaths.Java},
-            {"Javascript", IconPaths.Js},
+            {"JavaScript", IconPaths.Js},
             {"Kotlin", IconPaths.Kotlin},
-            {"Php", IconPaths.Php},
+            {"PHP", IconPaths.Php},
             {"C", IconPaths.C},
             {"Ruby", IconPaths.Ruby},
             {"Rust", IconPaths.Rust},
-            {"Sql", IconPaths.Sql},
+            {"SQL", IconPaths.Sql},
             {"Swift", IconPaths.Swift}
         };
     }

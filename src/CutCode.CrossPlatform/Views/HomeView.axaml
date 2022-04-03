@@ -49,31 +49,44 @@
             </Grid>
         </WrapPanel>
         
-        <ListBox Grid.Row="1"  BorderBrush="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+        <controls:AnimatedListBox Grid.Row="1"  BorderBrush="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                     Items="{Binding AllCodes}" Background="Transparent"
                     Margin="10,5,12,5" IsVisible="{Binding !EmptyLabelVisibility}"
                     BorderThickness="0"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Visible">
-            <ListBox.ItemsPanel>
+            <controls:AnimatedListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel/>
                 </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.Styles>
-                <Style Selector="ListBoxItem">
-                    <Setter Property="Margin" Value="0"/>
-                    <Setter Property="Padding" Value="0"/>
-                    <Setter Property="Background" Value="Transparent"/>
+            </controls:AnimatedListBox.ItemsPanel>
+            <controls:AnimatedListBox.Styles>
+                <Style Selector="controls|AnimatedListBoxItem:Added /template/ ContentPresenter#PART_ContentPresenter">
+                    <Style.Animations>
+                        <Animation Duration="0:0:0.3"> 
+                            <KeyFrame Cue="0%">
+                                <Setter Property="Opacity" Value="0.0"/>
+                            </KeyFrame>
+                            <KeyFrame Cue="100%">
+                                <Setter Property="Opacity" Value="1.0"/>
+                            </KeyFrame>
+                        </Animation>
+                    </Style.Animations>
                 </Style>
-                <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                    <Setter Property="Background" Value="Transparent"/>
+                <Style Selector="controls|AnimatedListBoxItem:Removed /template/ ContentPresenter#PART_ContentPresenter">
+                    <Style.Animations>
+                        <Animation Duration="0:0:0.3"> 
+                            <KeyFrame Cue="0%">
+                                <Setter Property="Opacity" Value="1.0"/>
+                            </KeyFrame>
+                            <KeyFrame Cue="100%">
+                                <Setter Property="Opacity" Value="0.0"/>
+                            </KeyFrame>
+                        </Animation>
+                    </Style.Animations>
                 </Style>
-                <Style Selector="ListBoxItem:pressed /template/ ContentPresenter#PART_ContentPresenter">
-                    <Setter Property="Background" Value="Transparent"/>
-                </Style>
-            </ListBox.Styles>
-        </ListBox>
+            </controls:AnimatedListBox.Styles>
+        </controls:AnimatedListBox>
         
         <Label Grid.Row="1" IsVisible="{Binding EmptyLabelVisibility}"
                Content="{Binding EmptyLabel}"
