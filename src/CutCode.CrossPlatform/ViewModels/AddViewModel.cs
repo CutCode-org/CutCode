@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using Avalonia.Media;
 using AvaloniaEdit.TextMate.Grammars;
 using CutCode.CrossPlatform.Helpers;
 using CutCode.CrossPlatform.Models;
 using CutCode.CrossPlatform.Services;
-using CutCode.CrossPlatform.Views;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -17,10 +16,6 @@ namespace CutCode.CrossPlatform.ViewModels;
 public class AddViewModel : PageBaseViewModel, IRoutableViewModel
 {
     private string _selectedLanguage;
-
-    [Reactive] public ObservableCollection<Language> AllLanguages { get; set; }
-
-    [Reactive] public Language SelectedLanguage2 { get; set; }
 
     public AddViewModel()
     {
@@ -48,12 +43,17 @@ public class AddViewModel : PageBaseViewModel, IRoutableViewModel
         IsCellEmpty = true;
         Cells.CollectionChanged += (sender, args) => { IsCellEmpty = Cells.Count == 0; };
 
-        var reg = new RegistryOptions(ThemeService.Theme == ThemeType.Light ? ThemeName.LightPlus : ThemeName.DarkPlus);
+        RegistryOptions reg =
+            new RegistryOptions(ThemeService.Theme == ThemeType.Light ? ThemeName.LightPlus : ThemeName.DarkPlus);
 
         AllLanguages = new ObservableCollection<Language>(reg.GetAvailableLanguages());
         SelectedLanguage2 = reg.GetLanguageByExtension(".cs");
         this.WhenAnyValue(x => x.SelectedLanguage2).WhereNotNull().Subscribe(GlobalEvents.LanguageSet);
     }
+
+    [Reactive] public ObservableCollection<Language> AllLanguages { get; set; }
+
+    [Reactive] public Language SelectedLanguage2 { get; set; }
 
     public ObservableCollection<CodeCellViewModel?> Cells { get; }
     public IList<string> AllLangs { get; set; }
@@ -75,6 +75,9 @@ public class AddViewModel : PageBaseViewModel, IRoutableViewModel
     [Reactive] public Color TextAreaForeground { get; set; }
 
     [Reactive] public Color TextAreaOverlayBackground { get; set; }
+
+    public string? UrlPathSegment => Guid.NewGuid().ToString().Substring(0, 5);
+    public IScreen HostScreen { get; }
 
     protected override void OnLightThemeIsSet()
     {
@@ -116,10 +119,18 @@ public class AddViewModel : PageBaseViewModel, IRoutableViewModel
 
     public async void Save()
     {
-        if (!string.IsNullOrEmpty(Title) &&
-            Cells.Count > 0 &&
-            !Cells.Select(x => x.Description).ToList().Any(string.IsNullOrEmpty) &&
-            !Cells.Select(x => x.Document.Text).ToList().Any(string.IsNullOrEmpty))
+        StringBuilder? error = new();
+        if (string.IsNullOrEmpty(Title))
+            error.AppendLine("Title cannot be empty");
+        if (Cells.Count > 0)
+        {
+            if (Cells.Select(x => x.Description).ToList().Any(string.IsNullOrEmpty))
+                error.AppendLine("The Description for the cells cannot be empty");
+            if (Cells.Select(x => x.Document.Text).ToList().Any(string.IsNullOrEmpty))
+                error.AppendLine("The Code text cannot be empty");
+        }
+
+        if (error.Length == 0)
         {
             var cellsList = Cells.Select(x =>
                 new Dictionary<string, string>
@@ -136,7 +147,7 @@ public class AddViewModel : PageBaseViewModel, IRoutableViewModel
         }
         else
         {
-            NotificationService.CreateNotification("Warning", "Please Fill the Empty fields", 2);
+            NotificationService.CreateNotification("Warning", error.ToString(), 5);
         }
     }
 
@@ -144,7 +155,4 @@ public class AddViewModel : PageBaseViewModel, IRoutableViewModel
     {
         _selectedLanguage = selectedLanguage;
     }
-
-    public string? UrlPathSegment => Guid.NewGuid().ToString().Substring(0, 5);
-    public IScreen HostScreen { get; }
 }
