@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using Avalonia.Media;
 using AvaloniaEdit.TextMate.Grammars;
 using CutCode.CrossPlatform.Helpers;
@@ -191,9 +192,18 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
 
     public async void Save()
     {
-        if (Cells.Count > 0 &&
-            !Cells.Select(x => x.Description).ToList().Any(string.IsNullOrEmpty) &&
-            !Cells.Select(x => x.Document.Text).ToList().Any(string.IsNullOrEmpty))
+        StringBuilder? error = new();
+        if (string.IsNullOrEmpty(Title))
+            error.AppendLine("Title cannot be empty");
+        if (Cells.Count > 0)
+        {
+            if (Cells.Select(x => x.Description).ToList().Any(string.IsNullOrEmpty))
+                error.AppendLine("The Description for the cells cannot be empty");
+            if (Cells.Select(x => x.Document.Text).ToList().Any(string.IsNullOrEmpty))
+                error.AppendLine("The Code text cannot be empty");
+        }
+        
+        if (error.Length == 0)
         {
             var cellsList = Cells.Select(x =>
                 new Dictionary<string, string>
@@ -213,7 +223,7 @@ public class CodeViewModel : PageBaseViewModel, IRoutableViewModel
             }
             else
             {
-                NotificationService.CreateNotification("Error", "Error, Unable to save the changes", 5);
+                NotificationService.CreateNotification("Error", error.ToString(), 5);
             }
         }
         else
