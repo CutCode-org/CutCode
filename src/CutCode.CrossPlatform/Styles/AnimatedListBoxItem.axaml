@@ -32,7 +32,7 @@
     
     <Style Selector="controls|AnimatedListBoxItem:Added /template/ ContentPresenter#PART_ContentPresenter">
         <Style.Animations>
-            <Animation Duration="0:0:0.3"> 
+            <Animation Duration="0:0:3"> 
                 <KeyFrame Cue="0%">
                     <Setter Property="Opacity" Value="0.0"/>
                 </KeyFrame>
@@ -44,7 +44,7 @@
     </Style>
     <Style Selector="controls|AnimatedListBoxItem:Removed /template/ ContentPresenter#PART_ContentPresenter">
         <Style.Animations>
-            <Animation Duration="0:0:0.3"> 
+            <Animation Duration="0:1:0"> 
                 <KeyFrame Cue="0%">
                     <Setter Property="Opacity" Value="1.0"/>
                 </KeyFrame>
